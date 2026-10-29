@@ -27,6 +27,8 @@ import {
   AlertCircle,
   PhoneCall,
   Sparkles,
+  RefreshCw,
+  GitBranch,
 } from "lucide-react";
 
 type AdminTab = "overview" | "leads" | "articles" | "config" | "pricing" | "areas";
@@ -42,6 +44,10 @@ export default function AdminPage() {
   const [stats, setStats] = useState<any>(null);
   const [config, setConfig] = useState<SiteConfigType | null>(null);
   const [isLoadingData, setIsLoadingData] = useState(false);
+
+  // Sync state
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [commitInfo, setCommitInfo] = useState<string>("");
 
   // Toast notification
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
@@ -93,6 +99,15 @@ export default function AdminPage() {
         const articlesData = await articlesRes.json();
         setArticles(articlesData.articles || []);
       }
+
+      // Fetch git version
+      try {
+        const syncRes = await fetch("/api/admin/sync", { headers: getAdminHeaders() });
+        if (syncRes.ok) {
+          const syncData = await syncRes.json();
+          if (syncData.commit) setCommitInfo(syncData.commit);
+        }
+      } catch {}
     } catch (err) {
       console.error("Failed to load admin data:", err);
       showToast("Không thể tải dữ liệu mới nhất.", "error");
@@ -198,6 +213,39 @@ export default function AdminPage() {
     }
   };
 
+  // 8. Sync GitHub Action
+  const handleSyncGithub = async () => {
+    if (isSyncing) return;
+    const confirmed = window.confirm(
+      "Hệ thống sẽ kéo phiên bản mới nhất từ GitHub về hosting và khởi động lại ứng dụng.\n\nBạn có muốn thực hiện ngay không?"
+    );
+    if (!confirmed) return;
+
+    setIsSyncing(true);
+    showToast("Đang kéo mã nguồn từ GitHub và cập nhật hệ thống...", "success");
+
+    try {
+      const res = await fetch("/api/admin/sync", {
+        method: "POST",
+        headers: getAdminHeaders(),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        showToast(data.message || "Đồng bộ thành công! Ứng dụng đã cập nhật.", "success");
+        if (data.commit) setCommitInfo(data.commit);
+        // Refresh data
+        setTimeout(() => fetchData(), 2000);
+      } else {
+        showToast(data.message || "Đồng bộ thất bại.", "error");
+      }
+    } catch {
+      showToast("Lỗi kết nối khi đồng bộ.", "error");
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
   // Switch to Leads tab from Dashboard shortcut
   const handleNavigateToLeads = (filter = "all") => {
     setLeadsStatusFilter(filter);
@@ -273,6 +321,22 @@ export default function AdminPage() {
                 <span>Hotline: {config.contact.hotlineDisplay}</span>
               </div>
             )}
+
+            {/* Nút Đồng bộ GitHub 1-Click */}
+            <button
+              type="button"
+              onClick={handleSyncGithub}
+              disabled={isSyncing}
+              className={`py-1.5 px-3 rounded-xl border flex items-center gap-1.5 text-xs font-bold transition-all cursor-pointer ${
+                isSyncing
+                  ? "bg-orange-50 border-orange-200 text-fpt-orange cursor-wait"
+                  : "border-slate-200 hover:bg-orange-50 hover:border-orange-200 hover:text-fpt-orange text-slate-700"
+              }`}
+              title="Đồng bộ mã nguồn mới nhất từ GitHub"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin text-fpt-orange" : ""}`} />
+              <span className="hidden sm:inline">{isSyncing ? "Đang đồng bộ..." : "Đồng Bộ GitHub"}</span>
+            </button>
 
             <Link
               href="/"
@@ -397,6 +461,9 @@ export default function AdminPage() {
             stats={stats}
             recentLeads={leads}
             onNavigateToLeads={handleNavigateToLeads}
+            onSyncGithub={handleSyncGithub}
+            isSyncing={isSyncing}
+            commitInfo={commitInfo}
           />
         )}
 

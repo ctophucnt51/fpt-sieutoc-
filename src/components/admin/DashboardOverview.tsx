@@ -1,7 +1,7 @@
 "use client";
 
 import { LeadRecord } from "@/lib/types";
-import { Users, PhoneCall, CheckCircle, TrendingUp, Sparkles, MapPin, Package, ArrowRight, Clock } from "lucide-react";
+import { Users, PhoneCall, CheckCircle, TrendingUp, Sparkles, MapPin, Package, ArrowRight, Clock, RefreshCw, GitBranch } from "lucide-react";
 
 interface LeadStats {
   total: number;
@@ -23,15 +23,62 @@ interface DashboardOverviewProps {
   stats: LeadStats;
   recentLeads: LeadRecord[];
   onNavigateToLeads: (statusFilter?: string) => void;
+  onSyncGithub?: () => void;
+  isSyncing?: boolean;
+  commitInfo?: string;
 }
 
 export default function DashboardOverview({
   stats,
   recentLeads,
   onNavigateToLeads,
+  onSyncGithub,
+  isSyncing = false,
+  commitInfo,
 }: DashboardOverviewProps) {
   return (
     <div className="space-y-6">
+      {/* 0. Card Đồng bộ mã nguồn 1-Click từ GitHub */}
+      {onSyncGithub && (
+        <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg border border-slate-700/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="w-8 h-8 rounded-xl bg-orange-500/20 text-fpt-orange border border-orange-500/30 flex items-center justify-center shrink-0">
+                <GitBranch className="w-4 h-4" />
+              </span>
+              <h3 className="font-extrabold text-sm sm:text-base tracking-tight text-white">
+                Đồng Bộ Mã Nguồn Website (1-Click Sync)
+              </h3>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+                GitHub: main
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed max-w-2xl">
+              Khi bạn yêu cầu cập nhật giao diện hoặc tính năng, chỉ cần bấm nút bên cạnh để hệ thống tự động kéo code mới nhất từ GitHub và khởi động lại ứng dụng trong 3 giây.
+            </p>
+            {commitInfo && (
+              <div className="text-[11px] font-mono text-slate-400 bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-700/50 inline-block">
+                Phiên bản: <span className="text-orange-300">{commitInfo}</span>
+              </div>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={onSyncGithub}
+            disabled={isSyncing}
+            className={`py-3 px-5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shrink-0 transition-all shadow-md cursor-pointer ${
+              isSyncing
+                ? "bg-slate-700 text-slate-300 cursor-not-allowed"
+                : "bg-fpt-orange hover:bg-fpt-hover text-white active:scale-95"
+            }`}
+          >
+            <RefreshCw className={`w-4 h-4 shrink-0 ${isSyncing ? "animate-spin" : ""}`} />
+            <span>{isSyncing ? "Đang đồng bộ & khởi động lại..." : "Đồng Bộ Code Mới Ngay"}</span>
+          </button>
+        </div>
+      )}
+
       {/* 4 Main KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {/* Total Leads */}
