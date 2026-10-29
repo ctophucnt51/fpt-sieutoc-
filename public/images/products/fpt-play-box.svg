@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="box-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="remote-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <filter id="box-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- TV Box Unit -->
+  <g filter="url(#box-shadow)">
+    <rect x="60" y="150" width="180" height="180" rx="28" fill="url(#box-grad)" stroke="#334155" stroke-width="2"/>
+    <!-- Top Brand Logo circle -->
+    <circle cx="150" cy="240" r="36" fill="#0F172A" stroke="#F37021" stroke-width="2"/>
+    <polygon points="144,225 164,240 144,255" fill="#F37021"/>
+    <!-- LED Light Bar -->
+    <rect x="90" y="316" width="120" height="4" rx="2" fill="#F37021"/>
+    <text x="150" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" fill="#94A3B8" text-anchor="middle" letter-spacing="1.5">
+      FPT PLAY BOX
+    </text>
+  </g>
+
+  <!-- Voice Remote Control (tilted) -->
+  <g filter="url(#box-shadow)" transform="rotate(-12 300 240)">
+    <rect x="250" y="110" width="65" height="210" rx="24" fill="url(#remote-grad)" stroke="#475569" stroke-width="1.5"/>
+    <!-- Power Button -->
+    <circle cx="268" cy="132" r="5" fill="#EF4444"/>
+    <!-- Mic Voice Button -->
+    <circle cx="282.5" cy="165" r="12" fill="#F37021"/>
+    <path d="M280 160C280 158.6 281.1 157.5 282.5 157.5C283.9 157.5 285 158.6 285 160V165C285 166.4 283.9 167.5 282.5 167.5C281.1 167.5 280 166.4 280 165V160Z" fill="#FFFFFF"/>
+    <!-- D-Pad Navigation Circle -->
+    <circle cx="282.5" cy="210" r="20" fill="#1E293B" stroke="#475569" stroke-width="1.5"/>
+    <circle cx="282.5" cy="210" r="8" fill="#334155"/>
+    <!-- Number / App buttons -->
+    <rect x="264" y="244" width="37" height="8" rx="4" fill="#334155"/>
+    <rect x="264" y="258" width="37" height="8" rx="4" fill="#334155"/>
+    <rect x="264" y="272" width="37" height="8" rx="4" fill="#334155"/>
+  </g>
+
+  <!-- 4K UHD Tag -->
+  <rect x="60" y="105" width="80" height="24" rx="6" fill="#F37021"/>
+  <text x="100" y="121" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF" text-anchor="middle">
+    4K • Giọng Nói
+  </text>
+</svg>

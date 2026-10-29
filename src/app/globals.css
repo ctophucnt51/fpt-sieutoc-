@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: "Be Vietnam Pro", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --fpt-orange: #F37021;
+  --fpt-orange-hover: #E05D10;
+  --fpt-orange-light: #FFF4ED;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+  text-size-adjust: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  color: #1e293b;
+  background-color: #fafbfc;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(243, 112, 33, 0.07), transparent 60%),
+    radial-gradient(circle 600px at 100% 20%, rgba(2, 132, 199, 0.03), transparent 70%),
+    radial-gradient(circle 600px at 0% 60%, rgba(243, 112, 33, 0.04), transparent 70%);
+  background-attachment: fixed;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  max-width: 100%;
+  overflow-x: clip;
+  overflow-wrap: break-word;
+  word-break: normal;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Accessibility: Focus visible styling */
+:focus-visible {
+  outline: 2px solid #F37021;
+  outline-offset: 2px;
+}
+
+/* Guaranteed Sticky Header on Mobile & Desktop */
+.sticky-header {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+h1, h2, h3, h4 {
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Safe area for mobile devices */
+.pb-safe {
+  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* White Glassmorphism Utility Classes */
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.04);
+}
+
+.glass-card-orange {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(243, 112, 33, 0.4);
+  box-shadow: 0 10px 36px 0 rgba(243, 112, 33, 0.12);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.03);
+}
+
+/* Smooth ticker / marquee animation for mobile announcement */
+@keyframes tickerMobile {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker-mobile {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: tickerMobile 14s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker-mobile:hover,
+.animate-ticker-mobile:active {
+  animation-play-state: paused;
+}
+
+/* Safe area padding for floating mobile navigation bar */
+.pb-safe-nav {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

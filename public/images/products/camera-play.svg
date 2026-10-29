@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="cam-white" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+    <linearGradient id="lens-black" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <filter id="cam-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#cam-shadow)">
+    <!-- Base -->
+    <ellipse cx="200" cy="305" rx="75" ry="24" fill="#CBD5E1"/>
+    <path d="M135 295C135 270 160 255 200 255C240 255 265 270 265 295L260 310C260 320 235 328 200 328C165 328 140 320 140 310Z" fill="url(#cam-white)"/>
+
+    <!-- Rotating Head Sphere -->
+    <circle cx="200" cy="180" r="75" fill="url(#cam-white)" stroke="#E2E8F0" stroke-width="1.5"/>
+
+    <!-- Black Lens Module Sphere -->
+    <circle cx="200" cy="180" r="45" fill="url(#lens-black)"/>
+
+    <!-- Camera Lens Optical Glass -->
+    <circle cx="200" cy="176" r="22" fill="#090D16" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="200" cy="176" r="10" fill="#0284C7"/>
+    <circle cx="196" cy="172" r="3" fill="#FFFFFF"/>
+
+    <!-- IR Night Vision & Mic dots -->
+    <circle cx="200" cy="150" r="2.5" fill="#EF4444"/>
+    <circle cx="200" cy="208" r="2" fill="#64748B"/>
+  </g>
+
+  <!-- AI Badge -->
+  <rect x="145" y="65" width="110" height="26" rx="13" fill="#F37021"/>
+  <text x="200" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF" text-anchor="middle">
+    AI • Xoay 355°
+  </text>
+</svg>

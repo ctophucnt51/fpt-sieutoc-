@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="metal-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+    <filter id="iq-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#iq-shadow)">
+    <!-- Wall Mounting Bracket -->
+    <rect x="70" y="210" width="20" height="70" rx="6" fill="#475569"/>
+    <path d="M85 245L150 245" stroke="#64748B" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="150" cy="245" r="14" fill="#334155"/>
+
+    <!-- Sun/Rain Shield Hood -->
+    <path d="M130 145L290 125L285 145L135 160Z" fill="#94A3B8"/>
+
+    <!-- Cylindrical Camera Body -->
+    <rect x="135" y="155" width="140" height="90" rx="16" fill="url(#metal-grad)" stroke="#94A3B8" stroke-width="1.5"/>
+
+    <!-- Front Bezel -->
+    <ellipse cx="275" cy="200" rx="18" ry="44" fill="#0F172A"/>
+
+    <!-- Glass Lens -->
+    <ellipse cx="275" cy="200" rx="10" ry="22" fill="#0284C7" stroke="#38BDF8" stroke-width="1"/>
+    <ellipse cx="273" cy="195" rx="3" ry="6" fill="#FFFFFF"/>
+
+    <!-- Spotlight LEDs for Color Night Vision -->
+    <circle cx="275" cy="170" r="3" fill="#FBBF24"/>
+    <circle cx="275" cy="230" r="3" fill="#FBBF24"/>
+  </g>
+
+  <!-- Waterproof IP66 Tag -->
+  <rect x="145" y="75" width="110" height="26" rx="13" fill="#0284C7"/>
+  <text x="200" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF" text-anchor="middle">
+    Kháng Nước IP66
+  </text>
+</svg>

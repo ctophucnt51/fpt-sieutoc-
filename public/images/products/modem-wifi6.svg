@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="body-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="glow-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F37021" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#F37021" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Ambient Glow -->
+  <circle cx="200" cy="220" r="140" fill="url(#glow-grad)" filter="url(#soft-glow)"/>
+
+  <!-- Antennas -->
+  <!-- Left Antenna 1 -->
+  <rect x="100" y="70" width="10" height="150" rx="5" fill="#334155" transform="rotate(-15 105 180)"/>
+  <!-- Left Antenna 2 -->
+  <rect x="150" y="55" width="10" height="165" rx="5" fill="#475569" transform="rotate(-6 155 180)"/>
+  <!-- Right Antenna 1 -->
+  <rect x="240" y="55" width="10" height="165" rx="5" fill="#475569" transform="rotate(6 245 180)"/>
+  <!-- Right Antenna 2 -->
+  <rect x="290" y="70" width="10" height="150" rx="5" fill="#334155" transform="rotate(15 295 180)"/>
+
+  <!-- Router Base / Body -->
+  <polygon points="60,250 340,250 310,290 90,290" fill="url(#body-grad)" stroke="#334155" stroke-width="2"/>
+  <rect x="80" y="225" width="240" height="40" rx="8" fill="#1E293B" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Top Accent Stripe -->
+  <rect x="110" y="235" width="180" height="3" rx="1.5" fill="#F37021" opacity="0.9"/>
+
+  <!-- LED Status Indicators -->
+  <circle cx="160" cy="250" r="3.5" fill="#10B981" filter="url(#soft-glow)"/>
+  <circle cx="180" cy="250" r="3.5" fill="#10B981" filter="url(#soft-glow)"/>
+  <circle cx="200" cy="250" r="3.5" fill="#10B981" filter="url(#soft-glow)"/>
+  <circle cx="220" cy="250" r="3.5" fill="#10B981" filter="url(#soft-glow)"/>
+  <circle cx="240" cy="250" r="3.5" fill="#F37021" filter="url(#soft-glow)"/>
+
+  <!-- Wi-Fi 6 Badge on Body -->
+  <rect x="155" y="270" width="90" height="20" rx="10" fill="#0F172A" stroke="#F37021" stroke-width="1"/>
+  <text x="200" y="284" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF" text-anchor="middle">
+    Wi-Fi 6 • AX3000
+  </text>
+</svg>

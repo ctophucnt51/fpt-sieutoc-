@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <defs>
+    <linearGradient id="logo-icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A3D"/>
+      <stop offset="100%" stop-color="#F37021"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon -->
+  <rect x="8" y="12" width="56" height="56" rx="16" fill="url(#logo-icon-grad)"/>
+  <path d="M40 22L24 48H36L32 64L48 38H36L40 22Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round"/>
+  
+  <!-- Typography -->
+  <text x="76" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="900" fill="#0F172A">
+    LẮP MẠNG <tspan fill="#F37021">FPT</tspan>
+  </text>
+  <rect x="228" y="22" width="68" height="20" rx="4" fill="#FFEDD5" stroke="#FED7AA" stroke-width="1"/>
+  <text x="262" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="800" fill="#C2410C" text-anchor="middle">
+    SIÊU TỐC
+  </text>
+  <text x="76" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#64748B">
+    Tư Vấn &amp; Khảo Sát Hạ Tầng Toàn Quốc
+  </text>
+</svg>

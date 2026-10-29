@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A2540"/>
+      <stop offset="60%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+    <linearGradient id="orange-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F37021"/>
+      <stop offset="100%" stop-color="#EA580C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-grad)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="1100" cy="150" r="280" fill="#F37021" opacity="0.12"/>
+  <circle cx="150" cy="550" r="220" fill="#0066FF" opacity="0.1"/>
+
+  <!-- Top Badge -->
+  <rect x="80" y="70" width="340" height="42" rx="21" fill="#F37021" opacity="0.2"/>
+  <rect x="80" y="70" width="340" height="42" rx="21" fill="none" stroke="#F37021" stroke-width="1.5"/>
+  <circle cx="102" cy="91" r="5" fill="#F37021"/>
+  <text x="120" y="97" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#FFEDD5" letter-spacing="1">
+    ĐĂNG KÝ ONLINE • LẮP ĐẶT TRONG 24H
+  </text>
+
+  <!-- Main Headline -->
+  <text x="80" y="190" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="56" font-weight="900" fill="#FFFFFF">
+    LẮP MẠNG <tspan fill="#F37021">FPT WI-FI 6</tspan>
+  </text>
+  <text x="80" y="260" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="900" fill="#FFFFFF">
+    SIÊU TỐC ĐẾN 1 GBPS
+  </text>
+
+  <!-- 3 Value Pillars -->
+  <g transform="translate(80, 310)">
+    <!-- Pillar 1 -->
+    <rect x="0" y="0" width="310" height="90" rx="18" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <text x="24" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="800" fill="#F37021">
+      Modem Wi-Fi 6
+    </text>
+    <text x="24" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="500" fill="#94A3B8">
+      Trang bị miễn phí băng tần kép
+    </text>
+
+    <!-- Pillar 2 -->
+    <rect x="330" y="0" width="310" height="90" rx="18" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <text x="354" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="800" fill="#EF4444">
+      Ngoại Hạng Anh
+    </text>
+    <text x="354" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="500" fill="#94A3B8">
+      Trọn vẹn 380 trận bản quyền EPL
+    </text>
+
+    <!-- Pillar 3 -->
+    <rect x="660" y="0" width="310" height="90" rx="18" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <text x="684" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="800" fill="#10B981">
+      FPT Camera AI
+    </text>
+    <text x="684" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="500" fill="#94A3B8">
+      Lưu trữ Cloud Việt Nam an toàn
+    </text>
+  </g>
+
+  <!-- Bottom CTA Hotline Ribbon -->
+  <g transform="translate(80, 460)">
+    <rect x="0" y="0" width="600" height="90" rx="22" fill="url(#orange-grad)"/>
+    <text x="40" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">
+      TỔNG ĐÀI TƯ VẤN &amp; KHẢO SÁT MIỄN PHÍ:
+    </text>
+    <text x="40" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#FFFFFF" letter-spacing="2">
+      0878 800 400
+    </text>
+  </g>
+
+  <!-- Disclaimer Footer -->
+  <text x="80" y="590" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#64748B">
+    Kênh tư vấn &amp; hỗ trợ tiếp nhận đăng ký dịch vụ chính hãng FPT Telecom toàn quốc • Triển khai trong 24h
+  </text>
+</svg>
