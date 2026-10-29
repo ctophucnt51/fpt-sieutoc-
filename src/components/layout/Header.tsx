@@ -333,21 +333,6 @@ export default function Header() {
                   <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
                 </Link>
               </nav>
-
-              {/* Nút Đăng ký tư vấn gọn gàng */}
-              <div className="mt-1.5 pt-1.5 border-t border-slate-100">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    openLeadModal("Combo GIGA");
-                  }}
-                  className="w-full py-2 px-3 rounded-xl bg-fpt-orange hover:bg-fpt-hover text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
-                >
-                  <Gift className="w-3.5 h-3.5 text-white shrink-0" />
-                  <span>Đăng ký nhận Camera 0đ</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>
