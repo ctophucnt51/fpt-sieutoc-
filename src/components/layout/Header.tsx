@@ -248,141 +248,103 @@ export default function Header() {
         </div>
       </div>
 
-      {/* 3. MOBILE MENU XỔ RA PHONG CÁCH TỐI GIẢN (MINIMALIST & CLEAN) */}
+      {/* 3. MOBILE MENU XỔ RA PHONG CÁCH TỐI GIẢN (MINIMALIST & ULTRA CLEAN) */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-[9990] pointer-events-auto">
           {/* Backdrop Overlay mờ nhẹ */}
           <div
-            className="fixed inset-0 bg-slate-900/25 backdrop-blur-xs transition-opacity duration-200 animate-in fade-in"
+            className="fixed inset-0 bg-slate-900/20 backdrop-blur-xs transition-opacity duration-200 animate-in fade-in"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
 
-          {/* Floating Minimal Card - Nằm gọn gàng ngay dưới Header */}
-          <div className="fixed top-[84px] right-3 left-3 sm:left-auto sm:w-[340px] z-[9995] pointer-events-auto">
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/80 shadow-2xl shadow-slate-900/10 p-3.5 transition-all duration-200 animate-in fade-in zoom-in-95 slide-in-from-top-2">
-              {/* Danh sách mục điều hướng tối giản - Dạng phẳng, không đóng hộp rườm rà */}
-              <nav className="divide-y divide-slate-100">
+          {/* Floating Dropdown Card - Gọn gàng ngay dưới nút Menu */}
+          <div className="fixed top-[78px] sm:top-[84px] right-3 w-[260px] sm:w-[280px] z-[9995] pointer-events-auto">
+            <div className="bg-white/98 backdrop-blur-md rounded-2xl border border-slate-200/90 shadow-2xl shadow-slate-900/15 p-2 transition-all duration-200 animate-in fade-in zoom-in-95 slide-in-from-top-2">
+              {/* 5 Mục nội dung siêu gọn, không rườm rà */}
+              <nav className="space-y-0.5">
                 <Link
                   href="/combo-ngoai-hang-anh"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-2 rounded-xl hover:bg-slate-50 transition-colors group"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50/80 transition-colors group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-orange-50 text-fpt-orange flex items-center justify-center shrink-0">
-                      <Trophy className="w-4 h-4" />
-                    </span>
-                    <span className="text-[13.5px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
+                  <div className="flex items-center gap-2.5">
+                    <Trophy className="w-4 h-4 text-fpt-orange shrink-0" />
+                    <span className="text-[13px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
                       Combo Ngoại Hạng Anh
                     </span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
                 </Link>
 
                 <Link
                   href="/lap-mang-fpt"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-2 rounded-xl hover:bg-slate-50 transition-colors group"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50/80 transition-colors group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-orange-50 text-fpt-orange flex items-center justify-center shrink-0">
-                      <Wifi6Vector size={16} className="w-4 h-4" />
-                    </span>
-                    <span className="text-[13.5px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
+                  <div className="flex items-center gap-2.5">
+                    <Wifi6Vector size={16} className="w-4 h-4 text-fpt-orange shrink-0" />
+                    <span className="text-[13px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
                       Internet Wi-Fi 6
                     </span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
                 </Link>
 
                 <Link
                   href="/truyen-hinh-fpt"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-2 rounded-xl hover:bg-slate-50 transition-colors group"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50/80 transition-colors group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-orange-50 text-fpt-orange flex items-center justify-center shrink-0">
-                      <FptPlayTvVector size={16} className="w-4 h-4" />
-                    </span>
-                    <span className="text-[13.5px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
+                  <div className="flex items-center gap-2.5">
+                    <FptPlayTvVector size={16} className="w-4 h-4 text-fpt-orange shrink-0" />
+                    <span className="text-[13px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
                       Truyền Hình FPT Play
                     </span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
                 </Link>
 
                 <Link
                   href="/#bang-gia"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-2 rounded-xl hover:bg-slate-50 transition-colors group"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50/80 transition-colors group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
-                      <PricingChartVector size={16} className="w-4 h-4" />
-                    </span>
-                    <span className="text-[13.5px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
+                  <div className="flex items-center gap-2.5">
+                    <PricingChartVector size={16} className="w-4 h-4 text-slate-500 group-hover:text-fpt-orange shrink-0" />
+                    <span className="text-[13px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
                       Bảng Giá Cước
                     </span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
                 </Link>
 
                 <Link
                   href="/tin-tuc"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-2.5 px-2 rounded-xl hover:bg-slate-50 transition-colors group"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50/80 transition-colors group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
-                      <NewsArticleVector size={16} className="w-4 h-4" />
-                    </span>
-                    <span className="text-[13.5px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
+                  <div className="flex items-center gap-2.5">
+                    <NewsArticleVector size={16} className="w-4 h-4 text-slate-500 group-hover:text-fpt-orange shrink-0" />
+                    <span className="text-[13px] font-semibold text-slate-800 group-hover:text-fpt-orange transition-colors">
                       Tin Tức & Khuyến Mãi
                     </span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-fpt-orange group-hover:translate-x-0.5 transition-all" />
                 </Link>
               </nav>
 
-              {/* Phần liên hệ & tư vấn tối giản */}
-              <div className="mt-3 pt-3 border-t border-slate-100 space-y-2">
-                <div className="grid grid-cols-2 gap-2">
-                  <a
-                    href={siteConfig.contact.hotlineTel}
-                    onClick={() => {
-                      handleHotlineClick("Mobile Drawer Call");
-                      setMobileMenuOpen(false);
-                    }}
-                    className="py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/60 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>{siteConfig.contact.hotlineDisplay}</span>
-                  </a>
-
-                  <a
-                    href={siteConfig.contact.zaloUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      handleZaloClick("Mobile Drawer Zalo");
-                      setMobileMenuOpen(false);
-                    }}
-                    className="py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/60 text-slate-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                    <span>Chat Zalo</span>
-                  </a>
-                </div>
-
+              {/* Nút Đăng ký tư vấn gọn gàng */}
+              <div className="mt-1.5 pt-1.5 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
                     openLeadModal("Combo GIGA");
                   }}
-                  className="w-full py-2.5 px-4 rounded-xl bg-fpt-orange hover:bg-fpt-hover text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                  className="w-full py-2 px-3 rounded-xl bg-fpt-orange hover:bg-fpt-hover text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
                 >
-                  <Gift className="w-4 h-4 text-white shrink-0" />
+                  <Gift className="w-3.5 h-3.5 text-white shrink-0" />
                   <span>Đăng ký nhận Camera 0đ</span>
                 </button>
               </div>
