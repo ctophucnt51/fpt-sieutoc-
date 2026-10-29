@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import { SiteConfigType } from "@/lib/configStorage";
-import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift } from "lucide-react";
+import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift, GitBranch } from "lucide-react";
 
 interface GeneralConfigEditorProps {
   config: SiteConfigType;
   onSave: (updatedConfig: Partial<SiteConfigType>) => Promise<boolean>;
   onReset: () => Promise<boolean>;
   showToast: (msg: string, type?: "success" | "error") => void;
+  onSyncGithub?: () => void;
+  isSyncing?: boolean;
+  commitInfo?: string;
 }
 
 export default function GeneralConfigEditor({
@@ -16,6 +19,9 @@ export default function GeneralConfigEditor({
   onSave,
   onReset,
   showToast,
+  onSyncGithub,
+  isSyncing = false,
+  commitInfo,
 }: GeneralConfigEditorProps) {
   const [formData, setFormData] = useState<SiteConfigType>(config);
   const [isSaving, setIsSaving] = useState(false);
@@ -47,7 +53,49 @@ export default function GeneralConfigEditor({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="space-y-6">
+      {/* 0. KHỐI ĐỒNG BỘ MÃ NGUỒN GITHUB 1-CLICK */}
+      {onSyncGithub && (
+        <div className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-md border border-slate-700/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="w-8 h-8 rounded-xl bg-orange-500/20 text-fpt-orange border border-orange-500/30 flex items-center justify-center shrink-0">
+                <GitBranch className="w-4 h-4" />
+              </span>
+              <h3 className="font-extrabold text-base tracking-tight text-white">
+                Đồng Bộ Mã Nguồn Website (1-Click Sync)
+              </h3>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+                GitHub: main
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 leading-relaxed max-w-2xl">
+              Khi bạn yêu cầu cập nhật giao diện hoặc tính năng, chỉ cần bấm nút bên cạnh để hệ thống tự động kéo bản mới nhất từ GitHub và khởi động lại ứng dụng trong 3 giây (không cần mở cPanel hay Terminal).
+            </p>
+            {commitInfo && (
+              <div className="text-[11px] font-mono text-slate-400 bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-700/50 inline-block">
+                Phiên bản hiện tại: <span className="text-orange-300 font-semibold">{commitInfo}</span>
+              </div>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={onSyncGithub}
+            disabled={isSyncing}
+            className={`py-3 px-5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shrink-0 transition-all shadow-md cursor-pointer ${
+              isSyncing
+                ? "bg-slate-700 text-slate-300 cursor-not-allowed"
+                : "bg-fpt-orange hover:bg-fpt-hover text-white active:scale-95"
+            }`}
+          >
+            <RefreshCw className={`w-4 h-4 shrink-0 ${isSyncing ? "animate-spin" : ""}`} />
+            <span>{isSyncing ? "Đang đồng bộ & khởi động lại..." : "Đồng Bộ Code Mới Ngay"}</span>
+          </button>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-6">
       {/* 0. SLOGAN HOT & THÔNG BÁO KHUYẾN MÃI NHANH */}
       <div className="bg-gradient-to-br from-orange-50/50 via-white to-amber-50/30 rounded-3xl p-6 sm:p-7 border-2 border-orange-200/80 shadow-sm space-y-5">
         <div className="flex items-center justify-between pb-3 border-b border-orange-100">
@@ -536,5 +584,6 @@ export default function GeneralConfigEditor({
         </button>
       </div>
     </form>
-  );
+  </div>
+);
 }

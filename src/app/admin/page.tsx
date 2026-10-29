@@ -461,9 +461,6 @@ export default function AdminPage() {
             stats={stats}
             recentLeads={leads}
             onNavigateToLeads={handleNavigateToLeads}
-            onSyncGithub={handleSyncGithub}
-            isSyncing={isSyncing}
-            commitInfo={commitInfo}
           />
         )}
 
@@ -488,13 +485,16 @@ export default function AdminPage() {
           />
         )}
 
-        {/* Tab 3: General Config Editor */}
+        {/* Tab 4: General Config Editor */}
         {activeTab === "config" && config && (
           <GeneralConfigEditor
             config={config}
             onSave={handleSaveConfig}
             onReset={handleResetConfig}
             showToast={showToast}
+            onSyncGithub={handleSyncGithub}
+            isSyncing={isSyncing}
+            commitInfo={commitInfo}
           />
         )}
 
