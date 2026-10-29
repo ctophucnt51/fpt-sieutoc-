@@ -6,6 +6,8 @@ import ProcessSection from "@/components/home/ProcessSection";
 import FaqSection from "@/components/home/FaqSection";
 import BottomCtaSection from "@/components/home/BottomCtaSection";
 
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   return (
     <>
