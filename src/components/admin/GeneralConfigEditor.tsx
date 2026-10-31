@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { SiteConfigType } from "@/lib/configStorage";
-import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift, GitBranch } from "lucide-react";
+import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift, GitBranch, Download, Upload, Shield } from "lucide-react";
 
 interface GeneralConfigEditorProps {
   config: SiteConfigType;
@@ -25,6 +25,44 @@ export default function GeneralConfigEditor({
 }: GeneralConfigEditorProps) {
   const [formData, setFormData] = useState<SiteConfigType>(config);
   const [isSaving, setIsSaving] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleExportBackup = () => {
+    try {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formData, null, 2));
+      const downloadAnchor = document.createElement("a");
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `fpt-siteConfig-${new Date().toISOString().split("T")[0]}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("Đã tải file sao lưu cấu hình về máy!", "success");
+    } catch {
+      showToast("Không thể tải file sao lưu.", "error");
+    }
+  };
+
+  const handleImportBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const content = event.target?.result as string;
+        const parsed = JSON.parse(content);
+        if (parsed.brand && parsed.contact) {
+          setFormData(parsed);
+          showToast("Đã nạp dữ liệu từ file! Hãy bấm 'LƯU CẤU HÌNH HỆ THỐNG' bên dưới để áp dụng.", "success");
+        } else {
+          showToast("File không đúng định dạng cấu hình FPT.", "error");
+        }
+      } catch {
+        showToast("Lỗi khi đọc file JSON.", "error");
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,6 +110,10 @@ export default function GeneralConfigEditor({
             <p className="text-xs text-slate-300 leading-relaxed max-w-2xl">
               Khi bạn yêu cầu cập nhật giao diện hoặc tính năng, chỉ cần bấm nút bên cạnh để hệ thống tự động kéo bản mới nhất từ GitHub và khởi động lại ứng dụng trong 3 giây (không cần mở cPanel hay Terminal).
             </p>
+            <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-xl w-fit">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span>An toàn tuyệt đối: Dữ liệu đơn Lead, Cài đặt Hotline &amp; Bảng giá được bảo vệ độc lập, không bị ghi đè.</span>
+            </div>
             {commitInfo && (
               <div className="text-[11px] font-mono text-slate-400 bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-700/50 inline-block">
                 Phiên bản hiện tại: <span className="text-orange-300 font-semibold">{commitInfo}</span>
@@ -564,20 +606,50 @@ export default function GeneralConfigEditor({
       </div>
 
       {/* Action Footer */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-        <button
-          type="button"
-          onClick={handleReset}
-          className="w-full sm:w-auto py-2.5 px-4 rounded-xl border border-slate-300 hover:bg-slate-100 font-bold text-xs text-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-        >
-          <RefreshCw className="w-3.5 h-3.5" />
-          <span>Khôi Phục Cài Đặt Gốc</span>
-        </button>
+      <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-3 border-t border-slate-200">
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImportBackup}
+            accept=".json"
+            className="hidden"
+          />
+          <button
+            type="button"
+            onClick={handleExportBackup}
+            className="py-2.5 px-3 rounded-xl border border-slate-300 hover:bg-slate-100 font-bold text-xs text-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+            title="Tải bản sao lưu cấu hình website về máy tính"
+          >
+            <Download className="w-3.5 h-3.5 text-slate-600" />
+            <span>Sao Lưu File</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="py-2.5 px-3 rounded-xl border border-slate-300 hover:bg-slate-100 font-bold text-xs text-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+            title="Nhập cấu hình từ file JSON đã lưu trước đó"
+          >
+            <Upload className="w-3.5 h-3.5 text-slate-600" />
+            <span>Phục Hồi File</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleReset}
+            className="py-2.5 px-3 rounded-xl border border-red-200 hover:bg-red-50 text-red-600 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+            title="Khôi phục toàn bộ về cấu hình mặc định ban đầu"
+          >
+            <RefreshCw className="w-3.5 h-3.5" />
+            <span>Cài Đặt Gốc</span>
+          </button>
+        </div>
 
         <button
           type="submit"
           disabled={isSaving}
-          className="w-full sm:w-auto py-3 px-6 rounded-xl bg-gradient-to-r from-fpt-orange to-fpt-dark hover:opacity-95 text-white font-extrabold text-sm shadow-cta flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60"
+          className="w-full md:w-auto py-3 px-6 rounded-xl bg-gradient-to-r from-fpt-orange to-fpt-dark hover:opacity-95 text-white font-extrabold text-sm shadow-cta flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60"
         >
           <Save className="w-4 h-4" />
           <span>{isSaving ? "Đang Lưu Cấu Hình..." : "LƯU CẤU HÌNH HỆ THỐNG"}</span>

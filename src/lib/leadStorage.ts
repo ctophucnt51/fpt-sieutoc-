@@ -3,8 +3,10 @@ import path from "path";
 import crypto from "crypto";
 import { LeadPayload, LeadRecord } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), "src", "data");
-const LEADS_FILE = path.join(DATA_DIR, "leads.json");
+const PERSISTENT_DIR = path.join(process.cwd(), "data");
+const SEED_DIR = path.join(process.cwd(), "src", "data");
+const LEADS_FILE = path.join(PERSISTENT_DIR, "leads.json");
+const SEED_LEADS_FILE = path.join(SEED_DIR, "leads.json");
 
 // In-memory rate limiting map: ip -> timestamps[]
 const rateLimitMap = new Map<string, number[]>();
@@ -30,11 +32,28 @@ export function normalizePhone(phone: string): string {
 
 // Ensure the data directory and leads file exist
 function ensureLeadsFile(): void {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (!fs.existsSync(PERSISTENT_DIR)) {
+    fs.mkdirSync(PERSISTENT_DIR, { recursive: true });
   }
   if (!fs.existsSync(LEADS_FILE)) {
+    if (fs.existsSync(SEED_LEADS_FILE)) {
+      try {
+        fs.copyFileSync(SEED_LEADS_FILE, LEADS_FILE);
+        return;
+      } catch (err) {
+        console.error("Error copying seed leads to persistent data directory:", err);
+      }
+    }
     fs.writeFileSync(LEADS_FILE, JSON.stringify([], null, 2), "utf8");
+  }
+}
+
+function saveLeadsData(leads: LeadRecord[]): void {
+  fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2), "utf8");
+  if (fs.existsSync(SEED_DIR)) {
+    try {
+      fs.writeFileSync(SEED_LEADS_FILE, JSON.stringify(leads, null, 2), "utf8");
+    } catch {}
   }
 }
 
@@ -166,7 +185,7 @@ export async function saveLead(
   try {
     const leads = getAllLeads();
     leads.unshift(newRecord); // newest first
-    fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2), "utf8");
+    saveLeadsData(leads);
 
     // 8. Fire-and-forget webhook
     dispatchExternalWebhook(newRecord).catch(() => {});
@@ -202,7 +221,7 @@ export function updateLead(
       updatedAt: new Date().toISOString(),
     };
 
-    fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2), "utf8");
+    saveLeadsData(leads);
     return leads[index];
   } catch (err) {
     console.error("Error updating lead:", err);
@@ -218,7 +237,7 @@ export function deleteLead(id: string): boolean {
     const filtered = leads.filter((l) => l.id !== id);
     if (filtered.length === leads.length) return false;
 
-    fs.writeFileSync(LEADS_FILE, JSON.stringify(filtered, null, 2), "utf8");
+    saveLeadsData(filtered);
     return true;
   } catch (err) {
     console.error("Error deleting lead:", err);

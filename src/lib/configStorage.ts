@@ -4,14 +4,26 @@ import { siteConfig as defaultSiteConfig, PackageItem, AreaOption } from "@/conf
 
 export type SiteConfigType = typeof defaultSiteConfig;
 
-const DATA_DIR = path.join(process.cwd(), "src", "data");
-const CONFIG_FILE = path.join(DATA_DIR, "siteConfig.json");
+const PERSISTENT_DIR = path.join(process.cwd(), "data");
+const SEED_DIR = path.join(process.cwd(), "src", "data");
+const CONFIG_FILE = path.join(PERSISTENT_DIR, "siteConfig.json");
+const SEED_CONFIG_FILE = path.join(SEED_DIR, "siteConfig.json");
 
 function ensureConfigFile(): void {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+  if (!fs.existsSync(PERSISTENT_DIR)) {
+    fs.mkdirSync(PERSISTENT_DIR, { recursive: true });
   }
+
+  // If persistent file doesn't exist yet, check seed file first or fallback to defaults
   if (!fs.existsSync(CONFIG_FILE)) {
+    if (fs.existsSync(SEED_CONFIG_FILE)) {
+      try {
+        fs.copyFileSync(SEED_CONFIG_FILE, CONFIG_FILE);
+        return;
+      } catch (err) {
+        console.error("Error copying seed config to persistent data directory:", err);
+      }
+    }
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(defaultSiteConfig, null, 2), "utf8");
   }
 }
@@ -74,6 +86,11 @@ export function saveDynamicConfig(updatedConfig: Partial<SiteConfigType>): SiteC
   };
 
   fs.writeFileSync(CONFIG_FILE, JSON.stringify(merged, null, 2), "utf8");
+  if (fs.existsSync(SEED_DIR)) {
+    try {
+      fs.writeFileSync(SEED_CONFIG_FILE, JSON.stringify(merged, null, 2), "utf8");
+    } catch {}
+  }
   return merged;
 }
 
@@ -83,5 +100,10 @@ export function saveDynamicConfig(updatedConfig: Partial<SiteConfigType>): SiteC
 export function resetDynamicConfig(): SiteConfigType {
   ensureConfigFile();
   fs.writeFileSync(CONFIG_FILE, JSON.stringify(defaultSiteConfig, null, 2), "utf8");
+  if (fs.existsSync(SEED_DIR)) {
+    try {
+      fs.writeFileSync(SEED_CONFIG_FILE, JSON.stringify(defaultSiteConfig, null, 2), "utf8");
+    } catch {}
+  }
   return defaultSiteConfig;
 }

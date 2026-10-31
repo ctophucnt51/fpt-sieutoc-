@@ -5,7 +5,10 @@ import { Article, slugifyVietnamese } from "@/types/article";
 export type { Article };
 export { slugifyVietnamese };
 
-const ARTICLES_FILE_PATH = path.join(process.cwd(), "src", "data", "articles.json");
+const PERSISTENT_DIR = path.join(process.cwd(), "data");
+const SEED_DIR = path.join(process.cwd(), "src", "data");
+const ARTICLES_FILE_PATH = path.join(PERSISTENT_DIR, "articles.json");
+const SEED_ARTICLES_FILE = path.join(SEED_DIR, "articles.json");
 
 // Initial seed articles if articles.json does not exist
 const INITIAL_ARTICLES: Article[] = [
@@ -125,10 +128,18 @@ const INITIAL_ARTICLES: Article[] = [
 // Ensure articles file exists
 function ensureArticlesFile(): Article[] {
   try {
+    if (!fs.existsSync(PERSISTENT_DIR)) {
+      fs.mkdirSync(PERSISTENT_DIR, { recursive: true });
+    }
     if (!fs.existsSync(ARTICLES_FILE_PATH)) {
-      const dir = path.dirname(ARTICLES_FILE_PATH);
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
+      if (fs.existsSync(SEED_ARTICLES_FILE)) {
+        try {
+          fs.copyFileSync(SEED_ARTICLES_FILE, ARTICLES_FILE_PATH);
+          const copied = fs.readFileSync(ARTICLES_FILE_PATH, "utf-8");
+          return JSON.parse(copied) as Article[];
+        } catch (copyErr) {
+          console.error("Error copying seed articles:", copyErr);
+        }
       }
       fs.writeFileSync(ARTICLES_FILE_PATH, JSON.stringify(INITIAL_ARTICLES, null, 2), "utf-8");
       return INITIAL_ARTICLES;
@@ -174,11 +185,15 @@ export function getArticleById(id: string): Article | null {
 // Save all articles
 export function saveAllArticles(articles: Article[]): boolean {
   try {
-    const dir = path.dirname(ARTICLES_FILE_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    if (!fs.existsSync(PERSISTENT_DIR)) {
+      fs.mkdirSync(PERSISTENT_DIR, { recursive: true });
     }
     fs.writeFileSync(ARTICLES_FILE_PATH, JSON.stringify(articles, null, 2), "utf-8");
+    if (fs.existsSync(SEED_DIR)) {
+      try {
+        fs.writeFileSync(SEED_ARTICLES_FILE, JSON.stringify(articles, null, 2), "utf-8");
+      } catch {}
+    }
     return true;
   } catch (err) {
     console.error("Error saving articles file:", err);

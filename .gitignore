@@ -25,6 +25,10 @@ yarn-error.log*
 # Local env files
 .env*.local
 
+# Persistent dynamic user data (never tracked or wiped by git sync)
+/data/
+/tmp/
+
 # Vercel
 .vercel
 

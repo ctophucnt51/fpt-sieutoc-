@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyAdminAuth } from "@/lib/adminAuth";
 import { exec } from "child_process";
 import { promisify } from "util";
+import fs from "fs";
+import path from "path";
 
 const execPromise = promisify(exec);
 
@@ -36,6 +38,7 @@ export async function GET(request: NextRequest) {
 }
 
 // POST: Thực hiện đồng bộ kéo code mới nhất từ GitHub và khởi động lại ứng dụng
+// BẢO VỆ 100% DỮ LIỆU KHÁCH HÀNG (LEADS), CẤU HÌNH (SITECONFIG) VÀ BÀI VIẾT (ARTICLES)
 export async function POST(request: NextRequest) {
   if (!verifyAdminAuth(request)) {
     return NextResponse.json(
@@ -44,9 +47,43 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const rootDir = process.cwd();
+  const persistentDataDir = path.join(rootDir, "data");
+  const seedDataDir = path.join(rootDir, "src", "data");
+  const backupDir = path.join(rootDir, "tmp", `sync_backup_${Date.now()}`);
+
   try {
-    // 1. Chạy git fetch và git reset để đồng bộ đè bản mới nhất từ GitHub
-    // 2. Chạm vào file tmp/restart.txt để cPanel / Phusion Passenger tự động reload ứng dụng
+    // BƯỚC 1: Sao lưu an toàn toàn bộ dữ liệu đang chạy trước khi kéo Git
+    if (!fs.existsSync(backupDir)) {
+      fs.mkdirSync(backupDir, { recursive: true });
+    }
+
+    const dataFiles = ["siteConfig.json", "leads.json", "articles.json"];
+    const backedUpFiles: string[] = [];
+
+    for (const file of dataFiles) {
+      const persistentPath = path.join(persistentDataDir, file);
+      const seedPath = path.join(seedDataDir, file);
+      const backupPath = path.join(backupDir, file);
+
+      // Ưu tiên file trong data/ (persistent), nếu chưa có thì lấy từ src/data/
+      const sourcePath = fs.existsSync(persistentPath)
+        ? persistentPath
+        : fs.existsSync(seedPath)
+        ? seedPath
+        : null;
+
+      if (sourcePath) {
+        try {
+          fs.copyFileSync(sourcePath, backupPath);
+          backedUpFiles.push(file);
+        } catch (e) {
+          console.error(`Không thể sao lưu ${file}:`, e);
+        }
+      }
+    }
+
+    // BƯỚC 2: Chạy Git fetch & reset đè code mới nhất từ GitHub
     const command = [
       "git fetch origin main",
       "git reset --hard origin/main",
@@ -57,6 +94,33 @@ export async function POST(request: NextRequest) {
       timeout: 30000,
       env: { ...process.env, PATH: `/usr/local/bin:/usr/bin:/bin:${process.env.PATH || ""}` },
     });
+
+    // BƯỚC 3: Khôi phục lại 100% dữ liệu đã sao lưu vào thư mục persistent data/ và src/data/
+    if (!fs.existsSync(persistentDataDir)) {
+      fs.mkdirSync(persistentDataDir, { recursive: true });
+    }
+
+    for (const file of backedUpFiles) {
+      const backupPath = path.join(backupDir, file);
+      const persistentPath = path.join(persistentDataDir, file);
+      const seedPath = path.join(seedDataDir, file);
+
+      if (fs.existsSync(backupPath)) {
+        try {
+          fs.copyFileSync(backupPath, persistentPath);
+          if (fs.existsSync(seedDataDir)) {
+            fs.copyFileSync(backupPath, seedPath);
+          }
+        } catch (restoreErr) {
+          console.error(`Lỗi khi khôi phục dữ liệu ${file}:`, restoreErr);
+        }
+      }
+    }
+
+    // Dọn dẹp thư mục tạm
+    try {
+      fs.rmSync(backupDir, { recursive: true, force: true });
+    } catch {}
 
     // Lấy thông tin commit sau khi cập nhật
     let latestCommit = "";
@@ -71,7 +135,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "Đồng bộ mã nguồn từ GitHub thành công! Trang web đã được cập nhật phiên bản mới nhất.",
+      message:
+        "Đồng bộ mã nguồn từ GitHub thành công! Toàn bộ cấu hình và dữ liệu khách hàng được bảo tồn nguyên vẹn.",
       commit: latestCommit,
       output: stdout || stderr,
     });
