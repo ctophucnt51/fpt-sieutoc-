@@ -17,7 +17,13 @@ export default function SportsEplSection() {
           {/* Left Text */}
           <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/60 border border-red-800/60 text-red-400 font-semibold text-xs uppercase tracking-wider">
-              <Trophy className="w-3.5 h-3.5" />
+              <img
+                src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                alt="EPL"
+                width={16}
+                height={16}
+                className="w-4 h-4 object-contain shrink-0"
+              />
               <span>Bản Quyền Trực Tiếp Ngoại Hạng Anh (EPL)</span>
             </div>
 
@@ -35,8 +41,14 @@ export default function SportsEplSection() {
             {/* Feature Bullets - Clean Minimalist Icons */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 pt-0.5 text-left">
               <div className="flex items-start gap-2.5">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 text-red-400 flex items-center justify-center shrink-0 mt-0.5">
-                  <Trophy className="w-4 h-4" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
+                  <img
+                    src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                    alt="EPL"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 object-contain"
+                  />
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-white">Bản Quyền Trọn Vẹn EPL</h4>
@@ -45,8 +57,14 @@ export default function SportsEplSection() {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 text-orange-400 flex items-center justify-center shrink-0 mt-0.5">
-                  <Tv className="w-4 h-4" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
+                  <img
+                    src="/images/icons/liquid-glass/fpt-play.webp"
+                    alt="FPT Play"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 object-contain"
+                  />
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-white">Xem Trực Tiếp Trên Smart TV</h4>

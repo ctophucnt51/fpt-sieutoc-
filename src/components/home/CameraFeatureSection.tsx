@@ -10,8 +10,15 @@ export default function CameraFeatureSection() {
     <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-white via-slate-50/50 to-white border-b border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-2xs backdrop-blur-md">
-            Giải Pháp An Ninh AI
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-2xs backdrop-blur-md">
+            <img
+              src="/images/icons/liquid-glass/camera-ai.webp"
+              alt="Camera AI"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Giải Pháp An Ninh AI</span>
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
             FPT Camera AI Thông Minh &bull; Lưu Trữ Đám Mây An Toàn

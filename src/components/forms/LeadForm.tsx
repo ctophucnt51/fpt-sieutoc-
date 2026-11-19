@@ -405,8 +405,14 @@ export default function LeadForm({
             <label className="block text-xs font-bold text-slate-800">
               Gói Cước Đăng Ký <span className="text-fpt-orange">*</span>
             </label>
-            <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-current" />
+            <span className="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
+              <img
+                src="/images/icons/liquid-glass/camera-ai.webp"
+                alt="Camera AI"
+                width={14}
+                height={14}
+                className="w-3.5 h-3.5 object-contain shrink-0"
+              />
               <span>Tặng Camera AI 0đ</span>
             </span>
           </div>

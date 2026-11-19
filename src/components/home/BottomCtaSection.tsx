@@ -41,11 +41,23 @@ export default function BottomCtaSection({
             {/* Value checklist for Desktop & Tablet - White Glass Cards */}
             <div className="hidden sm:grid grid-cols-2 gap-2.5 sm:gap-3 text-left">
               <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
-                <Wifi className="w-4 h-4 text-fpt-orange shrink-0" />
+                <img
+                  src="/images/icons/liquid-glass/wifi-6.webp"
+                  alt="Wi-Fi 6"
+                  width={18}
+                  height={18}
+                  className="w-4.5 h-4.5 object-contain shrink-0"
+                />
                 <span className="text-xs text-slate-800 font-semibold">Trang bị Modem Wi-Fi 6 0đ</span>
               </div>
               <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
-                <Camera className="w-4 h-4 text-emerald-600 shrink-0" />
+                <img
+                  src="/images/icons/liquid-glass/camera-ai.webp"
+                  alt="Camera AI"
+                  width={18}
+                  height={18}
+                  className="w-4.5 h-4.5 object-contain shrink-0"
+                />
                 <span className="text-xs text-slate-800 font-semibold">Tặng kèm Camera AI an ninh</span>
               </div>
               <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">

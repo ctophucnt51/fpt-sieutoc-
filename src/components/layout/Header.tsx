@@ -143,6 +143,13 @@ export default function Header() {
                 : "bg-red-50/60 text-red-600 hover:bg-red-50 border border-red-200/60 font-semibold"
             }`}
           >
+            <img
+              src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+              alt="EPL"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
             <span>Combo Ngoại Hạng Anh</span>
             <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-red-600 text-white shrink-0 tracking-tight shadow-2xs">
               220K
@@ -152,25 +159,39 @@ export default function Header() {
           {/* 2. Internet Wi-Fi 6 */}
           <Link
             href="/lap-mang-fpt"
-            className={`transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl hover:bg-orange-50 hover:text-fpt-orange ${
+            className={`transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl flex items-center gap-1.5 hover:bg-orange-50 hover:text-fpt-orange ${
               pathname === "/lap-mang-fpt"
                 ? "bg-orange-50 text-fpt-orange font-bold border border-orange-200/80"
                 : "text-slate-700"
             }`}
           >
-            Internet Wi-Fi 6
+            <img
+              src="/images/icons/liquid-glass/wifi-6.webp"
+              alt="Wi-Fi 6"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Internet Wi-Fi 6</span>
           </Link>
 
           {/* 3. Truyền Hình */}
           <Link
             href="/truyen-hinh-fpt"
-            className={`transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl hover:bg-orange-50 hover:text-fpt-orange ${
+            className={`transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl flex items-center gap-1.5 hover:bg-orange-50 hover:text-fpt-orange ${
               pathname === "/truyen-hinh-fpt"
                 ? "bg-orange-50 text-fpt-orange font-bold border border-orange-200/80"
                 : "text-slate-700"
             }`}
           >
-            Truyền Hình FPT
+            <img
+              src="/images/icons/liquid-glass/fpt-play.webp"
+              alt="FPT Play"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Truyền Hình FPT</span>
           </Link>
 
           {/* 4. Bảng Giá */}
@@ -272,7 +293,13 @@ export default function Header() {
                   className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50 transition-colors group"
                 >
                   <div className="flex items-center gap-2.5">
-                    <Trophy className="w-4 h-4 text-fpt-orange shrink-0" />
+                    <img
+                      src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                      alt="Combo Ngoại Hạng Anh"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 object-contain shrink-0"
+                    />
                     <span className="text-[13.5px] font-bold text-slate-900 group-hover:text-fpt-orange transition-colors">
                       Combo Ngoại Hạng Anh
                     </span>
@@ -286,7 +313,13 @@ export default function Header() {
                   className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50 transition-colors group"
                 >
                   <div className="flex items-center gap-2.5">
-                    <Wifi6Vector size={16} className="w-4 h-4 text-fpt-orange shrink-0" />
+                    <img
+                      src="/images/icons/liquid-glass/wifi-6.webp"
+                      alt="Internet Wi-Fi 6"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 object-contain shrink-0"
+                    />
                     <span className="text-[13.5px] font-bold text-slate-900 group-hover:text-fpt-orange transition-colors">
                       Internet Wi-Fi 6
                     </span>
@@ -300,7 +333,13 @@ export default function Header() {
                   className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50 transition-colors group"
                 >
                   <div className="flex items-center gap-2.5">
-                    <FptPlayTvVector size={16} className="w-4 h-4 text-fpt-orange shrink-0" />
+                    <img
+                      src="/images/icons/liquid-glass/fpt-play.webp"
+                      alt="Truyền Hình FPT Play"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 object-contain shrink-0"
+                    />
                     <span className="text-[13.5px] font-bold text-slate-900 group-hover:text-fpt-orange transition-colors">
                       Truyền Hình FPT Play
                     </span>

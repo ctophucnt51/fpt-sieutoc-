@@ -11,8 +11,15 @@ export default function Wifi6Explainer() {
           {/* Left Column: Title & Comparison Table */}
           <div className="lg:col-span-6 space-y-4 min-w-0 max-w-full text-center lg:text-left">
             <div>
-              <span className="inline-block px-3 py-1 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-2xs backdrop-blur-md">
-                Chuẩn Wi-Fi 6 (802.11ax) Thế Hệ Mới
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-2xs backdrop-blur-md">
+                <img
+                  src="/images/icons/liquid-glass/wifi-6.webp"
+                  alt="Wi-Fi 6"
+                  width={16}
+                  height={16}
+                  className="w-4 h-4 object-contain shrink-0"
+                />
+                <span>Chuẩn Wi-Fi 6 (802.11ax) Thế Hệ Mới</span>
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
                 Tại Sao Nên Chọn <span className="text-fpt-orange">Wi-Fi 6 Của FPT</span> Thay Vì Wi-Fi Cũ?
@@ -123,8 +130,14 @@ export default function Wifi6Explainer() {
           <div className="lg:col-span-6 space-y-3.5 min-w-0 max-w-full">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
               <div className="p-3.5 sm:p-4 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-300 hover:shadow-md transition-all shadow-2xs">
-                <div className="w-8 h-8 rounded-xl bg-orange-100 text-fpt-orange flex items-center justify-center mb-2.5 shadow-2xs">
-                  <Zap className="w-4 h-4 fill-current" />
+                <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
+                  <img
+                    src="/images/icons/liquid-glass/toc-do.webp"
+                    alt="Tốc độ 1 Gbps"
+                    width={26}
+                    height={26}
+                    className="w-[26px] h-[26px] object-contain shrink-0"
+                  />
                 </div>
                 <h3 className="font-bold text-sm sm:text-base text-slate-900 mb-1">Tốc Độ Siêu Tốc 1 Gbps</h3>
                 <p className="text-xs text-slate-500 leading-relaxed font-normal">
@@ -143,8 +156,14 @@ export default function Wifi6Explainer() {
               </div>
 
               <div className="p-3.5 sm:p-4 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-300 hover:shadow-md transition-all shadow-2xs">
-                <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-2.5 shadow-2xs">
-                  <Layers className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
+                  <img
+                    src="/images/icons/liquid-glass/wifi-mesh.webp"
+                    alt="Wi-Fi Mesh"
+                    width={26}
+                    height={26}
+                    className="w-[26px] h-[26px] object-contain shrink-0"
+                  />
                 </div>
                 <h3 className="font-bold text-sm sm:text-base text-slate-900 mb-1">Công Nghệ Mesh Mở Rộng</h3>
                 <p className="text-xs text-slate-500 leading-relaxed font-normal">

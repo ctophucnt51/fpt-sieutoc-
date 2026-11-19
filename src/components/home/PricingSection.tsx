@@ -78,7 +78,13 @@ export default function PricingSection({
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
               }`}
             >
-              <Wifi className="w-3.5 h-3.5 shrink-0 hidden sm:inline-block" />
+              <img
+                src="/images/icons/liquid-glass/wifi-6.webp"
+                alt="Internet"
+                width={15}
+                height={15}
+                className="w-3.5 h-3.5 object-contain shrink-0 hidden sm:inline-block"
+              />
               <span>Chỉ Internet</span>
             </button>
             <button
@@ -89,7 +95,13 @@ export default function PricingSection({
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
               }`}
             >
-              <Tv className="w-3.5 h-3.5 shrink-0 hidden sm:inline-block" />
+              <img
+                src="/images/icons/liquid-glass/fpt-play.webp"
+                alt="Combo TV"
+                width={15}
+                height={15}
+                className="w-3.5 h-3.5 object-contain shrink-0 hidden sm:inline-block"
+              />
               <span>Combo TV &amp; Net</span>
             </button>
           </div>
@@ -123,8 +135,15 @@ export default function PricingSection({
                   {/* Card Header */}
                   <div className="border-b border-slate-100 pb-4 mb-4">
                     <div className="flex justify-between items-start gap-2 mb-1.5">
-                      <span className="text-[11px] font-bold text-fpt-orange uppercase tracking-wider">
-                        {isCombo ? "Combo Internet + TV" : "Internet Wi-Fi 6"}
+                      <span className="text-[11px] font-bold text-fpt-orange uppercase tracking-wider inline-flex items-center gap-1.5">
+                        <img
+                          src={isCombo ? "/images/icons/liquid-glass/fpt-play.webp" : "/images/icons/liquid-glass/wifi-6.webp"}
+                          alt={isCombo ? "Combo" : "Internet"}
+                          width={14}
+                          height={14}
+                          className="w-3.5 h-3.5 object-contain shrink-0"
+                        />
+                        <span>{isCombo ? "Combo Internet + TV" : "Internet Wi-Fi 6"}</span>
                       </span>
                       {pkg.badge && (
                         <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 shrink-0">
@@ -156,7 +175,13 @@ export default function PricingSection({
 
                     {/* Speed Badge */}
                     <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-800 text-xs font-semibold">
-                      <Zap className="w-3.5 h-3.5 text-fpt-orange fill-current shrink-0" />
+                      <img
+                        src="/images/icons/liquid-glass/toc-do.webp"
+                        alt="Tốc độ"
+                        width={14}
+                        height={14}
+                        className="w-3.5 h-3.5 object-contain shrink-0"
+                      />
                       <span className="truncate">Tốc độ: {pkg.speed}</span>
                     </div>
                   </div>

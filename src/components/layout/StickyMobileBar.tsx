@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLeadModal } from "@/context/LeadModalContext";
 import { useSiteConfig } from "@/context/ConfigContext";
 import { fbTracker } from "@/components/tracking/MetaPixel";
-import { Home, Wifi, FileText, Trophy, Phone } from "lucide-react";
+import { Home, FileText, Phone } from "lucide-react";
 
 export default function StickyMobileBar() {
   const pathname = usePathname();
@@ -71,7 +71,13 @@ export default function StickyMobileBar() {
               : "text-slate-500 hover:text-slate-800 font-medium"
           }`}
         >
-          <Wifi className="w-5 h-5 shrink-0 transition-colors" strokeWidth={isInternetActive ? 2.4 : 1.9} />
+          <img
+            src="/images/icons/liquid-glass/wifi-6.webp"
+            alt="Internet"
+            width={22}
+            height={22}
+            className="w-[22px] h-[22px] object-contain shrink-0"
+          />
           <span className="text-[11px] leading-tight mt-1 truncate">Internet</span>
         </Link>
 
@@ -94,7 +100,13 @@ export default function StickyMobileBar() {
               : "text-slate-500 hover:text-slate-800 font-medium"
           }`}
         >
-          <Trophy className="w-5 h-5 shrink-0 transition-colors" strokeWidth={isEplActive ? 2.4 : 1.9} />
+          <img
+            src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+            alt="Ngoại hạng Anh"
+            width={22}
+            height={22}
+            className="w-[22px] h-[22px] object-contain shrink-0"
+          />
           <span className="text-[11px] leading-tight mt-1 truncate">Ngoại hạng Anh</span>
         </Link>
 
