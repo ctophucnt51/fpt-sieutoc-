@@ -12,12 +12,12 @@
       "static/chunks/fd9d1056-c2727ad4c8ac873f.js",
       "static/chunks/117-7bbba54e2cfa7353.js",
       "static/chunks/main-app-df3f40fd38d3dd97.js",
-      "static/css/6a9c790ee777c2f1.css",
+      "static/css/9a452805c85c87ab.css",
       "static/chunks/972-6123d02e9066823e.js",
       "static/chunks/176-6f5108ee057f4967.js",
       "static/chunks/198-70ae76c021d52e0b.js",
       "static/chunks/877-7e60fc4956df3299.js",
-      "static/chunks/app/layout-a6edb8ceee14498a.js"
+      "static/chunks/app/layout-590ecd575347a23f.js"
     ],
     "/admin/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
@@ -56,22 +56,6 @@
       "static/chunks/877-7e60fc4956df3299.js",
       "static/chunks/app/tin-tuc/[slug]/page-95b852b9588deb5f.js"
     ],
-    "/chinh-sach-bao-mat/page": [
-      "static/chunks/webpack-a3c37fcbf859f6f9.js",
-      "static/chunks/fd9d1056-c2727ad4c8ac873f.js",
-      "static/chunks/117-7bbba54e2cfa7353.js",
-      "static/chunks/main-app-df3f40fd38d3dd97.js",
-      "static/chunks/972-6123d02e9066823e.js",
-      "static/chunks/app/chinh-sach-bao-mat/page-cf9aa4f87e189f45.js"
-    ],
-    "/dieu-khoan/page": [
-      "static/chunks/webpack-a3c37fcbf859f6f9.js",
-      "static/chunks/fd9d1056-c2727ad4c8ac873f.js",
-      "static/chunks/117-7bbba54e2cfa7353.js",
-      "static/chunks/main-app-df3f40fd38d3dd97.js",
-      "static/chunks/972-6123d02e9066823e.js",
-      "static/chunks/app/dieu-khoan/page-a8dc20156c287e65.js"
-    ],
     "/combo-ngoai-hang-anh/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
       "static/chunks/fd9d1056-c2727ad4c8ac873f.js",
@@ -85,18 +69,13 @@
       "static/chunks/264-39a28722d0ebf2f0.js",
       "static/chunks/app/combo-ngoai-hang-anh/page-271fa13f33440a17.js"
     ],
-    "/wifi-6/page": [
+    "/chinh-sach-bao-mat/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
       "static/chunks/fd9d1056-c2727ad4c8ac873f.js",
       "static/chunks/117-7bbba54e2cfa7353.js",
       "static/chunks/main-app-df3f40fd38d3dd97.js",
       "static/chunks/972-6123d02e9066823e.js",
-      "static/chunks/176-6f5108ee057f4967.js",
-      "static/chunks/198-70ae76c021d52e0b.js",
-      "static/chunks/877-7e60fc4956df3299.js",
-      "static/chunks/271-741bc0fc0d51480d.js",
-      "static/chunks/776-e8a23f0eb2d0805b.js",
-      "static/chunks/app/wifi-6/page-aa82e151e6378eb9.js"
+      "static/chunks/app/chinh-sach-bao-mat/page-cf9aa4f87e189f45.js"
     ],
     "/lap-mang-fpt/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
@@ -124,6 +103,27 @@
       "static/chunks/776-e8a23f0eb2d0805b.js",
       "static/chunks/264-39a28722d0ebf2f0.js",
       "static/chunks/app/page-ce3d359092ba8c1a.js"
+    ],
+    "/wifi-6/page": [
+      "static/chunks/webpack-a3c37fcbf859f6f9.js",
+      "static/chunks/fd9d1056-c2727ad4c8ac873f.js",
+      "static/chunks/117-7bbba54e2cfa7353.js",
+      "static/chunks/main-app-df3f40fd38d3dd97.js",
+      "static/chunks/972-6123d02e9066823e.js",
+      "static/chunks/176-6f5108ee057f4967.js",
+      "static/chunks/198-70ae76c021d52e0b.js",
+      "static/chunks/877-7e60fc4956df3299.js",
+      "static/chunks/271-741bc0fc0d51480d.js",
+      "static/chunks/776-e8a23f0eb2d0805b.js",
+      "static/chunks/app/wifi-6/page-aa82e151e6378eb9.js"
+    ],
+    "/dieu-khoan/page": [
+      "static/chunks/webpack-a3c37fcbf859f6f9.js",
+      "static/chunks/fd9d1056-c2727ad4c8ac873f.js",
+      "static/chunks/117-7bbba54e2cfa7353.js",
+      "static/chunks/main-app-df3f40fd38d3dd97.js",
+      "static/chunks/972-6123d02e9066823e.js",
+      "static/chunks/app/dieu-khoan/page-a8dc20156c287e65.js"
     ],
     "/truyen-hinh-fpt/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",

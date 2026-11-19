@@ -116,13 +116,7 @@ export default function Header() {
               onClick={() => handleHotlineClick("Top Bar Hotline")}
               className="font-bold text-slate-900 hover:text-fpt-orange transition-colors flex items-center gap-1"
             >
-              <img
-                src="/images/icons/liquid-glass/hotline.webp"
-                alt="Hotline"
-                width={14}
-                height={14}
-                className="w-3.5 h-3.5 object-contain inline-block shrink-0"
-              />
+              <Phone className="w-3 h-3 text-fpt-orange fill-current" />
               <span>{siteConfig.contact.hotlineDisplay}</span>
             </a>
           </div>
@@ -145,12 +139,12 @@ export default function Header() {
           <span className="font-extrabold text-[13px] sm:text-base text-slate-900 tracking-tight whitespace-nowrap group-hover:text-fpt-orange transition-colors">
             Lắp Mạng FPT
           </span>
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 hidden xl:inline-block">
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 hidden 2xl:inline-block">
             Chính Hãng
           </span>
         </Link>
 
-        {/* Center: Desktop Navigation Links (Gọn gàng, tinh tế) */}
+        {/* Center: Desktop Navigation Links (Gọn gàng, tinh tế, tuyệt đối không tràn trên PC) */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 font-medium text-xs xl:text-[13px] text-slate-700 shrink-0">
           {/* 1. Combo Ngoại Hạng Anh */}
           <Link
@@ -161,13 +155,6 @@ export default function Header() {
                 : "bg-red-50/60 text-red-600 hover:bg-red-50 border border-red-200/60 font-semibold"
             }`}
           >
-            <img
-              src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
-              alt="EPL"
-              width={16}
-              height={16}
-              className="w-4 h-4 object-contain shrink-0"
-            />
             <span>Combo Ngoại Hạng Anh</span>
             <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-red-600 text-white shrink-0 tracking-tight shadow-2xs">
               220K
@@ -177,54 +164,33 @@ export default function Header() {
           {/* 2. Internet Wi-Fi 6 */}
           <Link
             href="/lap-mang-fpt"
-            className={`transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl flex items-center gap-1.5 hover:bg-orange-50 hover:text-fpt-orange ${
+            className={`transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl hover:bg-orange-50 hover:text-fpt-orange ${
               pathname === "/lap-mang-fpt"
                 ? "bg-orange-50 text-fpt-orange font-bold border border-orange-200/80"
                 : "text-slate-700"
             }`}
           >
-            <img
-              src="/images/icons/liquid-glass/wifi-6.webp"
-              alt="Wi-Fi 6"
-              width={16}
-              height={16}
-              className="w-4 h-4 object-contain shrink-0"
-            />
-            <span>Internet Wi-Fi 6</span>
+            Internet Wi-Fi 6
           </Link>
 
           {/* 3. Truyền Hình */}
           <Link
             href="/truyen-hinh-fpt"
-            className={`transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl flex items-center gap-1.5 hover:bg-orange-50 hover:text-fpt-orange ${
+            className={`transition-all whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl hover:bg-orange-50 hover:text-fpt-orange ${
               pathname === "/truyen-hinh-fpt"
                 ? "bg-orange-50 text-fpt-orange font-bold border border-orange-200/80"
                 : "text-slate-700"
             }`}
           >
-            <img
-              src="/images/icons/liquid-glass/fpt-play.webp"
-              alt="FPT Play"
-              width={16}
-              height={16}
-              className="w-4 h-4 object-contain shrink-0"
-            />
-            <span>Truyền Hình FPT</span>
+            Truyền Hình FPT
           </Link>
 
           {/* 4. Bảng Giá */}
           <Link
             href="/#bang-gia"
-            className="text-slate-700 hover:text-fpt-orange hover:bg-orange-50 transition-colors whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl flex items-center gap-1.5"
+            className="text-slate-700 hover:text-fpt-orange hover:bg-orange-50 transition-colors whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl"
           >
-            <img
-              src="/images/icons/liquid-glass/bang-gia.webp"
-              alt="Bảng Giá"
-              width={16}
-              height={16}
-              className="w-4 h-4 object-contain inline-block shrink-0"
-            />
-            <span>Bảng Giá</span>
+            Bảng Giá
           </Link>
 
           {/* 5. Tin Tức */}
@@ -248,13 +214,7 @@ export default function Header() {
             onClick={() => handleHotlineClick("Header Hotline Pill")}
             className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-orange-50 border border-slate-200/80 text-slate-800 text-xs font-semibold shadow-2xs transition-all whitespace-nowrap"
           >
-            <img
-              src="/images/icons/liquid-glass/hotline.webp"
-              alt="Hotline"
-              width={16}
-              height={16}
-              className="w-4 h-4 object-contain shrink-0"
-            />
+            <Phone className="w-3.5 h-3.5 text-fpt-orange fill-current" />
             <span className="text-slate-500 font-normal">Hotline:</span>
             <span className="font-bold text-fpt-orange">{siteConfig.contact.hotlineDisplay}</span>
           </a>
@@ -266,15 +226,8 @@ export default function Header() {
               handleHotlineClick("Header CTA Button");
               openLeadModal("Combo GIGA");
             }}
-            className="hidden sm:inline-flex items-center justify-center gap-1.5 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-fpt-orange hover:bg-fpt-hover text-white font-bold text-xs shadow-[0_4px_16px_rgba(243,112,33,0.3)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.4)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer min-w-max"
+            className="hidden sm:inline-flex items-center justify-center px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-fpt-orange hover:bg-fpt-hover text-white font-bold text-xs shadow-[0_4px_16px_rgba(243,112,33,0.3)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.4)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer min-w-max"
           >
-            <img
-              src="/images/icons/liquid-glass/dang-ky.webp"
-              alt="Đăng ký"
-              width={16}
-              height={16}
-              className="w-4 h-4 object-contain shrink-0"
-            />
             <span>Đăng Ký Tư Vấn</span>
           </button>
 
@@ -301,13 +254,7 @@ export default function Header() {
             {mobileMenuOpen ? (
               <X className="w-5 h-5 text-fpt-orange" />
             ) : (
-              <img
-                src="/images/icons/liquid-glass/menu-khac.webp"
-                alt="Menu"
-                width={20}
-                height={20}
-                className="w-5 h-5 object-contain"
-              />
+              <Menu className="w-5 h-5 text-slate-900" />
             )}
           </button>
         </div>
