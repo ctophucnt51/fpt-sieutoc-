@@ -337,8 +337,15 @@ export default function LeadForm({
 
         {/* Họ và tên */}
         <div>
-          <label className="block text-xs font-bold text-slate-800 mb-1">
-            Họ và Tên <span className="text-fpt-orange">*</span>
+          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+            <img
+              src="/images/icons/liquid-glass/ho-va-ten.webp"
+              alt="Họ và tên"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Họ và Tên <span className="text-fpt-orange">*</span></span>
           </label>
           <input
             type="text"
@@ -352,8 +359,15 @@ export default function LeadForm({
 
         {/* Số điện thoại */}
         <div>
-          <label className="block text-xs font-bold text-slate-800 mb-1">
-            Số Điện Thoại Nhận Ưu Đãi <span className="text-fpt-orange">*</span>
+          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+            <img
+              src="/images/icons/liquid-glass/hotline.webp"
+              alt="Số điện thoại"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Số Điện Thoại Nhận Ưu Đãi <span className="text-fpt-orange">*</span></span>
           </label>
           <input
             type="tel"
@@ -374,8 +388,15 @@ export default function LeadForm({
 
         {/* Khu vực lắp đặt (Searchable dropdown) */}
         <div>
-          <label className="block text-xs font-bold text-slate-800 mb-1">
-            Khu Vực / Xã Phường Lắp Đặt <span className="text-fpt-orange">*</span>
+          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+            <img
+              src="/images/icons/liquid-glass/lap-dat.webp"
+              alt="Khu vực"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Khu Vực / Xã Phường Lắp Đặt <span className="text-fpt-orange">*</span></span>
           </label>
           <SearchableAreaSelect
             areas={siteConfig.popularAreas}
@@ -387,8 +408,15 @@ export default function LeadForm({
 
         {/* Địa chỉ chi tiết */}
         <div>
-          <label className="block text-xs font-bold text-slate-800 mb-1">
-            Địa Chỉ Khảo Sát Tận Nơi <span className="text-slate-400 font-normal lowercase">(số nhà, tên đường, thôn / ấp)</span>
+          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+            <img
+              src="/images/icons/liquid-glass/dia-chi-lap-dat.webp"
+              alt="Địa chỉ khảo sát"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Địa Chỉ Khảo Sát Tận Nơi <span className="text-slate-400 font-normal lowercase">(số nhà, tên đường, thôn / ấp)</span></span>
           </label>
           <input
             type="text"
@@ -402,8 +430,15 @@ export default function LeadForm({
         {/* Gói cước đăng ký */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="block text-xs font-bold text-slate-800">
-              Gói Cước Đăng Ký <span className="text-fpt-orange">*</span>
+            <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+              <img
+                src="/images/icons/liquid-glass/chon-goi-cuoc.webp"
+                alt="Chọn gói cước"
+                width={16}
+                height={16}
+                className="w-4 h-4 object-contain shrink-0"
+              />
+              <span>Gói Cước Đăng Ký <span className="text-fpt-orange">*</span></span>
             </label>
             <span className="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
               <img
@@ -464,8 +499,15 @@ export default function LeadForm({
 
         {/* Ghi chú tùy chọn */}
         <div>
-          <label className="block text-xs font-bold text-slate-800 mb-1">
-            Ghi Chú Yêu Cầu <span className="text-slate-400 font-normal lowercase">(thời gian tiện nghe máy hoặc yêu cầu thêm)</span>
+          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+            <img
+              src="/images/icons/liquid-glass/ghi-chu.webp"
+              alt="Ghi chú"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Ghi Chú Yêu Cầu <span className="text-slate-400 font-normal lowercase">(thời gian tiện nghe máy hoặc yêu cầu thêm)</span></span>
           </label>
           <input
             type="text"
@@ -486,8 +528,15 @@ export default function LeadForm({
               onChange={(e) => setAgreeConsent(e.target.checked)}
               className="mt-0.5 h-4 w-4 rounded border-slate-300 text-fpt-orange focus:ring-fpt-orange shrink-0 cursor-pointer accent-orange-500"
             />
-            <span>
-              Tôi đồng ý nhận tư vấn khảo sát và đồng ý với{" "}
+            <span className="flex items-center gap-1.5 flex-wrap">
+              <img
+                src="/images/icons/liquid-glass/bao-mat.webp"
+                alt="Bảo mật"
+                width={14}
+                height={14}
+                className="w-3.5 h-3.5 object-contain inline-block shrink-0"
+              />
+              <span>Tôi đồng ý nhận tư vấn khảo sát và đồng ý với{" "}</span>
               <Link
                 href="/chinh-sach-bao-mat"
                 target="_blank"
@@ -514,11 +563,11 @@ export default function LeadForm({
           ) : (
             <>
               <img
-                src="/images/icons/liquid-glass/dang-ky.webp"
-                alt="Đăng ký"
-                width={18}
-                height={18}
-                className="w-4.5 h-4.5 object-contain shrink-0"
+                src="/images/icons/liquid-glass/gui-dang-ky.webp"
+                alt="Gửi đăng ký"
+                width={20}
+                height={20}
+                className="w-5 h-5 object-contain shrink-0"
               />
               <span className="leading-tight">GỬI ĐĂNG KÝ KHẢO SÁT 0 ĐỒNG</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />

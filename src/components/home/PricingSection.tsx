@@ -201,15 +201,47 @@ export default function PricingSection({
                     )}
 
                     {/* Speed Badge */}
-                    <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-800 text-xs font-semibold">
-                      <img
-                        src="/images/icons/liquid-glass/toc-do.webp"
-                        alt="Tốc độ"
-                        width={14}
-                        height={14}
-                        className="w-3.5 h-3.5 object-contain shrink-0"
-                      />
-                      <span className="truncate">Tốc độ: {pkg.speed}</span>
+                    <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-800 text-xs font-semibold">
+                        <img
+                          src={
+                            pkg.name.toLowerCase().includes("meta")
+                              ? "/images/icons/liquid-glass/bang-thong-doi-xung.webp"
+                              : pkg.id === "net-fgame" || pkg.name.toLowerCase().includes("game")
+                              ? "/images/icons/liquid-glass/ultra-fast.webp"
+                              : "/images/icons/liquid-glass/toc-do.webp"
+                          }
+                          alt="Tốc độ"
+                          width={14}
+                          height={14}
+                          className="w-3.5 h-3.5 object-contain shrink-0"
+                        />
+                        <span className="truncate">Tốc độ: {pkg.speed}</span>
+                      </div>
+                      {pkg.name.toLowerCase().includes("meta") && (
+                        <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-[11px] font-bold">
+                          <img
+                            src="/images/icons/liquid-glass/bang-thong-doi-xung.webp"
+                            alt="Băng thông đối xứng"
+                            width={13}
+                            height={13}
+                            className="w-3 h-3 object-contain shrink-0"
+                          />
+                          <span>Băng thông đối xứng 1:1</span>
+                        </div>
+                      )}
+                      {(pkg.id === "net-fgame" || pkg.name.toLowerCase().includes("game")) && (
+                        <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-800 text-[11px] font-bold">
+                          <img
+                            src="/images/icons/liquid-glass/ultra-fast.webp"
+                            alt="Ultra Fast"
+                            width={13}
+                            height={13}
+                            className="w-3 h-3 object-contain shrink-0"
+                          />
+                          <span>Ultra Fast Giảm Ping</span>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -221,14 +253,42 @@ export default function PricingSection({
 
                   {/* Features List */}
                   <ul className="space-y-2.5 mb-4 text-xs sm:text-sm text-slate-700">
-                    {pkg.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 stroke-[2.5]" />
-                        </div>
-                        <span className="leading-snug">{feat}</span>
-                      </li>
-                    ))}
+                    {pkg.features.map((feat, idx) => {
+                      const lower = feat.toLowerCase();
+                      let featIcon = null;
+                      if (lower.includes("đối xứng")) {
+                        featIcon = "/images/icons/liquid-glass/bang-thong-doi-xung.webp";
+                      } else if (lower.includes("ultra fast") || lower.includes("giảm ping")) {
+                        featIcon = "/images/icons/liquid-glass/ultra-fast.webp";
+                      } else if (lower.includes("download") || lower.includes("tải về") || lower.includes("tải xuống")) {
+                        featIcon = "/images/icons/liquid-glass/tai-xuong.webp";
+                      } else if (lower.includes("upload") || lower.includes("tải lên")) {
+                        featIcon = "/images/icons/liquid-glass/tai-len.webp";
+                      } else if (lower.includes("smart tv") || lower.includes("không cần box")) {
+                        featIcon = "/images/icons/liquid-glass/smart-tv.webp";
+                      } else if (lower.includes("kênh truyền hình")) {
+                        featIcon = "/images/icons/liquid-glass/kenh-truyen-hinh.webp";
+                      }
+
+                      return (
+                        <li key={idx} className="flex items-start gap-2">
+                          <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
+                            {featIcon ? (
+                              <img
+                                src={featIcon}
+                                alt="Icon"
+                                width={14}
+                                height={14}
+                                className="w-3.5 h-3.5 object-contain"
+                              />
+                            ) : (
+                              <Check className="w-3 h-3 stroke-[2.5]" />
+                            )}
+                          </div>
+                          <span className="leading-snug">{feat}</span>
+                        </li>
+                      );
+                    })}
                   </ul>
 
                   {/* Equipment included */}

@@ -59,8 +59,8 @@ export default function SportsEplSection() {
               <div className="flex items-start gap-2.5">
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
                   <img
-                    src="/images/icons/liquid-glass/fpt-play.webp"
-                    alt="FPT Play"
+                    src="/images/icons/liquid-glass/smart-tv.webp"
+                    alt="Smart TV"
                     width={20}
                     height={20}
                     className="w-5 h-5 object-contain"
@@ -75,7 +75,7 @@ export default function SportsEplSection() {
               <div className="flex items-start gap-2.5">
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
                   <img
-                    src="/images/icons/liquid-glass/fpt-play.webp"
+                    src="/images/icons/liquid-glass/kenh-truyen-hinh.webp"
                     alt="Kênh Truyền Hình"
                     width={20}
                     height={20}

@@ -36,15 +36,27 @@ export default function TruyenHinhFptPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
             <div className="p-6 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs hover:border-orange-300 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-2xl bg-orange-100 text-fpt-orange flex items-center justify-center mb-4 shadow-2xs">
-                <Tv className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-2xl bg-orange-100 flex items-center justify-center mb-4 shadow-2xs p-1">
+                <img
+                  src="/images/icons/liquid-glass/kenh-truyen-hinh.webp"
+                  alt="Kênh truyền hình"
+                  width={28}
+                  height={28}
+                  className="w-7 h-7 object-contain"
+                />
               </div>
               <h3 className="font-extrabold text-base text-slate-900 mb-1">Gần 200 Kênh Truyền Hình</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-normal">Đầy đủ kênh truyền hình quốc gia VTV, HTV, VTC và các kênh quốc tế HBO, Cinemax, Cartoon Network.</p>
             </div>
             <div className="p-6 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs hover:border-orange-300 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-4 shadow-2xs">
-                <Sparkles className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-2xl bg-blue-100 flex items-center justify-center mb-4 shadow-2xs p-1">
+                <img
+                  src="/images/icons/liquid-glass/smart-tv.webp"
+                  alt="Smart TV"
+                  width={28}
+                  height={28}
+                  className="w-7 h-7 object-contain"
+                />
               </div>
               <h3 className="font-extrabold text-base text-slate-900 mb-1">Xem Trực Tiếp Không Cần Box</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-normal">Cài đặt dễ dàng ứng dụng FPT Play trên Smart TV (Samsung, LG, Sony, Android TV) không cần thêm đầu Box rườm rà.</p>
