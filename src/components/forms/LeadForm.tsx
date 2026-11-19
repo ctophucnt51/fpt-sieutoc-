@@ -513,6 +513,13 @@ export default function LeadForm({
             </>
           ) : (
             <>
+              <img
+                src="/images/icons/liquid-glass/dang-ky.webp"
+                alt="Đăng ký"
+                width={18}
+                height={18}
+                className="w-4.5 h-4.5 object-contain shrink-0"
+              />
               <span className="leading-tight">GỬI ĐĂNG KÝ KHẢO SÁT 0 ĐỒNG</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
             </>

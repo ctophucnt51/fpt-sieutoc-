@@ -1,0 +1,6 @@
+GOFPT LIQUID GLASS
+24 icon WebP nền trong suốt ở kích thước 128 và 256 px.
+Mở file HTML để xem toàn bộ icon và mẫu thanh mobile.
+Trong WordPress/Flatsome, tải các file WebP cần dùng vào Media và chọn ảnh trong UX Builder.
+Hiển thị khoảng 24 px trên thanh mobile và 48–64 px trên thẻ dịch vụ.
+Đặt nhãn Zalo cạnh icon hội thoại để khách nhận biết.

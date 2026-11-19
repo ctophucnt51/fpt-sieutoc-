@@ -42,8 +42,8 @@ export default function BottomCtaSection({
             <div className="hidden sm:grid grid-cols-2 gap-2.5 sm:gap-3 text-left">
               <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
                 <img
-                  src="/images/icons/liquid-glass/wifi-6.webp"
-                  alt="Wi-Fi 6"
+                  src="/images/icons/liquid-glass/modem.webp"
+                  alt="Modem Wi-Fi 6"
                   width={18}
                   height={18}
                   className="w-4.5 h-4.5 object-contain shrink-0"
@@ -61,11 +61,23 @@ export default function BottomCtaSection({
                 <span className="text-xs text-slate-800 font-semibold">Tặng kèm Camera AI an ninh</span>
               </div>
               <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
-                <Clock className="w-4 h-4 text-fpt-orange shrink-0" />
+                <img
+                  src="/images/icons/liquid-glass/lap-dat.webp"
+                  alt="Lắp đặt 24h"
+                  width={18}
+                  height={18}
+                  className="w-4.5 h-4.5 object-contain shrink-0"
+                />
                 <span className="text-xs text-slate-800 font-semibold">Khảo sát &amp; Lắp đặt trong 24h</span>
               </div>
               <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                <img
+                  src="/images/icons/liquid-glass/bao-tri.webp"
+                  alt="Bảo trì"
+                  width={18}
+                  height={18}
+                  className="w-4.5 h-4.5 object-contain shrink-0"
+                />
                 <span className="text-xs text-slate-800 font-semibold">Bảo trì kỹ thuật trọn đời</span>
               </div>
             </div>
@@ -73,8 +85,14 @@ export default function BottomCtaSection({
             {/* Direct Hotline Box (Desktop & Tablet) - White Glass Card */}
             <div className="hidden sm:flex p-4 rounded-2xl bg-white/90 backdrop-blur-xl border border-orange-200/80 shadow-2xs items-center justify-between gap-3">
               <div className="flex items-center gap-3 text-left">
-                <div className="w-10 h-10 rounded-xl bg-orange-100 text-fpt-orange flex items-center justify-center shrink-0 shadow-2xs">
-                  <PhoneCall className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 p-1 flex items-center justify-center shrink-0 shadow-2xs">
+                  <img
+                    src="/images/icons/liquid-glass/hotline.webp"
+                    alt="Hotline"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 object-contain"
+                  />
                 </div>
                 <div>
                   <span className="block text-[11px] text-slate-500 font-medium">Tổng đài tư vấn 24/7:</span>

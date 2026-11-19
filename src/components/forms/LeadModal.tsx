@@ -70,8 +70,14 @@ export default function LeadModal({ isOpen, selectedPackage, onClose }: LeadModa
         <div className="overflow-y-auto p-3 sm:p-5 flex-1">
           {/* Promo Callout in Modal */}
           <div className="mb-3.5 p-3 rounded-2xl bg-orange-50/70 border border-orange-200/70 text-xs text-slate-700 flex items-center gap-2.5 shadow-2xs">
-            <div className="w-7 h-7 rounded-xl bg-orange-100 border border-orange-200 text-fpt-orange flex items-center justify-center shrink-0 shadow-2xs">
-              <ShieldCheck className="w-4 h-4" />
+            <div className="w-7 h-7 rounded-xl bg-orange-100/80 border border-orange-200 p-0.5 flex items-center justify-center shrink-0 shadow-2xs">
+              <img
+                src="/images/icons/liquid-glass/qua-tang.webp"
+                alt="Ưu đãi hôm nay"
+                width={20}
+                height={20}
+                className="w-5 h-5 object-contain"
+              />
             </div>
             <div className="text-[11px] sm:text-xs leading-snug">
               <strong className="text-slate-900 font-bold">Ưu đãi hôm nay:</strong> Trang bị Modem Wi-Fi 6 &amp; <strong className="text-fpt-orange font-bold">Camera AI 0đ</strong> &bull; Lắp đặt trong 24h.

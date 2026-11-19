@@ -73,8 +73,14 @@ export default function SportsEplSection() {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
-                  <Tv className="w-4 h-4" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
+                  <img
+                    src="/images/icons/liquid-glass/fpt-play.webp"
+                    alt="Kênh Truyền Hình"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 object-contain"
+                  />
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-white">Gần 170 Kênh Truyền Hình</h4>
@@ -83,8 +89,14 @@ export default function SportsEplSection() {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 text-blue-400 flex items-center justify-center shrink-0 mt-0.5">
-                  <Smartphone className="w-4 h-4" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
+                  <img
+                    src="/images/icons/liquid-glass/da-thiet-bi.webp"
+                    alt="Đa Thiết Bị"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 object-contain"
+                  />
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-white">Xem Trên Nhiều Thiết Bị</h4>

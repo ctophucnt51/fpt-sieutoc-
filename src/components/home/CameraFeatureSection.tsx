@@ -61,8 +61,14 @@ export default function CameraFeatureSection() {
           </div>
 
           <div className="p-5 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-200 hover:shadow-md transition-all shadow-2xs">
-            <div className="w-10 h-10 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center mb-3 shadow-2xs">
-              <ShieldCheck className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-100 p-1 flex items-center justify-center mb-3 shadow-2xs">
+              <img
+                src="/images/icons/liquid-glass/bao-hanh.webp"
+                alt="Bảo Hành"
+                width={28}
+                height={28}
+                className="w-7 h-7 object-contain"
+              />
             </div>
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5">Bảo Hành Chính Hãng</h3>
             <p className="text-xs text-slate-600 leading-relaxed font-normal">

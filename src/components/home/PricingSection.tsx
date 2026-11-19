@@ -48,8 +48,15 @@ export default function PricingSection({
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-block px-3 py-1 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-2xs backdrop-blur-md">
-            Bảng Giá Minh Bạch
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-2xs backdrop-blur-md">
+            <img
+              src="/images/icons/liquid-glass/bang-gia.webp"
+              alt="Bảng Giá"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
+            <span>Bảng Giá Minh Bạch</span>
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
             {title}
@@ -62,12 +69,19 @@ export default function PricingSection({
           <div className="mt-4 sm:mt-6 grid grid-cols-3 gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs max-w-sm sm:max-w-md mx-auto">
             <button
               onClick={() => setActiveTab("all")}
-              className={`py-2 px-1.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold transition-all whitespace-nowrap text-center cursor-pointer ${
+              className={`py-2 px-1.5 sm:px-3 rounded-xl text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 sm:gap-1.5 transition-all whitespace-nowrap text-center cursor-pointer ${
                 activeTab === "all"
                   ? "bg-fpt-orange text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
               }`}
             >
+              <img
+                src="/images/icons/liquid-glass/bang-gia.webp"
+                alt="Tất cả"
+                width={15}
+                height={15}
+                className="w-3.5 h-3.5 object-contain shrink-0 hidden sm:inline-block"
+              />
               <span>Tất Cả</span>
             </button>
             <button
@@ -113,6 +127,13 @@ export default function PricingSection({
             const isCombo = pkg.category === "combo";
             const startingPrice = getStartingPrice(pkg.priceDisplay);
             const hasRange = pkg.priceDisplay.includes(" - ");
+            const pkgIcon = pkg.id === "f-game" || pkg.name.toLowerCase().includes("game")
+              ? "/images/icons/liquid-glass/gaming.webp"
+              : pkg.name.toLowerCase().includes("mesh")
+              ? "/images/icons/liquid-glass/wifi-mesh.webp"
+              : isCombo
+              ? "/images/icons/liquid-glass/fpt-play.webp"
+              : "/images/icons/liquid-glass/wifi-6.webp";
 
             return (
               <div
@@ -125,8 +146,14 @@ export default function PricingSection({
               >
                 {/* Highlight Badge */}
                 {pkg.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-fpt-orange text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full shadow-[0_4px_12px_rgba(243,112,33,0.35)] tracking-wider flex items-center gap-1 whitespace-nowrap">
-                    <Sparkles className="w-3 h-3 fill-current" />
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-fpt-orange text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full shadow-[0_4px_12px_rgba(243,112,33,0.35)] tracking-wider flex items-center gap-1.5 whitespace-nowrap">
+                    <img
+                      src="/images/icons/liquid-glass/qua-tang.webp"
+                      alt="Hot"
+                      width={14}
+                      height={14}
+                      className="w-3.5 h-3.5 object-contain shrink-0"
+                    />
                     <span>Gói Cước Bán Chạy Nhất</span>
                   </div>
                 )}
@@ -137,7 +164,7 @@ export default function PricingSection({
                     <div className="flex justify-between items-start gap-2 mb-1.5">
                       <span className="text-[11px] font-bold text-fpt-orange uppercase tracking-wider inline-flex items-center gap-1.5">
                         <img
-                          src={isCombo ? "/images/icons/liquid-glass/fpt-play.webp" : "/images/icons/liquid-glass/wifi-6.webp"}
+                          src={pkgIcon}
                           alt={isCombo ? "Combo" : "Internet"}
                           width={14}
                           height={14}
@@ -236,8 +263,13 @@ export default function PricingSection({
         </div>
 
         {/* Pricing Transparency Note - White Glass Card */}
-        <div className="mt-8 sm:mt-10 p-4 sm:p-5 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs text-center max-w-3xl mx-auto">
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+        <div className="mt-8 sm:mt-10 p-4 sm:p-5 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="flex items-center gap-1.5 shrink-0">
+            <img src="/images/icons/liquid-glass/modem.webp" alt="Modem" width={22} height={22} className="w-[22px] h-[22px] object-contain" />
+            <img src="/images/icons/liquid-glass/camera-ai.webp" alt="Camera" width={22} height={22} className="w-[22px] h-[22px] object-contain" />
+            <img src="/images/icons/liquid-glass/lap-dat.webp" alt="Lắp đặt" width={22} height={22} className="w-[22px] h-[22px] object-contain" />
+          </div>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal text-center sm:text-left">
             <strong className="text-slate-900 font-bold">Chương trình khuyến mãi:</strong> Khách hàng đăng ký gói cước mới được trang bị miễn phí Modem Wi-Fi 6 thế hệ mới, <strong className="text-fpt-orange font-bold">tặng kèm Camera FPT AI an ninh thông minh miễn phí</strong> và hỗ trợ khảo sát lắp đặt tận nhà trong 24 giờ.
           </p>
         </div>

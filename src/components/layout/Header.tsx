@@ -63,7 +63,13 @@ export default function Header() {
           {/* Desktop Announcement - Đồng bộ động từ Cài đặt hệ thống */}
           <div className="hidden md:flex items-center gap-2 min-w-0">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-fpt-orange text-white text-[9px] font-extrabold tracking-wide uppercase shadow-2xs shrink-0">
-              <Sparkles className="w-2.5 h-2.5 fill-current" />
+              <img
+                src="/images/icons/liquid-glass/qua-tang.webp"
+                alt="Ưu Đãi"
+                width={12}
+                height={12}
+                className="w-3 h-3 object-contain inline-block shrink-0"
+              />
               {siteConfig.promo?.topBarBadge || "Ưu Đãi"}
             </span>
             <p className="text-[11px] lg:text-[11.5px] text-slate-800 truncate font-medium">
@@ -79,7 +85,13 @@ export default function Header() {
             className="md:hidden flex items-center gap-1.5 min-w-0 flex-1 overflow-hidden cursor-pointer"
           >
             <span className="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded-full bg-fpt-orange text-white text-[8.5px] font-extrabold uppercase shrink-0">
-              <Sparkles className="w-2 h-2 fill-current" />
+              <img
+                src="/images/icons/liquid-glass/qua-tang.webp"
+                alt="Ưu Đãi"
+                width={11}
+                height={11}
+                className="w-2.5 h-2.5 object-contain inline-block shrink-0"
+              />
               {siteConfig.promo?.topBarBadge || "Ưu Đãi"}
             </span>
             <div className="overflow-hidden whitespace-nowrap flex-1">
@@ -104,7 +116,13 @@ export default function Header() {
               onClick={() => handleHotlineClick("Top Bar Hotline")}
               className="font-bold text-slate-900 hover:text-fpt-orange transition-colors flex items-center gap-1"
             >
-              <Phone className="w-3 h-3 text-fpt-orange fill-current" />
+              <img
+                src="/images/icons/liquid-glass/hotline.webp"
+                alt="Hotline"
+                width={14}
+                height={14}
+                className="w-3.5 h-3.5 object-contain inline-block shrink-0"
+              />
               <span>{siteConfig.contact.hotlineDisplay}</span>
             </a>
           </div>
@@ -197,9 +215,16 @@ export default function Header() {
           {/* 4. Bảng Giá */}
           <Link
             href="/#bang-gia"
-            className="text-slate-700 hover:text-fpt-orange hover:bg-orange-50 transition-colors whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl"
+            className="text-slate-700 hover:text-fpt-orange hover:bg-orange-50 transition-colors whitespace-nowrap py-1.5 px-2.5 xl:px-3 rounded-xl flex items-center gap-1.5"
           >
-            Bảng Giá
+            <img
+              src="/images/icons/liquid-glass/bang-gia.webp"
+              alt="Bảng Giá"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain inline-block shrink-0"
+            />
+            <span>Bảng Giá</span>
           </Link>
 
           {/* 5. Tin Tức */}
@@ -223,7 +248,13 @@ export default function Header() {
             onClick={() => handleHotlineClick("Header Hotline Pill")}
             className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-50 hover:bg-orange-50 border border-slate-200/80 text-slate-800 text-xs font-semibold shadow-2xs transition-all whitespace-nowrap"
           >
-            <Phone className="w-3.5 h-3.5 text-fpt-orange fill-current" />
+            <img
+              src="/images/icons/liquid-glass/hotline.webp"
+              alt="Hotline"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
             <span className="text-slate-500 font-normal">Hotline:</span>
             <span className="font-bold text-fpt-orange">{siteConfig.contact.hotlineDisplay}</span>
           </a>
@@ -235,8 +266,15 @@ export default function Header() {
               handleHotlineClick("Header CTA Button");
               openLeadModal("Combo GIGA");
             }}
-            className="hidden sm:inline-flex items-center justify-center px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-fpt-orange hover:bg-fpt-hover text-white font-bold text-xs shadow-[0_4px_16px_rgba(243,112,33,0.3)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.4)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer min-w-max"
+            className="hidden sm:inline-flex items-center justify-center gap-1.5 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-fpt-orange hover:bg-fpt-hover text-white font-bold text-xs shadow-[0_4px_16px_rgba(243,112,33,0.3)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.4)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer min-w-max"
           >
+            <img
+              src="/images/icons/liquid-glass/dang-ky.webp"
+              alt="Đăng ký"
+              width={16}
+              height={16}
+              className="w-4 h-4 object-contain shrink-0"
+            />
             <span>Đăng Ký Tư Vấn</span>
           </button>
 
@@ -263,7 +301,13 @@ export default function Header() {
             {mobileMenuOpen ? (
               <X className="w-5 h-5 text-fpt-orange" />
             ) : (
-              <Menu className="w-5 h-5 text-slate-900" />
+              <img
+                src="/images/icons/liquid-glass/menu-khac.webp"
+                alt="Menu"
+                width={20}
+                height={20}
+                className="w-5 h-5 object-contain"
+              />
             )}
           </button>
         </div>
@@ -353,7 +397,13 @@ export default function Header() {
                   className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50 transition-colors group"
                 >
                   <div className="flex items-center gap-2.5">
-                    <PricingChartVector size={16} className="w-4 h-4 text-slate-600 group-hover:text-fpt-orange shrink-0" />
+                    <img
+                      src="/images/icons/liquid-glass/bang-gia.webp"
+                      alt="Bảng Giá Cước"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 object-contain shrink-0"
+                    />
                     <span className="text-[13.5px] font-bold text-slate-900 group-hover:text-fpt-orange transition-colors">
                       Bảng Giá Cước
                     </span>
@@ -367,7 +417,13 @@ export default function Header() {
                   className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-orange-50 transition-colors group"
                 >
                   <div className="flex items-center gap-2.5">
-                    <NewsArticleVector size={16} className="w-4 h-4 text-slate-600 group-hover:text-fpt-orange shrink-0" />
+                    <img
+                      src="/images/icons/liquid-glass/qua-tang.webp"
+                      alt="Tin Tức & Khuyến Mãi"
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 object-contain shrink-0"
+                    />
                     <span className="text-[13.5px] font-bold text-slate-900 group-hover:text-fpt-orange transition-colors">
                       Tin Tức & Khuyến Mãi
                     </span>

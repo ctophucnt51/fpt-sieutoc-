@@ -146,8 +146,14 @@ export default function Wifi6Explainer() {
               </div>
 
               <div className="p-3.5 sm:p-4 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-300 hover:shadow-md transition-all shadow-2xs">
-                <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-2.5 shadow-2xs">
-                  <Cpu className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
+                  <img
+                    src="/images/icons/liquid-glass/gaming.webp"
+                    alt="Low Ping Gaming"
+                    width={26}
+                    height={26}
+                    className="w-[26px] h-[26px] object-contain shrink-0"
+                  />
                 </div>
                 <h3 className="font-bold text-sm sm:text-base text-slate-900 mb-1">Độ Trễ Thấp (Low Ping)</h3>
                 <p className="text-xs text-slate-500 leading-relaxed font-normal">
@@ -172,8 +178,14 @@ export default function Wifi6Explainer() {
               </div>
 
               <div className="p-3.5 sm:p-4 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-300 hover:shadow-md transition-all shadow-2xs">
-                <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center mb-2.5 shadow-2xs">
-                  <ShieldCheck className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-xl bg-purple-50 border border-purple-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
+                  <img
+                    src="/images/icons/liquid-glass/bao-hanh.webp"
+                    alt="Bảo Hành"
+                    width={26}
+                    height={26}
+                    className="w-[26px] h-[26px] object-contain shrink-0"
+                  />
                 </div>
                 <h3 className="font-bold text-sm sm:text-base text-slate-900 mb-1">Bảo Hành Thiết Bị Trọn Đời</h3>
                 <p className="text-xs text-slate-500 leading-relaxed font-normal">
@@ -195,8 +207,15 @@ export default function Wifi6Explainer() {
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-orange-50 text-fpt-orange border border-orange-200/70 text-[10px] font-bold uppercase whitespace-nowrap mb-1">
-                  Thiết Bị Tiêu Chuẩn FPT
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-orange-50 text-fpt-orange border border-orange-200/70 text-[10px] font-bold uppercase whitespace-nowrap mb-1">
+                  <img
+                    src="/images/icons/liquid-glass/modem.webp"
+                    alt="Modem"
+                    width={13}
+                    height={13}
+                    className="w-3.5 h-3.5 object-contain shrink-0"
+                  />
+                  <span>Thiết Bị Tiêu Chuẩn FPT</span>
                 </span>
                 <div className="text-xs sm:text-sm font-bold text-slate-900 leading-snug break-normal hyphens-none">
                   Modem Wi-Fi 6 Băng Tần Kép AX3000

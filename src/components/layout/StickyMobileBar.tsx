@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLeadModal } from "@/context/LeadModalContext";
 import { useSiteConfig } from "@/context/ConfigContext";
 import { fbTracker } from "@/components/tracking/MetaPixel";
-import { Home, FileText, Phone } from "lucide-react";
+// Lucide icon imports removed in favor of full 24 Liquid Glass icon set
 
 export default function StickyMobileBar() {
   const pathname = usePathname();
@@ -58,7 +58,13 @@ export default function StickyMobileBar() {
               : "text-slate-500 hover:text-slate-800 font-medium"
           }`}
         >
-          <Home className="w-5 h-5 shrink-0 transition-colors" strokeWidth={isHomeActive ? 2.4 : 1.9} />
+          <img
+            src="/images/icons/liquid-glass/trang-chu.webp"
+            alt="Trang chủ"
+            width={22}
+            height={22}
+            className="w-[22px] h-[22px] object-contain shrink-0"
+          />
           <span className="text-[11px] leading-tight mt-1 truncate">Trang chủ</span>
         </Link>
 
@@ -87,7 +93,13 @@ export default function StickyMobileBar() {
           onClick={handleOpenRegister}
           className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-slate-500 hover:text-fpt-orange active:text-fpt-orange font-medium"
         >
-          <FileText className="w-5 h-5 shrink-0 transition-colors" strokeWidth={1.9} />
+          <img
+            src="/images/icons/liquid-glass/dang-ky.webp"
+            alt="Đăng ký"
+            width={22}
+            height={22}
+            className="w-[22px] h-[22px] object-contain shrink-0"
+          />
           <span className="text-[11px] leading-tight mt-1 truncate">Đăng ký</span>
         </button>
 
@@ -116,7 +128,13 @@ export default function StickyMobileBar() {
           onClick={handleContactClick}
           className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-slate-500 hover:text-fpt-orange active:text-fpt-orange font-medium"
         >
-          <Phone className="w-5 h-5 shrink-0 transition-colors" strokeWidth={1.9} />
+          <img
+            src="/images/icons/liquid-glass/hotline.webp"
+            alt="Hotline"
+            width={22}
+            height={22}
+            className="w-[22px] h-[22px] object-contain shrink-0"
+          />
           <span className="text-[11px] leading-tight mt-1 truncate">Liên hệ</span>
         </a>
       </div>

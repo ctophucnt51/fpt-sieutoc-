@@ -53,8 +53,14 @@ export default function HeroSection({
               <div className="space-y-2.5 sm:space-y-3 pt-0.5 text-left max-w-2xl mx-auto lg:max-w-none">
                 {/* 1. Thiết Bị Tặng Kèm - Trực Quan & Tinh Tế (Đồng bộ động từ Cài đặt hệ thống) */}
                 <div className="flex items-center gap-2.5 p-2.5 sm:p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-emerald-200/90 text-slate-800 shadow-2xs">
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 shadow-2xs">
-                    <Gift className="w-4 h-4" />
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0 p-0.5 shadow-2xs">
+                    <img
+                      src="/images/icons/liquid-glass/qua-tang.webp"
+                      alt="Quà tặng"
+                      width={22}
+                      height={22}
+                      className="w-[22px] h-[22px] object-contain"
+                    />
                   </div>
                   <div className="leading-snug text-[11px] sm:text-xs">
                     {siteConfig.promo?.heroGiftText ? (
@@ -214,12 +220,24 @@ export default function HeroSection({
 
                 {/* 3. Cam Kết & Đánh Giá - Chống xuống hàng, canh giữa cân đối tránh khoảng trắng lớn */}
                 <div className="flex flex-nowrap items-center justify-center lg:justify-start gap-2 sm:gap-2.5 pt-1 text-[10px] sm:text-[11px] text-slate-700 font-semibold whitespace-nowrap overflow-x-auto no-scrollbar">
-                  <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-2xs shrink-0">
-                    <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-fpt-orange shrink-0" />
+                  <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-2xs shrink-0">
+                    <img
+                      src="/images/icons/liquid-glass/lap-dat.webp"
+                      alt="Lắp đặt 24h"
+                      width={14}
+                      height={14}
+                      className="w-3.5 h-3.5 object-contain shrink-0"
+                    />
                     <span>Lắp đặt 24H</span>
                   </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-2xs shrink-0">
-                    <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600 shrink-0" />
+                  <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-2xs shrink-0">
+                    <img
+                      src="/images/icons/liquid-glass/khao-sat.webp"
+                      alt="Khảo sát 0đ"
+                      width={14}
+                      height={14}
+                      className="w-3.5 h-3.5 object-contain shrink-0"
+                    />
                     <span>Khảo sát 0đ</span>
                   </span>
                   <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-2xs shrink-0">
@@ -294,8 +312,14 @@ export default function HeroSection({
 
                   {/* Card 4: 24h Fast Installation */}
                   <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-white/85 backdrop-blur-xl hover:bg-white border border-slate-200/80 shadow-2xs transition-all">
-                    <div className="w-7 h-7 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
-                      <Clock className="w-3.5 h-3.5" />
+                    <div className="w-7 h-7 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center shrink-0 p-0.5">
+                      <img
+                        src="/images/icons/liquid-glass/lap-dat.webp"
+                        alt="Lắp đặt 24h"
+                        width={22}
+                        height={22}
+                        className="w-[22px] h-[22px] object-contain shrink-0"
+                      />
                     </div>
                     <div className="min-w-0">
                       <h4 className="text-xs font-bold text-slate-900 truncate">Lắp Đặt 24H</h4>

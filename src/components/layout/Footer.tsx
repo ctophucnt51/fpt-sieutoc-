@@ -57,7 +57,13 @@ export default function Footer() {
             </div>
 
             <div className="pt-1 flex items-center gap-2 text-xs text-emerald-400 font-medium">
-              <ShieldCheck className="w-4 h-4 shrink-0" />
+              <img
+                src="/images/icons/liquid-glass/hop-dong.webp"
+                alt="HĐ điện tử"
+                width={16}
+                height={16}
+                className="w-4 h-4 object-contain shrink-0"
+              />
               <span>Khảo sát 0đ • Ký HĐ điện tử • Lắp đặt trong 24h</span>
             </div>
           </div>
@@ -128,8 +134,14 @@ export default function Footer() {
               <li>
                 <div className="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                   <div className="flex items-start gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-orange-500/10 text-fpt-orange flex items-center justify-center shrink-0">
-                      <Phone className="w-4 h-4" />
+                    <div className="w-8 h-8 rounded-xl bg-orange-500/10 border border-orange-500/20 p-1 flex items-center justify-center shrink-0">
+                      <img
+                        src="/images/icons/liquid-glass/hotline.webp"
+                        alt="Hotline"
+                        width={22}
+                        height={22}
+                        className="w-[22px] h-[22px] object-contain"
+                      />
                     </div>
                     <div>
                       <span className="block text-[10px] text-slate-400 font-medium">Hotline Bán Hàng &amp; Tư Vấn:</span>
@@ -148,8 +160,14 @@ export default function Footer() {
               <li>
                 <div className="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                   <div className="flex items-start gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0">
-                      <MessageSquare className="w-4 h-4" />
+                    <div className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 p-1 flex items-center justify-center shrink-0">
+                      <img
+                        src="/images/icons/liquid-glass/chat-zalo.webp"
+                        alt="Zalo"
+                        width={22}
+                        height={22}
+                        className="w-[22px] h-[22px] object-contain"
+                      />
                     </div>
                     <div>
                       <span className="block text-[10px] text-slate-400 font-medium">Tư Vấn Zalo Nhanh:</span>
