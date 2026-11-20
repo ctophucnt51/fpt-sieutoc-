@@ -74,145 +74,146 @@ export default function HeroSection({
                   </div>
                 </div>
 
-                {/* 2. Hai Gói Cước Ưu Tiên - Nâng cấp cao cấp, sang trọng, chuyên nghiệp */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  {/* Thẻ 1: Combo Net + Ngoại Hạng Anh 220K (Flagship Glass Card) */}
+                {/* 2. Hai Gói Cước Ưu Tiên - Viettel Vx Wave Header Card Style */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                  {/* Thẻ 1: Combo Net + Ngoại Hạng Anh 220K */}
                   <div
                     onClick={() => openLeadModal("Combo GIGA")}
-                    className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white via-orange-50/30 to-white backdrop-blur-2xl border-2 border-fpt-orange shadow-[0_10px_35px_rgba(243,112,33,0.15)] hover:shadow-[0_16px_45px_rgba(243,112,33,0.24)] transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+                    className="rounded-3xl bg-white shadow-[0_6px_25px_rgba(243,112,33,0.14)] hover:shadow-[0_12px_35px_rgba(243,112,33,0.22)] border border-orange-200/80 transition-all cursor-pointer group flex flex-col justify-between overflow-hidden"
                   >
-                    {/* Subtle warm ambient glow inside card */}
-                    <div className="absolute -top-12 -right-12 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl pointer-events-none" />
-
-                    <div>
-                      {/* Top Badges Row */}
-                      <div className="flex items-center justify-between gap-1.5 mb-2">
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-100/90 text-fpt-orange font-extrabold text-[10px] tracking-wide uppercase shadow-2xs">
-                          <img
-                            src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
-                            alt="EPL"
-                            width={14}
-                            height={14}
-                            className="w-3.5 h-3.5 object-contain shrink-0"
-                          />
-                          <span>Combo Thể Thao</span>
+                    {/* Viettel Vx Wave Header in FPT Orange */}
+                    <div className="relative bg-gradient-to-r from-orange-500 via-fpt-orange to-[#d4560b] text-white p-4 pb-6 overflow-hidden">
+                      <div className="absolute -top-8 -right-8 w-24 h-24 bg-white/10 rounded-full blur-lg pointer-events-none" />
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-between gap-1.5 mb-1">
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-white/95 uppercase tracking-wider">
+                            <img
+                              src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                              alt="EPL"
+                              width={13}
+                              height={13}
+                              className="w-3.5 h-3.5 object-contain brightness-0 invert"
+                            />
+                            <span>Combo Thể Thao</span>
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full bg-white text-red-600 font-black text-[9px] tracking-tight uppercase shadow-xs">
+                            380 Trận EPL
+                          </span>
                         </div>
-                        <span className="px-2.5 py-1 rounded-full bg-red-600 text-white font-black text-[10px] tracking-tight shadow-2xs">
-                          380 Trận EPL
-                        </span>
+                        <h3 className="text-base sm:text-lg font-black text-white tracking-tight leading-tight">
+                          Combo Internet + Ngoại Hạng Anh
+                        </h3>
                       </div>
-
-                      {/* Package Title */}
-                      <h3 className="text-sm sm:text-base font-black text-slate-900 group-hover:text-fpt-orange transition-colors tracking-tight leading-snug">
-                        Combo Internet + Ngoại Hạng Anh
-                      </h3>
-
-                      {/* Price Display */}
-                      <div className="flex items-baseline gap-1 my-2">
-                        <span className="text-2xl sm:text-3xl font-black text-fpt-orange tracking-tight leading-none">
-                          220.000đ
-                        </span>
-                        <span className="text-xs text-slate-500 font-semibold">/tháng</span>
-                        <span className="text-[10px] text-slate-400 font-medium ml-0.5">(Đã gồm VAT)</span>
+                      <div className="absolute -bottom-1 inset-x-0 w-full overflow-hidden leading-none pointer-events-none">
+                        <svg className="relative block w-full h-3.5 text-white" viewBox="0 0 360 20" fill="currentColor" preserveAspectRatio="none">
+                          <path d="M0,0 C120,20 240,0 360,16 L360,20 L0,20 Z" />
+                        </svg>
                       </div>
-
-                      {/* Feature Checklist Bullets */}
-                      <ul className="space-y-1.5 my-3 text-[11px] sm:text-xs text-slate-700">
-                        <li className="flex items-start gap-1.5 font-medium leading-tight">
-                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Xem 380 trận EPL trên Smart TV (App FPT Play)</span>
-                        </li>
-                        <li className="flex items-start gap-1.5 font-medium leading-tight">
-                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Internet cáp quang 150 Mbps mượt mà, ổn định</span>
-                        </li>
-                        <li className="flex items-start gap-1.5 font-medium leading-tight">
-                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Trang bị Modem Wi-Fi 6 + Tặng Camera AI 0đ</span>
-                        </li>
-                      </ul>
                     </div>
 
-                    {/* Action Bar */}
-                    <div className="mt-2 pt-2.5 border-t border-orange-100 flex items-center justify-between">
-                      <span className="text-[11px] font-semibold text-slate-500">Lắp đặt trong 24h</span>
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-fpt-orange group-hover:bg-fpt-hover text-white text-xs font-bold shadow-xs group-hover:shadow-md transition-all">
-                        <span>Đăng ký ngay</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    {/* Card Content */}
+                    <div className="p-4 flex-1 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-baseline gap-1 my-1">
+                          <span className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none">
+                            220.000đ
+                          </span>
+                          <span className="text-xs text-slate-500 font-semibold">/tháng</span>
+                        </div>
+
+                        <ul className="space-y-1.5 my-2.5 text-[11px] sm:text-xs text-slate-700">
+                          <li className="flex items-start gap-1.5 font-medium leading-tight">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>Xem 380 trận EPL trên Smart TV (FPT Play)</span>
+                          </li>
+                          <li className="flex items-start gap-1.5 font-medium leading-tight">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>Internet cáp quang 300 Mbps mượt mà</span>
+                          </li>
+                          <li className="flex items-start gap-1.5 font-medium leading-tight">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>Trang bị Modem Wi-Fi 6 + Tặng Camera AI 0đ</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="mt-2 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+                        <span className="text-[11px] font-semibold text-slate-500">Lắp đặt trong 24h</span>
+                        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-orange-500 to-fpt-orange group-hover:from-orange-600 group-hover:to-fpt-orange text-white text-xs font-bold shadow-xs group-hover:shadow-md transition-all">
+                          <span>Đăng ký</span>
+                          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Thẻ 2: Gói chỉ Internet Wi-Fi 6 195K (Sleek High-End Card) */}
+                  {/* Thẻ 2: Gói chỉ Internet Wi-Fi 6 195K */}
                   <div
                     onClick={() => openLeadModal("SKY")}
-                    className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white via-slate-50/40 to-white backdrop-blur-2xl border border-slate-200/90 hover:border-orange-400 shadow-[0_8px_30px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_45px_rgba(15,23,42,0.12)] transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+                    className="rounded-3xl bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_35px_rgba(243,112,33,0.18)] border border-slate-200/90 hover:border-orange-300 transition-all cursor-pointer group flex flex-col justify-between overflow-hidden"
                   >
-                    {/* Subtle cool ambient glow inside card */}
-                    <div className="absolute -top-12 -right-12 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
-
-                    <div>
-                      {/* Top Badges Row */}
-                      <div className="flex items-center justify-between gap-1.5 mb-2">
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-extrabold text-[10px] tracking-wide uppercase shadow-2xs">
-                          <img
-                            src="/images/icons/liquid-glass/wifi-6.webp"
-                            alt="Wi-Fi 6"
-                            width={14}
-                            height={14}
-                            className="w-3.5 h-3.5 object-contain shrink-0"
-                          />
-                          <span>Internet Cáp Quang</span>
+                    {/* Viettel Vx Wave Header in FPT Navy / Slate with Orange Accent */}
+                    <div className="relative bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white p-4 pb-6 overflow-hidden">
+                      <div className="absolute -top-8 -right-8 w-24 h-24 bg-orange-500/10 rounded-full blur-lg pointer-events-none" />
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-between gap-1.5 mb-1">
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-white/95 uppercase tracking-wider">
+                            <img
+                              src="/images/icons/liquid-glass/wifi-6.webp"
+                              alt="Wi-Fi 6"
+                              width={13}
+                              height={13}
+                              className="w-3.5 h-3.5 object-contain brightness-0 invert"
+                            />
+                            <span>Internet Cáp Quang</span>
+                          </span>
+                          <span className="px-2 py-0.5 rounded-full bg-fpt-orange text-white font-black text-[9px] tracking-tight uppercase shadow-xs">
+                            1 Gbps (Sky)
+                          </span>
                         </div>
-                        <span className="px-2.5 py-1 rounded-full bg-orange-100 text-fpt-dark font-black text-[10px] tracking-tight inline-flex items-center gap-1">
-                          <img
-                            src="/images/icons/liquid-glass/toc-do.webp"
-                            alt="Speed"
-                            width={13}
-                            height={13}
-                            className="w-3.5 h-3.5 object-contain shrink-0"
-                          />
-                          <span>1 Gbps (Sky)</span>
-                        </span>
+                        <h3 className="text-base sm:text-lg font-black text-white tracking-tight leading-tight">
+                          Chỉ Internet Wi-Fi 6 Siêu Tốc
+                        </h3>
                       </div>
-
-                      {/* Package Title */}
-                      <h3 className="text-sm sm:text-base font-black text-slate-900 group-hover:text-fpt-orange transition-colors tracking-tight leading-snug">
-                        Chỉ Internet Wi-Fi 6 Siêu Tốc
-                      </h3>
-
-                      {/* Price Display */}
-                      <div className="flex items-baseline gap-1 my-2">
-                        <span className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none">
-                          195.000đ
-                        </span>
-                        <span className="text-xs text-slate-500 font-semibold">/tháng</span>
-                        <span className="text-[10px] text-slate-400 font-medium ml-0.5">(Đã gồm VAT)</span>
+                      <div className="absolute -bottom-1 inset-x-0 w-full overflow-hidden leading-none pointer-events-none">
+                        <svg className="relative block w-full h-3.5 text-white" viewBox="0 0 360 20" fill="currentColor" preserveAspectRatio="none">
+                          <path d="M0,0 C120,20 240,0 360,16 L360,20 L0,20 Z" />
+                        </svg>
                       </div>
-
-                      {/* Feature Checklist Bullets */}
-                      <ul className="space-y-1.5 my-3 text-[11px] sm:text-xs text-slate-700">
-                        <li className="flex items-start gap-1.5 font-medium leading-tight">
-                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Mở băng thông không giới hạn tới 1 Gbps</span>
-                        </li>
-                        <li className="flex items-start gap-1.5 font-medium leading-tight">
-                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Trang bị Modem Wi-Fi 6 băng tần kép mới nhất</span>
-                        </li>
-                        <li className="flex items-start gap-1.5 font-medium leading-tight">
-                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Kết nối cùng lúc 30+ thiết bị mượt mà, không lag</span>
-                        </li>
-                      </ul>
                     </div>
 
-                    {/* Action Bar */}
-                    <div className="mt-2 pt-2.5 border-t border-slate-100 flex items-center justify-between">
-                      <span className="text-[11px] font-semibold text-slate-500">Khảo sát 0đ</span>
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 group-hover:bg-fpt-orange text-white text-xs font-bold shadow-xs group-hover:shadow-md transition-all">
-                        <span>Đăng ký ngay</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    {/* Card Content */}
+                    <div className="p-4 flex-1 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-baseline gap-1 my-1">
+                          <span className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none">
+                            195.000đ
+                          </span>
+                          <span className="text-xs text-slate-500 font-semibold">/tháng</span>
+                        </div>
+
+                        <ul className="space-y-1.5 my-2.5 text-[11px] sm:text-xs text-slate-700">
+                          <li className="flex items-start gap-1.5 font-medium leading-tight">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>Tốc độ Download cực khủng lên đến 1 Gbps</span>
+                          </li>
+                          <li className="flex items-start gap-1.5 font-medium leading-tight">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>Trang bị Modem Wi-Fi 6 hai băng tần mới nhất</span>
+                          </li>
+                          <li className="flex items-start gap-1.5 font-medium leading-tight">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>Kết nối cùng lúc 30+ thiết bị mượt mà</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="mt-2 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+                        <span className="text-[11px] font-semibold text-slate-500">Khảo sát 0đ</span>
+                        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900 group-hover:bg-fpt-orange text-white text-xs font-bold shadow-xs group-hover:shadow-md transition-all">
+                          <span>Đăng ký</span>
+                          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -350,6 +351,121 @@ export default function HeroSection({
               subheadline="Kiểm tra cổng cáp quang &amp; kích hoạt quà tặng Camera trong 15 phút"
               formLocation="hero-mobile-form"
             />
+          </div>
+        </div>
+
+        {/* Viettel Vx Style Quick Actions Bar (5 Thẻ Tiện Ích Bo Góc Mềm) */}
+        <div className="mt-8 sm:mt-10 pt-6 border-t border-slate-200/70">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3.5">
+            {/* Action 1 */}
+            <div
+              onClick={() => openLeadModal("SKY")}
+              className="p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-orange-50/50 border border-slate-200/90 hover:border-orange-300 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(243,112,33,0.12)] transition-all cursor-pointer flex items-center gap-3 group"
+            >
+              <div className="w-10 h-10 rounded-2xl bg-orange-50 group-hover:bg-fpt-orange p-1.5 flex items-center justify-center shrink-0 transition-colors shadow-2xs">
+                <img
+                  src="/images/icons/liquid-glass/wifi-6.webp"
+                  alt="Internet"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
+                />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-fpt-orange transition-colors truncate">
+                  Internet Wi-Fi 6
+                </h4>
+                <p className="text-[11px] text-slate-500 truncate">1 Gbps từ 195K/th</p>
+              </div>
+            </div>
+
+            {/* Action 2 */}
+            <div
+              onClick={() => openLeadModal("Combo GIGA")}
+              className="p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-red-50/50 border border-slate-200/90 hover:border-red-300 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(220,38,38,0.12)] transition-all cursor-pointer flex items-center gap-3 group"
+            >
+              <div className="w-10 h-10 rounded-2xl bg-red-50 group-hover:bg-red-600 p-1.5 flex items-center justify-center shrink-0 transition-colors shadow-2xs">
+                <img
+                  src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                  alt="EPL"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
+                />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-red-600 transition-colors truncate">
+                  Combo Thể Thao
+                </h4>
+                <p className="text-[11px] text-slate-500 truncate">380 trận EPL 220K</p>
+              </div>
+            </div>
+
+            {/* Action 3 */}
+            <div
+              onClick={() => openLeadModal("Combo GIGA")}
+              className="p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-emerald-50/50 border border-slate-200/90 hover:border-emerald-300 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(16,185,129,0.12)] transition-all cursor-pointer flex items-center gap-3 group"
+            >
+              <div className="w-10 h-10 rounded-2xl bg-emerald-50 group-hover:bg-emerald-600 p-1.5 flex items-center justify-center shrink-0 transition-colors shadow-2xs">
+                <img
+                  src="/images/icons/liquid-glass/camera-ai.webp"
+                  alt="Camera AI"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
+                />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors truncate">
+                  Camera FPT AI 0đ
+                </h4>
+                <p className="text-[11px] text-slate-500 truncate">An ninh đám mây</p>
+              </div>
+            </div>
+
+            {/* Action 4 */}
+            <div
+              onClick={() => openLeadModal("SKY")}
+              className="p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-blue-50/50 border border-slate-200/90 hover:border-blue-300 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(2,132,199,0.12)] transition-all cursor-pointer flex items-center gap-3 group"
+            >
+              <div className="w-10 h-10 rounded-2xl bg-blue-50 group-hover:bg-blue-600 p-1.5 flex items-center justify-center shrink-0 transition-colors shadow-2xs">
+                <img
+                  src="/images/icons/liquid-glass/lap-dat.webp"
+                  alt="Lắp đặt 24h"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
+                />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+                  Lắp Đặt 24H
+                </h4>
+                <p className="text-[11px] text-slate-500 truncate">Khảo sát tận nơi 0đ</p>
+              </div>
+            </div>
+
+            {/* Action 5 */}
+            <a
+              href={siteConfig.contact.hotlineTel}
+              className="col-span-2 sm:col-span-1 p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-orange-50/50 border border-slate-200/90 hover:border-orange-300 shadow-[0_2px_12px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_20px_rgba(243,112,33,0.12)] transition-all cursor-pointer flex items-center gap-3 group"
+            >
+              <div className="w-10 h-10 rounded-2xl bg-orange-50 group-hover:bg-fpt-orange p-1.5 flex items-center justify-center shrink-0 transition-colors shadow-2xs">
+                <img
+                  src="/images/icons/liquid-glass/hotline.webp"
+                  alt="Hotline"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
+                />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-fpt-orange transition-colors truncate">
+                  Hotline 24/7
+                </h4>
+                <p className="text-[11px] text-fpt-orange font-bold truncate">{siteConfig.contact.hotlineDisplay}</p>
+              </div>
+            </a>
           </div>
         </div>
       </div>

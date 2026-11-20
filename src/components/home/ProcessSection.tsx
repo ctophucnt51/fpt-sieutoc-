@@ -52,16 +52,16 @@ export default function ProcessSection() {
           </p>
         </div>
 
-        {/* 4 Steps Grid - White Glass Cards */}
+        {/* 4 Steps Grid - Viettel Vx Style Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 relative">
           {steps.map((item, idx) => (
             <div
               key={idx}
-              className="bg-white/85 backdrop-blur-xl rounded-3xl p-5 border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-orange-300 transition-all flex flex-col justify-between group"
+              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_32px_rgba(243,112,33,0.12)] hover:border-orange-200 transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono font-black text-fpt-orange bg-orange-50 px-2.5 py-1 rounded-xl border border-orange-200/60 shadow-2xs">
+                  <span className="text-[11px] font-black text-white bg-gradient-to-r from-orange-500 to-fpt-orange px-3 py-1 rounded-full shadow-xs uppercase tracking-tight">
                     BƯỚC {item.step}
                   </span>
                   <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200/80">
@@ -69,7 +69,7 @@ export default function ProcessSection() {
                   </span>
                 </div>
 
-                <div className="w-12 h-12 rounded-2xl bg-orange-50/80 border border-orange-200/60 p-1 flex items-center justify-center mb-3 group-hover:scale-105 transition-all shadow-2xs">
+                <div className="w-12 h-12 rounded-2xl bg-orange-50/80 border border-orange-200/60 p-1 flex items-center justify-center mb-3.5 group-hover:scale-105 transition-all shadow-2xs">
                   <img
                     src={item.iconImg}
                     alt={item.title}
@@ -79,7 +79,7 @@ export default function ProcessSection() {
                   />
                 </div>
 
-                <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5">
+                <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5 group-hover:text-fpt-orange transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed font-normal">

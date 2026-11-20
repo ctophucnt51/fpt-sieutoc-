@@ -87,20 +87,22 @@ export default function StickyMobileBar() {
           <span className="text-[11px] leading-tight mt-1 truncate">Internet</span>
         </Link>
 
-        {/* 3. Đăng ký */}
+        {/* 3. Đăng ký - Nút Nổi Bật Chính Giữa Phong Cách Viettel Vx */}
         <button
           type="button"
           onClick={handleOpenRegister}
-          className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-slate-500 hover:text-fpt-orange active:text-fpt-orange font-medium"
+          className="flex-1 flex flex-col items-center justify-center -mt-4 transition-transform active:scale-95 cursor-pointer select-none"
         >
-          <img
-            src="/images/icons/liquid-glass/dang-ky.webp"
-            alt="Đăng ký"
-            width={22}
-            height={22}
-            className="w-[22px] h-[22px] object-contain shrink-0"
-          />
-          <span className="text-[11px] leading-tight mt-1 truncate">Đăng ký</span>
+          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-orange-600 via-fpt-orange to-[#ff8533] text-white flex items-center justify-center shadow-[0_6px_20px_rgba(243,112,33,0.45)] border-2 border-white">
+            <img
+              src="/images/icons/liquid-glass/gui-dang-ky.webp"
+              alt="Đăng ký"
+              width={24}
+              height={24}
+              className="w-6 h-6 object-contain brightness-0 invert"
+            />
+          </div>
+          <span className="text-[10px] font-bold text-fpt-orange leading-tight mt-1 truncate">Đăng ký 0đ</span>
         </button>
 
         {/* 4. Ngoại hạng Anh */}

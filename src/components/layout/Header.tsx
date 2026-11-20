@@ -219,14 +219,14 @@ export default function Header() {
             <span className="font-bold text-fpt-orange">{siteConfig.contact.hotlineDisplay}</span>
           </a>
 
-          {/* Desktop CTA Button: Chuẩn padding, không bao giờ tràn chữ ra khỏi nút */}
+          {/* Desktop CTA Button: Viettel Vx Gradient Pill Button */}
           <button
             type="button"
             onClick={() => {
               handleHotlineClick("Header CTA Button");
               openLeadModal("Combo GIGA");
             }}
-            className="hidden sm:inline-flex items-center justify-center px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-fpt-orange hover:bg-fpt-hover text-white font-bold text-xs shadow-[0_4px_16px_rgba(243,112,33,0.3)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.4)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer min-w-max"
+            className="hidden sm:inline-flex items-center justify-center px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-orange-500 via-fpt-orange to-[#d4560b] hover:from-orange-600 hover:to-fpt-orange text-white font-extrabold text-xs sm:text-[13px] shadow-[0_4px_16px_rgba(243,112,33,0.35)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.45)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer min-w-max"
           >
             <span>Đăng Ký Tư Vấn</span>
           </button>

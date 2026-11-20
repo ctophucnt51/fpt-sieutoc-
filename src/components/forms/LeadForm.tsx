@@ -549,11 +549,11 @@ export default function LeadForm({
           </label>
         </div>
 
-        {/* Submit Button */}
+        {/* Submit Button - Viettel Vx Pill Style */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-orange-500 via-fpt-orange to-[#d4560b] hover:from-orange-600 hover:to-fpt-orange text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_8px_25px_rgba(243,112,33,0.35)] hover:shadow-[0_12px_32px_rgba(243,112,33,0.45)] active:scale-[0.99] transition-all flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full py-3.5 sm:py-4 px-6 rounded-full bg-gradient-to-r from-orange-500 via-fpt-orange to-[#d4560b] hover:from-orange-600 hover:to-fpt-orange text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_8px_25px_rgba(243,112,33,0.35)] hover:shadow-[0_12px_32px_rgba(243,112,33,0.45)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <>

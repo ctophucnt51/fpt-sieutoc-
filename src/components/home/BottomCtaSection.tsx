@@ -38,45 +38,45 @@ export default function BottomCtaSection({
               </p>
             </div>
 
-            {/* Value checklist for Desktop & Tablet - White Glass Cards */}
-            <div className="hidden sm:grid grid-cols-2 gap-2.5 sm:gap-3 text-left">
-              <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
+            {/* Value checklist for Desktop & Tablet - Viettel Vx Style Cards */}
+            <div className="hidden sm:grid grid-cols-2 gap-3 text-left">
+              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
                 <img
                   src="/images/icons/liquid-glass/modem.webp"
                   alt="Modem Wi-Fi 6"
-                  width={18}
-                  height={18}
-                  className="w-4.5 h-4.5 object-contain shrink-0"
+                  width={22}
+                  height={22}
+                  className="w-5.5 h-5.5 object-contain shrink-0"
                 />
                 <span className="text-xs text-slate-800 font-semibold">Trang bị Modem Wi-Fi 6 0đ</span>
               </div>
-              <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
+              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
                 <img
                   src="/images/icons/liquid-glass/camera-ai.webp"
                   alt="Camera AI"
-                  width={18}
-                  height={18}
-                  className="w-4.5 h-4.5 object-contain shrink-0"
+                  width={22}
+                  height={22}
+                  className="w-5.5 h-5.5 object-contain shrink-0"
                 />
                 <span className="text-xs text-slate-800 font-semibold">Tặng kèm Camera AI an ninh</span>
               </div>
-              <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
+              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
                 <img
                   src="/images/icons/liquid-glass/lap-dat.webp"
                   alt="Lắp đặt 24h"
-                  width={18}
-                  height={18}
-                  className="w-4.5 h-4.5 object-contain shrink-0"
+                  width={22}
+                  height={22}
+                  className="w-5.5 h-5.5 object-contain shrink-0"
                 />
                 <span className="text-xs text-slate-800 font-semibold">Khảo sát &amp; Lắp đặt trong 24h</span>
               </div>
-              <div className="flex items-center gap-2.5 p-3 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs">
+              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md transition-all">
                 <img
                   src="/images/icons/liquid-glass/bao-tri.webp"
                   alt="Bảo trì"
-                  width={18}
-                  height={18}
-                  className="w-4.5 h-4.5 object-contain shrink-0"
+                  width={22}
+                  height={22}
+                  className="w-5.5 h-5.5 object-contain shrink-0"
                 />
                 <span className="text-xs text-slate-800 font-semibold">Bảo trì kỹ thuật trọn đời</span>
               </div>

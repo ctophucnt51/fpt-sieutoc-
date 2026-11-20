@@ -129,8 +129,8 @@ export default function Wifi6Explainer() {
           {/* Right Column: 4 Key Pillars + Product Showcase */}
           <div className="lg:col-span-6 space-y-3.5 min-w-0 max-w-full">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-300 hover:shadow-md transition-all shadow-2xs">
-                <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-100 hover:border-orange-200 hover:shadow-[0_12px_32px_rgba(243,112,33,0.12)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
+                <div className="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-100/80 p-1 flex items-center justify-center mb-3 shadow-2xs">
                   <img
                     src="/images/icons/liquid-glass/toc-do.webp"
                     alt="Tốc độ 1 Gbps"
@@ -145,8 +145,8 @@ export default function Wifi6Explainer() {
                 </p>
               </div>
 
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-300 hover:shadow-md transition-all shadow-2xs">
-                <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-100 hover:border-emerald-200 hover:shadow-[0_12px_32px_rgba(16,185,129,0.12)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-100/80 p-1 flex items-center justify-center mb-3 shadow-2xs">
                   <img
                     src="/images/icons/liquid-glass/gaming.webp"
                     alt="Low Ping Gaming"
@@ -161,8 +161,8 @@ export default function Wifi6Explainer() {
                 </p>
               </div>
 
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-300 hover:shadow-md transition-all shadow-2xs">
-                <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-100 hover:border-blue-200 hover:shadow-[0_12px_32px_rgba(2,132,199,0.12)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
+                <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-100/80 p-1 flex items-center justify-center mb-3 shadow-2xs">
                   <img
                     src="/images/icons/liquid-glass/wifi-mesh.webp"
                     alt="Wi-Fi Mesh"
@@ -177,7 +177,7 @@ export default function Wifi6Explainer() {
                 </p>
               </div>
 
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-300 hover:shadow-md transition-all shadow-2xs">
+              <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-100 hover:border-purple-200 hover:shadow-[0_12px_32px_rgba(168,85,247,0.12)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
                 <div className="w-8 h-8 rounded-xl bg-purple-50 border border-purple-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
                   <img
                     src="/images/icons/liquid-glass/bao-hanh.webp"

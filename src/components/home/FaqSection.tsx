@@ -74,27 +74,27 @@ export default function FaqSection() {
           </p>
         </div>
 
-        {/* 2-Column Responsive FAQ Grid on Desktop, 1-Column on Mobile - White Glass Cards */}
+        {/* 2-Column Responsive FAQ Grid on Desktop, 1-Column on Mobile - Viettel Vx Style */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 sm:gap-4 items-start">
           {faqs.map((faq, idx) => {
             const isOpen = openIndices.includes(idx);
             return (
               <div
                 key={idx}
-                className={`rounded-2xl transition-all overflow-hidden ${
+                className={`rounded-2xl transition-all duration-200 overflow-hidden ${
                   isOpen
-                    ? "bg-white/95 backdrop-blur-xl border border-orange-200 shadow-sm"
-                    : "bg-white/80 backdrop-blur-md border border-slate-200/80 hover:border-orange-200 hover:shadow-2xs"
+                    ? "bg-white border-2 border-fpt-orange shadow-[0_8px_25px_rgba(243,112,33,0.12)]"
+                    : "bg-white border border-slate-200/90 hover:border-orange-200 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md"
                 }`}
               >
                 <button
                   type="button"
                   onClick={() => toggle(idx)}
-                  className="w-full p-4 sm:p-4.5 text-left flex items-start justify-between gap-3 cursor-pointer group"
+                  className="w-full p-4 sm:p-5 text-left flex items-start justify-between gap-3 cursor-pointer group"
                   aria-expanded={isOpen}
                 >
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-orange-50 border border-orange-100/70 p-0.5 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100 p-1 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
                       <img
                         src={faq.icon}
                         alt="FAQ Icon"
@@ -114,8 +114,8 @@ export default function FaqSection() {
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 sm:px-4.5 sm:pb-4.5 pt-0 text-xs sm:text-[13px] text-slate-600 leading-relaxed border-t border-slate-100 mt-1">
-                    <p className="pt-2">{faq.a}</p>
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-[13px] text-slate-600 leading-relaxed border-t border-slate-100 mt-1">
+                    <p className="pt-3">{faq.a}</p>
                   </div>
                 )}
               </div>
