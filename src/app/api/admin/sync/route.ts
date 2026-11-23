@@ -84,16 +84,23 @@ export async function POST(request: NextRequest) {
     }
 
     // BƯỚC 2: Chạy Git fetch & reset đè code mới nhất từ GitHub
-    const command = [
-      "git fetch origin main",
-      "git reset --hard origin/main",
-      "mkdir -p tmp && touch tmp/restart.txt",
-    ].join(" && ");
+    const command = "git fetch origin main && git reset --hard origin/main";
 
     const { stdout, stderr } = await execPromise(command, {
       timeout: 30000,
       env: { ...process.env, PATH: `/usr/local/bin:/usr/bin:/bin:${process.env.PATH || ""}` },
     });
+
+    // Tạo file restart.txt bằng fs nội bộ của Node.js (không fork thêm tiến trình shell)
+    try {
+      const tmpDir = path.join(rootDir, "tmp");
+      if (!fs.existsSync(tmpDir)) {
+        fs.mkdirSync(tmpDir, { recursive: true });
+      }
+      fs.writeFileSync(path.join(tmpDir, "restart.txt"), Date.now().toString());
+    } catch (touchErr) {
+      console.error("Không thể ghi file restart.txt:", touchErr);
+    }
 
     // BƯỚC 3: Khôi phục lại 100% dữ liệu đã sao lưu vào thư mục persistent data/ và src/data/
     if (!fs.existsSync(persistentDataDir)) {
