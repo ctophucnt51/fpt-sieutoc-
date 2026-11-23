@@ -43,7 +43,7 @@ export default function HeroSection({
             {/* Top Pill Badge */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] text-xs font-semibold text-[#20283D] shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-              <span>Chính sách FPT Telecom 2026</span>
+              <span>Đại Lý Tiếp Nhận FPT Telecom</span>
               <span className="text-[#657384]">|</span>
               <span className="text-[#C44D06] font-bold">Khảo sát 0đ</span>
             </div>

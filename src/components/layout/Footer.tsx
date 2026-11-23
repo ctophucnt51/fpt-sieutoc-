@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSiteConfig } from "@/context/ConfigContext";
-import { Clock, MapPin, ChevronRight, Phone } from "lucide-react";
+import { Clock, MapPin, ChevronRight, Phone, Mail, ShieldCheck } from "lucide-react";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -37,7 +37,9 @@ export default function Footer() {
                 <span className="font-extrabold text-base sm:text-lg text-[#20283D] tracking-tight block">
                   Lắp Mạng <span className="text-[#C44D06]">FPT Siêu Tốc</span>
                 </span>
-                <span className="text-[11px] text-[#657384] font-medium">Hệ Thống Đăng Ký Trực Tuyến</span>
+                <span className="text-[11px] text-[#C44D06] font-bold block mt-0.5">
+                  {siteConfig.contact.partnerRole || "Kênh Đại Lý Tiếp Nhận Dịch Vụ FPT Telecom"}
+                </span>
               </div>
             </div>
 
@@ -184,6 +186,29 @@ export default function Footer() {
                 </div>
               </li>
 
+              {/* Physical Address */}
+              <li className="flex items-start gap-2 text-[#657384] text-xs px-1">
+                <MapPin className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
+                <div>
+                  <span className="text-[#657384] font-medium">Điểm tiếp nhận: </span>
+                  <span className="text-[#20283D] font-semibold">{siteConfig.contact.address || "118 Đường 30/4, Phường Tân An, TP. Cần Thơ"}</span>
+                </div>
+              </li>
+
+              {/* Email */}
+              <li className="flex items-start gap-2 text-[#657384] text-xs px-1">
+                <Mail className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
+                <div>
+                  <span className="text-[#657384] font-medium">Email hỗ trợ: </span>
+                  <a
+                    href={`mailto:${siteConfig.contact.supportEmail}`}
+                    className="text-[#20283D] hover:text-[#C44D06] font-semibold transition-colors"
+                  >
+                    {siteConfig.contact.supportEmail}
+                  </a>
+                </div>
+              </li>
+
               {/* Working Hours */}
               <li className="flex items-start gap-2 text-[#657384] text-xs px-1">
                 <Clock className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
@@ -195,10 +220,10 @@ export default function Footer() {
 
               {/* Coverage */}
               <li className="flex items-start gap-2 text-[#657384] text-xs px-1">
-                <MapPin className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
+                <ShieldCheck className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
                 <div>
-                  <span className="text-[#657384] font-medium">Khu vực: </span>
-                  <span className="text-[#20283D] font-semibold">Toàn quốc &amp; 63 tỉnh thành</span>
+                  <span className="text-[#657384] font-medium">Phạm vi hỗ trợ: </span>
+                  <span className="text-[#20283D] font-semibold">Cần Thơ, Miền Tây &amp; Toàn quốc</span>
                 </div>
               </li>
             </ul>
@@ -236,13 +261,15 @@ export default function Footer() {
               Tuân thủ Nghị định 13/2023/NĐ-CP: Mọi thông tin khách hàng chỉ phục vụ liên hệ xác nhận nhu cầu lắp đặt và được bảo mật tuyệt đối.
             </div>
 
-            {/* BCT Badge */}
+            {/* Verified Partner Badge (Tuân thủ chuẩn Google Ads, không giả mạo chứng nhận chính phủ) */}
             <div className="pt-1">
-              <img
-                src="/images/badges/bct-certificate.png"
-                alt="Đã thông báo Bộ Công Thương"
-                className="h-10 w-auto object-contain hover:scale-105 transition-transform duration-300 opacity-90 hover:opacity-100 cursor-pointer"
-              />
+              <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-[#FFF4ED] border border-orange-200/80 text-[#C44D06]">
+                <ShieldCheck className="w-5 h-5 shrink-0 text-[#C44D06]" />
+                <div className="text-[11px] leading-tight text-[#20283D]">
+                  <span className="font-bold block">Kênh Đại Lý FPT Telecom</span>
+                  <span className="text-[10px] text-[#657384] font-normal">Tư vấn chính sách khuyến mãi chính hãng</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

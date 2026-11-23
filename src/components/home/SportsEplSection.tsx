@@ -142,7 +142,7 @@ export default function SportsEplSection() {
                   <div className="flex items-baseline gap-1 sm:text-right">
                     <span className="text-[11px] text-slate-400">Chỉ</span>
                     <span className="text-xl sm:text-2xl font-black text-fpt-orange">220.000đ</span>
-                    <span className="text-[11px] text-slate-400">/tháng</span>
+                    <span className="text-[11px] text-slate-400">/tháng (đã gồm VAT)</span>
                   </div>
                 </div>
 

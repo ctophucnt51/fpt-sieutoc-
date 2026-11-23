@@ -166,8 +166,8 @@ export default function Header() {
               <span className="font-extrabold text-[14px] sm:text-base text-[#20283D] tracking-tight whitespace-nowrap group-hover:text-[#F37021] transition-colors leading-tight">
                 Lắp Mạng FPT
               </span>
-              <span className="text-[10px] text-[#657384] font-medium leading-none">
-                Chính Hãng Toàn Quốc
+              <span className="text-[10px] text-[#C44D06] font-semibold leading-none">
+                Đại Lý Tiếp Nhận Dịch Vụ
               </span>
             </div>
           </Link>

@@ -64,7 +64,7 @@ export default function PricingSection({
             {title}
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-[#657384] font-normal">
-            {subtitle}
+            {subtitle} &bull; <span className="text-emerald-700 font-bold whitespace-nowrap">Đã bao gồm 10% VAT</span>
           </p>
 
           {/* Category Tabs - Phong cách Long Châu Segment Tabs */}
@@ -311,7 +311,7 @@ export default function PricingSection({
             <img src="/images/icons/liquid-glass/lap-dat.webp" alt="Lắp đặt" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
           </div>
           <p className="text-xs sm:text-sm text-[#657384] leading-relaxed font-normal text-center sm:text-left">
-            <strong className="text-[#20283D] font-bold">Chương trình khuyến mãi:</strong> Khách hàng đăng ký gói cước mới được trang bị miễn phí Modem Wi-Fi 6 thế hệ mới, <strong className="text-[#C44D06] font-bold">tặng kèm Camera FPT AI an ninh thông minh miễn phí</strong> và hỗ trợ khảo sát lắp đặt tận nhà trong 24 giờ.
+            <strong className="text-[#20283D] font-bold">Chính sách minh bạch &amp; ưu đãi:</strong> Bảng giá đã bao gồm 10% VAT. Khách hàng đăng ký gói cước mới được trang bị Modem Wi-Fi 6 thế hệ mới 0đ trong suốt thời gian hòa mạng. <strong className="text-[#C44D06] font-bold">Ưu đãi tặng Camera FPT AI</strong> áp dụng có điều kiện theo chính sách hòa mạng trả trước hiện hành của FPT Telecom. Hỗ trợ khảo sát hạ tầng tận nơi 0đ trong 24 giờ.
           </p>
         </div>
       </div>
