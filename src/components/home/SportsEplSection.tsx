@@ -11,8 +11,8 @@ export default function SportsEplSection() {
   };
 
   return (
-    <section id="ngoai-hang-anh" className="py-8 sm:py-12 bg-white relative overflow-hidden max-w-full border-b border-slate-200/70 scroll-mt-16 sm:scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="ngoai-hang-anh" className="py-8 sm:py-12 bg-white relative overflow-hidden max-w-full border-b border-[#E4E8ED] scroll-mt-16 sm:scroll-mt-20">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="rounded-3xl sm:rounded-4xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white p-6 sm:p-8 lg:p-10 border border-slate-800 shadow-[0_12px_45px_rgba(15,23,42,0.12)] relative overflow-hidden">
           {/* Subtle warm ambient glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />

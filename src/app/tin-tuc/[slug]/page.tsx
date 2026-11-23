@@ -57,8 +57,8 @@ export default function ArticleDetailPage({
     .slice(0, 3);
 
   return (
-    <div className="bg-slate-50 min-h-screen py-8 sm:py-14">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#F4F6FB] min-h-screen py-8 sm:py-14">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
         <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap">
           <Link href="/" className="hover:text-fpt-orange transition-colors">

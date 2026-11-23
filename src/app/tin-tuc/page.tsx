@@ -72,10 +72,10 @@ export default function TinTucPage({
             <Link
               key={cat.id}
               href={cat.id === "all" ? "/tin-tuc" : `/tin-tuc?category=${cat.id}`}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                 currentCategory === cat.id
-                  ? "bg-fpt-orange text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
-                  : "bg-white/85 backdrop-blur-md text-slate-700 border border-slate-200/80 hover:border-orange-200 hover:text-fpt-orange shadow-2xs"
+                  ? "bg-[#F37021] text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
+                  : "bg-white text-[#2F364A] border border-[#E4E8ED] hover:border-orange-200 hover:text-[#F37021] shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)]"
               }`}
             >
               {cat.name}
@@ -204,7 +204,7 @@ export default function TinTucPage({
         </div>
 
         {/* Bottom Fast Consultation Banner - White Glassmorphism */}
-        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-white/90 backdrop-blur-2xl text-slate-900 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 border-2 border-orange-200/90 shadow-[0_12px_40px_rgba(243,112,33,0.08)]">
+        <div className="mt-14 p-6 sm:p-8 rounded-2xl bg-white text-slate-900 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 border border-[#E4E8ED] shadow-[0_4px_16px_rgba(243,112,33,0.08)]">
           <div className="space-y-1">
             <h3 className="text-base sm:text-lg font-black tracking-tight text-slate-900">
               Cần Tư Vấn Khảo Sát Tuyến Cáp Nhanh Chóng?

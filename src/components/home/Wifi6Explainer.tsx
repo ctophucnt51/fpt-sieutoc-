@@ -4,8 +4,8 @@ import { Wifi, Cpu, Layers, Zap, CheckCircle2, ShieldCheck } from "lucide-react"
 
 export default function Wifi6Explainer() {
   return (
-    <section className="py-8 sm:py-12 lg:py-16 bg-white/60 backdrop-blur-md border-b border-slate-200/60 overflow-hidden max-w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-8 sm:py-12 lg:py-16 bg-white border-b border-[#E4E8ED] overflow-hidden max-w-full">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-12 items-center">
           
           {/* Left Column: Title & Comparison Table */}
@@ -30,7 +30,7 @@ export default function Wifi6Explainer() {
             </div>
 
             {/* Comparison Table with White Glassmorphism - Zero Horizontal Scroll */}
-            <div className="rounded-2xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs overflow-hidden">
+            <div className="rounded-2xl bg-white border border-[#E4E8ED] shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)] overflow-hidden">
               {/* Mobile Card Grid (No horizontal scroll, 100% responsive) */}
               <div className="sm:hidden divide-y divide-slate-100 text-xs">
                 <div className="p-3 space-y-1.5">
@@ -195,7 +195,7 @@ export default function Wifi6Explainer() {
             </div>
 
             {/* Official Modem Showcase Strip - White Glassmorphism Card */}
-            <div className="p-3 sm:p-4 rounded-2xl bg-white/90 backdrop-blur-xl border border-orange-200/80 shadow-2xs flex items-center gap-2.5 sm:gap-3.5">
+            <div className="p-3 sm:p-4 rounded-2xl bg-white border border-orange-200/80 shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)] flex items-center gap-2.5 sm:gap-3.5">
               <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl bg-slate-50 border border-slate-100 p-1 flex items-center justify-center shrink-0">
                 <img
                   src="/images/products/modem-wifi6-official.png"

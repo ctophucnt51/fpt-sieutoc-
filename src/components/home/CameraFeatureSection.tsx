@@ -7,10 +7,10 @@ export default function CameraFeatureSection() {
   const { openLeadModal } = useLeadModal();
 
   return (
-    <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-white via-slate-50/50 to-white border-b border-slate-200/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] border-b border-[#E4E8ED]">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-2xs backdrop-blur-md">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#F37021] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)]">
             <img
               src="/images/icons/liquid-glass/camera-ai.webp"
               alt="Camera AI"
@@ -30,8 +30,8 @@ export default function CameraFeatureSection() {
 
         {/* 4 Feature Cards - White Glass Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-6 sm:mb-8">
-          <div className="p-5 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-200 hover:shadow-md transition-all shadow-2xs">
-            <div className="w-10 h-10 rounded-2xl bg-orange-100 text-fpt-orange flex items-center justify-center mb-3 shadow-2xs">
+          <div className="p-5 rounded-2xl bg-white border border-[#E4E8ED] hover:border-orange-200 hover:shadow-[0_4px_16px_rgba(243,112,33,0.12)] transition-all shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)]">
+            <div className="w-10 h-10 rounded-2xl bg-orange-100 text-[#F37021] flex items-center justify-center mb-3">
               <Cloud className="w-5 h-5" />
             </div>
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5">Lưu Trữ Cloud FPT</h3>
@@ -40,8 +40,8 @@ export default function CameraFeatureSection() {
             </p>
           </div>
 
-          <div className="p-5 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-200 hover:shadow-md transition-all shadow-2xs">
-            <div className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3 shadow-2xs">
+          <div className="p-5 rounded-2xl bg-white border border-[#E4E8ED] hover:border-orange-200 hover:shadow-[0_4px_16px_rgba(243,112,33,0.12)] transition-all shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)]">
+            <div className="w-10 h-10 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
               <Eye className="w-5 h-5" />
             </div>
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5">Phát Hiện Người Bằng AI</h3>
@@ -50,8 +50,8 @@ export default function CameraFeatureSection() {
             </p>
           </div>
 
-          <div className="p-5 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-200 hover:shadow-md transition-all shadow-2xs">
-            <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3 shadow-2xs">
+          <div className="p-5 rounded-2xl bg-white border border-[#E4E8ED] hover:border-orange-200 hover:shadow-[0_4px_16px_rgba(243,112,33,0.12)] transition-all shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)]">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3">
               <BellRing className="w-5 h-5" />
             </div>
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5">Cảnh Báo Tức Thì</h3>
@@ -60,8 +60,8 @@ export default function CameraFeatureSection() {
             </p>
           </div>
 
-          <div className="p-5 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 hover:border-orange-200 hover:shadow-md transition-all shadow-2xs">
-            <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-100 p-1 flex items-center justify-center mb-3 shadow-2xs">
+          <div className="p-5 rounded-2xl bg-white border border-[#E4E8ED] hover:border-orange-200 hover:shadow-[0_4px_16px_rgba(243,112,33,0.12)] transition-all shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)]">
+            <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-100 p-1 flex items-center justify-center mb-3">
               <img
                 src="/images/icons/liquid-glass/bao-hanh.webp"
                 alt="Bảo Hành"
@@ -80,7 +80,7 @@ export default function CameraFeatureSection() {
         {/* 2 Camera Models Card Preview */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           {/* Camera Play */}
-          <div className="rounded-3xl border border-slate-200/80 p-6 sm:p-7 bg-white/85 backdrop-blur-xl flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-lg transition-all">
+          <div className="rounded-2xl border border-[#E4E8ED] p-6 sm:p-7 bg-white flex flex-col justify-between shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)] hover:shadow-[0_4px_16px_rgba(243,112,33,0.12)] transition-all">
             <div>
               <div className="flex items-start justify-between gap-4 mb-2">
                 <span className="inline-block px-3 py-1 rounded-full bg-orange-100 text-fpt-dark text-xs font-bold uppercase">
@@ -116,7 +116,7 @@ export default function CameraFeatureSection() {
           </div>
 
           {/* Camera IQ3 */}
-          <div className="rounded-3xl border-2 border-fpt-orange p-6 sm:p-7 bg-white/95 backdrop-blur-2xl flex flex-col justify-between shadow-[0_12px_40px_rgba(243,112,33,0.15)] ring-4 ring-orange-500/10">
+          <div className="rounded-2xl border-2 border-[#F37021] p-6 sm:p-7 bg-white flex flex-col justify-between shadow-[0_4px_16px_rgba(243,112,33,0.15)] ring-4 ring-orange-500/10">
             <div>
               <div className="flex items-start justify-between gap-4 mb-2">
                 <span className="inline-block px-3 py-1 rounded-full bg-fpt-orange text-white text-xs font-bold uppercase shadow-2xs">

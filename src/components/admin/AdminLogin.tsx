@@ -49,17 +49,17 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
   };
 
   return (
-    <div className="min-h-screen bg-surface-secondary flex items-center justify-center p-4 sm:p-6 font-sans">
-      <div className="w-full max-w-sm bg-white rounded-2xl border border-ink-border shadow-sm p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
+    <div className="min-h-screen bg-[#F4F6FB] flex items-center justify-center p-4 sm:p-6 font-sans">
+      <div className="w-full max-w-sm bg-white rounded-2xl border border-[#E4E8ED] shadow-sm p-6 sm:p-8 animate-in fade-in zoom-in-95 duration-200">
         {/* Brand & Title */}
         <div className="text-center mb-6">
           <div className="w-12 h-12 rounded-xl bg-orange-50 border border-orange-200 text-fpt-orange flex items-center justify-center mx-auto mb-3">
             <Lock className="w-6 h-6" />
           </div>
-          <h2 className="text-xl font-bold text-ink-primary tracking-tight">
+          <h2 className="text-xl font-bold text-[#20283D] tracking-tight">
             Quản Trị Hệ Thống
           </h2>
-          <p className="text-xs text-ink-secondary mt-1">
+          <p className="text-xs text-[#657384] mt-1">
             Nhập mã PIN để truy cập bảng điều khiển
           </p>
         </div>
@@ -75,7 +75,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-ink-primary mb-1.5">
+            <label className="block text-xs font-semibold text-[#20283D] mb-1.5">
               Mã PIN Bảo Mật
             </label>
             <input
@@ -86,7 +86,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
               placeholder="••••"
               autoFocus
               maxLength={12}
-              className="w-full px-4 py-3 rounded-xl border border-ink-border focus:border-fpt-orange focus:ring-2 focus:ring-orange-100 text-center tracking-[0.3em] text-xl font-bold text-ink-primary outline-none transition-all placeholder:tracking-normal placeholder:font-normal placeholder:text-sm placeholder:text-slate-400 bg-surface-secondary"
+              className="w-full px-4 py-3 rounded-xl border border-[#E4E8ED] focus:border-fpt-orange focus:ring-2 focus:ring-orange-100 text-center tracking-[0.3em] text-xl font-bold text-[#20283D] outline-none transition-all placeholder:tracking-normal placeholder:font-normal placeholder:text-sm placeholder:text-slate-400 bg-[#F4F6FB]"
             />
           </div>
 
@@ -109,7 +109,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
           </button>
         </form>
 
-        <div className="mt-6 pt-4 border-t border-ink-border text-center flex items-center justify-center gap-1.5 text-xs text-ink-secondary">
+        <div className="mt-6 pt-4 border-t border-[#E4E8ED] text-center flex items-center justify-center gap-1.5 text-xs text-[#657384]">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
           <span>Phiên đăng nhập an toàn 7 ngày</span>
         </div>

@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 
 export default function DieuKhoanPage() {
   return (
-    <div className="py-12 sm:py-20 bg-surface-secondary min-h-screen">
+    <div className="py-12 sm:py-20 bg-[#F4F6FB] min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl p-6 sm:p-10 border border-ink-border shadow-xs space-y-8">
+        <div className="bg-white rounded-2xl p-6 sm:p-10 border border-[#E4E8ED] shadow-xs space-y-8">
           {/* Header */}
-          <div className="border-b border-ink-border pb-6">
+          <div className="border-b border-[#E4E8ED] pb-6">
             <Link
               href="/"
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-fpt-orange hover:underline mb-4 min-h-[44px]"
@@ -28,10 +28,10 @@ export default function DieuKhoanPage() {
                 <FileText className="w-5 h-5" />
               </div>
               <div>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-ink-primary tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#20283D] tracking-tight">
                   Điều Khoản Sử Dụng & Tuyên Bố Độc Lập
                 </h1>
-                <p className="text-xs text-ink-secondary mt-1">
+                <p className="text-xs text-[#657384] mt-1">
                   Cập nhật lần cuối: Tháng {new Date().getMonth() + 1}/{new Date().getFullYear()}
                 </p>
               </div>
@@ -47,9 +47,9 @@ export default function DieuKhoanPage() {
           </div>
 
           {/* Content */}
-          <div className="space-y-6 text-sm text-ink-secondary leading-relaxed">
+          <div className="space-y-6 text-sm text-[#657384] leading-relaxed">
             <section className="space-y-3">
-              <h2 className="text-base sm:text-lg font-bold text-ink-primary">
+              <h2 className="text-base sm:text-lg font-bold text-[#20283D]">
                 1. Quyền Sở Hữu Trí Tuệ & Thương Hiệu
               </h2>
               <p>
@@ -58,7 +58,7 @@ export default function DieuKhoanPage() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-base sm:text-lg font-bold text-ink-primary">
+              <h2 className="text-base sm:text-lg font-bold text-[#20283D]">
                 2. Bảng Giá & Chương Trình Khuyến Mãi
               </h2>
               <p>
@@ -70,7 +70,7 @@ export default function DieuKhoanPage() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-base sm:text-lg font-bold text-ink-primary">
+              <h2 className="text-base sm:text-lg font-bold text-[#20283D]">
                 3. Quy Trình Ký Hợp Đồng & Thanh Toán
               </h2>
               <p>
@@ -79,7 +79,7 @@ export default function DieuKhoanPage() {
             </section>
 
             <section className="space-y-3">
-              <h2 className="text-base sm:text-lg font-bold text-ink-primary">
+              <h2 className="text-base sm:text-lg font-bold text-[#20283D]">
                 4. Trách Nhiệm Của Khách Hàng
               </h2>
               <p>

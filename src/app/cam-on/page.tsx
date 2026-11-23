@@ -38,7 +38,7 @@ function CamOnContent() {
   };
 
   return (
-    <div className="max-w-xl w-full bg-white/92 backdrop-blur-2xl rounded-3xl border border-white/90 shadow-[0_20px_50px_rgba(15,23,42,0.06)] p-6 sm:p-8 text-center relative">
+    <div className="max-w-xl w-full bg-white rounded-2xl border border-[#E4E8ED] shadow-[0_0_24px_-4px_rgba(243,112,33,0.10)] p-6 sm:p-8 text-center relative">
       {/* Success Icon */}
       <div className="w-16 h-16 rounded-full bg-emerald-100/80 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-2xs">
         <CheckCircle2 className="w-9 h-9" />
@@ -145,10 +145,10 @@ function CamOnContent() {
 
 export default function CamOnPage() {
   return (
-    <div className="min-h-[80vh] bg-slate-50/50 py-12 sm:py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+    <div className="min-h-[80vh] bg-[#F4F6FB] py-12 sm:py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
       <Suspense
         fallback={
-          <div className="max-w-xl w-full bg-white/90 backdrop-blur-xl rounded-3xl border border-slate-200 p-8 text-center flex flex-col items-center justify-center shadow-sm">
+          <div className="max-w-xl w-full bg-white rounded-2xl border border-[#E4E8ED] p-8 text-center flex flex-col items-center justify-center shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)]">
             <Loader2 className="w-8 h-8 animate-spin text-fpt-orange" />
             <p className="mt-3 text-sm text-slate-500">Đang tải thông tin hồ sơ...</p>
           </div>
