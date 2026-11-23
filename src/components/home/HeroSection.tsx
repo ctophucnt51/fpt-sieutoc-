@@ -25,7 +25,7 @@ export default function HeroSection({
   ),
   subheadline,
   defaultPackage = "SKY",
-  formHeadline = "Đăng Ký Tư Vấn & Nhận Camera 0đ",
+  formHeadline = "Đăng Ký Tư Vấn",
   campaignContext,
   showPriorityCards = false,
 }: HeroSectionProps) {
@@ -343,7 +343,7 @@ export default function HeroSection({
             <LeadForm
               defaultPackage={defaultPackage}
               headline={formHeadline}
-              subheadline="Chuyên viên FPT liên hệ hỗ trợ trong 5 – 15 phút"
+              subheadline="Liên hệ lại sau 5 - 15 phút"
               formLocation="hero-mobile-form"
             />
           </div>

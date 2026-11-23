@@ -176,8 +176,8 @@ export default function BottomCtaSection({
           <div className="lg:col-span-6 w-full">
             <LeadForm
               defaultPackage={defaultPackage}
-              headline="Đăng Ký Khảo Sát &amp; Nhận Báo Giá Miễn Phí"
-              subheadline="Chuyên viên kỹ thuật sẽ kiểm tra hạ tầng và liên hệ lại sau 5 - 15 phút"
+              headline="Đăng Ký Tư Vấn"
+              subheadline="Liên hệ lại sau 5 - 15 phút"
               formLocation="bottom-cta-form"
             />
           </div>

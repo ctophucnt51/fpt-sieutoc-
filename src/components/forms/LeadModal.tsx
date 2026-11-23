@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { X, ShieldCheck, Zap } from "lucide-react";
 import LeadForm from "./LeadForm";
 
 interface LeadModalProps {
@@ -33,64 +32,43 @@ export default function LeadModal({ isOpen, selectedPackage, onClose }: LeadModa
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-slate-950/40 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
         aria-hidden="true"
       />
 
-      {/* Modal Dialog Card - Long Châu Style */}
-      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-[0_20px_60px_rgba(243,112,33,0.18)] border border-[#E4E8ED] z-10 overflow-hidden my-auto max-h-[92vh] flex flex-col animate-in zoom-in-95 duration-200">
-        
+      {/* Modal Dialog Card */}
+      <div className="relative w-full max-w-md bg-white rounded-xl shadow-lg border border-slate-200 z-10 overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Modal Header */}
-        <div className="bg-[#FFF4ED] border-b border-orange-200/60 px-5 py-4 sm:px-6 sm:py-4.5 flex items-center justify-between shrink-0">
+        <div className="bg-slate-50 border-b border-slate-100 px-5 py-3.5 flex items-center justify-between shrink-0">
           <div>
-            <div className="flex items-center gap-1.5 text-[11px] text-[#F37021] font-bold uppercase tracking-wider mb-0.5">
-              <Zap className="w-3.5 h-3.5 fill-current" />
-              <span>Tiếp Nhận Đăng Ký Trực Tuyến 24/7</span>
-            </div>
-            <h3 className="text-base sm:text-lg font-black text-[#20283D] tracking-tight">
-              Đăng Ký Lắp Mạng FPT Siêu Tốc
+            <h3 className="text-base font-bold text-slate-900">
+              Đăng Ký Tư Vấn
             </h3>
             {selectedPackage && (
-              <p className="text-xs text-[#657384] mt-0.5">
-                Gói quan tâm: <strong className="text-[#20283D] font-bold">{selectedPackage}</strong>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Gói: <strong className="text-slate-800 font-semibold">{selectedPackage}</strong>
               </p>
             )}
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-[#657384] hover:text-[#20283D] hover:bg-white transition-colors cursor-pointer"
+            className="text-slate-400 hover:text-slate-700 text-2xl font-light leading-none p-1 transition-colors cursor-pointer"
             aria-label="Đóng cửa sổ"
           >
-            <X className="w-5 h-5" />
+            &times;
           </button>
         </div>
 
-        {/* Modal Scrollable Body */}
-        <div className="overflow-y-auto p-3 sm:p-5 flex-1">
-          {/* Promo Callout in Modal */}
-          <div className="mb-3.5 p-3 rounded-xl bg-[#F4F6FB] border border-[#E4E8ED] text-xs text-[#2F364A] flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-[#FFF4ED] border border-orange-200 p-0.5 flex items-center justify-center shrink-0">
-              <img
-                src="/images/icons/liquid-glass/qua-tang.webp"
-                alt="Ưu đãi hôm nay"
-                width={20}
-                height={20}
-                className="w-5 h-5 object-contain"
-              />
-            </div>
-            <div className="text-[11px] sm:text-xs leading-snug">
-              <strong className="text-[#20283D] font-bold">Ưu đãi hôm nay:</strong> Trang bị Modem Wi-Fi 6 &amp; <strong className="text-[#F37021] font-bold">Camera AI 0đ</strong> &bull; Lắp đặt trong 24h.
-            </div>
-          </div>
-
-          {/* Embedded Lead Form */}
+        {/* Modal Body */}
+        <div className="p-4 sm:p-5 flex-1 overflow-y-auto">
           <LeadForm
             defaultPackage={selectedPackage || "Combo GIGA"}
             formTitle=""
             formSubtitle=""
             formLocation="lead-modal-form"
             onSuccess={onClose}
+            className="border-0 shadow-none p-0"
           />
         </div>
       </div>

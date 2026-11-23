@@ -2,13 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import Link from "next/link";
 import { useSiteConfig } from "@/context/ConfigContext";
 import { captureAttribution } from "@/lib/trackingUtils";
 import { fbTracker } from "@/components/tracking/MetaPixel";
 import { googleTracker } from "@/components/tracking/GoogleAds";
-import { Loader2, AlertCircle } from "lucide-react";
-import SearchableAreaSelect from "./SearchableAreaSelect";
 
 interface LeadFormProps {
   defaultPackage?: string;
@@ -22,10 +19,12 @@ interface LeadFormProps {
   onSuccess?: () => void;
 }
 
+const DUPLICATE_STORAGE_KEY = "fpt_recent_submissions";
+
 export default function LeadForm({
   defaultPackage = "SKY",
-  headline = "Đăng Ký Tư Vấn & Khảo Sát",
-  subheadline = "Chuyên viên FPT sẽ liên hệ lại trong 5 – 15 phút",
+  headline = "Đăng Ký Tư Vấn",
+  subheadline = "Liên hệ lại sau 5 - 15 phút",
   className = "",
   formTitle,
   formSubtitle,
@@ -41,9 +40,6 @@ export default function LeadForm({
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [area, setArea] = useState(
-    siteConfig.popularAreas[0]?.name || "Cần Thơ - Phường Ninh Kiều"
-  );
   const [packageInterested, setPackageInterested] = useState(() => {
     if (defaultPackage === "Combo GIGA" || defaultPackage.includes("220")) {
       return "Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)";
@@ -53,8 +49,6 @@ export default function LeadForm({
     }
     return defaultPackage;
   });
-  const [note, setNote] = useState("");
-  const [agreeConsent, setAgreeConsent] = useState(true);
   const [honeypot, setHoneypot] = useState("");
 
   // Status & Feedback
@@ -101,8 +95,6 @@ export default function LeadForm({
     }
   };
 
-  const DUPLICATE_STORAGE_KEY = "fpt_recent_submissions";
-
   const isDuplicatePhone = (cleaned: string): boolean => {
     try {
       const raw = sessionStorage.getItem(DUPLICATE_STORAGE_KEY);
@@ -142,7 +134,7 @@ export default function LeadForm({
 
     if (isDuplicatePhone(cleanedPhone)) {
       setErrorMessage(
-        "Số điện thoại này vừa gửi đăng ký. Chuyên viên FPT đang tiếp nhận và liên hệ lại ngay!"
+        "Số điện thoại này vừa gửi đăng ký. Chuyên viên FPT sẽ liên hệ lại ngay!"
       );
       return;
     }
@@ -157,54 +149,45 @@ export default function LeadForm({
         fullName: fullName.trim(),
         phone: cleanedPhone,
         address: address.trim() || "Chưa cung cấp",
-        area: area,
+        area: address.trim() || "Cần Thơ",
         packageInterested: packageInterested,
-        note: note.trim() || undefined,
-        formLocation: formLocation,
+        note: "",
+        agreeConsent: true,
         landingPage: pathname || "/",
-        source: attribution.utm_source || "direct",
-        campaign: attribution.utm_campaign || undefined,
-        medium: attribution.utm_medium || undefined,
-        term: attribution.utm_term || undefined,
-        content: attribution.utm_content || undefined,
-        fbclid: attribution.fbclid || undefined,
-        gclid: attribution.gclid || undefined,
+        leadLocation: formLocation,
+        eventId: eventId,
+        ...attribution,
       };
 
-      const WORKER_ENDPOINT = "https://form-fpt.cto-phucnt51.workers.dev/";
-
       let cfSuccess = false;
+      let cfErr: Error | null = null;
       try {
-        const cfResponse = await fetch(WORKER_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(workerPayload),
-        });
+        const workerRes = await fetch(
+          "https://fpt-lead-receiver.phucnt51.workers.dev/api/leads",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(workerPayload),
+          }
+        );
 
-        if (!cfResponse.ok) {
-          throw new Error(`Máy chủ tiếp nhận phản hồi HTTP ${cfResponse.status}.`);
+        if (workerRes.ok) {
+          cfSuccess = true;
+        } else {
+          cfErr = new Error(`Lưu trữ tạm gián đoạn (Mã ${workerRes.status})`);
         }
+      } catch (err: unknown) {
+        cfErr = err instanceof Error ? err : new Error("Lỗi mạng khi kết nối máy chủ");
+      }
 
-        const cfData = await cfResponse.json();
-        if (cfData?.ok !== true) {
-          throw new Error(cfData?.message || "Hệ thống tiếp nhận phản hồi không thành công.");
-        }
-
-        cfSuccess = true;
-      } catch (cfErr: unknown) {
-        console.error("Cloudflare Worker Error:", cfErr);
-        const errMsg =
-          cfErr instanceof Error && (cfErr.name === "TypeError" || cfErr.message.includes("fetch"))
-            ? "Lỗi kết nối tới hệ thống tiếp nhận. Vui lòng thử lại hoặc gọi Hotline!"
-            : cfErr instanceof Error
-            ? cfErr.message
-            : "Lỗi kết nối. Vui lòng liên hệ Hotline!";
-        setErrorMessage(errMsg);
+      if (!cfSuccess && cfErr) {
+        setErrorMessage(cfErr.message || "Lỗi kết nối. Vui lòng gọi trực tiếp Hotline!");
         setIsSubmitting(false);
         return;
       }
-
-      if (!cfSuccess) return;
 
       markPhoneSubmitted(cleanedPhone);
 
@@ -217,10 +200,10 @@ export default function LeadForm({
             fullName: fullName.trim(),
             phone: cleanedPhone,
             address: address.trim() || undefined,
-            area,
+            area: address.trim() || "Cần Thơ",
             packageInterested,
-            note: note.trim() || undefined,
-            agreeConsent,
+            note: undefined,
+            agreeConsent: true,
             landingPage: pathname || "/",
             website: honeypot,
             eventId,
@@ -249,7 +232,7 @@ export default function LeadForm({
             fullName: fullName.trim(),
             phone: cleanedPhone.slice(-4),
             packageInterested,
-            area,
+            area: address.trim() || "Cần Thơ",
             timestamp: new Date().toLocaleTimeString("vi-VN"),
           })
         );
@@ -274,29 +257,28 @@ export default function LeadForm({
   return (
     <div
       id="lead-form"
-      className={`bg-white rounded-2xl border border-[#E2E8F0] shadow-md p-5 sm:p-6 transition-all ${className}`}
+      className={`bg-white rounded-xl border border-slate-200 shadow-sm p-5 sm:p-6 ${className}`}
     >
       {/* Header */}
       {(formTitle !== "" && headline !== "") && (
-        <div className="mb-4 pb-3 border-b border-[#F1F5F9]">
-          <h3 className="text-lg sm:text-xl font-bold text-[#1E293B] tracking-tight leading-snug">
+        <div className="mb-4 pb-2 border-b border-slate-100">
+          <h3 className="text-lg font-bold text-slate-800">
             {formTitle || headline}
           </h3>
-          <p className="text-xs text-[#64748B] mt-1">
+          <p className="text-xs text-slate-500 mt-0.5">
             {formSubtitle || subheadline}
           </p>
         </div>
       )}
 
-      {/* Error Alert */}
+      {/* Error Alert - Plain text, No icon */}
       {errorMessage && (
-        <div className="mb-3.5 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2">
-          <AlertCircle className="w-4 h-4 shrink-0 text-red-500 mt-0.5" />
-          <div className="leading-snug">{errorMessage}</div>
+        <div className="mb-3 p-2.5 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs leading-snug">
+          {errorMessage}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-3.5">
+      <form onSubmit={handleSubmit} className="space-y-3">
         {/* Honeypot field */}
         <input
           type="text"
@@ -310,8 +292,8 @@ export default function LeadForm({
 
         {/* Họ và tên */}
         <div>
-          <label htmlFor={`${formId}-fullName`} className="block text-xs font-semibold text-[#334155] mb-1">
-            Họ và tên <span className="text-[#E11D48]">*</span>
+          <label htmlFor={`${formId}-fullName`} className="block text-xs font-semibold text-slate-700 mb-1">
+            Họ và tên <span className="text-red-500">*</span>
           </label>
           <input
             id={`${formId}-fullName`}
@@ -319,15 +301,15 @@ export default function LeadForm({
             required
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            placeholder="Ví dụ: Nguyễn Văn A"
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/15 text-sm text-[#0F172A] outline-none transition-all placeholder:text-[#94A3B8]"
+            placeholder="Nguyễn Văn A"
+            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:border-[#F37021] text-sm text-slate-900 outline-none transition-colors"
           />
         </div>
 
         {/* Số điện thoại */}
         <div>
-          <label htmlFor={`${formId}-phone`} className="block text-xs font-semibold text-[#334155] mb-1">
-            Số điện thoại <span className="text-[#E11D48]">*</span>
+          <label htmlFor={`${formId}-phone`} className="block text-xs font-semibold text-slate-700 mb-1">
+            Số điện thoại <span className="text-red-500">*</span>
           </label>
           <input
             id={`${formId}-phone`}
@@ -335,11 +317,9 @@ export default function LeadForm({
             required
             value={phone}
             onChange={handlePhoneChange}
-            placeholder="Ví dụ: 0912 345 678"
-            className={`w-full px-3.5 py-2.5 rounded-xl border bg-[#F8FAFC] hover:bg-white focus:bg-white text-sm text-[#0F172A] outline-none transition-all placeholder:text-[#94A3B8] ${
-              phoneError
-                ? "border-red-400 focus:ring-2 focus:ring-red-100"
-                : "border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/15"
+            placeholder="0912 345 678"
+            className={`w-full px-3 py-2 rounded-lg border bg-slate-50 hover:bg-white focus:bg-white text-sm text-slate-900 outline-none transition-colors ${
+              phoneError ? "border-red-400" : "border-slate-200 focus:border-[#F37021]"
             }`}
           />
           {phoneError && (
@@ -347,133 +327,61 @@ export default function LeadForm({
           )}
         </div>
 
-        {/* Khu vực lắp đặt */}
+        {/* Địa chỉ lắp đặt */}
         <div>
-          <label className="block text-xs font-semibold text-[#334155] mb-1">
-            Khu vực lắp đặt <span className="text-[#E11D48]">*</span>
-          </label>
-          <SearchableAreaSelect
-            areas={siteConfig.popularAreas}
-            value={area}
-            onChange={setArea}
-            required
-          />
-        </div>
-
-        {/* Địa chỉ chi tiết */}
-        <div>
-          <label htmlFor={`${formId}-address`} className="block text-xs font-semibold text-[#334155] mb-1">
-            Địa chỉ chi tiết <span className="text-[#94A3B8] font-normal">(Số nhà, tên đường...)</span>
+          <label htmlFor={`${formId}-address`} className="block text-xs font-semibold text-slate-700 mb-1">
+            Địa chỉ lắp đặt <span className="text-red-500">*</span>
           </label>
           <input
             id={`${formId}-address`}
             type="text"
+            required
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            placeholder="Số nhà, tên đường hoặc thôn / ấp"
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/15 text-sm text-[#0F172A] outline-none transition-all placeholder:text-[#94A3B8]"
+            placeholder="Số nhà, tên đường, phường/xã"
+            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:border-[#F37021] text-sm text-slate-900 outline-none transition-colors"
           />
         </div>
 
         {/* Gói cước quan tâm */}
         <div>
-          <label htmlFor={`${formId}-packageInterested`} className="block text-xs font-semibold text-[#334155] mb-1">
-            Gói cước quan tâm <span className="text-[#E11D48]">*</span>
+          <label htmlFor={`${formId}-packageInterested`} className="block text-xs font-semibold text-slate-700 mb-1">
+            Gói cước quan tâm <span className="text-red-500">*</span>
           </label>
-          <div className="relative">
-            <select
-              id={`${formId}-packageInterested`}
-              name="packageInterested"
-              aria-label="Chọn gói cước đăng ký"
-              value={packageInterested}
-              onChange={(e) => setPackageInterested(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/15 text-sm font-medium text-[#0F172A] outline-none transition-all cursor-pointer appearance-none pr-9"
-            >
-              <option value="Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)">
-                Combo Internet + Ngoại Hạng Anh — 220.000đ/tháng
-              </option>
-              <option value="Chỉ Internet Wi-Fi 6 (195.000đ/tháng)">
-                Chỉ Internet Wi-Fi 6 (1 Gbps) — 195.000đ/tháng
-              </option>
-              <option value="F-GAME (235.000đ/tháng)">
-                Gói F-GAME (Giảm Ping) — 235.000đ/tháng
-              </option>
-              <option value="META (300.000đ/tháng)">
-                Gói META (1 Gbps đối xứng) — 300.000đ/tháng
-              </option>
-              <option value="Combo SKY (239.000đ/tháng)">
-                Combo SKY + FPT Play — 239.000đ/tháng
-              </option>
-              <option value="Tư vấn gói cước phù hợp">
-                Cần tư vấn gói cước phù hợp
-              </option>
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#94A3B8]">
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd" />
-              </svg>
-            </div>
-          </div>
+          <select
+            id={`${formId}-packageInterested`}
+            name="packageInterested"
+            value={packageInterested}
+            onChange={(e) => setPackageInterested(e.target.value)}
+            className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white focus:border-[#F37021] text-sm text-slate-900 outline-none transition-colors cursor-pointer"
+          >
+            <option value="Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)">
+              Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)
+            </option>
+            <option value="Chỉ Internet Wi-Fi 6 (195.000đ/tháng)">
+              Chỉ Internet Wi-Fi 6 (195.000đ/tháng)
+            </option>
+            <option value="F-GAME (235.000đ/tháng)">
+              Gói Game F-GAME (235.000đ/tháng)
+            </option>
+            <option value="Tư vấn gói cước phù hợp">
+              Cần tư vấn thêm gói cước khác
+            </option>
+          </select>
         </div>
 
-        {/* Ghi chú */}
-        <div>
-          <label htmlFor={`${formId}-note`} className="block text-xs font-semibold text-[#334155] mb-1">
-            Ghi chú <span className="text-[#94A3B8] font-normal">(Tùy chọn)</span>
-          </label>
-          <input
-            id={`${formId}-note`}
-            type="text"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder="Thời gian tiện nghe máy hoặc yêu cầu thêm..."
-            className="w-full px-3.5 py-2 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/15 text-sm text-[#0F172A] outline-none transition-all placeholder:text-[#94A3B8]"
-          />
-        </div>
-
-        {/* Consent Checkbox */}
-        <div className="pt-0.5">
-          <label htmlFor={`${formId}-consent`} className="flex items-center gap-2 cursor-pointer text-xs text-[#64748B]">
-            <input
-              id={`${formId}-consent`}
-              type="checkbox"
-              required
-              checked={agreeConsent}
-              onChange={(e) => setAgreeConsent(e.target.checked)}
-              className="w-4 h-4 rounded border-[#CBD5E1] text-[#F37021] focus:ring-[#F37021] shrink-0 cursor-pointer accent-[#F37021]"
-            />
-            <span>
-              Tôi đồng ý với{" "}
-              <Link
-                href="/chinh-sach-bao-mat"
-                target="_blank"
-                className="text-[#334155] underline hover:text-[#F37021] font-medium"
-              >
-                chính sách bảo mật
-              </Link>
-            </span>
-          </label>
-        </div>
-
-        {/* Submit Button */}
+        {/* Submit Button - Plain & Bold, No Icon */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3.5 px-6 rounded-xl bg-[#F37021] hover:bg-[#E05D10] text-white font-bold text-sm tracking-wide shadow-md hover:shadow-lg active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+          className="w-full py-3 px-4 rounded-lg bg-[#F37021] hover:bg-[#E05D10] text-white font-bold text-sm tracking-wide transition-colors cursor-pointer disabled:opacity-60 mt-1"
         >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin shrink-0" />
-              <span>Đang gửi thông tin...</span>
-            </>
-          ) : (
-            <span>GỬI ĐĂNG KÝ TƯ VẤN</span>
-          )}
+          {isSubmitting ? "Đang gửi thông tin..." : "GỬI ĐĂNG KÝ"}
         </button>
 
         {/* Hotline Support */}
-        <p className="text-center text-xs text-[#64748B] pt-1">
-          Hoặc gọi trực tiếp:{" "}
+        <p className="text-center text-xs text-slate-500 pt-1">
+          Hotline tiếp nhận:{" "}
           <a
             href={siteConfig.contact.hotlineTel}
             onClick={() => fbTracker.contact("hotline", "Form Direct Hotline Click")}
