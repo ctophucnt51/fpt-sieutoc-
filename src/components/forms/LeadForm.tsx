@@ -343,13 +343,58 @@ export default function LeadForm({
         ...attribution,
       };
 
-      // 1. Gửi trực tiếp vào máy chủ API nội bộ /api/leads (Nơi kích hoạt lưu trữ + bắn Telegram Bot tức thì)
+      // 1. Chuẩn bị payload và gửi trực tiếp tới Cloudflare Worker để bắn thông báo về Telegram
+      const workerPayload = {
+        name: fullName.trim(),
+        phone: cleanedPhone,
+        address: detailedAddress,
+        area: selectedArea,
+        service: packageInterested || "Chưa chọn gói",
+        note: `Tỉnh: ${city} | Phường/Xã: ${ward || "Chưa chọn"}`,
+        formLocation: formLocation,
+        source: attribution.utm_source || "direct",
+        campaign: attribution.utm_campaign || undefined,
+        medium: attribution.utm_medium || undefined,
+        term: attribution.utm_term || undefined,
+        content: attribution.utm_content || undefined,
+        fbclid: attribution.fbclid || undefined,
+        gclid: attribution.gclid || undefined,
+      };
+
+      const WORKER_ENDPOINT = "https://form-fpt.cto-phucnt51.workers.dev/";
+
+      try {
+        await fetch(WORKER_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(workerPayload),
+        });
+      } catch (cfErr: unknown) {
+        console.warn("Cloudflare Worker dispatch warning:", cfErr);
+      }
+
+      // 2. Gửi vào máy chủ API nội bộ /api/leads để lưu trữ & trigger tracking
       let leadId = `FPT-${Date.now().toString(36).toUpperCase()}`;
       try {
         const internalRes = await fetch("/api/leads", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({
+            fullName: fullName.trim(),
+            phone: cleanedPhone,
+            address: detailedAddress,
+            area: selectedArea,
+            packageInterested: packageInterested || "Chưa chọn gói",
+            note: `Tỉnh: ${city} | Phường/Xã: ${ward || "Chưa chọn"}`,
+            agreeConsent: true,
+            landingPage: pathname || "/",
+            leadLocation: formLocation,
+            eventId: eventId,
+            website: honeypot,
+            ...attribution,
+          }),
         });
 
         if (internalRes.ok) {

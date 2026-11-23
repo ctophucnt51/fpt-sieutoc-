@@ -45,7 +45,29 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
 
     // 6. Trigger Telegram & Meta CAPI notifications
     if (result.leadRecord && !result.isDuplicate) {
-      // Bắn thông báo tức thì về Telegram Bot
+      // 6.1 Gửi thông báo về Cloudflare Worker kết nối Telegram cũ của bạn
+      fetch("https://form-fpt.cto-phucnt51.workers.dev/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: result.leadRecord.fullName,
+          phone: result.leadRecord.phone,
+          address: result.leadRecord.address,
+          area: result.leadRecord.area,
+          service: result.leadRecord.packageInterested,
+          note: result.leadRecord.note,
+          formLocation: body.leadLocation,
+          source: body.utm_source || "direct",
+          campaign: body.utm_campaign,
+          medium: body.utm_medium,
+          term: body.utm_term,
+          content: body.utm_content,
+          fbclid: body.fbclid,
+          gclid: body.gclid,
+        }),
+      }).catch((err) => console.warn("Worker Telegram dispatch non-fatal error:", err));
+
+      // 6.2 Bắn thông báo trực tiếp qua Telegram Bot API (nếu có cấu hình Bot Token riêng)
       sendTelegramNotification({
         fullName: result.leadRecord.fullName,
         phone: result.leadRecord.phone,
@@ -59,7 +81,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
         utmSource: body.utm_source,
         utmMedium: body.utm_medium,
         utmCampaign: body.utm_campaign,
-      }).catch((err) => console.warn("Telegram dispatch non-fatal error:", err));
+      }).catch((err) => console.warn("Telegram direct dispatch non-fatal error:", err));
 
       // Bắn sự kiện lên Meta Conversions API
       sendMetaConversionsApiEvent({
