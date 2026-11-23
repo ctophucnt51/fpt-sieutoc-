@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 116 34" width="116" height="34" fill="none">
+  <!-- GOFPT Wordmark -->
+  <text x="1" y="22" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="23" fill="#D04A02" letter-spacing="-0.5">
+    GOFPT
+  </text>
+  <!-- Elegant Smile Curve Underneath -->
+  <path d="M4 27.5 C 32 34 76 33.5 106 25" stroke="#D04A02" stroke-width="2.6" stroke-linecap="round" fill="none" />
+</svg>
