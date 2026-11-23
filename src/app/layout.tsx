@@ -83,6 +83,15 @@ export default function RootLayout({
     <html lang="vi" className="scroll-smooth">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {/* Preload critical Above-the-fold assets for ultra-fast Speed Index */}
+        <link rel="preload" href="/images/logo-ftel.svg" as="image" type="image/svg+xml" />
+        <link rel="preload" href="/images/icons/liquid-glass/qua-tang.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/images/icons/liquid-glass/ngoai-hang-anh.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/images/icons/liquid-glass/wifi-6.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/images/icons/liquid-glass/trang-chu.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/images/icons/liquid-glass/gui-dang-ky.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/images/icons/liquid-glass/lap-dat.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/images/icons/liquid-glass/khao-sat.webp" as="image" type="image/webp" />
       </head>
       <body className="min-h-screen flex flex-col font-sans antialiased text-[#2F364A] bg-[#F4F6FB] selection:bg-[#FFF4ED] selection:text-[#F37021]">
         <ConfigProvider initialConfig={dynamicConfig}>

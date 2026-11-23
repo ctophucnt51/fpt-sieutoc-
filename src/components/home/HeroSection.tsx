@@ -42,7 +42,7 @@ export default function HeroSection({
             
             {/* Top Pill Badge */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] text-xs font-semibold text-[#20283D] shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
               <span>Chính sách FPT Telecom 2026</span>
               <span className="text-[#C1C8D1]">|</span>
               <span className="text-[#F37021] font-bold">Khảo sát 0đ</span>
@@ -64,6 +64,9 @@ export default function HeroSection({
                       alt="Quà tặng"
                       width={22}
                       height={22}
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
                       className="w-[22px] h-[22px] object-contain"
                     />
                   </div>
@@ -95,6 +98,9 @@ export default function HeroSection({
                             alt="EPL"
                             width={12}
                             height={12}
+                            loading="eager"
+                            fetchPriority="high"
+                            decoding="async"
                             className="w-3 h-3 object-contain shrink-0"
                           />
                           <span>380 Trận EPL</span>
@@ -158,6 +164,9 @@ export default function HeroSection({
                             alt="Wi-Fi 6"
                             width={12}
                             height={12}
+                            loading="eager"
+                            fetchPriority="high"
+                            decoding="async"
                             className="w-3 h-3 object-contain shrink-0"
                           />
                           <span>1 Gbps (Gói Sky)</span>
@@ -216,6 +225,9 @@ export default function HeroSection({
                       alt="Lắp đặt 24h"
                       width={14}
                       height={14}
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
                       className="w-3.5 h-3.5 object-contain shrink-0"
                     />
                     <span>Lắp đặt 24H</span>
@@ -226,6 +238,9 @@ export default function HeroSection({
                       alt="Khảo sát 0đ"
                       width={14}
                       height={14}
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
                       className="w-3.5 h-3.5 object-contain shrink-0"
                     />
                     <span>Khảo sát 0đ</span>
@@ -256,6 +271,9 @@ export default function HeroSection({
                         alt="Wi-Fi 6"
                         width={22}
                         height={22}
+                        loading="eager"
+                        fetchPriority="high"
+                        decoding="async"
                         className="w-[22px] h-[22px] object-contain shrink-0"
                       />
                     </div>
@@ -273,6 +291,9 @@ export default function HeroSection({
                         alt="EPL"
                         width={22}
                         height={22}
+                        loading="eager"
+                        fetchPriority="high"
+                        decoding="async"
                         className="w-[22px] h-[22px] object-contain shrink-0"
                       />
                     </div>
@@ -290,6 +311,9 @@ export default function HeroSection({
                         alt="Camera AI"
                         width={22}
                         height={22}
+                        loading="eager"
+                        fetchPriority="high"
+                        decoding="async"
                         className="w-[22px] h-[22px] object-contain shrink-0"
                       />
                     </div>
@@ -307,6 +331,9 @@ export default function HeroSection({
                         alt="Lắp đặt 24h"
                         width={22}
                         height={22}
+                        loading="eager"
+                        fetchPriority="high"
+                        decoding="async"
                         className="w-[22px] h-[22px] object-contain shrink-0"
                       />
                     </div>

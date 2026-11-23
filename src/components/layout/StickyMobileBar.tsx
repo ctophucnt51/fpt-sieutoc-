@@ -51,6 +51,9 @@ export default function StickyMobileBar() {
             alt="Trang chủ"
             width={22}
             height={22}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
           <span className="text-[10.5px] leading-tight mt-0.5 truncate">Trang chủ</span>
@@ -70,6 +73,9 @@ export default function StickyMobileBar() {
             alt="Internet"
             width={22}
             height={22}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
           <span className="text-[10.5px] leading-tight mt-0.5 truncate">Internet</span>
@@ -87,6 +93,9 @@ export default function StickyMobileBar() {
               alt="Đăng ký"
               width={24}
               height={24}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="w-6 h-6 object-contain brightness-0 invert"
             />
           </div>
@@ -107,6 +116,9 @@ export default function StickyMobileBar() {
             alt="Ngoại hạng Anh"
             width={22}
             height={22}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
           <span className="text-[10.5px] leading-tight mt-0.5 truncate">Ngoại Hạng</span>
@@ -123,6 +135,9 @@ export default function StickyMobileBar() {
             alt="Hotline"
             width={22}
             height={22}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
           <span className="text-[10.5px] leading-tight mt-0.5 truncate">Liên hệ</span>

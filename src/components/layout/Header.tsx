@@ -111,6 +111,9 @@ export default function Header() {
                 alt="Ưu Đãi"
                 width={11}
                 height={11}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="w-2.5 h-2.5 object-contain shrink-0"
               />
               {siteConfig.promo?.topBarBadge || "Ưu Đãi"}
@@ -155,6 +158,9 @@ export default function Header() {
               alt="FPT Telecom"
               width={109}
               height={36}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="h-6 sm:h-8 w-auto object-contain transition-transform group-hover:scale-102"
             />
             <div className="h-5 w-px bg-[#E4E8ED] hidden sm:block mx-0.5" />
