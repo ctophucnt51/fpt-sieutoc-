@@ -14,32 +14,32 @@ const faqs: FaqItem[] = [
   {
     q: "Chi phí đăng ký và lắp đặt ban đầu là bao nhiêu?",
     a: "Khi quý khách lựa chọn hình thức thanh toán trả trước (6 tháng hoặc 12 tháng), FPT Telecom áp dụng chương trình miễn phí lắp đặt 100%, trang bị miễn phí Modem Wi-Fi 6 thế hệ mới và ĐẶC BIỆT TẶNG KÈM CAMERA FPT AI THÔNG MINH MIỄN PHÍ. Đối với hình thức thanh toán từng tháng, phí hòa mạng ban đầu là 299.000đ theo quy định.",
-    icon: "/images/icons/liquid-glass/qua-tang.webp",
+    icon: "/images/icons/svg/qua-tang.svg",
   },
   {
     q: "Tôi đang ở trọ hoặc thuê nhà có lắp mạng FPT được không?",
     a: "Hoàn toàn được! Thủ tục cực kỳ thuận tiện, chỉ cần chụp hình ảnh Căn cước công dân (CCCD) của bạn. Không cần sổ hộ khẩu hay giấy tờ chứng minh sở hữu nhà ở.",
-    icon: "/images/icons/liquid-glass/nha-thue.webp",
+    icon: "/images/icons/svg/nha-thue.svg",
   },
   {
     q: "Thủ tục đăng ký cần chuẩn bị những gì?",
     a: "Chỉ cần cung cấp Họ tên, Số điện thoại và Địa chỉ lắp đặt để nhân viên kiểm tra cổng quang. Khi ký hợp đồng, quý khách chỉ cần chụp ảnh CCCD chính chủ. Mọi thao tác ký hợp đồng đều được thực hiện điện tử bảo mật qua mã xác thực OTP gửi về số điện thoại của quý khách.",
-    icon: "/images/icons/liquid-glass/hop-dong.webp",
+    icon: "/images/icons/svg/hop-dong.svg",
   },
   {
     q: "Thời gian kỹ thuật viên đến lắp đặt là bao lâu sau khi đăng ký?",
     a: "FPT Telecom cam kết triển khai lắp đặt hoàn tất trong vòng 24 giờ đến 48 giờ kể từ khi hoàn tất đăng ký hợp đồng. Quý khách cũng có thể chủ động hẹn giờ lắp đặt theo khung giờ rảnh của gia đình (kể cả thứ Bảy, Chủ Nhật hoặc ngoài giờ hành chính).",
-    icon: "/images/icons/liquid-glass/lap-dat.webp",
+    icon: "/images/icons/svg/lap-dat.svg",
   },
   {
     q: "Nếu mạng bị sự cố hoặc giật lag thì báo cho ai?",
     a: "Quý khách có thể liên hệ trực tiếp tổng đài kỹ thuật FPT 1900 6600, báo qua ứng dụng chăm sóc khách hàng Hi FPT trên điện thoại, hoặc nhắn trực tiếp Hotline/Zalo 0878 800 400. Kỹ thuật viên khu vực sẽ có mặt hỗ trợ xử lý tại nhà trong vòng 2 giờ.",
-    icon: "/images/icons/liquid-glass/ho-tro.webp",
+    icon: "/images/icons/svg/ho-tro.svg",
   },
   {
     q: "Gói Combo Ngoại Hạng Anh xem trên TV như thế nào, có cần đầu thu Box không?",
     a: "Hoàn toàn không cần đầu thu Box cồng kềnh! FPT cung cấp tài khoản bản quyền FPT Play để quý khách cài đặt ứng dụng và đăng nhập xem trực tiếp trên mọi dòng Smart TV (Samsung, Sony, LG, Android TV...), điện thoại, máy tính bảng hoặc laptop vô cùng gọn gàng và tiện lợi.",
-    icon: "/images/icons/liquid-glass/fpt-play.webp",
+    icon: "/images/icons/svg/fpt-play.svg",
   },
 ];
 
@@ -58,7 +58,7 @@ export default function FaqSection() {
         <div className="text-center mb-6 sm:mb-8 max-w-2xl mx-auto">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#C44D06] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
-              src="/images/icons/liquid-glass/cau-hoi.webp"
+              src="/images/icons/svg/cau-hoi.svg"
               alt="Hỏi đáp"
               width={16}
               height={16}

@@ -38,7 +38,7 @@ export default function TruyenHinhFptPage() {
             <div className="p-6 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-orange-300 hover:shadow-md transition-all">
               <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-4 p-1">
                 <img
-                  src="/images/icons/liquid-glass/kenh-truyen-hinh.webp"
+                  src="/images/icons/svg/kenh-truyen-hinh.svg"
                   alt="Kênh truyền hình"
                   width={28}
                   height={28}
@@ -51,7 +51,7 @@ export default function TruyenHinhFptPage() {
             <div className="p-6 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-orange-300 hover:shadow-md transition-all">
               <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-4 p-1">
                 <img
-                  src="/images/icons/liquid-glass/smart-tv.webp"
+                  src="/images/icons/svg/smart-tv.svg"
                   alt="Smart TV"
                   width={28}
                   height={28}

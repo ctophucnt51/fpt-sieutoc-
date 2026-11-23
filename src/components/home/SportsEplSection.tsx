@@ -23,7 +23,7 @@ export default function SportsEplSection() {
             <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/80 border border-red-800/80 text-red-400 font-bold text-xs uppercase tracking-wider shadow-xs">
                 <img
-                  src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                  src="/images/icons/svg/ngoai-hang-anh.svg"
                   alt="EPL"
                   width={16}
                   height={16}
@@ -50,7 +50,7 @@ export default function SportsEplSection() {
                 <div className="flex items-start gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
                     <img
-                      src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                      src="/images/icons/svg/ngoai-hang-anh.svg"
                       alt="EPL"
                       width={20}
                       height={20}
@@ -68,7 +68,7 @@ export default function SportsEplSection() {
                 <div className="flex items-start gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
                     <img
-                      src="/images/icons/liquid-glass/smart-tv.webp"
+                      src="/images/icons/svg/smart-tv.svg"
                       alt="Smart TV"
                       width={20}
                       height={20}
@@ -86,7 +86,7 @@ export default function SportsEplSection() {
                 <div className="flex items-start gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
                     <img
-                      src="/images/icons/liquid-glass/kenh-truyen-hinh.webp"
+                      src="/images/icons/svg/kenh-truyen-hinh.svg"
                       alt="Kênh Truyền Hình"
                       width={20}
                       height={20}
@@ -104,7 +104,7 @@ export default function SportsEplSection() {
                 <div className="flex items-start gap-2.5">
                   <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
                     <img
-                      src="/images/icons/liquid-glass/da-thiet-bi.webp"
+                      src="/images/icons/svg/da-thiet-bi.svg"
                       alt="Đa Thiết Bị"
                       width={20}
                       height={20}

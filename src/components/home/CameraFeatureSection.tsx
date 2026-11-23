@@ -12,7 +12,7 @@ export default function CameraFeatureSection() {
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#C44D06] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)]">
             <img
-              src="/images/icons/liquid-glass/camera-ai.webp"
+              src="/images/icons/svg/camera-ai.svg"
               alt="Camera AI"
               width={16}
               height={16}
@@ -65,7 +65,7 @@ export default function CameraFeatureSection() {
           <div className="p-5 rounded-2xl bg-white border border-[#E4E8ED] hover:border-orange-200 hover:shadow-[0_4px_16px_rgba(243,112,33,0.12)] transition-all shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)]">
             <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-100 p-1 flex items-center justify-center mb-3">
               <img
-                src="/images/icons/liquid-glass/bao-hanh.webp"
+                src="/images/icons/svg/bao-hanh.svg"
                 alt="Bảo Hành"
                 width={28}
                 height={28}

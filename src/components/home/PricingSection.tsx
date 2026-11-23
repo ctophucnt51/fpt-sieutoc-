@@ -50,7 +50,7 @@ export default function PricingSection({
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#C44D06] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
-              src="/images/icons/liquid-glass/bang-gia.webp"
+              src="/images/icons/svg/bang-gia.svg"
               alt="Bảng Giá"
               width={16}
               height={16}
@@ -78,7 +78,7 @@ export default function PricingSection({
               }`}
             >
               <img
-                src="/images/icons/liquid-glass/bang-gia.webp"
+                src="/images/icons/svg/bang-gia.svg"
                 alt="Tất cả"
                 width={15}
                 height={15}
@@ -97,7 +97,7 @@ export default function PricingSection({
               }`}
             >
               <img
-                src="/images/icons/liquid-glass/wifi-6.webp"
+                src="/images/icons/svg/wifi-6.svg"
                 alt="Internet"
                 width={15}
                 height={15}
@@ -116,7 +116,7 @@ export default function PricingSection({
               }`}
             >
               <img
-                src="/images/icons/liquid-glass/fpt-play.webp"
+                src="/images/icons/svg/fpt-play.svg"
                 alt="Combo TV"
                 width={15}
                 height={15}
@@ -136,12 +136,12 @@ export default function PricingSection({
             const startingPrice = getStartingPrice(pkg.priceDisplay);
             const hasRange = pkg.priceDisplay.includes(" - ");
             const pkgIcon = pkg.id === "f-game" || pkg.name.toLowerCase().includes("game")
-              ? "/images/icons/liquid-glass/gaming.webp"
+              ? "/images/icons/svg/gaming.svg"
               : pkg.name.toLowerCase().includes("mesh")
-              ? "/images/icons/liquid-glass/wifi-mesh.webp"
+              ? "/images/icons/svg/wifi-mesh.svg"
               : isCombo
-              ? "/images/icons/liquid-glass/fpt-play.webp"
-              : "/images/icons/liquid-glass/wifi-6.webp";
+              ? "/images/icons/svg/fpt-play.svg"
+              : "/images/icons/svg/wifi-6.svg";
 
             return (
               <div
@@ -229,17 +229,17 @@ export default function PricingSection({
                         const lower = feat.toLowerCase();
                         let featIcon = null;
                         if (lower.includes("đối xứng")) {
-                          featIcon = "/images/icons/liquid-glass/bang-thong-doi-xung.webp";
+                          featIcon = "/images/icons/svg/bang-thong-doi-xung.svg";
                         } else if (lower.includes("ultra fast") || lower.includes("giảm ping")) {
-                          featIcon = "/images/icons/liquid-glass/ultra-fast.webp";
+                          featIcon = "/images/icons/svg/ultra-fast.svg";
                         } else if (lower.includes("download") || lower.includes("tải về") || lower.includes("tải xuống")) {
-                          featIcon = "/images/icons/liquid-glass/tai-xuong.webp";
+                          featIcon = "/images/icons/svg/tai-xuong.svg";
                         } else if (lower.includes("upload") || lower.includes("tải lên")) {
-                          featIcon = "/images/icons/liquid-glass/tai-len.webp";
+                          featIcon = "/images/icons/svg/tai-len.svg";
                         } else if (lower.includes("smart tv") || lower.includes("không cần box")) {
-                          featIcon = "/images/icons/liquid-glass/smart-tv.webp";
+                          featIcon = "/images/icons/svg/smart-tv.svg";
                         } else if (lower.includes("kênh truyền hình")) {
-                          featIcon = "/images/icons/liquid-glass/kenh-truyen-hinh.webp";
+                          featIcon = "/images/icons/svg/kenh-truyen-hinh.svg";
                         }
 
                         return (
@@ -306,9 +306,9 @@ export default function PricingSection({
         {/* Pricing Transparency Note (Long Châu Style White Card) */}
         <div className="mt-8 sm:mt-10 p-4 sm:p-5 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">
           <div className="flex items-center gap-1.5 shrink-0">
-            <img src="/images/icons/liquid-glass/modem.webp" alt="Modem" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
-            <img src="/images/icons/liquid-glass/camera-ai.webp" alt="Camera" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
-            <img src="/images/icons/liquid-glass/lap-dat.webp" alt="Lắp đặt" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
+            <img src="/images/icons/svg/modem.svg" alt="Modem" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
+            <img src="/images/icons/svg/camera-ai.svg" alt="Camera" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
+            <img src="/images/icons/svg/lap-dat.svg" alt="Lắp đặt" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
           </div>
           <p className="text-xs sm:text-sm text-[#657384] leading-relaxed font-normal text-center sm:text-left">
             <strong className="text-[#20283D] font-bold">Chính sách minh bạch &amp; ưu đãi:</strong> Bảng giá đã bao gồm 10% VAT. Khách hàng đăng ký gói cước mới được trang bị Modem Wi-Fi 6 thế hệ mới 0đ trong suốt thời gian hòa mạng. <strong className="text-[#C44D06] font-bold">Ưu đãi tặng Camera FPT AI</strong> áp dụng có điều kiện theo chính sách hòa mạng trả trước hiện hành của FPT Telecom. Hỗ trợ khảo sát hạ tầng tận nơi 0đ trong 24 giờ.

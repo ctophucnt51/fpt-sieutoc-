@@ -26,7 +26,7 @@ export default function BottomCtaSection({
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center shrink-0 shadow-xs">
                 <img
-                  src="/images/icons/liquid-glass/modem.webp"
+                  src="/images/icons/svg/modem.svg"
                   alt="Modem Wi-Fi 6"
                   width={28}
                   height={28}
@@ -44,7 +44,7 @@ export default function BottomCtaSection({
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center shrink-0 shadow-xs">
                 <img
-                  src="/images/icons/liquid-glass/camera-ai.webp"
+                  src="/images/icons/svg/camera-ai.svg"
                   alt="Camera AI"
                   width={28}
                   height={28}
@@ -62,7 +62,7 @@ export default function BottomCtaSection({
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center shrink-0 shadow-xs">
                 <img
-                  src="/images/icons/liquid-glass/lap-dat.webp"
+                  src="/images/icons/svg/lap-dat.svg"
                   alt="Lắp đặt 24h"
                   width={28}
                   height={28}
@@ -80,7 +80,7 @@ export default function BottomCtaSection({
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center shrink-0 shadow-xs">
                 <img
-                  src="/images/icons/liquid-glass/bao-tri.webp"
+                  src="/images/icons/svg/bao-tri.svg"
                   alt="Bảo trì"
                   width={28}
                   height={28}
@@ -144,7 +144,7 @@ export default function BottomCtaSection({
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#FFF4ED] border border-orange-100 p-1 flex items-center justify-center shrink-0">
                   <img
-                    src="/images/icons/liquid-glass/hotline.webp"
+                    src="/images/icons/svg/hotline.svg"
                     alt="Hotline"
                     width={24}
                     height={24}

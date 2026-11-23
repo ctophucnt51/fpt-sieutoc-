@@ -58,7 +58,7 @@ export default function Footer() {
 
             <div className="pt-1 flex items-center gap-2 text-xs text-emerald-700 font-medium">
               <img
-                src="/images/icons/liquid-glass/hop-dong.webp"
+                src="/images/icons/svg/hop-dong.svg"
                 alt="HĐ điện tử"
                 width={16}
                 height={16}
@@ -138,7 +138,7 @@ export default function Footer() {
                   <div className="flex items-start gap-2.5">
                     <div className="w-8 h-8 rounded-xl bg-[#FFF4ED] border border-orange-200/70 p-1 flex items-center justify-center shrink-0">
                       <img
-                        src="/images/icons/liquid-glass/hotline.webp"
+                        src="/images/icons/svg/hotline.svg"
                         alt="Hotline"
                         width={22}
                         height={22}
@@ -164,7 +164,7 @@ export default function Footer() {
                   <div className="flex items-start gap-2.5">
                     <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200/70 p-1 flex items-center justify-center shrink-0">
                       <img
-                        src="/images/icons/liquid-glass/chat-zalo.webp"
+                        src="/images/icons/svg/chat-zalo.svg"
                         alt="Zalo"
                         width={22}
                         height={22}

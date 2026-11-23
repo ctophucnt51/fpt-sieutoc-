@@ -47,7 +47,7 @@ export default function StickyMobileBar() {
           }`}
         >
           <img
-            src="/images/icons/liquid-glass/trang-chu.webp"
+            src="/images/icons/svg/trang-chu.svg"
             alt=""
             aria-hidden="true"
             width={22}
@@ -69,7 +69,7 @@ export default function StickyMobileBar() {
           }`}
         >
           <img
-            src="/images/icons/liquid-glass/wifi-6.webp"
+            src="/images/icons/svg/wifi-6.svg"
             alt=""
             aria-hidden="true"
             width={22}
@@ -89,14 +89,14 @@ export default function StickyMobileBar() {
         >
           <div className="w-12 h-12 rounded-full bg-[#F37021] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(243,112,33,0.45)] border-2 border-white">
             <img
-              src="/images/icons/liquid-glass/gui-dang-ky.webp"
+              src="/images/icons/svg/trang/gui-dang-ky.svg"
               alt=""
               aria-hidden="true"
               width={24}
               height={24}
               loading="eager"
               decoding="async"
-              className="w-6 h-6 object-contain brightness-0 invert"
+              className="w-6 h-6 object-contain"
             />
           </div>
           <span className="text-[10px] font-bold text-[#C44D06] leading-tight mt-0.5 truncate">Đăng ký 0đ</span>
@@ -112,7 +112,7 @@ export default function StickyMobileBar() {
           }`}
         >
           <img
-            src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+            src="/images/icons/svg/ngoai-hang-anh.svg"
             alt=""
             aria-hidden="true"
             width={22}
@@ -131,7 +131,7 @@ export default function StickyMobileBar() {
           className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-[#657384] hover:text-[#F37021] active:text-[#F37021] font-medium"
         >
           <img
-            src="/images/icons/liquid-glass/hotline.webp"
+            src="/images/icons/svg/hotline.svg"
             alt=""
             aria-hidden="true"
             width={22}

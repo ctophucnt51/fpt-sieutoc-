@@ -13,7 +13,7 @@ export default function Wifi6Explainer() {
             <div>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#C44D06] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-2xs backdrop-blur-md">
                 <img
-                  src="/images/icons/liquid-glass/wifi-6.webp"
+                  src="/images/icons/svg/wifi-6.svg"
                   alt="Wi-Fi 6"
                   width={16}
                   height={16}
@@ -134,7 +134,7 @@ export default function Wifi6Explainer() {
               <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-100 hover:border-orange-200 hover:shadow-[0_12px_32px_rgba(243,112,33,0.12)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
                 <div className="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-100/80 p-1 flex items-center justify-center mb-3 shadow-2xs">
                   <img
-                    src="/images/icons/liquid-glass/toc-do.webp"
+                    src="/images/icons/svg/toc-do.svg"
                     alt="Tốc độ 1 Gbps"
                     width={26}
                     height={26}
@@ -152,7 +152,7 @@ export default function Wifi6Explainer() {
               <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-100 hover:border-emerald-200 hover:shadow-[0_12px_32px_rgba(16,185,129,0.12)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
                 <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-100/80 p-1 flex items-center justify-center mb-3 shadow-2xs">
                   <img
-                    src="/images/icons/liquid-glass/gaming.webp"
+                    src="/images/icons/svg/gaming.svg"
                     alt="Low Ping Gaming"
                     width={26}
                     height={26}
@@ -170,7 +170,7 @@ export default function Wifi6Explainer() {
               <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-100 hover:border-blue-200 hover:shadow-[0_12px_32px_rgba(2,132,199,0.12)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
                 <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-100/80 p-1 flex items-center justify-center mb-3 shadow-2xs">
                   <img
-                    src="/images/icons/liquid-glass/wifi-mesh.webp"
+                    src="/images/icons/svg/wifi-mesh.svg"
                     alt="Wi-Fi Mesh"
                     width={26}
                     height={26}
@@ -188,7 +188,7 @@ export default function Wifi6Explainer() {
               <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-100 hover:border-purple-200 hover:shadow-[0_12px_32px_rgba(168,85,247,0.12)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all">
                 <div className="w-8 h-8 rounded-xl bg-purple-50 border border-purple-100/80 p-0.5 flex items-center justify-center mb-2.5 shadow-2xs">
                   <img
-                    src="/images/icons/liquid-glass/bao-hanh.webp"
+                    src="/images/icons/svg/bao-hanh.svg"
                     alt="Bảo Hành"
                     width={26}
                     height={26}
@@ -220,7 +220,7 @@ export default function Wifi6Explainer() {
               <div className="min-w-0 flex-1">
                 <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-orange-50 text-[#C44D06] border border-orange-200/70 text-[10px] font-bold uppercase whitespace-nowrap mb-1">
                   <img
-                    src="/images/icons/liquid-glass/modem.webp"
+                    src="/images/icons/svg/modem.svg"
                     alt="Modem"
                     width={13}
                     height={13}

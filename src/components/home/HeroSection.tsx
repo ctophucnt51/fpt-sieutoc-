@@ -60,7 +60,7 @@ export default function HeroSection({
                 <div className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#E4E8ED] text-[#2F364A] shadow-xs hover:border-emerald-300 transition-all">
                   <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0 p-0.5">
                     <img
-                      src="/images/icons/liquid-glass/qua-tang.webp"
+                      src="/images/icons/svg/qua-tang.svg"
                       alt="Quà tặng"
                       width={22}
                       height={22}
@@ -93,7 +93,7 @@ export default function HeroSection({
                       <div className="flex items-center justify-between gap-1.5 mb-2.5">
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200">
                           <img
-                            src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                            src="/images/icons/svg/ngoai-hang-anh.svg"
                             alt="EPL"
                             width={12}
                             height={12}
@@ -158,7 +158,7 @@ export default function HeroSection({
                       <div className="flex items-center justify-between gap-1.5 mb-2.5">
                         <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                           <img
-                            src="/images/icons/liquid-glass/wifi-6.webp"
+                            src="/images/icons/svg/wifi-6.svg"
                             alt="Wi-Fi 6"
                             width={12}
                             height={12}
@@ -218,7 +218,7 @@ export default function HeroSection({
                 <div className="flex flex-nowrap items-center justify-center lg:justify-start gap-2 pt-1 text-[11px] text-[#2F364A] font-semibold whitespace-nowrap overflow-x-auto no-scrollbar">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-[#E4E8ED] shadow-xs shrink-0">
                     <img
-                      src="/images/icons/liquid-glass/lap-dat.webp"
+                      src="/images/icons/svg/lap-dat.svg"
                       alt="Lắp đặt 24h"
                       width={14}
                       height={14}
@@ -230,7 +230,7 @@ export default function HeroSection({
                   </span>
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white border border-[#E4E8ED] shadow-xs shrink-0">
                     <img
-                      src="/images/icons/liquid-glass/khao-sat.webp"
+                      src="/images/icons/svg/khao-sat.svg"
                       alt="Khảo sát 0đ"
                       width={14}
                       height={14}
@@ -262,7 +262,7 @@ export default function HeroSection({
                   <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-orange-300 transition-all">
                     <div className="w-7 h-7 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center shrink-0 p-0.5">
                       <img
-                        src="/images/icons/liquid-glass/wifi-6.webp"
+                        src="/images/icons/svg/wifi-6.svg"
                         alt="Wi-Fi 6"
                         width={22}
                         height={22}
@@ -281,7 +281,7 @@ export default function HeroSection({
                   <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-red-300 transition-all">
                     <div className="w-7 h-7 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center shrink-0 p-0.5">
                       <img
-                        src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                        src="/images/icons/svg/ngoai-hang-anh.svg"
                         alt="EPL"
                         width={22}
                         height={22}
@@ -300,7 +300,7 @@ export default function HeroSection({
                   <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-emerald-300 transition-all">
                     <div className="w-7 h-7 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0 p-0.5">
                       <img
-                        src="/images/icons/liquid-glass/camera-ai.webp"
+                        src="/images/icons/svg/camera-ai.svg"
                         alt="Camera AI"
                         width={22}
                         height={22}
@@ -319,7 +319,7 @@ export default function HeroSection({
                   <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-orange-300 transition-all">
                     <div className="w-7 h-7 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center shrink-0 p-0.5">
                       <img
-                        src="/images/icons/liquid-glass/lap-dat.webp"
+                        src="/images/icons/svg/lap-dat.svg"
                         alt="Lắp đặt 24h"
                         width={22}
                         height={22}
@@ -359,7 +359,7 @@ export default function HeroSection({
             >
               <div className="w-10 h-10 rounded-xl bg-orange-50 group-hover:bg-[#F37021] p-1.5 flex items-center justify-center shrink-0 transition-colors">
                 <img
-                  src="/images/icons/liquid-glass/wifi-6.webp"
+                  src="/images/icons/svg/wifi-6.svg"
                   alt="Internet"
                   width={24}
                   height={24}
@@ -383,7 +383,7 @@ export default function HeroSection({
             >
               <div className="w-10 h-10 rounded-xl bg-red-50 group-hover:bg-red-600 p-1.5 flex items-center justify-center shrink-0 transition-colors">
                 <img
-                  src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                  src="/images/icons/svg/ngoai-hang-anh.svg"
                   alt="EPL"
                   width={24}
                   height={24}
@@ -407,7 +407,7 @@ export default function HeroSection({
             >
               <div className="w-10 h-10 rounded-xl bg-emerald-50 group-hover:bg-emerald-600 p-1.5 flex items-center justify-center shrink-0 transition-colors">
                 <img
-                  src="/images/icons/liquid-glass/camera-ai.webp"
+                  src="/images/icons/svg/camera-ai.svg"
                   alt="Camera AI"
                   width={24}
                   height={24}
@@ -431,7 +431,7 @@ export default function HeroSection({
             >
               <div className="w-10 h-10 rounded-xl bg-blue-50 group-hover:bg-blue-600 p-1.5 flex items-center justify-center shrink-0 transition-colors">
                 <img
-                  src="/images/icons/liquid-glass/lap-dat.webp"
+                  src="/images/icons/svg/lap-dat.svg"
                   alt="Lắp đặt 24h"
                   width={24}
                   height={24}
@@ -455,7 +455,7 @@ export default function HeroSection({
             >
               <div className="w-10 h-10 rounded-xl bg-orange-50 group-hover:bg-[#F37021] p-1.5 flex items-center justify-center shrink-0 transition-colors">
                 <img
-                  src="/images/icons/liquid-glass/hotline.webp"
+                  src="/images/icons/svg/hotline.svg"
                   alt="Hotline"
                   width={24}
                   height={24}

@@ -4,28 +4,28 @@ export default function ProcessSection() {
       step: "01",
       title: "Gửi Yêu Cầu Tư Vấn",
       desc: "Chỉ mất 30 giây điền số điện thoại và địa chỉ hoặc bấm gọi Hotline 0878 800 400.",
-      iconImg: "/images/icons/liquid-glass/hotline.webp",
+      iconImg: "/images/icons/svg/hotline.svg",
       highlight: "Nhanh chóng",
     },
     {
       step: "02",
       title: "Khảo Sát Hạ Tầng & Báo Giá",
       desc: "Chuyên viên liên hệ lại sau 5 - 15 phút, kiểm tra cổng quang tại địa chỉ nhà bạn và báo giá chuẩn xác.",
-      iconImg: "/images/icons/liquid-glass/khao-sat.webp",
+      iconImg: "/images/icons/svg/khao-sat.svg",
       highlight: "15 phút",
     },
     {
       step: "03",
       title: "Ký Hợp Đồng Điện Tử",
       desc: "Ký hợp đồng online bảo mật qua tin nhắn OTP hoặc nhân viên hỗ trợ tận nhà theo yêu cầu.",
-      iconImg: "/images/icons/liquid-glass/hop-dong.webp",
+      iconImg: "/images/icons/svg/hop-dong.svg",
       highlight: "Bảo mật",
     },
     {
       step: "04",
       title: "Lắp Đặt & Bàn Giao Trong 24H",
       desc: "Kỹ thuật viên kéo cáp quang, trang bị modem Wi-Fi 6, đo kiểm tốc độ và bàn giao nghiệm thu.",
-      iconImg: "/images/icons/liquid-glass/lap-dat.webp",
+      iconImg: "/images/icons/svg/lap-dat.svg",
       highlight: "Siêu tốc",
     },
   ];
@@ -36,7 +36,7 @@ export default function ProcessSection() {
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
-              src="/images/icons/liquid-glass/lap-dat.webp"
+              src="/images/icons/svg/lap-dat.svg"
               alt="Quy trình"
               width={16}
               height={16}

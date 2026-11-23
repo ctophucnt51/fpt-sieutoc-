@@ -85,7 +85,7 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-2 min-w-0">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F37021] text-white text-[9px] font-extrabold tracking-wide uppercase shrink-0">
               <img
-                src="/images/icons/liquid-glass/qua-tang.webp"
+                src="/images/icons/svg/qua-tang.svg"
                 alt="Ưu Đãi"
                 width={12}
                 height={12}
@@ -107,7 +107,7 @@ export default function Header() {
           >
             <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#F37021] text-white text-[8.5px] font-extrabold uppercase shrink-0">
               <img
-                src="/images/icons/liquid-glass/qua-tang.webp"
+                src="/images/icons/svg/qua-tang.svg"
                 alt="Ưu Đãi"
                 width={11}
                 height={11}
