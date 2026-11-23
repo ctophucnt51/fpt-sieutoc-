@@ -23,7 +23,7 @@ export default function HomePage() {
         }
         showPriorityCards={true}
         defaultPackage="Combo GIGA"
-        formHeadline="Đăng Ký Combo Ngoại Hạng Anh 220K & Nhận Camera 0đ"
+        formHeadline="Đăng Ký Tư Vấn"
       />
 
       {/* 2. Chi Tiết Trực Tiếp 380 Trận Ngoại Hạng Anh & FPT Play Trên Smart TV */}

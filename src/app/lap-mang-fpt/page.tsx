@@ -26,7 +26,7 @@ export default function LapMangFptPage() {
         }
         subheadline="Hạ tầng 100% cáp quang GPON siêu ổn định. Trang bị Modem Wi-Fi 6 băng tần kép AX3000 miễn phí. Ưu đãi sốc gói Sky 1 Gbps chỉ 195.000đ/tháng, đặc biệt tặng kèm Camera FPT AI an ninh thông minh miễn phí."
         defaultPackage="SKY"
-        formHeadline="Đăng Ký Khảo Sát Internet Gói Sky 195K"
+        formHeadline="Đăng Ký Tư Vấn"
         campaignContext="lap-mang-fpt"
       />
 

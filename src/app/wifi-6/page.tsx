@@ -26,7 +26,7 @@ export default function Wifi6Page() {
         }
         subheadline="Độ trễ siêu thấp dưới 10ms, tốc độ 1 Gbps cực khủng, phủ sóng xuyên tường cực mạnh cho nhà nhiều tầng. Gói Sky 1 Gbps giá ưu đãi chỉ 195.000đ/tháng, đặc biệt tặng kèm Camera FPT AI an ninh thông minh miễn phí."
         defaultPackage="SKY"
-        formHeadline="Đăng Ký Wi-Fi 6 Gói Sky 195K"
+        formHeadline="Đăng Ký Tư Vấn"
         campaignContext="wifi-6"
       />
 
