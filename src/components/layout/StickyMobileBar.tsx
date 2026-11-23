@@ -52,7 +52,6 @@ export default function StickyMobileBar() {
             width={22}
             height={22}
             loading="eager"
-            fetchPriority="high"
             decoding="async"
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
@@ -74,7 +73,6 @@ export default function StickyMobileBar() {
             width={22}
             height={22}
             loading="eager"
-            fetchPriority="high"
             decoding="async"
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
@@ -94,7 +92,6 @@ export default function StickyMobileBar() {
               width={24}
               height={24}
               loading="eager"
-              fetchPriority="high"
               decoding="async"
               className="w-6 h-6 object-contain brightness-0 invert"
             />
@@ -117,7 +114,6 @@ export default function StickyMobileBar() {
             width={22}
             height={22}
             loading="eager"
-            fetchPriority="high"
             decoding="async"
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
@@ -136,7 +132,6 @@ export default function StickyMobileBar() {
             width={22}
             height={22}
             loading="eager"
-            fetchPriority="high"
             decoding="async"
             className="w-[22px] h-[22px] object-contain shrink-0"
           />

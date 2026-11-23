@@ -112,7 +112,6 @@ export default function Header() {
                 width={11}
                 height={11}
                 loading="eager"
-                fetchPriority="high"
                 decoding="async"
                 className="w-2.5 h-2.5 object-contain shrink-0"
               />
@@ -159,7 +158,6 @@ export default function Header() {
               width={109}
               height={36}
               loading="eager"
-              fetchPriority="high"
               decoding="async"
               className="h-6 sm:h-8 w-auto object-contain transition-transform group-hover:scale-102"
             />

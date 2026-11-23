@@ -203,7 +203,8 @@ export default function Wifi6Explainer() {
                   width={80}
                   height={80}
                   className="w-full h-full object-contain"
-                  loading="eager"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="min-w-0 flex-1">

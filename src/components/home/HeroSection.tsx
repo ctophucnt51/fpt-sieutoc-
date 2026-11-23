@@ -65,7 +65,6 @@ export default function HeroSection({
                       width={22}
                       height={22}
                       loading="eager"
-                      fetchPriority="high"
                       decoding="async"
                       className="w-[22px] h-[22px] object-contain"
                     />
@@ -99,7 +98,6 @@ export default function HeroSection({
                             width={12}
                             height={12}
                             loading="eager"
-                            fetchPriority="high"
                             decoding="async"
                             className="w-3 h-3 object-contain shrink-0"
                           />
@@ -165,7 +163,6 @@ export default function HeroSection({
                             width={12}
                             height={12}
                             loading="eager"
-                            fetchPriority="high"
                             decoding="async"
                             className="w-3 h-3 object-contain shrink-0"
                           />
@@ -226,7 +223,6 @@ export default function HeroSection({
                       width={14}
                       height={14}
                       loading="eager"
-                      fetchPriority="high"
                       decoding="async"
                       className="w-3.5 h-3.5 object-contain shrink-0"
                     />
@@ -239,7 +235,6 @@ export default function HeroSection({
                       width={14}
                       height={14}
                       loading="eager"
-                      fetchPriority="high"
                       decoding="async"
                       className="w-3.5 h-3.5 object-contain shrink-0"
                     />
@@ -272,7 +267,6 @@ export default function HeroSection({
                         width={22}
                         height={22}
                         loading="eager"
-                        fetchPriority="high"
                         decoding="async"
                         className="w-[22px] h-[22px] object-contain shrink-0"
                       />
@@ -292,7 +286,6 @@ export default function HeroSection({
                         width={22}
                         height={22}
                         loading="eager"
-                        fetchPriority="high"
                         decoding="async"
                         className="w-[22px] h-[22px] object-contain shrink-0"
                       />
@@ -312,7 +305,6 @@ export default function HeroSection({
                         width={22}
                         height={22}
                         loading="eager"
-                        fetchPriority="high"
                         decoding="async"
                         className="w-[22px] h-[22px] object-contain shrink-0"
                       />
@@ -332,7 +324,6 @@ export default function HeroSection({
                         width={22}
                         height={22}
                         loading="eager"
-                        fetchPriority="high"
                         decoding="async"
                         className="w-[22px] h-[22px] object-contain shrink-0"
                       />
