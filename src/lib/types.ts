@@ -7,6 +7,7 @@ export interface LeadPayload {
   note?: string;
   agreeConsent: boolean;
   landingPage: string;
+  leadLocation?: string;
   // Honeypot field (should remain empty)
   website?: string;
   // Tracking & Attribution

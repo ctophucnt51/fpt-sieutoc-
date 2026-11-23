@@ -1,11 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyAdminAuth } from "@/lib/adminAuth";
-import { exec } from "child_process";
+import { exec, execFile } from "child_process";
 import { promisify } from "util";
 import fs from "fs";
 import path from "path";
 
 const execPromise = promisify(exec);
+const execFilePromise = promisify(execFile);
+
+// Helper chạy lệnh git trực tiếp (không qua /bin/sh để tiết kiệm process table)
+async function runGit(args: string[], cwd: string): Promise<{ stdout: string; stderr: string }> {
+  return execFilePromise("git", args, {
+    cwd,
+    timeout: 30000,
+    env: { ...process.env, PATH: `/usr/local/bin:/usr/bin:/bin:${process.env.PATH || ""}` },
+  });
+}
 
 // GET: Lấy thông tin phiên bản commit hiện tại
 export async function GET(request: NextRequest) {
@@ -16,11 +26,14 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  const rootDir = process.cwd();
+
   try {
-    const { stdout: commitInfo } = await execPromise(
-      'git log -1 --pretty=format:"%h - %s (%cd)" --date=relative'
+    const { stdout: commitInfo } = await runGit(
+      ["log", "-1", '--pretty=format:%h - %s (%cd)', "--date=relative"],
+      rootDir
     );
-    const { stdout: branch } = await execPromise("git rev-parse --abbrev-ref HEAD");
+    const { stdout: branch } = await runGit(["rev-parse", "--abbrev-ref", "HEAD"], rootDir);
 
     return NextResponse.json({
       success: true,
@@ -83,13 +96,31 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // BƯỚC 2: Chạy Git fetch & reset đè code mới nhất từ GitHub
-    const command = "git fetch origin main && git reset --hard origin/main";
+    // BƯỚC 2: Chạy Git fetch & reset đè code mới nhất từ GitHub bằng execFile trực tiếp
+    let stdout = "";
+    let stderr = "";
+    try {
+      const fetchRes = await runGit(["fetch", "origin", "main"], rootDir);
+      stdout += fetchRes.stdout + "\n";
+      stderr += fetchRes.stderr + "\n";
 
-    const { stdout, stderr } = await execPromise(command, {
-      timeout: 30000,
-      env: { ...process.env, PATH: `/usr/local/bin:/usr/bin:/bin:${process.env.PATH || ""}` },
-    });
+      const resetRes = await runGit(["reset", "--hard", "origin/main"], rootDir);
+      stdout += resetRes.stdout;
+      stderr += resetRes.stderr;
+    } catch (gitErr: any) {
+      // Nếu lỗi do hosting cPanel bị kịch trần 100 tiến trình (EAGAIN / fork retry)
+      const isProcessLimit =
+        gitErr?.message?.includes("Resource temporarily unavailable") ||
+        gitErr?.message?.includes("fork: retry") ||
+        gitErr?.message?.includes("EAGAIN");
+
+      if (isProcessLimit) {
+        throw new Error(
+          "Hosting cPanel của bạn đang bị đầy tiến trình (Processes đạt 99/100). Vui lòng vào cPanel > 'Setup Node.js App' bấm 'Restart' ứng dụng hoặc vào 'Terminal' chạy lệnh 'killall node' để giải phóng tiến trình trước khi bấm Đồng bộ lại!"
+        );
+      }
+      throw gitErr;
+    }
 
     // Tạo file restart.txt bằng fs nội bộ của Node.js (không fork thêm tiến trình shell)
     try {
@@ -132,8 +163,9 @@ export async function POST(request: NextRequest) {
     // Lấy thông tin commit sau khi cập nhật
     let latestCommit = "";
     try {
-      const { stdout: commitOut } = await execPromise(
-        'git log -1 --pretty=format:"%h - %s (%cd)" --date=relative'
+      const { stdout: commitOut } = await runGit(
+        ["log", "-1", '--pretty=format:%h - %s (%cd)', "--date=relative"],
+        rootDir
       );
       latestCommit = commitOut.trim();
     } catch {

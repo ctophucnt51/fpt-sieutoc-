@@ -55,6 +55,11 @@ export const siteConfig = {
     googleAdsConversionLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL || "",
     enableGoogleAds: Boolean(process.env.NEXT_PUBLIC_GOOGLE_ADS_ID),
   },
+  telegram: {
+    botToken: process.env.TELEGRAM_BOT_TOKEN || "",
+    chatId: process.env.TELEGRAM_CHAT_ID || "",
+    enabled: true,
+  },
   disclaimer: {
     officialDisclaimer: "Website là kênh đại lý đối tác tư vấn và hỗ trợ đăng ký dịch vụ viễn thông của FPT Telecom tại Cần Thơ, Hậu Giang, Sóc Trăng và các tỉnh lân cận. Chúng tôi không tự xưng là cổng thông tin tập đoàn chính thức FPT Telecom. Tất cả logo, biểu trưng thương hiệu và tên gói cước thuộc bản quyền của FPT Telecom.",
     privacyNote: "Thông tin cá nhân của bạn được bảo mật tuyệt đối theo Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân, chỉ sử dụng cho mục đích tư vấn và hỗ trợ khảo sát hạ tầng lắp đặt dịch vụ.",

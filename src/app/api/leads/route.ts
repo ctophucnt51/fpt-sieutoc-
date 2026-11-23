@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { LeadPayload, ApiResponse } from "@/lib/types";
 import { saveLead, checkRateLimit } from "@/lib/leadStorage";
 import { sendMetaConversionsApiEvent } from "@/lib/metaCapi";
+import { sendTelegramNotification } from "@/lib/telegram";
 import crypto from "crypto";
 
 export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse>> {
@@ -42,8 +43,25 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
       );
     }
 
-    // 6. Trigger Meta CAPI if this is a fresh lead
+    // 6. Trigger Telegram & Meta CAPI notifications
     if (result.leadRecord && !result.isDuplicate) {
+      // Bắn thông báo tức thì về Telegram Bot
+      sendTelegramNotification({
+        fullName: result.leadRecord.fullName,
+        phone: result.leadRecord.phone,
+        address: result.leadRecord.address,
+        area: result.leadRecord.area,
+        packageInterested: result.leadRecord.packageInterested,
+        note: result.leadRecord.note,
+        landingPage: body.landingPage,
+        leadLocation: body.leadLocation,
+        eventId,
+        utmSource: body.utm_source,
+        utmMedium: body.utm_medium,
+        utmCampaign: body.utm_campaign,
+      }).catch((err) => console.warn("Telegram dispatch non-fatal error:", err));
+
+      // Bắn sự kiện lên Meta Conversions API
       sendMetaConversionsApiEvent({
         eventId,
         phone: result.leadRecord.phone,
