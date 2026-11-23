@@ -200,6 +200,19 @@ const CAN_THO_XA_2025 = [
   "Xã Trần Đề",
 ];
 
+// Danh sách các quận/huyện cũ phổ biến (hỗ trợ tra cứu theo phong cách Viettel)
+const CAN_THO_QUAN_CU = [
+  "Quận Ninh Kiều (Cũ)",
+  "Quận Bình Thủy (Cũ)",
+  "Quận Cái Răng (Cũ)",
+  "Quận Ô Môn (Cũ)",
+  "Quận Thốt Nốt (Cũ)",
+  "Huyện Phong Điền (Cũ)",
+  "Huyện Thới Lai (Cũ)",
+  "Huyện Cờ Đỏ (Cũ)",
+  "Huyện Vĩnh Thạnh (Cũ)",
+];
+
 export default function LeadForm({
   defaultPackage = "Combo GIGA",
   className = "",
@@ -212,12 +225,19 @@ export default function LeadForm({
   const pathname = usePathname();
   const formId = (formLocation || "lead").replace(/[^a-zA-Z0-9_-]/g, "_");
 
-  // Form states matching mockup
+  // 1. Thông tin cá nhân
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
+  const [serviceType, setServiceType] = useState<"new" | "upgrade">("new");
+
+  // 2. Địa chỉ lắp đặt (Phong cách Viettel FTTH)
   const [city, setCity] = useState("TP. Cần Thơ");
   const [ward, setWard] = useState("");
   const [address, setAddress] = useState("");
+  const [isOldBoundaryMode, setIsOldBoundaryMode] = useState(false);
+  const [oldDistrict, setOldDistrict] = useState("");
+
+  // 3. Gói cước & Chương trình đóng cước
   const [packageInterested, setPackageInterested] = useState(() => {
     if (defaultPackage === "Combo GIGA" || defaultPackage.includes("220")) {
       return "Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)";
@@ -227,14 +247,16 @@ export default function LeadForm({
     }
     return defaultPackage;
   });
-  const [honeypot, setHoneypot] = useState("");
+  const [billingPlan, setBillingPlan] = useState<"month" | "6m" | "12m">("6m");
+  const [contractMethod, setContractMethod] = useState<"home" | "online">("home");
 
-  // Status & Feedback
+  // Anti-spam
+  const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
 
-  // Sync defaultPackage
+  // Đồng bộ defaultPackage
   useEffect(() => {
     if (defaultPackage) {
       if (defaultPackage === "SKY" || defaultPackage.includes("195")) {
@@ -247,7 +269,7 @@ export default function LeadForm({
     }
   }, [defaultPackage]);
 
-  // Phone validation
+  // Validate số điện thoại VN
   const validatePhone = (val: string) => {
     const cleaned = val.replace(/\s+/g, "").replace(/[-.]/g, "");
     const vnPhoneRegex = /^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$/;
@@ -312,7 +334,7 @@ export default function LeadForm({
 
     if (isDuplicatePhone(cleanedPhone)) {
       setErrorMessage(
-        "Số điện thoại này vừa gửi đăng ký. Chuyên viên FPT sẽ liên hệ lại ngay!"
+        "Số điện thoại này vừa gửi đăng ký. Chuyên viên FPT Telecom sẽ liên hệ lại ngay!"
       );
       return;
     }
@@ -323,18 +345,23 @@ export default function LeadForm({
       const attribution = captureAttribution();
       const eventId = `lead_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
-      const selectedArea = ward ? `${city} - ${ward}` : city;
+      const selectedWard = isOldBoundaryMode && oldDistrict ? `${oldDistrict} - ${ward}` : ward;
+      const selectedArea = selectedWard ? `${city} - ${selectedWard}` : city;
       const detailedAddress = address.trim()
         ? `${address.trim()}, ${selectedArea}`
         : selectedArea;
+
+      const planSummary = `${packageInterested || "Chưa chọn gói"} [${
+        billingPlan === "12m" ? "Đóng 12T (Tặng quà)" : billingPlan === "6m" ? "Đóng 6T (Ưu đãi)" : "Trả từng tháng"
+      }] - ${contractMethod === "home" ? "Ký tại nhà" : "Ký online"}`;
 
       const workerPayload = {
         fullName: fullName.trim(),
         phone: cleanedPhone,
         address: detailedAddress,
         area: selectedArea,
-        packageInterested: packageInterested || "Chưa chọn gói (Cần tư vấn)",
-        note: "",
+        packageInterested: planSummary,
+        note: `Hình thức: ${serviceType === "new" ? "Lắp mới" : "Nâng cấp/Chuyển"}`,
         agreeConsent: true,
         landingPage: pathname || "/",
         leadLocation: formLocation,
@@ -384,8 +411,8 @@ export default function LeadForm({
             phone: cleanedPhone,
             address: detailedAddress,
             area: selectedArea,
-            packageInterested: packageInterested || "Chưa chọn gói (Cần tư vấn)",
-            note: undefined,
+            packageInterested: planSummary,
+            note: `Hình thức: ${serviceType === "new" ? "Lắp mới" : "Nâng cấp/Chuyển"}`,
             agreeConsent: true,
             landingPage: pathname || "/",
             website: honeypot,
@@ -414,7 +441,7 @@ export default function LeadForm({
             leadId,
             fullName: fullName.trim(),
             phone: cleanedPhone.slice(-4),
-            packageInterested: packageInterested || "Chưa chọn gói",
+            packageInterested: planSummary,
             area: selectedArea,
             timestamp: new Date().toLocaleTimeString("vi-VN"),
           })
@@ -440,10 +467,10 @@ export default function LeadForm({
   return (
     <div
       id="lead-form"
-      className={`bg-[#FFFAF4] rounded-2xl sm:rounded-3xl border border-[#FCE7D8] shadow-sm p-5 sm:p-6 lg:p-7 ${className}`}
+      className={`bg-[#FFFAF4] rounded-2xl sm:rounded-3xl border border-[#FCE7D8] shadow-sm p-4 sm:p-6 lg:p-7 ${className}`}
     >
-      {/* Header: Logo FPT Telecom chính thức của trang | Đăng ký lắp mạng FPT + Sóng WiFi */}
-      <div className="flex items-center justify-between pb-4 mb-4 sm:mb-5 border-b border-[#F7DFCE]">
+      {/* 1. Header: Logo FPT Telecom chính hãng + | + Tiêu đề + Wi-Fi icon + Close */}
+      <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#F7DFCE]">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <img
             src="/images/logo-ftel.svg"
@@ -453,13 +480,18 @@ export default function LeadForm({
             className="h-6 sm:h-7 w-auto object-contain shrink-0"
           />
           <span className="text-[#9CA3AF] font-light text-lg sm:text-xl leading-none">|</span>
-          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[#1E293B] tracking-tight truncate">
-            Đăng ký lắp mạng FPT
-          </h3>
+          <div className="min-w-0">
+            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[#1E293B] tracking-tight truncate">
+              Đăng ký lắp mạng FPT
+            </h3>
+            <p className="text-[10px] text-[#C44D06] font-semibold truncate leading-none">
+              Đại Lý Tiếp Nhận Dịch Vụ Chính Hãng
+            </p>
+          </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0 ml-2">
-          {/* Biểu tượng Wi-Fi FPT màu cam */}
+          {/* Biểu tượng Wi-Fi sóng FPT màu cam */}
           <svg
             width="22"
             height="18"
@@ -497,7 +529,7 @@ export default function LeadForm({
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-3.5">
+      <form onSubmit={handleSubmit} className="space-y-4">
         {/* Trường chống Spam Honeypot */}
         <input
           type="text"
@@ -509,175 +541,339 @@ export default function LeadForm({
           autoComplete="off"
         />
 
-        {/* Hàng 1: Họ và tên & Số điện thoại (Desktop 2 cột, Mobile 1 cột) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          <div>
-            <label htmlFor={`${formId}-fullName`} className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1.5">
-              Họ và tên
-            </label>
-            <input
-              id={`${formId}-fullName`}
-              type="text"
-              required
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="Nhập họ và tên"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
-            />
+        {/* PHẦN 1: THÔNG TIN CÁ NHÂN & LOẠI DỊCH VỤ (Phong cách Viettel FTTH) */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider">
+              1. Thông tin cá nhân
+            </span>
+            {/* Radio Đăng ký mới vs Nâng cấp */}
+            <div className="flex items-center gap-3 text-xs">
+              <label className="flex items-center gap-1.5 cursor-pointer font-medium text-[#1E293B]">
+                <input
+                  type="radio"
+                  name="serviceType"
+                  checked={serviceType === "new"}
+                  onChange={() => setServiceType("new")}
+                  className="accent-[#C84600] w-3.5 h-3.5"
+                />
+                <span>Đăng ký mới</span>
+              </label>
+              <label className="flex items-center gap-1.5 cursor-pointer font-medium text-[#64748B]">
+                <input
+                  type="radio"
+                  name="serviceType"
+                  checked={serviceType === "upgrade"}
+                  onChange={() => setServiceType("upgrade")}
+                  className="accent-[#C84600] w-3.5 h-3.5"
+                />
+                <span>Chuyển địa điểm / Nâng cấp</span>
+              </label>
+            </div>
           </div>
 
-          <div>
-            <label htmlFor={`${formId}-phone`} className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1.5">
-              Số điện thoại
-            </label>
-            <input
-              id={`${formId}-phone`}
-              type="tel"
-              required
-              value={phone}
-              onChange={handlePhoneChange}
-              placeholder="Nhập số điện thoại"
-              className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none transition-all ${
-                phoneError ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-[#E2E8F0] focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20"
-              }`}
-            />
-            {phoneError && (
-              <p className="text-red-600 text-xs mt-1">{phoneError}</p>
-            )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
+            <div>
+              <label htmlFor={`${formId}-fullName`} className="block text-xs font-semibold text-[#1E293B] mb-1">
+                Họ và tên <span className="text-red-500">*</span>
+              </label>
+              <input
+                id={`${formId}-fullName`}
+                type="text"
+                required
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Nhập họ và tên"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
+              />
+            </div>
+
+            <div>
+              <label htmlFor={`${formId}-phone`} className="block text-xs font-semibold text-[#1E293B] mb-1">
+                Số điện thoại <span className="text-red-500">*</span>
+              </label>
+              <input
+                id={`${formId}-phone`}
+                type="tel"
+                required
+                value={phone}
+                onChange={handlePhoneChange}
+                placeholder="Nhập số điện thoại"
+                className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none transition-all ${
+                  phoneError ? "border-red-400 focus:ring-1 focus:ring-red-400" : "border-[#E2E8F0] focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20"
+                }`}
+              />
+              {phoneError && (
+                <p className="text-red-600 text-xs mt-1">{phoneError}</p>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Hàng 2: Tỉnh / thành phố & Phường / xã (Toàn bộ tỉnh thành & địa bàn sau sáp nhập 07/2025) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          <div>
-            <label htmlFor={`${formId}-city`} className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1.5">
-              Tỉnh / thành phố
-            </label>
-            <select
-              id={`${formId}-city`}
-              value={city}
-              onChange={(e) => {
-                setCity(e.target.value);
-                setWard("");
-              }}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
-              }}
-            >
-              {VIETNAM_PROVINCES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+        {/* PHẦN 2: ĐỊA CHỈ LẮP ĐẶT (Phong cách Viettel FTTH: Tỉnh/Thành -> Phường/Xã -> Địa chỉ chi tiết) */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-bold text-[#64748B] uppercase tracking-wider">
+              2. Địa chỉ lắp đặt
+            </span>
+            {city === "TP. Cần Thơ" && (
+              <button
+                type="button"
+                onClick={() => setIsOldBoundaryMode(!isOldBoundaryMode)}
+                className="text-[11px] font-semibold text-[#C84600] hover:underline cursor-pointer"
+              >
+                {isOldBoundaryMode ? "Quay lại phân vùng 07/2025" : "Tra cứu địa giới hành chính cũ"}
+              </button>
+            )}
           </div>
 
-          <div>
-            <label htmlFor={`${formId}-ward`} className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1.5">
-              Phường / xã
-            </label>
-            {city === "TP. Cần Thơ" ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 mb-3">
+            {/* Tỉnh / Thành phố */}
+            <div>
+              <label htmlFor={`${formId}-city`} className="block text-xs font-semibold text-[#1E293B] mb-1">
+                Tỉnh / thành phố <span className="text-red-500">*</span>
+              </label>
               <select
-                id={`${formId}-ward`}
-                value={ward}
-                onChange={(e) => setWard(e.target.value)}
+                id={`${formId}-city`}
+                value={city}
+                onChange={(e) => {
+                  setCity(e.target.value);
+                  setWard("");
+                  setOldDistrict("");
+                }}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
                 }}
               >
-                <option value="">Chọn phường / xã</option>
-                <optgroup label="31 Phường (Sau sáp nhập 07/2025)">
-                  {CAN_THO_PHUONG_2025.map((w) => (
-                    <option key={w} value={w}>
-                      {w}
-                    </option>
-                  ))}
-                </optgroup>
-                <optgroup label="72 Xã (Sau sáp nhập 07/2025)">
-                  {CAN_THO_XA_2025.map((w) => (
-                    <option key={w} value={w}>
-                      {w}
-                    </option>
-                  ))}
-                </optgroup>
+                {VIETNAM_PROVINCES.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
               </select>
-            ) : (
-              <input
-                id={`${formId}-ward`}
-                type="text"
-                value={ward}
-                onChange={(e) => setWard(e.target.value)}
-                placeholder="Nhập quận / huyện / phường / xã"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
-              />
-            )}
+            </div>
+
+            {/* Phường / Xã */}
+            <div>
+              <label htmlFor={`${formId}-ward`} className="block text-xs font-semibold text-[#1E293B] mb-1">
+                {isOldBoundaryMode ? "Quận / Huyện (Cũ)" : "Phường / xã"} <span className="text-red-500">*</span>
+              </label>
+
+              {city === "TP. Cần Thơ" ? (
+                isOldBoundaryMode ? (
+                  <select
+                    id={`${formId}-ward`}
+                    value={oldDistrict}
+                    onChange={(e) => setOldDistrict(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
+                    }}
+                  >
+                    <option value="">Chọn quận / huyện cũ</option>
+                    {CAN_THO_QUAN_CU.map((q) => (
+                      <option key={q} value={q}>
+                        {q}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <select
+                    id={`${formId}-ward`}
+                    value={ward}
+                    onChange={(e) => setWard(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
+                    }}
+                  >
+                    <option value="">Chọn phường / xã</option>
+                    <optgroup label="31 Phường (Sau sáp nhập 07/2025)">
+                      {CAN_THO_PHUONG_2025.map((w) => (
+                        <option key={w} value={w}>
+                          {w}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="72 Xã (Sau sáp nhập 07/2025)">
+                      {CAN_THO_XA_2025.map((w) => (
+                        <option key={w} value={w}>
+                          {w}
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                )
+              ) : (
+                <input
+                  id={`${formId}-ward`}
+                  type="text"
+                  value={ward}
+                  onChange={(e) => setWard(e.target.value)}
+                  placeholder="Nhập quận / huyện / phường / xã"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Địa chỉ chi tiết */}
+          <div>
+            <label htmlFor={`${formId}-address`} className="block text-xs font-semibold text-[#1E293B] mb-1">
+              Địa chỉ chi tiết <span className="text-[#94A3B8] font-normal">(Số nhà, ngõ, tên đường hoặc ấp/thôn)</span>
+            </label>
+            <input
+              id={`${formId}-address`}
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Số nhà, tên đường hoặc ấp..."
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
+            />
           </div>
         </div>
 
-        {/* Hàng 3: Địa chỉ lắp đặt */}
+        {/* PHẦN 3: GÓI CƯỚC & CHƯƠNG TRÌNH ĐÓNG CƯỚC (Phong cách Viettel FTTH) */}
         <div>
-          <label htmlFor={`${formId}-address`} className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1.5">
-            Địa chỉ lắp đặt
-          </label>
-          <input
-            id={`${formId}-address`}
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder="Số nhà, tên đường hoặc ấp"
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
-          />
+          <span className="block text-[11px] font-bold text-[#64748B] uppercase tracking-wider mb-2">
+            3. Gói cước &amp; Chương trình đóng cước
+          </span>
+
+          {/* Chọn gói */}
+          <div className="mb-3">
+            <select
+              id={`${formId}-packageInterested`}
+              name="packageInterested"
+              value={packageInterested}
+              onChange={(e) => setPackageInterested(e.target.value)}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] font-medium outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
+              }}
+            >
+              <option value="">Chưa chọn gói (Cần chuyên viên tư vấn)</option>
+              <option value="Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)">
+                Combo Internet Wi-Fi 6 + Trọn Vẹn Ngoại Hạng Anh — 220.000đ/tháng
+              </option>
+              <option value="Chỉ Internet Wi-Fi 6 (195.000đ/tháng)">
+                Chỉ Internet Wi-Fi 6 Gói Sky 1 Gbps — 195.000đ/tháng
+              </option>
+              <option value="F-GAME (235.000đ/tháng)">
+                Gói Game F-GAME Tối Ưu Ping — 235.000đ/tháng
+              </option>
+              <option value="META 1 Gbps (300.000đ/tháng)">
+                Gói Cao Cấp META 1 Gbps Đối Xứng — 300.000đ/tháng
+              </option>
+              <option value="Tư vấn gói cước phù hợp">
+                Cần tư vấn gói cước tối ưu theo nhu cầu sử dụng
+              </option>
+            </select>
+          </div>
+
+          {/* Chương trình đóng cước: Trả trước 6T / 12T / Trả từng tháng */}
+          <div className="grid grid-cols-3 gap-2">
+            <button
+              type="button"
+              onClick={() => setBillingPlan("month")}
+              className={`p-2 rounded-xl border text-center transition-all cursor-pointer ${
+                billingPlan === "month"
+                  ? "bg-white border-[#C84600] text-[#C84600] font-bold shadow-xs ring-1 ring-[#C84600]"
+                  : "bg-white/80 border-[#E2E8F0] text-[#64748B] hover:border-slate-300"
+              }`}
+            >
+              <span className="block text-xs">Trả từng tháng</span>
+              <span className="block text-[10px] text-[#94A3B8]">Phí hòa mạng</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setBillingPlan("6m")}
+              className={`p-2 rounded-xl border text-center transition-all cursor-pointer relative ${
+                billingPlan === "6m"
+                  ? "bg-white border-[#C84600] text-[#C84600] font-bold shadow-xs ring-1 ring-[#C84600]"
+                  : "bg-white/80 border-[#E2E8F0] text-[#64748B] hover:border-slate-300"
+              }`}
+            >
+              <span className="block text-xs">Đóng 6 tháng</span>
+              <span className="block text-[10px] text-emerald-600 font-semibold">Tặng Modem Wi-Fi 6</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setBillingPlan("12m")}
+              className={`p-2 rounded-xl border text-center transition-all cursor-pointer ${
+                billingPlan === "12m"
+                  ? "bg-white border-[#C84600] text-[#C84600] font-bold shadow-xs ring-1 ring-[#C84600]"
+                  : "bg-white/80 border-[#E2E8F0] text-[#64748B] hover:border-slate-300"
+              }`}
+            >
+              <span className="block text-xs">Đóng 12 tháng</span>
+              <span className="block text-[10px] text-emerald-600 font-semibold">Tặng Camera AI 0đ</span>
+            </button>
+          </div>
         </div>
 
-        {/* Hàng 4: Gói quan tâm */}
-        <div>
-          <label htmlFor={`${formId}-packageInterested`} className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1.5">
-            Gói quan tâm
-          </label>
-          <select
-            id={`${formId}-packageInterested`}
-            name="packageInterested"
-            value={packageInterested}
-            onChange={(e) => setPackageInterested(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
-            }}
-          >
-            <option value="">Chưa chọn gói</option>
-            <option value="Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)">
-              Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)
-            </option>
-            <option value="Chỉ Internet Wi-Fi 6 (195.000đ/tháng)">
-              Chỉ Internet Wi-Fi 6 (195.000đ/tháng)
-            </option>
-            <option value="F-GAME (235.000đ/tháng)">
-              Gói Game F-GAME (235.000đ/tháng)
-            </option>
-            <option value="META 1 Gbps (300.000đ/tháng)">
-              Gói META 1 Gbps (300.000đ/tháng)
-            </option>
-            <option value="Tư vấn gói cước phù hợp">
-              Tư vấn gói cước phù hợp
-            </option>
-          </select>
+        {/* PHẦN 4: HÌNH THỨC KÝ HỢP ĐỒNG (Phong cách Viettel FTTH: Tại nhà vs Online) */}
+        <div className="pt-1">
+          <span className="block text-[11px] font-bold text-[#64748B] uppercase tracking-wider mb-1.5">
+            4. Hình thức ký hợp đồng
+          </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <label
+              className={`p-2.5 rounded-xl border flex items-center gap-2 cursor-pointer transition-all ${
+                contractMethod === "home"
+                  ? "bg-white border-[#C84600] text-[#C84600] font-bold shadow-xs"
+                  : "bg-white/80 border-[#E2E8F0] text-[#475569]"
+              }`}
+            >
+              <input
+                type="radio"
+                name="contractMethod"
+                checked={contractMethod === "home"}
+                onChange={() => setContractMethod("home")}
+                className="accent-[#C84600] w-3.5 h-3.5"
+              />
+              <span>Ký hợp đồng tại nhà (Khảo sát 0đ)</span>
+            </label>
+
+            <label
+              className={`p-2.5 rounded-xl border flex items-center gap-2 cursor-pointer transition-all ${
+                contractMethod === "online"
+                  ? "bg-white border-[#C84600] text-[#C84600] font-bold shadow-xs"
+                  : "bg-white/80 border-[#E2E8F0] text-[#475569]"
+              }`}
+            >
+              <input
+                type="radio"
+                name="contractMethod"
+                checked={contractMethod === "online"}
+                onChange={() => setContractMethod("online")}
+                className="accent-[#C84600] w-3.5 h-3.5"
+              />
+              <span>Ký hợp đồng online (Nhanh chóng)</span>
+            </label>
+          </div>
         </div>
 
-        {/* Hàng 5: Nút Gửi đăng ký (Màu cam FPT đậm chuẩn theo mockup) */}
+        {/* Nút Submit Gửi đăng ký */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3 sm:py-3.5 px-6 rounded-xl bg-[#C84600] hover:bg-[#B33E06] active:bg-[#9E3605] text-white font-bold text-base tracking-wide transition-all cursor-pointer disabled:opacity-60 shadow-xs mt-1"
+          className="w-full py-3.5 px-6 rounded-xl bg-[#C84600] hover:bg-[#B33E06] active:bg-[#9E3605] text-white font-bold text-base tracking-wide transition-all cursor-pointer disabled:opacity-60 shadow-xs mt-2"
         >
-          {isSubmitting ? "Đang gửi đăng ký..." : "Gửi đăng ký"}
+          {isSubmitting ? "Đang gửi đăng ký..." : "Gửi đăng ký lắp đặt"}
         </button>
 
-        {/* Hàng 6: Dòng xác nhận dưới nút */}
-        <p className="text-center text-xs sm:text-sm text-[#475569] font-medium pt-1">
-          FPT Telecom sẽ gọi lại để xác nhận.
-        </p>
+        {/* Chính sách Google Ads: Minh bạch & Bảo mật */}
+        <div className="text-center space-y-1 pt-1 text-[11px] text-[#64748B] leading-relaxed">
+          <p className="font-medium text-[#475569]">
+            FPT Telecom sẽ gọi lại để xác nhận và khảo sát hạ tầng trong 5 – 15 phút.
+          </p>
+          <p className="text-[10px] text-[#94A3B8]">
+            * Giá cước đã bao gồm 10% VAT. Khảo sát hạ tầng 0đ. Thông tin của quý khách được bảo mật tuyệt đối theo Nghị định 13/2023/NĐ-CP.
+          </p>
+        </div>
       </form>
     </div>
   );
