@@ -36,6 +36,7 @@ export default function LeadForm({
   const siteConfig = useSiteConfig();
   const router = useRouter();
   const pathname = usePathname();
+  const formId = (formLocation || "lead").replace(/[^a-zA-Z0-9_-]/g, "_");
 
   // Form states
   const [fullName, setFullName] = useState("");
@@ -295,7 +296,7 @@ export default function LeadForm({
       {(formTitle !== "" && headline !== "") && (
         <div className="mb-3.5 pb-3 border-b border-[#F4F6FB]">
           {badgeText && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FFF4ED] text-[#F37021] border border-orange-200/80 font-bold text-[10px] sm:text-[11px] tracking-wide uppercase mb-1.5 shadow-xs">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200/80 font-bold text-[10px] sm:text-[11px] tracking-wide uppercase mb-1.5 shadow-xs">
               <Sparkles className="w-3 h-3 fill-current" />
               <span>{badgeText}</span>
             </span>
@@ -334,7 +335,7 @@ export default function LeadForm({
 
         {/* Họ và tên */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
+          <label htmlFor={`${formId}-fullName`} className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/ho-va-ten.webp"
               alt="Họ và tên"
@@ -342,9 +343,10 @@ export default function LeadForm({
               height={16}
               className="w-4 h-4 object-contain shrink-0"
             />
-            <span>Họ và Tên <span className="text-[#F37021]">*</span></span>
+            <span>Họ và Tên <span className="text-[#C44D06]">*</span></span>
           </label>
           <input
+            id={`${formId}-fullName`}
             type="text"
             required
             value={fullName}
@@ -356,7 +358,7 @@ export default function LeadForm({
 
         {/* Số điện thoại */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
+          <label htmlFor={`${formId}-phone`} className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/hotline.webp"
               alt="Số điện thoại"
@@ -364,9 +366,10 @@ export default function LeadForm({
               height={16}
               className="w-4 h-4 object-contain shrink-0"
             />
-            <span>Số Điện Thoại Nhận Ưu Đãi <span className="text-[#F37021]">*</span></span>
+            <span>Số Điện Thoại Nhận Ưu Đãi <span className="text-[#C44D06]">*</span></span>
           </label>
           <input
+            id={`${formId}-phone`}
             type="tel"
             required
             value={phone}
@@ -393,7 +396,7 @@ export default function LeadForm({
               height={16}
               className="w-4 h-4 object-contain shrink-0"
             />
-            <span>Khu Vực / Xã Phường Lắp Đặt <span className="text-[#F37021]">*</span></span>
+            <span>Khu Vực / Xã Phường Lắp Đặt <span className="text-[#C44D06]">*</span></span>
           </label>
           <SearchableAreaSelect
             areas={siteConfig.popularAreas}
@@ -405,7 +408,7 @@ export default function LeadForm({
 
         {/* Địa chỉ chi tiết */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
+          <label htmlFor={`${formId}-address`} className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/dia-chi-lap-dat.webp"
               alt="Địa chỉ khảo sát"
@@ -416,6 +419,7 @@ export default function LeadForm({
             <span>Địa Chỉ Khảo Sát Tận Nơi <span className="text-[#657384] font-normal lowercase">(số nhà, tên đường, thôn / ấp)</span></span>
           </label>
           <input
+            id={`${formId}-address`}
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
@@ -427,7 +431,7 @@ export default function LeadForm({
         {/* Gói cước đăng ký */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D]">
+            <label htmlFor={`${formId}-packageInterested`} className="flex items-center gap-1.5 text-xs font-bold text-[#20283D]">
               <img
                 src="/images/icons/liquid-glass/chon-goi-cuoc.webp"
                 alt="Chọn gói cước"
@@ -435,7 +439,7 @@ export default function LeadForm({
                 height={16}
                 className="w-4 h-4 object-contain shrink-0"
               />
-              <span>Gói Cước Đăng Ký <span className="text-[#F37021]">*</span></span>
+              <span>Gói Cước Đăng Ký <span className="text-[#C44D06]">*</span></span>
             </label>
             <span className="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
               <img
@@ -451,7 +455,9 @@ export default function LeadForm({
 
           <div className="relative">
             <select
+              id={`${formId}-packageInterested`}
               name="packageInterested"
+              aria-label="Chọn gói cước đăng ký"
               value={packageInterested}
               onChange={(e) => setPackageInterested(e.target.value)}
               className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-[#E4E8ED] bg-[#F4F6FB] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/20 text-xs sm:text-sm font-semibold text-[#20283D] outline-none transition-all cursor-pointer appearance-none pr-9"
@@ -496,7 +502,7 @@ export default function LeadForm({
 
         {/* Ghi chú tùy chọn */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
+          <label htmlFor={`${formId}-note`} className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/ghi-chu.webp"
               alt="Ghi chú"
@@ -507,6 +513,7 @@ export default function LeadForm({
             <span>Ghi Chú Yêu Cầu <span className="text-[#657384] font-normal lowercase">(thời gian tiện nghe máy hoặc yêu cầu thêm)</span></span>
           </label>
           <input
+            id={`${formId}-note`}
             type="text"
             value={note}
             onChange={(e) => setNote(e.target.value)}
@@ -517,8 +524,9 @@ export default function LeadForm({
 
         {/* Consent Checkbox */}
         <div className="pt-0.5">
-          <label className="flex items-start gap-2.5 cursor-pointer text-xs text-[#657384] leading-snug">
+          <label htmlFor={`${formId}-consent`} className="flex items-start gap-2.5 cursor-pointer text-xs text-[#657384] leading-snug">
             <input
+              id={`${formId}-consent`}
               type="checkbox"
               required
               checked={agreeConsent}

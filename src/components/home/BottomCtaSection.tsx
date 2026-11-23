@@ -30,11 +30,13 @@ export default function BottomCtaSection({
                   alt="Modem Wi-Fi 6"
                   width={28}
                   height={28}
+                  loading="lazy"
+                  decoding="async"
                   className="w-7 h-7 object-contain"
                 />
               </div>
               <div>
-                <h4 className="text-sm font-black text-[#20283D]">Modem Wi-Fi 6 0đ</h4>
+                <p className="text-sm font-black text-[#20283D]">Modem Wi-Fi 6 0đ</p>
                 <p className="text-xs text-[#657384]">Trang bị chuẩn AX3000</p>
               </div>
             </div>
@@ -46,11 +48,13 @@ export default function BottomCtaSection({
                   alt="Camera AI"
                   width={28}
                   height={28}
+                  loading="lazy"
+                  decoding="async"
                   className="w-7 h-7 object-contain"
                 />
               </div>
               <div>
-                <h4 className="text-sm font-black text-[#20283D]">Tặng Camera AI</h4>
+                <p className="text-sm font-black text-[#20283D]">Tặng Camera AI</p>
                 <p className="text-xs text-[#657384]">An ninh thông minh 0đ</p>
               </div>
             </div>
@@ -62,11 +66,13 @@ export default function BottomCtaSection({
                   alt="Lắp đặt 24h"
                   width={28}
                   height={28}
+                  loading="lazy"
+                  decoding="async"
                   className="w-7 h-7 object-contain"
                 />
               </div>
               <div>
-                <h4 className="text-sm font-black text-[#20283D]">Lắp Đặt Trong 24H</h4>
+                <p className="text-sm font-black text-[#20283D]">Lắp Đặt Trong 24H</p>
                 <p className="text-xs text-[#657384]">Khảo sát tận nơi 0đ</p>
               </div>
             </div>
@@ -78,11 +84,13 @@ export default function BottomCtaSection({
                   alt="Bảo trì"
                   width={28}
                   height={28}
+                  loading="lazy"
+                  decoding="async"
                   className="w-7 h-7 object-contain"
                 />
               </div>
               <div>
-                <h4 className="text-sm font-black text-[#20283D]">Bảo Trì Trọn Đời</h4>
+                <p className="text-sm font-black text-[#20283D]">Bảo Trì Trọn Đời</p>
                 <p className="text-xs text-[#657384]">Hỗ trợ kỹ thuật 24/7</p>
               </div>
             </div>
@@ -107,9 +115,9 @@ export default function BottomCtaSection({
 
           <a
             href={siteConfig.contact.hotlineTel}
-            className="px-5 py-2.5 rounded-full bg-white text-[#F37021] font-extrabold text-xs sm:text-sm hover:bg-orange-50 transition-all shadow-xs flex items-center gap-1.5 whitespace-nowrap shrink-0"
+            className="px-5 py-2.5 rounded-full bg-white text-[#C44D06] font-extrabold text-xs sm:text-sm hover:bg-orange-50 transition-all shadow-xs flex items-center gap-1.5 whitespace-nowrap shrink-0"
           >
-            <Phone className="w-4 h-4 text-[#F37021] fill-current" />
+            <Phone className="w-4 h-4 text-[#C44D06] fill-current" />
             <span>Gọi {siteConfig.contact.hotlineDisplay}</span>
           </a>
         </div>
@@ -120,7 +128,7 @@ export default function BottomCtaSection({
           {/* Header & Value Highlights */}
           <div className="lg:col-span-6 space-y-3.5 sm:space-y-4 text-center lg:text-left">
             <div>
-              <span className="inline-block px-3 py-1 rounded-full bg-[#FFF4ED] text-[#F37021] border border-orange-200/80 font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-2.5 shadow-xs">
+              <span className="inline-block px-3 py-1 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200/80 font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-2.5 shadow-xs">
                 Đăng Ký Siêu Tốc &bull; Khảo Sát 0đ
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#20283D] tracking-tight leading-snug">
@@ -140,6 +148,8 @@ export default function BottomCtaSection({
                     alt="Hotline"
                     width={24}
                     height={24}
+                    loading="lazy"
+                    decoding="async"
                     className="w-6 h-6 object-contain"
                   />
                 </div>

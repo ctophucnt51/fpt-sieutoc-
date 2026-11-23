@@ -28,12 +28,14 @@ export default function Footer() {
                   alt="FPT Telecom"
                   width={109}
                   height={36}
+                  loading="lazy"
+                  decoding="async"
                   className="h-7 w-auto max-w-[110px] object-contain"
                 />
               </div>
               <div>
                 <span className="font-extrabold text-base sm:text-lg text-[#20283D] tracking-tight block">
-                  Lắp Mạng <span className="text-[#F37021]">FPT Siêu Tốc</span>
+                  Lắp Mạng <span className="text-[#C44D06]">FPT Siêu Tốc</span>
                 </span>
                 <span className="text-[11px] text-[#657384] font-medium">Hệ Thống Đăng Ký Trực Tuyến</span>
               </div>
@@ -58,6 +60,8 @@ export default function Footer() {
                 alt="HĐ điện tử"
                 width={16}
                 height={16}
+                loading="lazy"
+                decoding="async"
                 className="w-4 h-4 object-contain shrink-0"
               />
               <span>Khảo sát 0đ • Ký HĐ điện tử • Lắp đặt trong 24h</span>

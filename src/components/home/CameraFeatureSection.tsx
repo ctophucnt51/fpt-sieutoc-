@@ -10,12 +10,14 @@ export default function CameraFeatureSection() {
     <section className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] border-b border-[#E4E8ED]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#F37021] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)]">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#C44D06] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)]">
             <img
               src="/images/icons/liquid-glass/camera-ai.webp"
               alt="Camera AI"
               width={16}
               height={16}
+              loading="lazy"
+              decoding="async"
               className="w-4 h-4 object-contain shrink-0"
             />
             <span>Giải Pháp An Ninh AI</span>
@@ -67,6 +69,8 @@ export default function CameraFeatureSection() {
                 alt="Bảo Hành"
                 width={28}
                 height={28}
+                loading="lazy"
+                decoding="async"
                 className="w-7 h-7 object-contain"
               />
             </div>
@@ -91,6 +95,10 @@ export default function CameraFeatureSection() {
                 <img
                   src="/images/products/camera-play-official.jpg"
                   alt="FPT Camera Play Chính Hãng"
+                  width={160}
+                  height={160}
+                  loading="lazy"
+                  decoding="async"
                   className="w-40 h-40 object-contain bg-slate-50 p-2 rounded-2xl border border-slate-100 shadow-2xs hover:scale-105 transition-transform"
                 />
               </div>
@@ -127,6 +135,10 @@ export default function CameraFeatureSection() {
                 <img
                   src="/images/products/camera-iq3-official.jpg"
                   alt="FPT Camera IQ3 Chính Hãng"
+                  width={160}
+                  height={160}
+                  loading="lazy"
+                  decoding="async"
                   className="w-40 h-40 object-contain bg-slate-50 p-2 rounded-2xl border border-orange-100 shadow-2xs hover:scale-105 transition-transform"
                 />
               </div>

@@ -42,13 +42,14 @@ export default function StickyMobileBar() {
           href="/"
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isHomeActive
-              ? "text-[#F37021] bg-[#FFF4ED] font-bold"
+              ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
               : "text-[#657384] hover:text-[#20283D] font-medium"
           }`}
         >
           <img
             src="/images/icons/liquid-glass/trang-chu.webp"
-            alt="Trang chủ"
+            alt=""
+            aria-hidden="true"
             width={22}
             height={22}
             loading="eager"
@@ -63,13 +64,14 @@ export default function StickyMobileBar() {
           href="/lap-mang-fpt"
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isInternetActive
-              ? "text-[#F37021] bg-[#FFF4ED] font-bold"
+              ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
               : "text-[#657384] hover:text-[#20283D] font-medium"
           }`}
         >
           <img
             src="/images/icons/liquid-glass/wifi-6.webp"
-            alt="Internet"
+            alt=""
+            aria-hidden="true"
             width={22}
             height={22}
             loading="eager"
@@ -88,7 +90,8 @@ export default function StickyMobileBar() {
           <div className="w-12 h-12 rounded-full bg-[#F37021] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(243,112,33,0.45)] border-2 border-white">
             <img
               src="/images/icons/liquid-glass/gui-dang-ky.webp"
-              alt="Đăng ký"
+              alt=""
+              aria-hidden="true"
               width={24}
               height={24}
               loading="eager"
@@ -96,7 +99,7 @@ export default function StickyMobileBar() {
               className="w-6 h-6 object-contain brightness-0 invert"
             />
           </div>
-          <span className="text-[10px] font-bold text-[#F37021] leading-tight mt-0.5 truncate">Đăng ký 0đ</span>
+          <span className="text-[10px] font-bold text-[#C44D06] leading-tight mt-0.5 truncate">Đăng ký 0đ</span>
         </button>
 
         {/* 4. Ngoại hạng Anh */}
@@ -104,13 +107,14 @@ export default function StickyMobileBar() {
           href="/combo-ngoai-hang-anh"
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isEplActive
-              ? "text-[#F37021] bg-[#FFF4ED] font-bold"
+              ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
               : "text-[#657384] hover:text-[#20283D] font-medium"
           }`}
         >
           <img
             src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
-            alt="Ngoại hạng Anh"
+            alt=""
+            aria-hidden="true"
             width={22}
             height={22}
             loading="eager"
@@ -128,7 +132,8 @@ export default function StickyMobileBar() {
         >
           <img
             src="/images/icons/liquid-glass/hotline.webp"
-            alt="Hotline"
+            alt=""
+            aria-hidden="true"
             width={22}
             height={22}
             loading="eager"

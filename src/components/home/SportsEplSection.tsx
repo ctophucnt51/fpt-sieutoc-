@@ -27,6 +27,8 @@ export default function SportsEplSection() {
                   alt="EPL"
                   width={16}
                   height={16}
+                  loading="lazy"
+                  decoding="async"
                   className="w-4 h-4 object-contain shrink-0"
                 />
                 <span>Bản Quyền Trực Tiếp Ngoại Hạng Anh (EPL)</span>
@@ -52,11 +54,13 @@ export default function SportsEplSection() {
                       alt="EPL"
                       width={20}
                       height={20}
+                      loading="lazy"
+                      decoding="async"
                       className="w-5 h-5 object-contain"
                     />
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white">Bản Quyền Trọn Vẹn EPL</h4>
+                    <h3 className="text-xs sm:text-sm font-bold text-white">Bản Quyền Trọn Vẹn EPL</h3>
                     <p className="text-[11px] sm:text-xs text-slate-400">Bình luận tiếng Việt sôi động, trực tiếp các vòng đấu</p>
                   </div>
                 </div>
@@ -68,11 +72,13 @@ export default function SportsEplSection() {
                       alt="Smart TV"
                       width={20}
                       height={20}
+                      loading="lazy"
+                      decoding="async"
                       className="w-5 h-5 object-contain"
                     />
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white">Xem Trực Tiếp Trên Smart TV</h4>
+                    <h3 className="text-xs sm:text-sm font-bold text-white">Xem Trực Tiếp Trên Smart TV</h3>
                     <p className="text-[11px] sm:text-xs text-slate-400">Cài app FPT Play trên TV Samsung, Sony, LG không cần Box</p>
                   </div>
                 </div>
@@ -84,11 +90,13 @@ export default function SportsEplSection() {
                       alt="Kênh Truyền Hình"
                       width={20}
                       height={20}
+                      loading="lazy"
+                      decoding="async"
                       className="w-5 h-5 object-contain"
                     />
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white">Gần 170 Kênh Truyền Hình</h4>
+                    <h3 className="text-xs sm:text-sm font-bold text-white">Gần 170 Kênh Truyền Hình</h3>
                     <p className="text-[11px] sm:text-xs text-slate-400">Kho phim điện ảnh, HBO, Warner TV, kênh thiếu nhi</p>
                   </div>
                 </div>
@@ -100,11 +108,13 @@ export default function SportsEplSection() {
                       alt="Đa Thiết Bị"
                       width={20}
                       height={20}
+                      loading="lazy"
+                      decoding="async"
                       className="w-5 h-5 object-contain"
                     />
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white">Xem Trên Nhiều Thiết Bị</h4>
+                    <h3 className="text-xs sm:text-sm font-bold text-white">Xem Trên Nhiều Thiết Bị</h3>
                     <p className="text-[11px] sm:text-xs text-slate-400">Đăng nhập đồng thời trên Smart TV, điện thoại, máy tính</p>
                   </div>
                 </div>
@@ -141,6 +151,10 @@ export default function SportsEplSection() {
                   <img
                     src="/images/banners/combo-epl-official.jpg"
                     alt="Combo Giga Ngoại Hạng Anh FPT"
+                    width={480}
+                    height={160}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-36 sm:h-40 object-cover"
                   />
                 </div>

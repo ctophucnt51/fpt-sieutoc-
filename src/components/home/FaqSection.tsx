@@ -56,12 +56,14 @@ export default function FaqSection() {
     <section className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] border-b border-[#E4E8ED]">
       <div className="max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 sm:mb-8 max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#F37021] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#C44D06] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
               src="/images/icons/liquid-glass/cau-hoi.webp"
               alt="Hỏi đáp"
               width={16}
               height={16}
+              loading="lazy"
+              decoding="async"
               className="w-4 h-4 object-contain shrink-0"
             />
             <span>Giải Đáp Thắc Mắc</span>
@@ -100,6 +102,8 @@ export default function FaqSection() {
                         alt="FAQ Icon"
                         width={20}
                         height={20}
+                        loading="lazy"
+                        decoding="async"
                         className="w-5 h-5 object-contain"
                       />
                     </div>

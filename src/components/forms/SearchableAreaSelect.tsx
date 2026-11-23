@@ -120,6 +120,7 @@ export default function SearchableAreaSelect({
             <input
               ref={inputRef}
               type="text"
+              aria-label="Tìm kiếm xã, phường, khu vực lắp đặt"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Gõ tên phường / xã / quận / huyện..."
@@ -138,6 +139,7 @@ export default function SearchableAreaSelect({
             <button
               type="button"
               onClick={handleClear}
+              aria-label="Xóa nội dung tìm kiếm"
               className="p-1 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100"
               title="Xóa tìm kiếm"
             >

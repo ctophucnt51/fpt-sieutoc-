@@ -34,12 +34,14 @@ export default function ProcessSection() {
     <section className="py-8 sm:py-12 lg:py-16 bg-white border-b border-[#E4E8ED]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF4ED] text-[#F37021] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
               src="/images/icons/liquid-glass/lap-dat.webp"
               alt="Quy trình"
               width={16}
               height={16}
+              loading="lazy"
+              decoding="async"
               className="w-4 h-4 object-contain shrink-0"
             />
             <span>Quy Trình Chuẩn Hóa</span>
@@ -75,6 +77,8 @@ export default function ProcessSection() {
                     alt={item.title}
                     width={32}
                     height={32}
+                    loading="lazy"
+                    decoding="async"
                     className="w-8 h-8 object-contain shrink-0"
                   />
                 </div>

@@ -48,12 +48,14 @@ export default function PricingSection({
         
         {/* Section Header (Phong cách Long Châu: Tiêu đề rõ ràng, Tabs chuyển danh mục bo tròn) */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#F37021] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#C44D06] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
               src="/images/icons/liquid-glass/bang-gia.webp"
               alt="Bảng Giá"
               width={16}
               height={16}
+              loading="lazy"
+              decoding="async"
               className="w-4 h-4 object-contain shrink-0"
             />
             <span>Bảng Giá Minh Bạch &bull; Chính Hãng FPT</span>
@@ -80,6 +82,8 @@ export default function PricingSection({
                 alt="Tất cả"
                 width={15}
                 height={15}
+                loading="lazy"
+                decoding="async"
                 className="w-3.5 h-3.5 object-contain shrink-0 hidden sm:inline-block"
               />
               <span>Tất Cả</span>
@@ -97,6 +101,8 @@ export default function PricingSection({
                 alt="Internet"
                 width={15}
                 height={15}
+                loading="lazy"
+                decoding="async"
                 className="w-3.5 h-3.5 object-contain shrink-0 hidden sm:inline-block"
               />
               <span>Chỉ Internet</span>
@@ -114,6 +120,8 @@ export default function PricingSection({
                 alt="Combo TV"
                 width={15}
                 height={15}
+                loading="lazy"
+                decoding="async"
                 className="w-3.5 h-3.5 object-contain shrink-0 hidden sm:inline-block"
               />
               <span>Combo TV &amp; Net</span>
@@ -153,12 +161,14 @@ export default function PricingSection({
                         alt="Icon"
                         width={14}
                         height={14}
+                        loading="lazy"
+                        decoding="async"
                         className="w-3.5 h-3.5 object-contain"
                       />
                       <span>{isCombo ? "Combo Internet + TV" : "Internet Wi-Fi 6"}</span>
                     </span>
                     {pkg.badge && (
-                      <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#FFF4ED] text-[#F37021] border border-orange-200">
+                      <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200">
                         {pkg.badge}
                       </span>
                     )}
@@ -171,8 +181,8 @@ export default function PricingSection({
                   
                   {/* Speed Chip (Long Châu Unit Switcher Style) */}
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#FFF4ED] text-[#F37021] text-xs font-bold">
-                      <Sparkles className="w-3 h-3 text-[#F37021]" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#FFF4ED] text-[#C44D06] text-xs font-bold">
+                      <Sparkles className="w-3 h-3 text-[#C44D06]" />
                       <span>Tốc độ: {pkg.speed}</span>
                     </span>
                     {pkg.name.toLowerCase().includes("meta") && (
@@ -190,7 +200,7 @@ export default function PricingSection({
                   {/* Price Block (Long Châu Style: Giá to màu cam nổi bật + đơn vị / tháng) */}
                   <div className="mt-3.5 pt-3.5 border-t border-[#F4F6FB]">
                     <div className="flex items-baseline gap-1.5">
-                      <span className="text-3xl font-black text-[#F37021] tracking-tight leading-none">
+                      <span className="text-3xl font-black text-[#C44D06] tracking-tight leading-none">
                         {startingPrice}
                       </span>
                       <span className="text-xs text-[#657384] font-semibold">{pkg.billingCycle}</span>
@@ -241,6 +251,8 @@ export default function PricingSection({
                                   alt="Icon"
                                   width={14}
                                   height={14}
+                                  loading="lazy"
+                                  decoding="async"
                                   className="w-3.5 h-3.5 object-contain"
                                 />
                               ) : (
@@ -294,12 +306,12 @@ export default function PricingSection({
         {/* Pricing Transparency Note (Long Châu Style White Card) */}
         <div className="mt-8 sm:mt-10 p-4 sm:p-5 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">
           <div className="flex items-center gap-1.5 shrink-0">
-            <img src="/images/icons/liquid-glass/modem.webp" alt="Modem" width={22} height={22} className="w-[22px] h-[22px] object-contain" />
-            <img src="/images/icons/liquid-glass/camera-ai.webp" alt="Camera" width={22} height={22} className="w-[22px] h-[22px] object-contain" />
-            <img src="/images/icons/liquid-glass/lap-dat.webp" alt="Lắp đặt" width={22} height={22} className="w-[22px] h-[22px] object-contain" />
+            <img src="/images/icons/liquid-glass/modem.webp" alt="Modem" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
+            <img src="/images/icons/liquid-glass/camera-ai.webp" alt="Camera" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
+            <img src="/images/icons/liquid-glass/lap-dat.webp" alt="Lắp đặt" width={22} height={22} loading="lazy" decoding="async" className="w-[22px] h-[22px] object-contain" />
           </div>
           <p className="text-xs sm:text-sm text-[#657384] leading-relaxed font-normal text-center sm:text-left">
-            <strong className="text-[#20283D] font-bold">Chương trình khuyến mãi:</strong> Khách hàng đăng ký gói cước mới được trang bị miễn phí Modem Wi-Fi 6 thế hệ mới, <strong className="text-[#F37021] font-bold">tặng kèm Camera FPT AI an ninh thông minh miễn phí</strong> và hỗ trợ khảo sát lắp đặt tận nhà trong 24 giờ.
+            <strong className="text-[#20283D] font-bold">Chương trình khuyến mãi:</strong> Khách hàng đăng ký gói cước mới được trang bị miễn phí Modem Wi-Fi 6 thế hệ mới, <strong className="text-[#C44D06] font-bold">tặng kèm Camera FPT AI an ninh thông minh miễn phí</strong> và hỗ trợ khảo sát lắp đặt tận nhà trong 24 giờ.
           </p>
         </div>
       </div>

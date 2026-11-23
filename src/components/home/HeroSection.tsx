@@ -44,8 +44,8 @@ export default function HeroSection({
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] text-xs font-semibold text-[#20283D] shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
               <span>Chính sách FPT Telecom 2026</span>
-              <span className="text-[#C1C8D1]">|</span>
-              <span className="text-[#F37021] font-bold">Khảo sát 0đ</span>
+              <span className="text-[#657384]">|</span>
+              <span className="text-[#C44D06] font-bold">Khảo sát 0đ</span>
             </div>
 
             {/* Main Headline */}
@@ -75,7 +75,7 @@ export default function HeroSection({
                     ) : (
                       <>
                         <span className="font-bold text-emerald-900">Trang bị Modem Wi-Fi 6 thế hệ mới</span> &amp;{" "}
-                        <span className="font-bold text-[#F37021]">Tặng kèm Camera FPT AI</span> an ninh thông minh miễn phí
+                        <span className="font-bold text-[#C44D06]">Tặng kèm Camera FPT AI</span> an ninh thông minh miễn phí
                       </>
                     )}
                   </div>
@@ -103,19 +103,19 @@ export default function HeroSection({
                           />
                           <span>380 Trận EPL</span>
                         </span>
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#FFF4ED] text-[#F37021]">
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#FFF4ED] text-[#C44D06]">
                           HOT NHẤT
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-base font-black text-[#20283D] group-hover:text-[#F37021] transition-colors leading-snug">
+                      <h2 className="text-base font-black text-[#20283D] group-hover:text-[#F37021] transition-colors leading-snug">
                         Combo Internet + Ngoại Hạng Anh
-                      </h3>
+                      </h2>
 
                       {/* Price (Long Châu style) */}
                       <div className="flex items-baseline gap-1 my-2">
-                        <span className="text-2xl font-black text-[#F37021] tracking-tight leading-none">
+                        <span className="text-2xl font-black text-[#C44D06] tracking-tight leading-none">
                           220.000đ
                         </span>
                         <span className="text-xs text-[#657384] font-semibold">/ tháng</span>
@@ -174,13 +174,13 @@ export default function HeroSection({
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-base font-black text-[#20283D] group-hover:text-[#F37021] transition-colors leading-snug">
+                      <h2 className="text-base font-black text-[#20283D] group-hover:text-[#F37021] transition-colors leading-snug">
                         Chỉ Internet Wi-Fi 6 Siêu Tốc
-                      </h3>
+                      </h2>
 
                       {/* Price */}
                       <div className="flex items-baseline gap-1 my-2">
-                        <span className="text-2xl font-black text-[#F37021] tracking-tight leading-none">
+                        <span className="text-2xl font-black text-[#C44D06] tracking-tight leading-none">
                           195.000đ
                         </span>
                         <span className="text-xs text-[#657384] font-semibold">/ tháng</span>
@@ -272,8 +272,8 @@ export default function HeroSection({
                       />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="text-xs font-bold text-[#20283D] truncate">Internet Wi-Fi 6</h4>
-                      <p className="text-[10px] text-[#F37021] font-semibold truncate">195K/th &bull; 1 Gbps</p>
+                      <p className="text-xs font-bold text-[#20283D] truncate">Internet Wi-Fi 6</p>
+                      <p className="text-[10px] text-[#C44D06] font-semibold truncate">195K/th &bull; 1 Gbps</p>
                     </div>
                   </div>
 
@@ -291,7 +291,7 @@ export default function HeroSection({
                       />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="text-xs font-bold text-[#20283D] truncate">Combo Net + EPL</h4>
+                      <p className="text-xs font-bold text-[#20283D] truncate">Combo Net + EPL</p>
                       <p className="text-[10px] text-red-600 font-semibold truncate">220K/th &bull; 380 trận</p>
                     </div>
                   </div>
@@ -310,7 +310,7 @@ export default function HeroSection({
                       />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="text-xs font-bold text-[#20283D] truncate">Tặng Camera AI</h4>
+                      <p className="text-xs font-bold text-[#20283D] truncate">Tặng Camera AI</p>
                       <p className="text-[10px] text-[#657384] font-normal truncate">An ninh 0đ</p>
                     </div>
                   </div>
@@ -329,7 +329,7 @@ export default function HeroSection({
                       />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="text-xs font-bold text-[#20283D] truncate">Lắp Đặt 24H</h4>
+                      <p className="text-xs font-bold text-[#20283D] truncate">Lắp Đặt 24H</p>
                       <p className="text-[10px] text-[#657384] font-normal truncate">Khảo sát 0đ</p>
                     </div>
                   </div>
@@ -363,13 +363,15 @@ export default function HeroSection({
                   alt="Internet"
                   width={24}
                   height={24}
+                  loading="lazy"
+                  decoding="async"
                   className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
                 />
               </div>
               <div className="min-w-0">
-                <h4 className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-[#F37021] transition-colors truncate">
+                <p className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-[#F37021] transition-colors truncate">
                   Internet Wi-Fi 6
-                </h4>
+                </p>
                 <p className="text-[11px] text-[#657384] truncate">1 Gbps từ 195K/th</p>
               </div>
             </div>
@@ -385,13 +387,15 @@ export default function HeroSection({
                   alt="EPL"
                   width={24}
                   height={24}
+                  loading="lazy"
+                  decoding="async"
                   className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
                 />
               </div>
               <div className="min-w-0">
-                <h4 className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-red-600 transition-colors truncate">
+                <p className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-red-600 transition-colors truncate">
                   Combo Thể Thao
-                </h4>
+                </p>
                 <p className="text-[11px] text-[#657384] truncate">380 trận EPL 220K</p>
               </div>
             </div>
@@ -407,13 +411,15 @@ export default function HeroSection({
                   alt="Camera AI"
                   width={24}
                   height={24}
+                  loading="lazy"
+                  decoding="async"
                   className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
                 />
               </div>
               <div className="min-w-0">
-                <h4 className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-emerald-700 transition-colors truncate">
+                <p className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-emerald-700 transition-colors truncate">
                   Camera FPT AI 0đ
-                </h4>
+                </p>
                 <p className="text-[11px] text-[#657384] truncate">An ninh đám mây</p>
               </div>
             </div>
@@ -429,13 +435,15 @@ export default function HeroSection({
                   alt="Lắp đặt 24h"
                   width={24}
                   height={24}
+                  loading="lazy"
+                  decoding="async"
                   className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
                 />
               </div>
               <div className="min-w-0">
-                <h4 className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-blue-600 transition-colors truncate">
+                <p className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-blue-600 transition-colors truncate">
                   Lắp Đặt 24H
-                </h4>
+                </p>
                 <p className="text-[11px] text-[#657384] truncate">Khảo sát tận nơi 0đ</p>
               </div>
             </div>
@@ -451,13 +459,15 @@ export default function HeroSection({
                   alt="Hotline"
                   width={24}
                   height={24}
+                  loading="lazy"
+                  decoding="async"
                   className="w-6 h-6 object-contain group-hover:brightness-0 group-hover:invert transition-all"
                 />
               </div>
               <div className="min-w-0">
-                <h4 className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-[#F37021] transition-colors truncate">
+                <p className="text-xs sm:text-sm font-bold text-[#20283D] group-hover:text-[#F37021] transition-colors truncate">
                   Hotline 24/7
-                </h4>
+                </p>
                 <p className="text-[11px] text-[#F37021] font-bold truncate">{siteConfig.contact.hotlineDisplay}</p>
               </div>
             </a>

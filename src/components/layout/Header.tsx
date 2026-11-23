@@ -128,18 +128,18 @@ export default function Header() {
           <div className="flex items-center gap-2.5 shrink-0 text-[11px]">
             <button
               onClick={handleOpenPromoModal}
-              className="hidden sm:inline-flex items-center gap-1 text-[#F37021] hover:text-[#E05D10] font-bold hover:underline cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1 text-[#C44D06] hover:text-[#A03D05] font-bold hover:underline cursor-pointer"
             >
               <span>Nhận ưu đãi ngay</span>
               <ArrowRight className="w-3 h-3" />
             </button>
-            <span className="text-slate-300 hidden sm:inline">|</span>
+            <span className="text-slate-400 hidden sm:inline">|</span>
             <a
               href={siteConfig.contact.hotlineTel}
               onClick={() => handleHotlineClick("Top Bar Hotline")}
-              className="font-bold text-[#20283D] hover:text-[#F37021] transition-colors flex items-center gap-1"
+              className="font-bold text-[#20283D] hover:text-[#C44D06] transition-colors flex items-center gap-1"
             >
-              <Phone className="w-3 h-3 text-[#F37021] fill-current" />
+              <Phone className="w-3 h-3 text-[#C44D06] fill-current" />
               <span>Tư vấn ngay: {siteConfig.contact.hotlineDisplay}</span>
             </a>
           </div>
@@ -197,7 +197,7 @@ export default function Header() {
               </div>
               <div className="text-left">
                 <span className="block text-[9.5px] text-[#657384] font-medium leading-none">Tổng đài 24/7</span>
-                <span className="text-xs font-black text-[#F37021] leading-tight">{siteConfig.contact.hotlineDisplay}</span>
+                <span className="text-xs font-black text-[#C44D06] leading-tight">{siteConfig.contact.hotlineDisplay}</span>
               </div>
             </a>
 
