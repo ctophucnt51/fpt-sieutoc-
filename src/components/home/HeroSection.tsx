@@ -343,7 +343,7 @@ export default function HeroSection({
             <LeadForm
               defaultPackage={defaultPackage}
               headline={formHeadline}
-              subheadline="Kiểm tra cổng cáp quang &amp; kích hoạt quà tặng Camera trong 15 phút"
+              subheadline="Chuyên viên FPT liên hệ hỗ trợ trong 5 – 15 phút"
               formLocation="hero-mobile-form"
             />
           </div>

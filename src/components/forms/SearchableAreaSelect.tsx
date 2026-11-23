@@ -108,14 +108,13 @@ export default function SearchableAreaSelect({
           setIsOpen(true);
           inputRef.current?.focus();
         }}
-        className={`w-full flex items-center justify-between px-3.5 py-2.5 sm:py-3 rounded-xl border transition-all cursor-pointer bg-slate-50/70 hover:bg-white focus-within:bg-white ${
+        className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl border transition-all cursor-pointer bg-[#F8FAFC] hover:bg-white focus-within:bg-white ${
           isOpen
-            ? "border-fpt-orange ring-4 ring-orange-500/10 bg-white"
-            : "border-slate-200 hover:border-slate-300"
+            ? "border-[#F37021] ring-2 ring-orange-500/15 bg-white"
+            : "border-[#E2E8F0] hover:border-slate-300"
         }`}
       >
         <div className="flex items-center gap-2 min-w-0 flex-1">
-          <MapPin className="w-4 h-4 text-fpt-orange/80 shrink-0" />
           {isOpen ? (
             <input
               ref={inputRef}
@@ -123,12 +122,12 @@ export default function SearchableAreaSelect({
               aria-label="Tìm kiếm xã, phường, khu vực lắp đặt"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Gõ tên phường / xã / quận / huyện..."
-              className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400 font-normal"
+              placeholder="Gõ tên phường, xã, khu vực..."
+              className="w-full bg-transparent text-sm text-[#0F172A] outline-none placeholder:text-[#94A3B8] font-normal"
               autoFocus
             />
           ) : (
-            <span className="text-sm font-medium text-slate-900 truncate">
+            <span className="text-sm font-medium text-[#0F172A] truncate">
               {value || "Chọn khu vực lắp đặt..."}
             </span>
           )}
