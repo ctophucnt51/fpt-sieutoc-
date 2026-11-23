@@ -31,10 +31,10 @@ export default function ProcessSection() {
   ];
 
   return (
-    <section className="py-8 sm:py-12 lg:py-16 bg-gradient-to-b from-white via-slate-50/50 to-white border-b border-slate-200/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-8 sm:py-12 lg:py-16 bg-white border-b border-[#E4E8ED]">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-2xs backdrop-blur-md">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF4ED] text-[#F37021] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
               src="/images/icons/liquid-glass/lap-dat.webp"
               alt="Quy trình"
@@ -44,32 +44,32 @@ export default function ProcessSection() {
             />
             <span>Quy Trình Chuẩn Hóa</span>
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight break-words">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#20283D] tracking-tight break-words">
             4 Bước Đăng Ký &amp; Lắp Đặt Siêu Tốc Trong 24 Giờ
           </h2>
-          <p className="mt-1.5 text-xs sm:text-sm text-slate-600 font-normal">
+          <p className="mt-2 text-xs sm:text-sm text-[#657384] font-normal">
             Thủ tục đơn giản nhất thị trường, không cần đặt cọc trước, khảo sát tận nơi hoàn toàn miễn phí.
           </p>
         </div>
 
-        {/* 4 Steps Grid - Viettel Vx Style Cards */}
+        {/* 4 Steps Grid - Phong cách Long Châu White Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 relative">
           {steps.map((item, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_32px_rgba(243,112,33,0.12)] hover:border-orange-200 transition-all duration-300 flex flex-col justify-between group"
+              className="bg-[#F4F6FB] hover:bg-white rounded-2xl p-5 sm:p-6 border border-[#E4E8ED] hover:border-[#F37021] shadow-xs hover:shadow-[0_8px_24px_rgba(243,112,33,0.12)] transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-black text-white bg-gradient-to-r from-orange-500 to-fpt-orange px-3 py-1 rounded-full shadow-xs uppercase tracking-tight">
+                  <span className="text-[11px] font-black text-white bg-[#F37021] px-3 py-0.5 rounded-full shadow-xs uppercase tracking-tight">
                     BƯỚC {item.step}
                   </span>
-                  <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-50 text-slate-600 border border-slate-200/80">
+                  <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-white text-[#657384] border border-[#E4E8ED]">
                     {item.highlight}
                   </span>
                 </div>
 
-                <div className="w-12 h-12 rounded-2xl bg-orange-50/80 border border-orange-200/60 p-1 flex items-center justify-center mb-3.5 group-hover:scale-105 transition-all shadow-2xs">
+                <div className="w-12 h-12 rounded-xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center mb-3.5 group-hover:scale-105 transition-all shadow-xs">
                   <img
                     src={item.iconImg}
                     alt={item.title}
@@ -79,10 +79,10 @@ export default function ProcessSection() {
                   />
                 </div>
 
-                <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5 group-hover:text-fpt-orange transition-colors">
+                <h3 className="font-extrabold text-sm sm:text-base text-[#20283D] mb-1.5 group-hover:text-[#F37021] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                <p className="text-xs text-[#657384] leading-relaxed font-normal">
                   {item.desc}
                 </p>
               </div>

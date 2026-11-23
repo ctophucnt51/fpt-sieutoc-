@@ -3,10 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: "Be Vietnam Pro", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: "Inter", "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Brand colors (Long Chau blue -> FPT orange) */
   --fpt-orange: #F37021;
   --fpt-orange-hover: #E05D10;
   --fpt-orange-light: #FFF4ED;
+  
+  /* Long Chau Design Tokens */
+  --lc-primary: #F37021;
+  --lc-primary-hover: #E05D10;
+  --lc-bg-layer: #F4F6FB;
+  --lc-card-border: #E4E8ED;
+  --lc-title: #20283D;
+  --lc-text: #2F364A;
+  --lc-muted: #657384;
+  --lc-placeholder: #C1C8D1;
 }
 
 html {
@@ -18,13 +30,9 @@ html {
 }
 
 body {
-  color: #1e293b;
-  background-color: #fafbfc;
-  background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(243, 112, 33, 0.07), transparent 60%),
-    radial-gradient(circle 600px at 100% 20%, rgba(2, 132, 199, 0.03), transparent 70%),
-    radial-gradient(circle 600px at 0% 60%, rgba(243, 112, 33, 0.04), transparent 70%);
-  background-attachment: fixed;
+  color: #2F364A;
+  background-color: #F4F6FB; /* Long Chau signature light clean background */
+  font-family: var(--font-inter);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   max-width: 100%;
   overflow-x: clip;
@@ -63,79 +71,33 @@ body {
 }
 
 h1, h2, h3, h4 {
+  color: #20283D;
   text-wrap: balance;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Long Chau clean style */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: #F4F6FB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #C1C8D1;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #F37021;
 }
 
-/* Safe area for mobile devices */
-.pb-safe {
-  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-
-/* White Glassmorphism Utility Classes */
-.glass-card {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.04);
-}
-
-.glass-card-orange {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1.5px solid rgba(243, 112, 33, 0.4);
-  box-shadow: 0 10px 36px 0 rgba(243, 112, 33, 0.12);
-}
-
-.glass-pill {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.03);
-}
-
-/* Smooth ticker / marquee animation for mobile announcement */
-@keyframes tickerMobile {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-.animate-ticker-mobile {
-  display: inline-flex;
-  white-space: nowrap;
-  animation: tickerMobile 14s linear infinite;
-  will-change: transform;
-}
-
-.animate-ticker-mobile:hover,
-.animate-ticker-mobile:active {
-  animation-play-state: paused;
-}
-
-/* Safe area padding for floating mobile navigation bar */
-.pb-safe-nav {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

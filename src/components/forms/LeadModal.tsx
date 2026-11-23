@@ -30,36 +30,36 @@ export default function LeadModal({ isOpen, selectedPackage, onClose }: LeadModa
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-200">
-      {/* Backdrop with soft blur */}
+      {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity"
+        className="fixed inset-0 bg-slate-950/40 backdrop-blur-xs transition-opacity"
         aria-hidden="true"
       />
 
-      {/* Modal Dialog Card - White Glassmorphism */}
-      <div className="relative w-full max-w-lg bg-white/95 backdrop-blur-2xl rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.15)] border border-white/90 z-10 overflow-hidden my-auto max-h-[92vh] flex flex-col animate-in zoom-in-95 duration-200">
+      {/* Modal Dialog Card - Long Châu Style */}
+      <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-[0_20px_60px_rgba(243,112,33,0.18)] border border-[#E4E8ED] z-10 overflow-hidden my-auto max-h-[92vh] flex flex-col animate-in zoom-in-95 duration-200">
         
         {/* Modal Header */}
-        <div className="bg-gradient-to-r from-orange-50/90 via-white to-orange-50/50 border-b border-orange-100/80 px-5 py-4 sm:px-6 sm:py-4.5 flex items-center justify-between shrink-0">
+        <div className="bg-[#FFF4ED] border-b border-orange-200/60 px-5 py-4 sm:px-6 sm:py-4.5 flex items-center justify-between shrink-0">
           <div>
-            <div className="flex items-center gap-1.5 text-[11px] text-fpt-orange font-bold uppercase tracking-wider mb-0.5">
+            <div className="flex items-center gap-1.5 text-[11px] text-[#F37021] font-bold uppercase tracking-wider mb-0.5">
               <Zap className="w-3.5 h-3.5 fill-current" />
               <span>Tiếp Nhận Đăng Ký Trực Tuyến 24/7</span>
             </div>
-            <h3 className="text-base sm:text-lg font-black text-slate-900 tracking-tight">
+            <h3 className="text-base sm:text-lg font-black text-[#20283D] tracking-tight">
               Đăng Ký Lắp Mạng FPT Siêu Tốc
             </h3>
             {selectedPackage && (
-              <p className="text-xs text-slate-500 mt-0.5">
-                Gói quan tâm: <strong className="text-slate-900 font-bold">{selectedPackage}</strong>
+              <p className="text-xs text-[#657384] mt-0.5">
+                Gói quan tâm: <strong className="text-[#20283D] font-bold">{selectedPackage}</strong>
               </p>
             )}
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100/80 transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-[#657384] hover:text-[#20283D] hover:bg-white transition-colors cursor-pointer"
             aria-label="Đóng cửa sổ"
           >
             <X className="w-5 h-5" />
@@ -69,8 +69,8 @@ export default function LeadModal({ isOpen, selectedPackage, onClose }: LeadModa
         {/* Modal Scrollable Body */}
         <div className="overflow-y-auto p-3 sm:p-5 flex-1">
           {/* Promo Callout in Modal */}
-          <div className="mb-3.5 p-3 rounded-2xl bg-orange-50/70 border border-orange-200/70 text-xs text-slate-700 flex items-center gap-2.5 shadow-2xs">
-            <div className="w-7 h-7 rounded-xl bg-orange-100/80 border border-orange-200 p-0.5 flex items-center justify-center shrink-0 shadow-2xs">
+          <div className="mb-3.5 p-3 rounded-xl bg-[#F4F6FB] border border-[#E4E8ED] text-xs text-[#2F364A] flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-[#FFF4ED] border border-orange-200 p-0.5 flex items-center justify-center shrink-0">
               <img
                 src="/images/icons/liquid-glass/qua-tang.webp"
                 alt="Ưu đãi hôm nay"
@@ -80,7 +80,7 @@ export default function LeadModal({ isOpen, selectedPackage, onClose }: LeadModa
               />
             </div>
             <div className="text-[11px] sm:text-xs leading-snug">
-              <strong className="text-slate-900 font-bold">Ưu đãi hôm nay:</strong> Trang bị Modem Wi-Fi 6 &amp; <strong className="text-fpt-orange font-bold">Camera AI 0đ</strong> &bull; Lắp đặt trong 24h.
+              <strong className="text-[#20283D] font-bold">Ưu đãi hôm nay:</strong> Trang bị Modem Wi-Fi 6 &amp; <strong className="text-[#F37021] font-bold">Camera AI 0đ</strong> &bull; Lắp đặt trong 24h.
             </div>
           </div>
 

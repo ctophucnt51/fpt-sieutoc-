@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useLeadModal } from "@/context/LeadModalContext";
 import { useSiteConfig } from "@/context/ConfigContext";
 import { fbTracker } from "@/components/tracking/MetaPixel";
-// Lucide icon imports removed in favor of full 24 Liquid Glass icon set
 
 export default function StickyMobileBar() {
   const pathname = usePathname();
@@ -17,12 +16,6 @@ export default function StickyMobileBar() {
     return null;
   }
 
-  // Danh mục menu đồng đều theo Floating Glass Navigation:
-  // 1. Trang chủ (/)
-  // 2. Internet (/lap-mang-fpt)
-  // 3. Đăng ký (mở modal đăng ký)
-  // 4. Ngoại hạng Anh (/combo-ngoai-hang-anh)
-  // 5. Liên hệ (hotline/zalo)
   const isHomeActive = pathname === "/";
   const isInternetActive = pathname === "/lap-mang-fpt" || pathname === "/wifi-6";
   const isEplActive = pathname === "/combo-ngoai-hang-anh" || pathname === "/truyen-hinh-fpt";
@@ -39,23 +32,18 @@ export default function StickyMobileBar() {
   return (
     <nav
       aria-label="Mobile Navigation"
-      className="fixed bottom-3 sm:bottom-4 inset-x-3 sm:inset-x-4 max-w-lg mx-auto z-50 md:hidden pb-safe-nav pointer-events-auto"
+      className="fixed bottom-3 inset-x-3 max-w-md mx-auto z-50 md:hidden pb-safe-nav pointer-events-auto"
     >
       <div
-        style={{
-          backgroundColor: "rgba(255, 255, 255, 0.82)",
-          backdropFilter: "blur(18px)",
-          WebkitBackdropFilter: "blur(18px)",
-        }}
-        className="border border-white/90 shadow-[0_8px_32px_rgba(15,23,42,0.12),0_2px_8px_rgba(0,0,0,0.04)] rounded-full px-1.5 py-1 flex items-center justify-around h-[64px] transition-all"
+        className="bg-white/95 backdrop-blur-md border border-[#E4E8ED] shadow-[0_8px_30px_rgba(243,112,33,0.15)] rounded-full px-1.5 py-1 flex items-center justify-around h-[62px] transition-all"
       >
         {/* 1. Trang chủ */}
         <Link
           href="/"
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isHomeActive
-              ? "text-fpt-orange bg-orange-50/60 font-bold"
-              : "text-slate-500 hover:text-slate-800 font-medium"
+              ? "text-[#F37021] bg-[#FFF4ED] font-bold"
+              : "text-[#657384] hover:text-[#20283D] font-medium"
           }`}
         >
           <img
@@ -65,7 +53,7 @@ export default function StickyMobileBar() {
             height={22}
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
-          <span className="text-[11px] leading-tight mt-1 truncate">Trang chủ</span>
+          <span className="text-[10.5px] leading-tight mt-0.5 truncate">Trang chủ</span>
         </Link>
 
         {/* 2. Internet */}
@@ -73,8 +61,8 @@ export default function StickyMobileBar() {
           href="/lap-mang-fpt"
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isInternetActive
-              ? "text-fpt-orange bg-orange-50/60 font-bold"
-              : "text-slate-500 hover:text-slate-800 font-medium"
+              ? "text-[#F37021] bg-[#FFF4ED] font-bold"
+              : "text-[#657384] hover:text-[#20283D] font-medium"
           }`}
         >
           <img
@@ -84,16 +72,16 @@ export default function StickyMobileBar() {
             height={22}
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
-          <span className="text-[11px] leading-tight mt-1 truncate">Internet</span>
+          <span className="text-[10.5px] leading-tight mt-0.5 truncate">Internet</span>
         </Link>
 
-        {/* 3. Đăng ký - Nút Nổi Bật Chính Giữa Phong Cách Viettel Vx */}
+        {/* 3. Đăng ký - Nút Nổi Bật Chính Giữa Phong Cách FPT Orange */}
         <button
           type="button"
           onClick={handleOpenRegister}
-          className="flex-1 flex flex-col items-center justify-center -mt-4 transition-transform active:scale-95 cursor-pointer select-none"
+          className="flex-1 flex flex-col items-center justify-center -mt-3.5 transition-transform active:scale-95 cursor-pointer select-none"
         >
-          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-orange-600 via-fpt-orange to-[#ff8533] text-white flex items-center justify-center shadow-[0_6px_20px_rgba(243,112,33,0.45)] border-2 border-white">
+          <div className="w-12 h-12 rounded-full bg-[#F37021] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(243,112,33,0.45)] border-2 border-white">
             <img
               src="/images/icons/liquid-glass/gui-dang-ky.webp"
               alt="Đăng ký"
@@ -102,7 +90,7 @@ export default function StickyMobileBar() {
               className="w-6 h-6 object-contain brightness-0 invert"
             />
           </div>
-          <span className="text-[10px] font-bold text-fpt-orange leading-tight mt-1 truncate">Đăng ký 0đ</span>
+          <span className="text-[10px] font-bold text-[#F37021] leading-tight mt-0.5 truncate">Đăng ký 0đ</span>
         </button>
 
         {/* 4. Ngoại hạng Anh */}
@@ -110,8 +98,8 @@ export default function StickyMobileBar() {
           href="/combo-ngoai-hang-anh"
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isEplActive
-              ? "text-fpt-orange bg-orange-50/60 font-bold"
-              : "text-slate-500 hover:text-slate-800 font-medium"
+              ? "text-[#F37021] bg-[#FFF4ED] font-bold"
+              : "text-[#657384] hover:text-[#20283D] font-medium"
           }`}
         >
           <img
@@ -121,14 +109,14 @@ export default function StickyMobileBar() {
             height={22}
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
-          <span className="text-[11px] leading-tight mt-1 truncate">Ngoại hạng Anh</span>
+          <span className="text-[10.5px] leading-tight mt-0.5 truncate">Ngoại Hạng</span>
         </Link>
 
         {/* 5. Liên hệ */}
         <a
           href={siteConfig.contact.hotlineTel}
           onClick={handleContactClick}
-          className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-slate-500 hover:text-fpt-orange active:text-fpt-orange font-medium"
+          className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-[#657384] hover:text-[#F37021] active:text-[#F37021] font-medium"
         >
           <img
             src="/images/icons/liquid-glass/hotline.webp"
@@ -137,7 +125,7 @@ export default function StickyMobileBar() {
             height={22}
             className="w-[22px] h-[22px] object-contain shrink-0"
           />
-          <span className="text-[11px] leading-tight mt-1 truncate">Liên hệ</span>
+          <span className="text-[10.5px] leading-tight mt-0.5 truncate">Liên hệ</span>
         </a>
       </div>
     </nav>

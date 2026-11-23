@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { siteConfig } from "@/config/siteConfig";
 
 interface FaqItem {
@@ -53,10 +53,10 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="py-8 sm:py-12 lg:py-16 bg-white/70 backdrop-blur-md border-b border-slate-200/60">
+    <section className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] border-b border-[#E4E8ED]">
       <div className="max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 sm:mb-8 max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2 shadow-2xs backdrop-blur-md">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#F37021] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
               src="/images/icons/liquid-glass/cau-hoi.webp"
               alt="Hỏi đáp"
@@ -66,25 +66,25 @@ export default function FaqSection() {
             />
             <span>Giải Đáp Thắc Mắc</span>
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight break-words">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#20283D] tracking-tight break-words">
             Câu Hỏi Thường Gặp Về Lắp Mạng FPT
           </h2>
-          <p className="mt-1.5 text-xs sm:text-sm text-slate-600 font-normal">
+          <p className="mt-2 text-xs sm:text-sm text-[#657384] font-normal">
             Tổng hợp các thắc mắc phổ biến nhất giúp quý khách an tâm trước khi đăng ký dịch vụ.
           </p>
         </div>
 
-        {/* 2-Column Responsive FAQ Grid on Desktop, 1-Column on Mobile - Viettel Vx Style */}
+        {/* 2-Column Responsive FAQ Grid on Desktop, 1-Column on Mobile - Phong cách Long Châu */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 sm:gap-4 items-start">
           {faqs.map((faq, idx) => {
             const isOpen = openIndices.includes(idx);
             return (
               <div
                 key={idx}
-                className={`rounded-2xl transition-all duration-200 overflow-hidden ${
+                className={`rounded-2xl transition-all duration-200 overflow-hidden bg-white ${
                   isOpen
-                    ? "bg-white border-2 border-fpt-orange shadow-[0_8px_25px_rgba(243,112,33,0.12)]"
-                    : "bg-white border border-slate-200/90 hover:border-orange-200 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-md"
+                    ? "border-2 border-[#F37021] shadow-[0_8px_25px_rgba(243,112,33,0.12)]"
+                    : "border border-[#E4E8ED] hover:border-orange-200 shadow-xs hover:shadow-sm"
                 }`}
               >
                 <button
@@ -94,7 +94,7 @@ export default function FaqSection() {
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-100 p-1 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                    <div className="w-8 h-8 rounded-xl bg-[#FFF4ED] border border-orange-100 p-1 flex items-center justify-center shrink-0 mt-0.5">
                       <img
                         src={faq.icon}
                         alt="FAQ Icon"
@@ -103,18 +103,18 @@ export default function FaqSection() {
                         className="w-5 h-5 object-contain"
                       />
                     </div>
-                    <span className="font-bold text-xs sm:text-sm text-slate-900 group-hover:text-fpt-orange transition-colors leading-snug">
+                    <span className="font-bold text-xs sm:text-sm text-[#20283D] group-hover:text-[#F37021] transition-colors leading-snug">
                       {faq.q}
                     </span>
                   </div>
                   <ChevronDown
-                    className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 mt-1 ${
-                      isOpen ? "rotate-180 text-fpt-orange" : ""
+                    className={`w-4 h-4 text-[#C1C8D1] shrink-0 transition-transform duration-200 mt-1 ${
+                      isOpen ? "rotate-180 text-[#F37021]" : ""
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-[13px] text-slate-600 leading-relaxed border-t border-slate-100 mt-1">
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-[13px] text-[#657384] leading-relaxed border-t border-[#F4F6FB] mt-1">
                     <p className="pt-3">{faq.a}</p>
                   </div>
                 )}

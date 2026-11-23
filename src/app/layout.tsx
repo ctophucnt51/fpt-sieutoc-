@@ -84,7 +84,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
-      <body className="min-h-screen flex flex-col font-sans antialiased text-slate-800 bg-white selection:bg-orange-100 selection:text-fpt-dark">
+      <body className="min-h-screen flex flex-col font-sans antialiased text-[#2F364A] bg-[#F4F6FB] selection:bg-[#FFF4ED] selection:text-[#F37021]">
         <ConfigProvider initialConfig={dynamicConfig}>
           <LeadModalProvider>
             <MetaPixel />

@@ -75,7 +75,7 @@ export default function LeadForm({
     }
   }, [defaultPackage]);
 
-  // Phone validation helper (Không dùng chữ Ví dụ)
+  // Phone validation helper
   const validatePhone = (val: string) => {
     const cleaned = val.replace(/\s+/g, "").replace(/[-.]/g, "");
     const vnPhoneRegex = /^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$/;
@@ -175,7 +175,7 @@ export default function LeadForm({
         gclid: attribution.gclid || undefined,
       };
 
-      // 5. Gửi trực tiếp tới Cloudflare Worker để bắn thông báo về Telegram
+      // 5. Gửi trực tiếp tới Cloudflare Worker
       const WORKER_ENDPOINT = "https://form-fpt.cto-phucnt51.workers.dev/";
 
       let cfSuccess = false;
@@ -253,7 +253,7 @@ export default function LeadForm({
       fbTracker.lead(eventId, packageInterested);
       googleTracker.formConversion(packageInterested, leadId);
 
-      // 8. Lưu thông tin tạm để hiển thị trên trang Cảm Ơn
+      // 8. Lưu thông tin tạm
       try {
         sessionStorage.setItem(
           "fpt_lead_confirmation",
@@ -270,7 +270,7 @@ export default function LeadForm({
         // Ignore session storage error
       }
 
-      // 9. Gọi callback thành công nếu có
+      // 9. Gọi callback thành công
       if (onSuccess) {
         onSuccess();
       }
@@ -289,24 +289,21 @@ export default function LeadForm({
   return (
     <div
       id="lead-form"
-      className={`bg-white/95 backdrop-blur-2xl rounded-3xl border border-slate-200/90 shadow-[0_16px_50px_rgba(15,23,42,0.08)] p-4 sm:p-5 lg:p-6.5 relative overflow-hidden transition-all ${className}`}
+      className={`bg-white rounded-2xl border border-[#E4E8ED] shadow-sm hover:shadow-[0_8px_30px_rgba(243,112,33,0.12)] p-4 sm:p-5 lg:p-6 relative overflow-hidden transition-all ${className}`}
     >
-      {/* Decorative Ambient Glow */}
-      <div className="absolute -top-16 -right-16 w-44 h-44 bg-gradient-to-br from-orange-400/15 via-amber-300/10 to-transparent rounded-full blur-2xl pointer-events-none -z-10" />
-
       {/* Header Section */}
       {(formTitle !== "" && headline !== "") && (
-        <div className="mb-3.5 pb-3 border-b border-slate-100">
+        <div className="mb-3.5 pb-3 border-b border-[#F4F6FB]">
           {badgeText && (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-orange-50 text-fpt-orange border border-orange-200/80 font-bold text-[10px] sm:text-[11px] tracking-wide uppercase mb-1.5 shadow-2xs">
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FFF4ED] text-[#F37021] border border-orange-200/80 font-bold text-[10px] sm:text-[11px] tracking-wide uppercase mb-1.5 shadow-xs">
               <Sparkles className="w-3 h-3 fill-current" />
               <span>{badgeText}</span>
             </span>
           )}
-          <h3 className="text-base sm:text-lg lg:text-xl font-black text-slate-900 tracking-tight leading-snug">
+          <h3 className="text-base sm:text-lg lg:text-xl font-black text-[#20283D] tracking-tight leading-snug">
             {formTitle || headline}
           </h3>
-          <p className="text-xs sm:text-[13px] text-slate-600 mt-1 leading-relaxed">
+          <p className="text-xs sm:text-[13px] text-[#657384] mt-1 leading-relaxed">
             {formSubtitle || subheadline}
           </p>
         </div>
@@ -337,7 +334,7 @@ export default function LeadForm({
 
         {/* Họ và tên */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/ho-va-ten.webp"
               alt="Họ và tên"
@@ -345,7 +342,7 @@ export default function LeadForm({
               height={16}
               className="w-4 h-4 object-contain shrink-0"
             />
-            <span>Họ và Tên <span className="text-fpt-orange">*</span></span>
+            <span>Họ và Tên <span className="text-[#F37021]">*</span></span>
           </label>
           <input
             type="text"
@@ -353,13 +350,13 @@ export default function LeadForm({
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Nhập họ và tên của bạn"
-            className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white hover:border-slate-300 focus:border-fpt-orange focus:ring-4 focus:ring-orange-500/10 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 font-normal"
+            className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-[#E4E8ED] bg-[#F4F6FB] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/20 text-sm text-[#20283D] outline-none transition-all placeholder:text-[#C1C8D1] font-normal"
           />
         </div>
 
         {/* Số điện thoại */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/hotline.webp"
               alt="Số điện thoại"
@@ -367,7 +364,7 @@ export default function LeadForm({
               height={16}
               className="w-4 h-4 object-contain shrink-0"
             />
-            <span>Số Điện Thoại Nhận Ưu Đãi <span className="text-fpt-orange">*</span></span>
+            <span>Số Điện Thoại Nhận Ưu Đãi <span className="text-[#F37021]">*</span></span>
           </label>
           <input
             type="tel"
@@ -375,10 +372,10 @@ export default function LeadForm({
             value={phone}
             onChange={handlePhoneChange}
             placeholder="Nhập số điện thoại liên hệ"
-            className={`w-full px-3.5 py-2.5 sm:py-3 rounded-xl border bg-slate-50/70 hover:bg-white focus:bg-white text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 font-normal ${
+            className={`w-full px-3.5 py-2.5 sm:py-3 rounded-xl border bg-[#F4F6FB] hover:bg-white focus:bg-white text-sm text-[#20283D] outline-none transition-all placeholder:text-[#C1C8D1] font-normal ${
               phoneError
-                ? "border-red-400 focus:ring-4 focus:ring-red-100"
-                : "border-slate-200 hover:border-slate-300 focus:border-fpt-orange focus:ring-4 focus:ring-orange-500/10"
+                ? "border-red-400 focus:ring-2 focus:ring-red-100"
+                : "border-[#E4E8ED] focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/20"
             }`}
           />
           {phoneError && (
@@ -388,7 +385,7 @@ export default function LeadForm({
 
         {/* Khu vực lắp đặt (Searchable dropdown) */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/lap-dat.webp"
               alt="Khu vực"
@@ -396,7 +393,7 @@ export default function LeadForm({
               height={16}
               className="w-4 h-4 object-contain shrink-0"
             />
-            <span>Khu Vực / Xã Phường Lắp Đặt <span className="text-fpt-orange">*</span></span>
+            <span>Khu Vực / Xã Phường Lắp Đặt <span className="text-[#F37021]">*</span></span>
           </label>
           <SearchableAreaSelect
             areas={siteConfig.popularAreas}
@@ -408,7 +405,7 @@ export default function LeadForm({
 
         {/* Địa chỉ chi tiết */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/dia-chi-lap-dat.webp"
               alt="Địa chỉ khảo sát"
@@ -416,21 +413,21 @@ export default function LeadForm({
               height={16}
               className="w-4 h-4 object-contain shrink-0"
             />
-            <span>Địa Chỉ Khảo Sát Tận Nơi <span className="text-slate-400 font-normal lowercase">(số nhà, tên đường, thôn / ấp)</span></span>
+            <span>Địa Chỉ Khảo Sát Tận Nơi <span className="text-[#657384] font-normal lowercase">(số nhà, tên đường, thôn / ấp)</span></span>
           </label>
           <input
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             placeholder="Số nhà, tên đường hoặc thôn / ấp"
-            className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white hover:border-slate-300 focus:border-fpt-orange focus:ring-4 focus:ring-orange-500/10 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 font-normal"
+            className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-[#E4E8ED] bg-[#F4F6FB] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/20 text-sm text-[#20283D] outline-none transition-all placeholder:text-[#C1C8D1] font-normal"
           />
         </div>
 
         {/* Gói cước đăng ký */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+            <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D]">
               <img
                 src="/images/icons/liquid-glass/chon-goi-cuoc.webp"
                 alt="Chọn gói cước"
@@ -438,7 +435,7 @@ export default function LeadForm({
                 height={16}
                 className="w-4 h-4 object-contain shrink-0"
               />
-              <span>Gói Cước Đăng Ký <span className="text-fpt-orange">*</span></span>
+              <span>Gói Cước Đăng Ký <span className="text-[#F37021]">*</span></span>
             </label>
             <span className="text-[11px] text-emerald-700 font-bold flex items-center gap-1">
               <img
@@ -457,7 +454,7 @@ export default function LeadForm({
               name="packageInterested"
               value={packageInterested}
               onChange={(e) => setPackageInterested(e.target.value)}
-              className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white hover:border-slate-300 focus:border-fpt-orange focus:ring-4 focus:ring-orange-500/10 text-xs sm:text-sm font-semibold text-slate-900 outline-none transition-all cursor-pointer appearance-none pr-9"
+              className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-[#E4E8ED] bg-[#F4F6FB] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/20 text-xs sm:text-sm font-semibold text-[#20283D] outline-none transition-all cursor-pointer appearance-none pr-9"
             >
               <optgroup label="GÓI CƯỚC KHUYÊN DÙNG HÔM NAY">
                 <option value="Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)">
@@ -489,7 +486,7 @@ export default function LeadForm({
                 </option>
               </optgroup>
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-[#C1C8D1]">
               <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                 <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd" />
               </svg>
@@ -499,7 +496,7 @@ export default function LeadForm({
 
         {/* Ghi chú tùy chọn */}
         <div>
-          <label className="flex items-center gap-1.5 text-xs font-bold text-slate-800 mb-1">
+          <label className="flex items-center gap-1.5 text-xs font-bold text-[#20283D] mb-1">
             <img
               src="/images/icons/liquid-glass/ghi-chu.webp"
               alt="Ghi chú"
@@ -507,26 +504,26 @@ export default function LeadForm({
               height={16}
               className="w-4 h-4 object-contain shrink-0"
             />
-            <span>Ghi Chú Yêu Cầu <span className="text-slate-400 font-normal lowercase">(thời gian tiện nghe máy hoặc yêu cầu thêm)</span></span>
+            <span>Ghi Chú Yêu Cầu <span className="text-[#657384] font-normal lowercase">(thời gian tiện nghe máy hoặc yêu cầu thêm)</span></span>
           </label>
           <input
             type="text"
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Thời gian tiện nghe máy hoặc yêu cầu thêm"
-            className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white hover:border-slate-300 focus:border-fpt-orange focus:ring-4 focus:ring-orange-500/10 text-xs sm:text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 font-normal"
+            className="w-full px-3.5 py-2.5 sm:py-3 rounded-xl border border-[#E4E8ED] bg-[#F4F6FB] hover:bg-white focus:bg-white focus:border-[#F37021] focus:ring-2 focus:ring-orange-500/20 text-xs sm:text-sm text-[#20283D] outline-none transition-all placeholder:text-[#C1C8D1] font-normal"
           />
         </div>
 
         {/* Consent Checkbox */}
         <div className="pt-0.5">
-          <label className="flex items-start gap-2.5 cursor-pointer text-xs text-slate-600 leading-snug">
+          <label className="flex items-start gap-2.5 cursor-pointer text-xs text-[#657384] leading-snug">
             <input
               type="checkbox"
               required
               checked={agreeConsent}
               onChange={(e) => setAgreeConsent(e.target.checked)}
-              className="mt-0.5 h-4 w-4 rounded border-slate-300 text-fpt-orange focus:ring-fpt-orange shrink-0 cursor-pointer accent-orange-500"
+              className="mt-0.5 h-4 w-4 rounded border-[#E4E8ED] text-[#F37021] focus:ring-[#F37021] shrink-0 cursor-pointer accent-orange-500"
             />
             <span className="flex items-center gap-1.5 flex-wrap">
               <img
@@ -540,7 +537,7 @@ export default function LeadForm({
               <Link
                 href="/chinh-sach-bao-mat"
                 target="_blank"
-                className="text-slate-900 underline hover:text-fpt-orange font-semibold"
+                className="text-[#20283D] underline hover:text-[#F37021] font-semibold"
               >
                 Chính sách bảo mật
               </Link>
@@ -549,11 +546,11 @@ export default function LeadForm({
           </label>
         </div>
 
-        {/* Submit Button - Viettel Vx Pill Style */}
+        {/* Submit Button - Long Châu Pill Style */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3.5 sm:py-4 px-6 rounded-full bg-gradient-to-r from-orange-500 via-fpt-orange to-[#d4560b] hover:from-orange-600 hover:to-fpt-orange text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_8px_25px_rgba(243,112,33,0.35)] hover:shadow-[0_12px_32px_rgba(243,112,33,0.45)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+          className="w-full py-3.5 sm:py-4 px-6 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_4px_16px_rgba(243,112,33,0.35)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.45)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <>
@@ -576,30 +573,30 @@ export default function LeadForm({
         </button>
 
         {/* Trust Badges Bar */}
-        <div className="pt-1.5 grid grid-cols-3 gap-1.5 text-[10px] sm:text-[11px] text-slate-500 font-medium text-center border-t border-slate-100">
+        <div className="pt-1.5 grid grid-cols-3 gap-1.5 text-[10px] sm:text-[11px] text-[#657384] font-medium text-center border-t border-[#F4F6FB]">
           <div className="flex items-center justify-center gap-1">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
             <span className="truncate">Khảo sát 0đ</span>
           </div>
           <div className="flex items-center justify-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-fpt-orange shrink-0" />
+            <Clock className="w-3.5 h-3.5 text-[#F37021] shrink-0" />
             <span className="truncate">Lắp đặt 24h</span>
           </div>
           <div className="flex items-center justify-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+            <ShieldCheck className="w-3.5 h-3.5 text-[#657384] shrink-0" />
             <span className="truncate">Bảo mật 100%</span>
           </div>
         </div>
 
         {/* Urgent Callout */}
         <div className="pt-1 text-center">
-          <p className="text-[11px] sm:text-xs text-slate-500">
+          <p className="text-[11px] sm:text-xs text-[#657384]">
             {siteConfig.promo?.leadFormUrgentNote || "Cần lắp đặt gấp trong 2 - 4 giờ?"}{" "}
             Gọi ngay:{" "}
             <a
               href={siteConfig.contact.hotlineTel}
               onClick={() => fbTracker.contact("hotline", "Form Urgent Link")}
-              className="font-bold text-fpt-orange hover:underline inline-flex items-center gap-1 ml-0.5"
+              className="font-bold text-[#F37021] hover:underline inline-flex items-center gap-1 ml-0.5"
             >
               <PhoneCall className="w-3 h-3 inline" />
               <span>{siteConfig.contact.hotlineDisplay}</span>

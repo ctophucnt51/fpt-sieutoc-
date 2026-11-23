@@ -31,12 +31,12 @@ export default function TruyenHinhFptPage() {
         campaignContext="truyen-hinh-fpt"
       />
 
-      {/* Feature Highlight Cards - White Glassmorphism */}
-      <section className="py-8 sm:py-12 bg-white/70 backdrop-blur-md border-b border-slate-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Feature Highlight Cards - Phong cách Long Châu */}
+      <section className="py-8 sm:py-12 bg-[#F4F6FB] border-b border-[#E4E8ED]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-            <div className="p-6 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs hover:border-orange-300 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-2xl bg-orange-100 flex items-center justify-center mb-4 shadow-2xs p-1">
+            <div className="p-6 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-orange-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-4 p-1">
                 <img
                   src="/images/icons/liquid-glass/kenh-truyen-hinh.webp"
                   alt="Kênh truyền hình"
@@ -45,11 +45,11 @@ export default function TruyenHinhFptPage() {
                   className="w-7 h-7 object-contain"
                 />
               </div>
-              <h3 className="font-extrabold text-base text-slate-900 mb-1">Gần 200 Kênh Truyền Hình</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-normal">Đầy đủ kênh truyền hình quốc gia VTV, HTV, VTC và các kênh quốc tế HBO, Cinemax, Cartoon Network.</p>
+              <h3 className="font-extrabold text-base text-[#20283D] mb-1">Gần 200 Kênh Truyền Hình</h3>
+              <p className="text-xs text-[#657384] leading-relaxed font-normal">Đầy đủ kênh truyền hình quốc gia VTV, HTV, VTC và các kênh quốc tế HBO, Cinemax, Cartoon Network.</p>
             </div>
-            <div className="p-6 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs hover:border-orange-300 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-2xl bg-blue-100 flex items-center justify-center mb-4 shadow-2xs p-1">
+            <div className="p-6 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-orange-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center mb-4 p-1">
                 <img
                   src="/images/icons/liquid-glass/smart-tv.webp"
                   alt="Smart TV"
@@ -58,15 +58,15 @@ export default function TruyenHinhFptPage() {
                   className="w-7 h-7 object-contain"
                 />
               </div>
-              <h3 className="font-extrabold text-base text-slate-900 mb-1">Xem Trực Tiếp Không Cần Box</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-normal">Cài đặt dễ dàng ứng dụng FPT Play trên Smart TV (Samsung, LG, Sony, Android TV) không cần thêm đầu Box rườm rà.</p>
+              <h3 className="font-extrabold text-base text-[#20283D] mb-1">Xem Trực Tiếp Không Cần Box</h3>
+              <p className="text-xs text-[#657384] leading-relaxed font-normal">Cài đặt dễ dàng ứng dụng FPT Play trên Smart TV (Samsung, LG, Sony, Android TV) không cần thêm đầu Box rườm rà.</p>
             </div>
-            <div className="p-6 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200/80 shadow-2xs hover:border-orange-300 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4 shadow-2xs">
+            <div className="p-6 rounded-2xl bg-white border border-[#E4E8ED] shadow-xs hover:border-orange-300 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center mb-4">
                 <Film className="w-5 h-5" />
               </div>
-              <h3 className="font-extrabold text-base text-slate-900 mb-1">Kho Phim 4K Đồ Sộ</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-normal">Hàng ngàn giờ phim bom tấn chiếu rạp, phim bộ Hàn Quốc, Trung Quốc, Âu Mỹ độc quyền cập nhật mỗi ngày.</p>
+              <h3 className="font-extrabold text-base text-[#20283D] mb-1">Kho Phim 4K Đồ Sộ</h3>
+              <p className="text-xs text-[#657384] leading-relaxed font-normal">Hàng ngàn giờ phim bom tấn chiếu rạp, phim bộ Hàn Quốc, Trung Quốc, Âu Mỹ độc quyền cập nhật mỗi ngày.</p>
             </div>
           </div>
         </div>

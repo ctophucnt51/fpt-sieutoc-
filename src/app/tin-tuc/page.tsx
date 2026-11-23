@@ -42,8 +42,8 @@ export default function TinTucPage({
   ];
 
   return (
-    <div className="bg-slate-50/50 min-h-screen py-6 sm:py-8 lg:py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#F4F6FB] min-h-screen py-6 sm:py-8 lg:py-10">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-4 sm:mb-6">
           <Link href="/" className="hover:text-fpt-orange transition-colors">
