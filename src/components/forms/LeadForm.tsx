@@ -163,7 +163,7 @@ export default function LeadForm({
         address: address.trim(),
         area: "Cần Thơ",
         service: selectedService,
-        note: `Dịch vụ đăng ký: ${selectedService}`,
+        note: undefined,
         formLocation: formLocation,
         source: attribution.utm_source || "direct",
         campaign: attribution.utm_campaign || undefined,
@@ -200,7 +200,7 @@ export default function LeadForm({
             address: address.trim(),
             area: "Cần Thơ",
             packageInterested: selectedService,
-            note: `Dịch vụ đăng ký: ${selectedService}`,
+            note: "",
             agreeConsent: true,
             landingPage: pathname || "/",
             leadLocation: formLocation,
@@ -394,9 +394,6 @@ export default function LeadForm({
                 </div>
                 <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
                   Internet
-                </span>
-                <span className="text-[10px] sm:text-[11px] font-semibold text-slate-500 mt-0.5">
-                  Wi-Fi 6 Siêu Tốc
                 </span>
               </div>
 
