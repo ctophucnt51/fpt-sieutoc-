@@ -333,7 +333,7 @@ export default function LeadForm({
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white text-slate-800 text-xs sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
+                className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white text-slate-800 text-base sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
               />
               {!fullName && (
                 <div className="pointer-events-none absolute inset-y-0 left-3.5 sm:left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
@@ -349,7 +349,7 @@ export default function LeadForm({
                 required
                 value={phone}
                 onChange={handlePhoneChange}
-                className={`w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white text-slate-800 text-xs sm:text-sm font-medium outline-none shadow-xs transition-all ${
+                className={`w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white text-slate-800 text-base sm:text-sm font-medium outline-none shadow-xs transition-all ${
                   phoneError ? "ring-2 ring-red-400" : "focus:ring-2 focus:ring-[#FFCC00]"
                 }`}
               />
@@ -374,7 +374,7 @@ export default function LeadForm({
               required
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white text-slate-800 text-xs sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
+              className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white text-slate-800 text-base sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
             />
             {!address && (
               <div className="pointer-events-none absolute inset-y-0 left-3.5 sm:left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">

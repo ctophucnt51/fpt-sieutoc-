@@ -25,8 +25,10 @@ html {
   scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
   text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
   max-width: 100%;
   overflow-x: clip;
+  touch-action: manipulation;
 }
 
 body {
@@ -42,6 +44,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  touch-action: manipulation;
+}
+
+/* Ngăn ngừa Safari và trình duyệt Mobile tự động phóng to (zoom in) khi người dùng chạm vào ô điền form */
+@media screen and (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 /* Accessibility: Focus visible styling */
