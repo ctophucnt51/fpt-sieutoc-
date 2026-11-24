@@ -187,14 +187,14 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Nút Đăng Ký Tư Vấn (Nội dung Đăng ký như phiên bản trước) */}
+          {/* Nút Yêu Cầu Tư Vấn chuẩn phong cách Long Châu */}
           <button
             type="button"
-            onClick={() => handleOpenPromoModal("Mobile Header Đăng Ký")}
+            onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
             className="px-2.5 sm:px-3 py-1.5 rounded-full bg-[#FFCC00] hover:bg-[#FFD633] active:scale-95 text-[#C84600] font-black text-[11px] sm:text-xs shadow-md transition-all flex items-center gap-1 shrink-0 cursor-pointer whitespace-nowrap"
           >
             <Headset className="w-3.5 h-3.5 shrink-0" />
-            <span>Đăng ký ngay</span>
+            <span>Yêu cầu tư vấn</span>
           </button>
         </div>
 
