@@ -34,7 +34,7 @@ export default function Footer() {
                 />
               </div>
               <div>
-                <span className="font-extrabold text-base sm:text-lg text-[#20283D] tracking-tight block">
+                <span className="font-extrabold text-base sm:text-lg text-[#0F172A] tracking-tight block">
                   Lắp Mạng <span className="text-[#C44D06]">FPT Siêu Tốc</span>
                 </span>
                 <span className="text-[11px] text-[#C44D06] font-bold block mt-0.5">
@@ -43,7 +43,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <p className="text-xs sm:text-[13px] text-[#657384] leading-relaxed font-normal">
+            <p className="text-xs sm:text-[13px] text-[#475569] leading-relaxed font-normal">
               Kênh tư vấn &amp; hỗ trợ tiếp nhận đăng ký trực tuyến các dịch vụ Internet cáp quang Wi-Fi 6, Truyền hình FPT Play, Thể thao Ngoại Hạng Anh và FPT Camera an ninh thông minh trên toàn quốc.
             </p>
 
@@ -72,7 +72,7 @@ export default function Footer() {
 
           {/* Col 2: Dịch Vụ Tư Vấn */}
           <div>
-            <h3 className="text-[#20283D] font-bold text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+            <h3 className="text-[#0F172A] font-bold text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
               <span className="w-1.5 h-3.5 bg-[#F37021] rounded-full"></span>
               Dịch Vụ Tư Vấn
             </h3>
@@ -80,45 +80,45 @@ export default function Footer() {
               <li>
                 <Link
                   href="/lap-mang-fpt"
-                  className="group flex items-center gap-1.5 text-[#657384] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-[#C1C8D1] group-hover:text-[#F37021] transition-colors" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
                   <span>Lắp Internet Cáp Quang Wi-Fi 6</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/wifi-6"
-                  className="group flex items-center gap-1.5 text-[#657384] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-[#C1C8D1] group-hover:text-[#F37021] transition-colors" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
                   <span>Modem Wi-Fi 6 Băng Tần Kép</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/combo-ngoai-hang-anh"
-                  className="group flex items-center gap-1.5 text-[#657384] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-[#C1C8D1] group-hover:text-[#F37021] transition-colors" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
                   <span>Combo Internet + Ngoại Hạng Anh (EPL)</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/truyen-hinh-fpt"
-                  className="group flex items-center gap-1.5 text-[#657384] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-[#C1C8D1] group-hover:text-[#F37021] transition-colors" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
                   <span>Combo Truyền Hình FPT Play</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/tin-tuc"
-                  className="group flex items-center gap-1.5 text-[#657384] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-[#C1C8D1] group-hover:text-[#F37021] transition-colors" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
                   <span>Tin Tức &amp; Khuyến Mãi Mới Nhất</span>
                 </Link>
               </li>
@@ -127,7 +127,7 @@ export default function Footer() {
 
           {/* Col 3: Kênh Tư Vấn 24/7 (Long Châu Style Hotline Cards) */}
           <div>
-            <h3 className="text-[#20283D] font-bold text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+            <h3 className="text-[#0F172A] font-bold text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
               <span className="w-1.5 h-3.5 bg-[#F37021] rounded-full"></span>
               Kênh Tư Vấn 24/7
             </h3>
@@ -146,10 +146,10 @@ export default function Footer() {
                       />
                     </div>
                     <div>
-                      <span className="block text-[10px] text-[#657384] font-medium">Hotline Bán Hàng &amp; Tư Vấn:</span>
+                      <span className="block text-[10px] text-[#475569] font-medium">Hotline Bán Hàng &amp; Tư Vấn:</span>
                       <a
                         href={siteConfig.contact.hotlineTel}
-                        className="text-[#20283D] font-bold hover:text-[#F37021] text-sm sm:text-base tracking-tight transition-colors inline-block"
+                        className="text-[#0F172A] font-bold hover:text-[#F37021] text-sm sm:text-base tracking-tight transition-colors inline-block"
                       >
                         {siteConfig.contact.hotlineDisplay}
                       </a>
@@ -172,7 +172,7 @@ export default function Footer() {
                       />
                     </div>
                     <div>
-                      <span className="block text-[10px] text-[#657384] font-medium">Tư Vấn Zalo Nhanh:</span>
+                      <span className="block text-[10px] text-[#475569] font-medium">Tư Vấn Zalo Nhanh:</span>
                       <a
                         href={siteConfig.contact.zaloUrl}
                         target="_blank"
@@ -187,22 +187,22 @@ export default function Footer() {
               </li>
 
               {/* Physical Address */}
-              <li className="flex items-start gap-2 text-[#657384] text-xs px-1">
-                <MapPin className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
+              <li className="flex items-start gap-2 text-[#475569] text-xs px-1">
+                <MapPin className="w-4 h-4 text-[#94A3B8] mt-0.5 shrink-0" />
                 <div>
-                  <span className="text-[#657384] font-medium">Điểm tiếp nhận: </span>
-                  <span className="text-[#20283D] font-semibold">{siteConfig.contact.address || "118 Đường 30/4, Phường Tân An, TP. Cần Thơ"}</span>
+                  <span className="text-[#475569] font-medium">Điểm tiếp nhận: </span>
+                  <span className="text-[#0F172A] font-semibold">{siteConfig.contact.address || "118 Đường 30/4, Phường Tân An, TP. Cần Thơ"}</span>
                 </div>
               </li>
 
               {/* Email */}
-              <li className="flex items-start gap-2 text-[#657384] text-xs px-1">
-                <Mail className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
+              <li className="flex items-start gap-2 text-[#475569] text-xs px-1">
+                <Mail className="w-4 h-4 text-[#94A3B8] mt-0.5 shrink-0" />
                 <div>
-                  <span className="text-[#657384] font-medium">Email hỗ trợ: </span>
+                  <span className="text-[#475569] font-medium">Email hỗ trợ: </span>
                   <a
                     href={`mailto:${siteConfig.contact.supportEmail}`}
-                    className="text-[#20283D] hover:text-[#C44D06] font-semibold transition-colors"
+                    className="text-[#0F172A] hover:text-[#C44D06] font-semibold transition-colors"
                   >
                     {siteConfig.contact.supportEmail}
                   </a>
@@ -210,20 +210,20 @@ export default function Footer() {
               </li>
 
               {/* Working Hours */}
-              <li className="flex items-start gap-2 text-[#657384] text-xs px-1">
-                <Clock className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
+              <li className="flex items-start gap-2 text-[#475569] text-xs px-1">
+                <Clock className="w-4 h-4 text-[#94A3B8] mt-0.5 shrink-0" />
                 <div>
-                  <span className="text-[#657384] font-medium">Giờ phục vụ: </span>
-                  <span className="text-[#20283D] font-semibold">{siteConfig.contact.workingHours}</span>
+                  <span className="text-[#475569] font-medium">Giờ phục vụ: </span>
+                  <span className="text-[#0F172A] font-semibold">{siteConfig.contact.workingHours}</span>
                 </div>
               </li>
 
               {/* Coverage */}
-              <li className="flex items-start gap-2 text-[#657384] text-xs px-1">
-                <ShieldCheck className="w-4 h-4 text-[#C1C8D1] mt-0.5 shrink-0" />
+              <li className="flex items-start gap-2 text-[#475569] text-xs px-1">
+                <ShieldCheck className="w-4 h-4 text-[#94A3B8] mt-0.5 shrink-0" />
                 <div>
-                  <span className="text-[#657384] font-medium">Phạm vi hỗ trợ: </span>
-                  <span className="text-[#20283D] font-semibold">Cần Thơ, Miền Tây &amp; Toàn quốc</span>
+                  <span className="text-[#475569] font-medium">Phạm vi hỗ trợ: </span>
+                  <span className="text-[#0F172A] font-semibold">Cần Thơ, Miền Tây &amp; Toàn quốc</span>
                 </div>
               </li>
             </ul>
@@ -231,7 +231,7 @@ export default function Footer() {
 
           {/* Col 4: Pháp Lý & Chứng Nhận */}
           <div className="space-y-3.5">
-            <h3 className="text-[#20283D] font-bold text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
+            <h3 className="text-[#0F172A] font-bold text-xs uppercase tracking-wider mb-4 flex items-center gap-2">
               <span className="w-1.5 h-3.5 bg-[#F37021] rounded-full"></span>
               Chính Sách &amp; Pháp Lý
             </h3>
@@ -239,25 +239,25 @@ export default function Footer() {
               <li>
                 <Link
                   href="/chinh-sach-bao-mat"
-                  className="group flex items-center gap-1.5 text-[#657384] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-[#C1C8D1] group-hover:text-[#F37021] transition-colors" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
                   <span>Chính Sách Bảo Mật Dữ Liệu Cá Nhân</span>
                 </Link>
               </li>
               <li>
                 <Link
                   href="/dieu-khoan"
-                  className="group flex items-center gap-1.5 text-[#657384] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
                 >
-                  <ChevronRight className="w-3.5 h-3.5 text-[#C1C8D1] group-hover:text-[#F37021] transition-colors" />
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
                   <span>Điều Khoản Sử Dụng Dịch Vụ</span>
                 </Link>
               </li>
             </ul>
 
             {/* Decree 13 Card */}
-            <div className="p-3 rounded-2xl bg-[#F4F6FB] border border-[#E4E8ED] text-[11px] sm:text-xs text-[#657384] leading-relaxed font-normal">
+            <div className="p-3 rounded-2xl bg-[#F4F6FB] border border-[#E4E8ED] text-[11px] sm:text-xs text-[#475569] leading-relaxed font-medium">
               Tuân thủ Nghị định 13/2023/NĐ-CP: Mọi thông tin khách hàng chỉ phục vụ liên hệ xác nhận nhu cầu lắp đặt và được bảo mật tuyệt đối.
             </div>
 
@@ -265,9 +265,9 @@ export default function Footer() {
             <div className="pt-1">
               <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-[#FFF4ED] border border-orange-200/80 text-[#C44D06]">
                 <ShieldCheck className="w-5 h-5 shrink-0 text-[#C44D06]" />
-                <div className="text-[11px] leading-tight text-[#20283D]">
+                <div className="text-[11px] leading-tight text-[#0F172A]">
                   <span className="font-bold block">Kênh Đại Lý FPT Telecom</span>
-                  <span className="text-[10px] text-[#657384] font-normal">Tư vấn chính sách khuyến mãi chính hãng</span>
+                  <span className="text-[10px] text-[#475569] font-normal">Tư vấn chính sách khuyến mãi chính hãng</span>
                 </div>
               </div>
             </div>
@@ -275,12 +275,12 @@ export default function Footer() {
         </div>
 
         {/* Legal Disclaimer Box */}
-        <div className="pt-6 border-t border-[#E4E8ED] text-xs text-[#657384] space-y-3">
-          <p className="leading-relaxed bg-[#F4F6FB] p-3.5 rounded-2xl border border-[#E4E8ED] text-[#657384]">
-            <strong className="text-[#20283D] font-semibold">Tuyên bố miễn trừ trách nhiệm: </strong>
+        <div className="pt-6 border-t border-[#E4E8ED] text-xs text-[#475569] space-y-3">
+          <p className="leading-relaxed bg-[#F4F6FB] p-3.5 rounded-2xl border border-[#E4E8ED] text-[#475569]">
+            <strong className="text-[#0F172A] font-semibold">Tuyên bố miễn trừ trách nhiệm: </strong>
             {siteConfig.disclaimer.officialDisclaimer} Bảng giá, chương trình khuyến mãi thực tế có thể thay đổi tùy theo khu vực địa lý cụ thể và chính sách kinh doanh từng thời điểm của FPT Telecom. Quý khách vui lòng liên hệ trực tiếp hotline để được báo giá chính xác nhất tại địa chỉ lắp đặt.
           </p>
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-2 pt-3 text-[#657384] text-[11px]">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-2 pt-3 text-[#475569] text-[11px]">
             <p suppressHydrationWarning>© {new Date().getFullYear()} {siteConfig.brand.name}. Mọi quyền được bảo lưu.</p>
             <p>Hệ thống tối ưu tiếp nhận thông tin khách hàng dịch vụ FPT Telecom.</p>
           </div>

@@ -46,10 +46,10 @@ export default function ProcessSection() {
             />
             <span>Quy Trình Chuẩn Hóa</span>
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#20283D] tracking-tight break-words">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0F172A] tracking-tight break-words">
             4 Bước Đăng Ký &amp; Lắp Đặt Siêu Tốc Trong 24 Giờ
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-[#657384] font-normal">
+          <p className="mt-2 text-xs sm:text-sm text-[#334155] font-medium">
             Thủ tục đơn giản nhất thị trường, không cần đặt cọc trước, khảo sát tận nơi hoàn toàn miễn phí.
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function ProcessSection() {
                   <span className="text-[11px] font-black text-white bg-[#F37021] px-3 py-0.5 rounded-full shadow-xs uppercase tracking-tight">
                     BƯỚC {item.step}
                   </span>
-                  <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-white text-[#657384] border border-[#E4E8ED]">
+                  <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-white text-[#475569] border border-[#E4E8ED]">
                     {item.highlight}
                   </span>
                 </div>
@@ -83,10 +83,10 @@ export default function ProcessSection() {
                   />
                 </div>
 
-                <h3 className="font-extrabold text-sm sm:text-base text-[#20283D] mb-1.5 group-hover:text-[#F37021] transition-colors">
+                <h3 className="font-extrabold text-sm sm:text-base text-[#0F172A] mb-1.5 group-hover:text-[#F37021] transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-xs text-[#657384] leading-relaxed font-normal">
+                <p className="text-xs text-[#334155] leading-relaxed font-normal">
                   {item.desc}
                 </p>
               </div>

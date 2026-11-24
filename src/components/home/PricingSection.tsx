@@ -60,10 +60,10 @@ export default function PricingSection({
             />
             <span>Bảng Giá Minh Bạch &bull; Chính Hãng FPT</span>
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#20283D] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0F172A] tracking-tight leading-tight">
             {title}
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-[#657384] font-normal">
+          <p className="mt-2 text-xs sm:text-sm text-[#334155] font-medium">
             {subtitle} &bull; <span className="text-emerald-700 font-bold whitespace-nowrap">Đã bao gồm 10% VAT</span>
           </p>
 

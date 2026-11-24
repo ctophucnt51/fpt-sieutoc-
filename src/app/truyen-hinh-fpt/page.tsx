@@ -27,7 +27,7 @@ export default function TruyenHinhFptPage() {
         }
         subheadline="Cài đặt xem trực tiếp qua ứng dụng FPT Play trên Smart TV, Smartphone, Tablet mượt mà không cần đầu thu Box. Xem Bản Quyền Trọn Vẹn Ngoại Hạng Anh & gần 170 kênh truyền hình chỉ 220.000đ/tháng, đặc biệt tặng kèm Camera FPT AI an ninh thông minh miễn phí."
         defaultPackage="Combo GIGA"
-        formHeadline="Đăng Ký Tư Vấn"
+        formHeadline="NHẬN TƯ VẤN MIỄN PHÍ"
         campaignContext="truyen-hinh-fpt"
       />
 

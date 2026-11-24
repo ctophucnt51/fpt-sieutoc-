@@ -27,7 +27,7 @@ export default function ComboNgoaiHangAnhPage() {
         }
         subheadline="Thưởng thức Bản quyền trọn vẹn các trận cầu rực lửa Ngoại Hạng Anh chuẩn Full HD mượt mà trên Smart TV và thiết bị di động (Không cần đầu thu Box). Ưu đãi sốc Combo Giga chỉ 220.000đ/tháng, đặc biệt tặng kèm Camera FPT AI an ninh thông minh miễn phí."
         defaultPackage="Combo GIGA"
-        formHeadline="Đăng Ký Tư Vấn"
+        formHeadline="NHẬN TƯ VẤN MIỄN PHÍ"
         campaignContext="combo-ngoai-hang-anh"
       />
 

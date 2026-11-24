@@ -113,11 +113,11 @@ export default function Header() {
 
   return (
     <header className="sticky-header sticky top-0 z-50 w-full transition-all">
-      {/* TẦNG 1: TOP PROMO BAR (Phong cách Long Châu: Thông báo ưu đãi & Hotline) */}
-      <div className="bg-[#FFF4ED] border-b border-orange-200/60 text-slate-800 text-[11px] sm:text-xs py-1 px-3 sm:px-6">
+      {/* TẦNG 1: TOP PROMO BAR (Chỉ hiển thị trên Desktop, Ẩn hoàn toàn trên Mobile theo yêu cầu) */}
+      <div className="hidden lg:block bg-[#FFF4ED] border-b border-orange-200/60 text-slate-800 text-[11px] sm:text-xs py-1 px-3 sm:px-6">
         <div className="max-w-[1280px] mx-auto flex items-center justify-between gap-2 min-h-[26px]">
           {/* Desktop Left: Announcement */}
-          <div className="hidden md:flex items-center gap-2 min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F37021] text-white text-[9px] font-extrabold tracking-wide uppercase shrink-0">
               <Flame className="w-3 h-3 shrink-0" />
               {siteConfig.promo?.topBarBadge || "Ưu Đãi"}
@@ -130,33 +130,16 @@ export default function Header() {
             </p>
           </div>
 
-          {/* Mobile Announcement */}
-          <div
-            onClick={() => handleOpenPromoModal("Top Promo Bar Mobile")}
-            className="md:hidden flex items-center gap-1.5 min-w-0 flex-1 overflow-hidden cursor-pointer"
-          >
-            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#F37021] text-white text-[8.5px] font-extrabold uppercase shrink-0">
-              <Flame className="w-2.5 h-2.5 shrink-0" />
-              {siteConfig.promo?.topBarBadge || "Ưu Đãi"}
-            </span>
-            <div className="overflow-hidden whitespace-nowrap flex-1">
-              <span className="text-[11px] font-bold text-[#20283D] tracking-tight truncate block">
-                {siteConfig.promo?.topBarAnnouncement ||
-                  "Miễn phí Modem Wi-Fi 6 & Camera FPT khi đăng ký online"}
-              </span>
-            </div>
-          </div>
-
           {/* Right: Quick Action Link & Hotline */}
           <div className="flex items-center gap-2.5 shrink-0 text-[11px]">
             <button
               onClick={() => handleOpenPromoModal("Top Bar Nhận Ưu Đãi")}
-              className="hidden sm:inline-flex items-center gap-1 text-[#C44D06] hover:text-[#A03D05] font-bold hover:underline cursor-pointer"
+              className="inline-flex items-center gap-1 text-[#C44D06] hover:text-[#A03D05] font-bold hover:underline cursor-pointer"
             >
               <span>Nhận ưu đãi ngay</span>
               <ArrowRight className="w-3 h-3" />
             </button>
-            <span className="text-slate-400 hidden sm:inline">|</span>
+            <span className="text-slate-400 inline">|</span>
             <a
               href={siteConfig.contact.hotlineTel}
               onClick={() => handleHotlineClick("Top Bar Hotline")}
@@ -169,10 +152,10 @@ export default function Header() {
         </div>
       </div>
 
-      {/* TẦNG 2A: MOBILE MAIN HEADER (Phong cách Long Châu: Nền màu thương hiệu FPT Cam, Logo Trắng, Nút Tư Vấn Vàng, Thanh Tìm Kiếm Tròn) */}
+      {/* TẦNG 2A: MOBILE MAIN HEADER (Phong cách Long Châu: Nền màu thương hiệu FPT Cam, Logo Trắng + Text 'Lắp mạng FPT siêu tốc') */}
       <div className="lg:hidden bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white shadow-md">
-        {/* Hàng 1: Menu Hamburger | Logo FPT Telecom | Nút Yêu Cầu Tư Vấn */}
-        <div className="px-3 pt-2.5 pb-2 flex items-center justify-between gap-2.5">
+        {/* Hàng 1: Menu Hamburger | Logo + 'Lắp mạng FPT siêu tốc' | Nút Yêu Cầu Tư Vấn */}
+        <div className="px-3 pt-2.5 pb-2 flex items-center justify-between gap-2">
           {/* Nút Hamburger 3 gạch trắng */}
           <button
             type="button"
@@ -183,27 +166,30 @@ export default function Header() {
             <Menu className="w-6 h-6 stroke-[2.2]" />
           </button>
 
-          {/* Logo FPT Telecom ở giữa (Logo gốc đã chứa sẵn chữ TELECOM) */}
-          <Link href="/" className="flex items-center shrink-0 group">
+          {/* Logo FPT Telecom + Text "Lắp mạng FPT siêu tốc" */}
+          <Link href="/" className="flex items-center gap-1.5 min-w-0 group">
             <img
               src="/images/logo-ftel.svg"
               alt="FPT Telecom"
-              width={105}
-              height={30}
+              width={65}
+              height={22}
               loading="eager"
               decoding="async"
-              className="h-7 w-auto object-contain brightness-0 invert drop-shadow-xs"
+              className="h-5.5 w-auto object-contain brightness-0 invert drop-shadow-xs shrink-0"
             />
+            <span className="font-black text-[13px] sm:text-sm tracking-tight text-white truncate leading-tight drop-shadow-xs">
+              Lắp mạng FPT siêu tốc
+            </span>
           </Link>
 
           {/* Nút Yêu Cầu Tư Vấn (Phong cách viên thuốc màu vàng như Long Châu) */}
           <button
             type="button"
             onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
-            className="px-3 py-1.5 rounded-full bg-[#FFCC00] hover:bg-[#FFD633] active:scale-95 text-[#C84600] font-black text-xs shadow-md transition-all flex items-center gap-1 shrink-0 cursor-pointer"
+            className="px-2.5 sm:px-3 py-1.5 rounded-full bg-[#FFCC00] hover:bg-[#FFD633] active:scale-95 text-[#C84600] font-black text-[11px] sm:text-xs shadow-md transition-all flex items-center gap-1 shrink-0 cursor-pointer whitespace-nowrap"
           >
-            <Headset className="w-3.5 h-3.5" />
-            <span>Yêu cầu tư vấn</span>
+            <Headset className="w-3.5 h-3.5 shrink-0" />
+            <span>Tư vấn 0đ</span>
           </button>
         </div>
 
@@ -213,7 +199,7 @@ export default function Header() {
             onClick={() => handleOpenPromoModal("Mobile Search Bar")}
             className="w-full bg-white rounded-full py-1.5 px-3.5 flex items-center justify-between text-xs text-slate-500 shadow-sm cursor-pointer border border-white/40 active:bg-slate-50 transition-colors"
           >
-            <span className="text-slate-500 font-medium truncate">
+            <span className="text-slate-600 font-medium truncate">
               Bạn cần tư vấn lắp mạng, truyền hình, camera?
             </span>
             <div className="w-6 h-6 rounded-full bg-[#FFF4ED] flex items-center justify-center shrink-0 ml-1">
@@ -240,7 +226,7 @@ export default function Header() {
             <div className="h-5 w-px bg-[#E4E8ED] mx-0.5" />
             <div className="flex flex-col">
               <span className="font-extrabold text-base text-[#20283D] tracking-tight whitespace-nowrap group-hover:text-[#F37021] transition-colors leading-tight">
-                Lắp Mạng FPT
+                Lắp Mạng FPT Siêu Tốc
               </span>
               <span className="text-[10px] text-[#C44D06] font-semibold leading-none">
                 Đại Lý Tiếp Nhận Dịch Vụ
@@ -344,20 +330,23 @@ export default function Header() {
 
           {/* Ngăn kéo Menu (Drawer) trượt từ bên trái sang */}
           <div className="relative w-[85%] max-w-[340px] bg-white h-full shadow-2xl flex flex-col z-[9999] overflow-hidden animate-in slide-in-from-left duration-300">
-            {/* 1. Header ngăn kéo: Nền cam FPT, Logo FPT Telecom và nút Đóng ✕ */}
+            {/* 1. Header ngăn kéo: Nền cam FPT, Logo và text "Lắp mạng FPT siêu tốc" */}
             <div className="bg-[#F37021] px-4 py-3.5 flex items-center justify-between text-white shadow-sm shrink-0">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center"
+                className="flex items-center gap-2"
               >
                 <img
                   src="/images/logo-ftel.svg"
                   alt="FPT Telecom"
-                  width={105}
-                  height={30}
-                  className="h-7 w-auto object-contain brightness-0 invert"
+                  width={68}
+                  height={22}
+                  className="h-5.5 w-auto object-contain brightness-0 invert shrink-0"
                 />
+                <span className="font-black text-sm tracking-tight text-white leading-tight">
+                  Lắp mạng FPT siêu tốc
+                </span>
               </Link>
 
               <button

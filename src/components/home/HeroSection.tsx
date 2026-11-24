@@ -25,7 +25,7 @@ export default function HeroSection({
   ),
   subheadline,
   defaultPackage = "SKY",
-  formHeadline = "Đăng Ký Tư Vấn",
+  formHeadline = "NHẬN TƯ VẤN MIỄN PHÍ",
   campaignContext,
   showPriorityCards = false,
 }: HeroSectionProps) {
@@ -41,15 +41,15 @@ export default function HeroSection({
           <div className="lg:col-span-7 space-y-3.5 sm:space-y-4 text-center lg:text-left">
             
             {/* Top Pill Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] text-xs font-semibold text-[#20283D] shadow-xs">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] text-[11px] sm:text-xs font-semibold text-[#0F172A] shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
               <span>Đại Lý Tiếp Nhận FPT Telecom</span>
-              <span className="text-[#657384]">|</span>
+              <span className="text-[#94A3B8]">|</span>
               <span className="text-[#C44D06] font-bold">Khảo sát 0đ</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black text-[#20283D] tracking-tight leading-snug sm:leading-tight break-words">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black text-[#0F172A] tracking-tight leading-snug sm:leading-tight break-words">
               {headline}
             </h1>
 
@@ -343,7 +343,7 @@ export default function HeroSection({
             <LeadForm
               defaultPackage={defaultPackage}
               headline={formHeadline}
-              subheadline="Liên hệ lại sau 5 - 15 phút"
+              subheadline="Tặng thiết bị WiFi 6 cho 300 KH đầu tiên"
               formLocation="hero-mobile-form"
             />
           </div>

@@ -23,7 +23,7 @@ export default function HomePage() {
         }
         showPriorityCards={true}
         defaultPackage="Combo GIGA"
-        formHeadline="Đăng Ký Tư Vấn"
+        formHeadline="NHẬN TƯ VẤN MIỄN PHÍ"
       />
 
       {/* 2. Chi Tiết Trực Tiếp 380 Trận Ngoại Hạng Anh & FPT Play Trên Smart TV */}

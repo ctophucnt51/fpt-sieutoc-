@@ -36,8 +36,8 @@ export default function BottomCtaSection({
                 />
               </div>
               <div>
-                <p className="text-sm font-black text-[#20283D]">Modem Wi-Fi 6 0đ</p>
-                <p className="text-xs text-[#657384]">Trang bị chuẩn AX3000</p>
+                <p className="text-sm font-black text-[#0F172A]">Modem Wi-Fi 6 0đ</p>
+                <p className="text-xs text-[#475569]">Trang bị chuẩn AX3000</p>
               </div>
             </div>
 
@@ -54,8 +54,8 @@ export default function BottomCtaSection({
                 />
               </div>
               <div>
-                <p className="text-sm font-black text-[#20283D]">Tặng Camera AI</p>
-                <p className="text-xs text-[#657384]">An ninh thông minh 0đ</p>
+                <p className="text-sm font-black text-[#0F172A]">Tặng Camera AI</p>
+                <p className="text-xs text-[#475569]">An ninh thông minh 0đ</p>
               </div>
             </div>
 
@@ -72,8 +72,8 @@ export default function BottomCtaSection({
                 />
               </div>
               <div>
-                <p className="text-sm font-black text-[#20283D]">Lắp Đặt Trong 24H</p>
-                <p className="text-xs text-[#657384]">Khảo sát tận nơi 0đ</p>
+                <p className="text-sm font-black text-[#0F172A]">Lắp Đặt Trong 24H</p>
+                <p className="text-xs text-[#475569]">Khảo sát tận nơi 0đ</p>
               </div>
             </div>
 
@@ -90,8 +90,8 @@ export default function BottomCtaSection({
                 />
               </div>
               <div>
-                <p className="text-sm font-black text-[#20283D]">Bảo Trì Trọn Đời</p>
-                <p className="text-xs text-[#657384]">Hỗ trợ kỹ thuật 24/7</p>
+                <p className="text-sm font-black text-[#0F172A]">Bảo Trì Trọn Đời</p>
+                <p className="text-xs text-[#475569]">Hỗ trợ kỹ thuật 24/7</p>
               </div>
             </div>
           </div>
@@ -131,10 +131,10 @@ export default function BottomCtaSection({
               <span className="inline-block px-3 py-1 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200/80 font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-2.5 shadow-xs">
                 Đăng Ký Siêu Tốc &bull; Khảo Sát 0đ
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#20283D] tracking-tight leading-snug">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0F172A] tracking-tight leading-snug">
                 {title}
               </h2>
-              <p className="mt-2 text-xs sm:text-sm text-[#657384] leading-relaxed font-normal">
+              <p className="mt-2 text-xs sm:text-sm text-[#334155] leading-relaxed font-medium">
                 {description}
               </p>
             </div>
@@ -154,8 +154,8 @@ export default function BottomCtaSection({
                   />
                 </div>
                 <div>
-                  <span className="block text-[11px] text-[#657384] font-medium">Tổng đài tiếp nhận 24/7:</span>
-                  <span className="text-base sm:text-lg font-black text-[#20283D]">{siteConfig.contact.hotlineDisplay}</span>
+                  <span className="block text-[11px] text-[#475569] font-medium">Tổng đài tiếp nhận 24/7:</span>
+                  <span className="text-base sm:text-lg font-black text-[#0F172A]">{siteConfig.contact.hotlineDisplay}</span>
                 </div>
               </div>
               <a
@@ -166,7 +166,7 @@ export default function BottomCtaSection({
               </a>
             </div>
 
-            <div className="flex items-center justify-center lg:justify-start gap-1.5 text-xs text-[#657384] font-medium">
+            <div className="flex items-center justify-center lg:justify-start gap-1.5 text-xs text-[#475569] font-medium">
               <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>Cam kết bảo mật 100% &amp; không làm phiền nếu chưa có nhu cầu</span>
             </div>
@@ -176,8 +176,8 @@ export default function BottomCtaSection({
           <div className="lg:col-span-6 w-full">
             <LeadForm
               defaultPackage={defaultPackage}
-              headline="Đăng Ký Tư Vấn"
-              subheadline="Liên hệ lại sau 5 - 15 phút"
+              headline="NHẬN TƯ VẤN MIỄN PHÍ"
+              subheadline="Tặng thiết bị WiFi 6 cho 300 KH đầu tiên"
               formLocation="bottom-cta-form"
             />
           </div>

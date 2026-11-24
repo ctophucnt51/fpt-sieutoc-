@@ -68,10 +68,10 @@ export default function FaqSection() {
             />
             <span>Giải Đáp Thắc Mắc</span>
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#20283D] tracking-tight break-words">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0F172A] tracking-tight break-words">
             Câu Hỏi Thường Gặp Về Lắp Mạng FPT
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-[#657384] font-normal">
+          <p className="mt-2 text-xs sm:text-sm text-[#334155] font-medium">
             Tổng hợp các thắc mắc phổ biến nhất giúp quý khách an tâm trước khi đăng ký dịch vụ.
           </p>
         </div>
@@ -107,18 +107,18 @@ export default function FaqSection() {
                         className="w-5 h-5 object-contain"
                       />
                     </div>
-                    <span className="font-bold text-xs sm:text-sm text-[#20283D] group-hover:text-[#F37021] transition-colors leading-snug">
+                    <span className="font-bold text-xs sm:text-sm text-[#0F172A] group-hover:text-[#F37021] transition-colors leading-snug">
                       {faq.q}
                     </span>
                   </div>
                   <ChevronDown
-                    className={`w-4 h-4 text-[#C1C8D1] shrink-0 transition-transform duration-200 mt-1 ${
+                    className={`w-4 h-4 text-[#94A3B8] shrink-0 transition-transform duration-200 mt-1 ${
                       isOpen ? "rotate-180 text-[#F37021]" : ""
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-[13px] text-[#657384] leading-relaxed border-t border-[#F4F6FB] mt-1">
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 text-xs sm:text-[13px] text-[#334155] leading-relaxed border-t border-[#F4F6FB] mt-1">
                     <p className="pt-3">{faq.a}</p>
                   </div>
                 )}

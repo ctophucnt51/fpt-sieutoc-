@@ -325,30 +325,40 @@ export default function LeadForm({
             autoComplete="off"
           />
 
-          {/* HÀNG 1: Họ tên * | Số điện thoại * (2 Cột hình viên thuốc) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-            <div>
+          {/* HÀNG 1: Họ tên * | Số điện thoại * (2 Cột hình viên thuốc chuẩn theo mẫu thiết kế) */}
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+            <div className="relative">
               <input
                 type="text"
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Nhập họ và tên *"
-                className="w-full px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 placeholder:text-slate-400 text-xs sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
+                className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 text-xs sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
               />
+              {!fullName && (
+                <div className="pointer-events-none absolute inset-y-0 left-3.5 sm:left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
+                  <span>Nhập họ và tên</span>
+                  <span className="text-red-500 font-bold ml-1">*</span>
+                </div>
+              )}
             </div>
 
-            <div>
+            <div className="relative">
               <input
                 type="tel"
                 required
                 value={phone}
                 onChange={handlePhoneChange}
-                placeholder="Nhập số điện thoại *"
-                className={`w-full px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 placeholder:text-slate-400 text-xs sm:text-sm font-medium outline-none shadow-xs transition-all ${
+                className={`w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 text-xs sm:text-sm font-medium outline-none shadow-xs transition-all ${
                   phoneError ? "ring-2 ring-red-400" : "focus:ring-2 focus:ring-[#FFCC00]"
                 }`}
               />
+              {!phone && (
+                <div className="pointer-events-none absolute inset-y-0 left-3.5 sm:left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
+                  <span>Nhập số điện thoại</span>
+                  <span className="text-red-500 font-bold ml-1">*</span>
+                </div>
+              )}
               {phoneError && (
                 <p className="text-white bg-red-600/90 px-3 py-0.5 rounded-full text-[11px] font-semibold mt-1">
                   {phoneError}
@@ -358,15 +368,20 @@ export default function LeadForm({
           </div>
 
           {/* HÀNG 2: Địa chỉ lắp đặt * (Full width hình viên thuốc) */}
-          <div className="mt-2.5 sm:mt-3">
+          <div className="mt-2.5 sm:mt-3 relative">
             <input
               type="text"
               required
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              placeholder="Địa chỉ lắp đặt *"
-              className="w-full px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 placeholder:text-slate-400 text-xs sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
+              className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 text-xs sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
             />
+            {!address && (
+              <div className="pointer-events-none absolute inset-y-0 left-3.5 sm:left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
+                <span>Địa chỉ lắp đặt</span>
+                <span className="text-red-500 font-bold ml-1">*</span>
+              </div>
+            )}
           </div>
 
           {/* HÀNG 3: DỊCH VỤ CẦN TƯ VẤN (3 TÙY CHỌN: Internet, Combo Ngoại Hạng Anh, Combo Tặng Camera) */}

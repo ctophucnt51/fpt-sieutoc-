@@ -21,7 +21,7 @@ export default function SportsEplSection() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center relative z-10">
             {/* Left Text */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/80 border border-red-800/80 text-red-400 font-bold text-xs uppercase tracking-wider shadow-xs">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/90 border border-red-600/70 text-red-300 font-extrabold text-xs uppercase tracking-wider shadow-xs">
                 <img
                   src="/images/icons/svg/ngoai-hang-anh.svg"
                   alt="EPL"
@@ -34,21 +34,21 @@ export default function SportsEplSection() {
                 <span>Bản Quyền Trực Tiếp Ngoại Hạng Anh (EPL)</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tight leading-snug sm:leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tight leading-snug sm:leading-tight text-white">
                 Combo Internet Wi-Fi 6 +{" "}
-                <span className="text-red-500">
+                <span className="text-red-400 font-black">
                   Xem Bản Quyền Trọn Vẹn Ngoại Hạng Anh
                 </span>
               </h2>
 
-              <p className="text-xs sm:text-sm lg:text-base text-slate-400 leading-relaxed max-w-2xl font-normal mx-auto lg:mx-0">
+              <p className="text-xs sm:text-sm lg:text-base text-slate-200 leading-relaxed max-w-2xl font-normal mx-auto lg:mx-0">
                 Không bỏ lỡ bất kỳ trận cầu nảy lửa nào của Manchester United, Arsenal, Liverpool, Manchester City hay Chelsea. Hình ảnh chuẩn Full HD sắc nét, không lo giật lag hay chèn quảng cáo phiền toái.
               </p>
 
               {/* Feature Bullets - Clean Minimalist Icons */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 pt-0.5 text-left">
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
+                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center shrink-0 mt-0.5 p-1 shadow-xs">
                     <img
                       src="/images/icons/svg/ngoai-hang-anh.svg"
                       alt="EPL"
@@ -61,12 +61,12 @@ export default function SportsEplSection() {
                   </div>
                   <div>
                     <h3 className="text-xs sm:text-sm font-bold text-white">Bản Quyền Trọn Vẹn EPL</h3>
-                    <p className="text-[11px] sm:text-xs text-slate-400">Bình luận tiếng Việt sôi động, trực tiếp các vòng đấu</p>
+                    <p className="text-[11px] sm:text-xs text-slate-200 font-medium">Bình luận tiếng Việt sôi động, trực tiếp các vòng đấu</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
+                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center shrink-0 mt-0.5 p-1 shadow-xs">
                     <img
                       src="/images/icons/svg/smart-tv.svg"
                       alt="Smart TV"
@@ -79,12 +79,12 @@ export default function SportsEplSection() {
                   </div>
                   <div>
                     <h3 className="text-xs sm:text-sm font-bold text-white">Xem Trực Tiếp Trên Smart TV</h3>
-                    <p className="text-[11px] sm:text-xs text-slate-400">Cài app FPT Play trên TV Samsung, Sony, LG không cần Box</p>
+                    <p className="text-[11px] sm:text-xs text-slate-200 font-medium">Cài app FPT Play trên TV Samsung, Sony, LG không cần Box</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
+                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center shrink-0 mt-0.5 p-1 shadow-xs">
                     <img
                       src="/images/icons/svg/kenh-truyen-hinh.svg"
                       alt="Kênh Truyền Hình"
@@ -97,12 +97,12 @@ export default function SportsEplSection() {
                   </div>
                   <div>
                     <h3 className="text-xs sm:text-sm font-bold text-white">Gần 170 Kênh Truyền Hình</h3>
-                    <p className="text-[11px] sm:text-xs text-slate-400">Kho phim điện ảnh, HBO, Warner TV, kênh thiếu nhi</p>
+                    <p className="text-[11px] sm:text-xs text-slate-200 font-medium">Kho phim điện ảnh, HBO, Warner TV, kênh thiếu nhi</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 p-1">
+                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center shrink-0 mt-0.5 p-1 shadow-xs">
                     <img
                       src="/images/icons/svg/da-thiet-bi.svg"
                       alt="Đa Thiết Bị"
@@ -115,7 +115,7 @@ export default function SportsEplSection() {
                   </div>
                   <div>
                     <h3 className="text-xs sm:text-sm font-bold text-white">Xem Trên Nhiều Thiết Bị</h3>
-                    <p className="text-[11px] sm:text-xs text-slate-400">Đăng nhập đồng thời trên Smart TV, điện thoại, máy tính</p>
+                    <p className="text-[11px] sm:text-xs text-slate-200 font-medium">Đăng nhập đồng thời trên Smart TV, điện thoại, máy tính</p>
                   </div>
                 </div>
               </div>
@@ -134,15 +134,15 @@ export default function SportsEplSection() {
 
             {/* Right Highlight Box - Viettel Vx Bento Style */}
             <div className="lg:col-span-5">
-              <div className="rounded-3xl bg-slate-900/90 border border-slate-800 p-4 sm:p-5 lg:p-6 shadow-sm space-y-3.5 sm:space-y-4">
+              <div className="rounded-3xl bg-slate-900/95 border border-slate-700/80 p-4 sm:p-5 lg:p-6 shadow-md space-y-3.5 sm:space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 border-b border-slate-800 pb-3">
                   <div>
                     <h3 className="text-base sm:text-lg font-bold text-white">Combo GIGA (Ngoại Hạng Anh)</h3>
                   </div>
                   <div className="flex items-baseline gap-1 sm:text-right">
-                    <span className="text-[11px] text-slate-400">Chỉ</span>
-                    <span className="text-xl sm:text-2xl font-black text-fpt-orange">220.000đ</span>
-                    <span className="text-[11px] text-slate-400">/tháng (đã gồm VAT)</span>
+                    <span className="text-xs text-slate-200 font-medium">Chỉ</span>
+                    <span className="text-xl sm:text-2xl font-black text-[#FF7A00] drop-shadow-xs">220.000đ</span>
+                    <span className="text-xs text-slate-200 font-medium">/tháng</span>
                   </div>
                 </div>
 
@@ -159,7 +159,7 @@ export default function SportsEplSection() {
                   />
                 </div>
 
-                <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
+                <ul className="space-y-2 text-xs sm:text-sm text-slate-100">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                     <span>Internet Wi-Fi 6 tốc độ 300 Mbps cực nhanh</span>
@@ -182,8 +182,8 @@ export default function SportsEplSection() {
                   </li>
                 </ul>
 
-                <div className="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-[11px] sm:text-xs text-slate-400">
-                  <strong className="text-slate-200">Đăng ký hôm nay:</strong> Kỹ thuật viên hỗ trợ lắp đặt hoàn thiện và hướng dẫn sử dụng tận nhà trong 24 giờ.
+                <div className="p-3 rounded-2xl bg-slate-950 border border-slate-700/80 text-[11px] sm:text-xs text-slate-200">
+                  <strong className="text-white font-bold">Đăng ký hôm nay:</strong> Kỹ thuật viên hỗ trợ lắp đặt hoàn thiện và hướng dẫn sử dụng tận nhà trong 24 giờ.
                 </div>
               </div>
             </div>

@@ -43,7 +43,7 @@ export default function StickyMobileBar() {
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isHomeActive
               ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
-              : "text-[#657384] hover:text-[#20283D] font-medium"
+              : "text-[#475569] hover:text-[#0F172A] font-semibold"
           }`}
         >
           <img
@@ -65,7 +65,7 @@ export default function StickyMobileBar() {
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isInternetActive
               ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
-              : "text-[#657384] hover:text-[#20283D] font-medium"
+              : "text-[#475569] hover:text-[#0F172A] font-semibold"
           }`}
         >
           <img
@@ -108,7 +108,7 @@ export default function StickyMobileBar() {
           className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
             isEplActive
               ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
-              : "text-[#657384] hover:text-[#20283D] font-medium"
+              : "text-[#475569] hover:text-[#0F172A] font-semibold"
           }`}
         >
           <img
@@ -128,7 +128,7 @@ export default function StickyMobileBar() {
         <a
           href={siteConfig.contact.hotlineTel}
           onClick={handleContactClick}
-          className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-[#657384] hover:text-[#F37021] active:text-[#F37021] font-medium"
+          className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-[#475569] hover:text-[#0F172A] active:text-[#F37021] font-semibold"
         >
           <img
             src="/images/icons/svg/hotline.svg"
