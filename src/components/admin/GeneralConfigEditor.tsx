@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { SiteConfigType } from "@/lib/configStorage";
 import { getAdminHeaders } from "@/lib/clientAdminAuth";
-import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift, GitBranch, Download, Upload, Shield, Send, Bot } from "lucide-react";
+import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift, GitBranch, Download, Upload, Shield, Send, Bot, Zap } from "lucide-react";
 
 interface GeneralConfigEditorProps {
   config: SiteConfigType;
@@ -12,6 +12,8 @@ interface GeneralConfigEditorProps {
   showToast: (msg: string, type?: "success" | "error") => void;
   onSyncGithub?: () => void;
   isSyncing?: boolean;
+  onCleanupProcesses?: () => void;
+  isCleaningProcesses?: boolean;
   commitInfo?: string;
 }
 
@@ -22,6 +24,8 @@ export default function GeneralConfigEditor({
   showToast,
   onSyncGithub,
   isSyncing = false,
+  onCleanupProcesses,
+  isCleaningProcesses = false,
   commitInfo,
 }: GeneralConfigEditorProps) {
   const [formData, setFormData] = useState<SiteConfigType>(config);
@@ -150,19 +154,38 @@ export default function GeneralConfigEditor({
             )}
           </div>
 
-          <button
-            type="button"
-            onClick={onSyncGithub}
-            disabled={isSyncing}
-            className={`py-3 px-5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shrink-0 transition-all shadow-md cursor-pointer ${
-              isSyncing
-                ? "bg-slate-700 text-slate-300 cursor-not-allowed"
-                : "bg-fpt-orange hover:bg-fpt-hover text-white active:scale-95"
-            }`}
-          >
-            <RefreshCw className={`w-4 h-4 shrink-0 ${isSyncing ? "animate-spin" : ""}`} />
-            <span>{isSyncing ? "Đang đồng bộ & khởi động lại..." : "Đồng Bộ Code Mới Ngay"}</span>
-          </button>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+            {onCleanupProcesses && (
+              <button
+                type="button"
+                onClick={onCleanupProcesses}
+                disabled={isCleaningProcesses}
+                className={`py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all border shadow-sm cursor-pointer ${
+                  isCleaningProcesses
+                    ? "bg-slate-800 text-slate-500 border-slate-700 cursor-wait"
+                    : "bg-emerald-950/60 hover:bg-emerald-900/80 border-emerald-500/40 text-emerald-300 active:scale-95"
+                }`}
+                title="Quét và giải phóng các tiến trình treo trên cPanel"
+              >
+                <Zap className={`w-4 h-4 shrink-0 ${isCleaningProcesses ? "animate-spin text-emerald-400" : ""}`} />
+                <span>{isCleaningProcesses ? "Đang giải phóng..." : "Giải Phóng Processes"}</span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={onSyncGithub}
+              disabled={isSyncing}
+              className={`py-3 px-5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer ${
+                isSyncing
+                  ? "bg-slate-700 text-slate-300 cursor-not-allowed"
+                  : "bg-fpt-orange hover:bg-fpt-hover text-white active:scale-95"
+              }`}
+            >
+              <RefreshCw className={`w-4 h-4 shrink-0 ${isSyncing ? "animate-spin" : ""}`} />
+              <span>{isSyncing ? "Đang đồng bộ..." : "Đồng Bộ Code Mới Ngay"}</span>
+            </button>
+          </div>
         </div>
       )}
 

@@ -29,6 +29,7 @@ import {
   Sparkles,
   RefreshCw,
   GitBranch,
+  Zap,
 } from "lucide-react";
 
 type AdminTab = "overview" | "leads" | "articles" | "config" | "pricing" | "areas";
@@ -246,6 +247,33 @@ export default function AdminPage() {
     }
   };
 
+  // 8.1. Giải phóng & dọn dẹp bảng tiến trình (Processes) trên hosting cPanel
+  const [isCleaningProcesses, setIsCleaningProcesses] = useState(false);
+  const handleCleanupProcesses = async () => {
+    if (isCleaningProcesses) return;
+    setIsCleaningProcesses(true);
+    showToast("Đang quét và giải phóng các tiến trình treo trên hosting cPanel...", "success");
+
+    try {
+      const res = await fetch("/api/admin/sync", {
+        method: "POST",
+        headers: { ...getAdminHeaders(), "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "cleanup" }),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        showToast(data.message || "Đã giải phóng các tiến trình treo thành công!", "success");
+      } else {
+        showToast(data.message || "Không thể dọn dẹp tiến trình.", "error");
+      }
+    } catch {
+      showToast("Lỗi kết nối khi giải phóng tiến trình.", "error");
+    } finally {
+      setIsCleaningProcesses(false);
+    }
+  };
+
   // Switch to Leads tab from Dashboard shortcut
   const handleNavigateToLeads = (filter = "all") => {
     setLeadsStatusFilter(filter);
@@ -321,6 +349,22 @@ export default function AdminPage() {
                 <span>Hotline: {config.contact.hotlineDisplay}</span>
               </div>
             )}
+
+            {/* Nút Giải Phóng Processes cPanel 1-Click */}
+            <button
+              type="button"
+              onClick={handleCleanupProcesses}
+              disabled={isCleaningProcesses}
+              className={`py-1.5 px-3 rounded-xl border flex items-center gap-1.5 text-xs font-bold transition-all cursor-pointer ${
+                isCleaningProcesses
+                  ? "bg-emerald-50 border-emerald-200 text-emerald-600 cursor-wait"
+                  : "border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 text-emerald-700"
+              }`}
+              title="Quét và tắt các tiến trình Git/Node treo để hạ mức Processes trên cPanel"
+            >
+              <Zap className={`w-3.5 h-3.5 ${isCleaningProcesses ? "animate-spin text-emerald-600" : "fill-current"}`} />
+              <span className="hidden sm:inline">{isCleaningProcesses ? "Đang dọn..." : "Giải Phóng Processes"}</span>
+            </button>
 
             {/* Nút Đồng bộ GitHub 1-Click */}
             <button
@@ -494,6 +538,8 @@ export default function AdminPage() {
             showToast={showToast}
             onSyncGithub={handleSyncGithub}
             isSyncing={isSyncing}
+            onCleanupProcesses={handleCleanupProcesses}
+            isCleaningProcesses={isCleaningProcesses}
             commitInfo={commitInfo}
           />
         )}

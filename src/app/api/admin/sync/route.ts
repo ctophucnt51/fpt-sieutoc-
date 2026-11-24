@@ -8,13 +8,82 @@ import path from "path";
 const execPromise = promisify(exec);
 const execFilePromise = promisify(execFile);
 
-// Helper chạy lệnh git trực tiếp (không qua /bin/sh để tiết kiệm process table)
+// Helper chạy lệnh git tối ưu: tắt tự động gc nền, giới hạn 1 thread để không làm phình process table
 async function runGit(args: string[], cwd: string): Promise<{ stdout: string; stderr: string }> {
-  return execFilePromise("git", args, {
+  const optimizedArgs = [
+    "-c", "gc.auto=0",
+    "-c", "pack.threads=1",
+    "-c", "core.preloadindex=false",
+    ...args,
+  ];
+
+  return execFilePromise("git", optimizedArgs, {
     cwd,
-    timeout: 30000,
-    env: { ...process.env, PATH: `/usr/local/bin:/usr/bin:/bin:${process.env.PATH || ""}` },
+    timeout: 35000,
+    env: {
+      ...process.env,
+      GIT_TERMINAL_PROMPT: "0",
+      PATH: `/usr/local/bin:/usr/bin:/bin:${process.env.PATH || ""}`,
+    },
   });
+}
+
+// Hàm dọn dẹp các tiến trình git treo hoặc tiến trình con mồ côi để giải phóng Process trên cPanel
+async function cleanupStaleProcesses(): Promise<{ killedCount: number; message: string }> {
+  let killed = 0;
+  const currentPid = process.pid;
+
+  // 1. Quét và diệt các tiến trình git hoặc git-remote bị treo từ các lần trước
+  const staleGitPatterns = [
+    "git fetch",
+    "git-remote",
+    "git index-pack",
+    "git unpack-objects",
+    "git gc",
+    "git prune",
+  ];
+  for (const pattern of staleGitPatterns) {
+    try {
+      await execPromise(`pkill -9 -f "${pattern}" 2>/dev/null || true`);
+    } catch {}
+  }
+
+  // 2. Thu gom rác bộ nhớ Node.js nếu V8 expose gc
+  if (typeof (global as any).gc === "function") {
+    try {
+      (global as any).gc();
+    } catch {}
+  }
+
+  // 3. Quét các tiến trình mồ côi (orphan / defunct / zombie) thuộc quyền người dùng
+  try {
+    const { stdout } = await execPromise("ps -eo pid,ppid,stat,comm 2>/dev/null || true");
+    const lines = stdout.trim().split("\n");
+    for (const line of lines) {
+      const parts = line.trim().split(/\s+/);
+      if (parts.length >= 4) {
+        const pid = parseInt(parts[0], 10);
+        const ppid = parseInt(parts[1], 10);
+        const stat = parts[2];
+        const comm = parts[3];
+
+        // Nếu tiến trình là Zombie (Z) hoặc tiến trình git/sh mồ côi (ppid === 1) không phải process hiện tại
+        if (pid && pid !== currentPid && pid !== process.ppid) {
+          if (stat.includes("Z") || (ppid === 1 && (comm.includes("git") || comm.includes("sh")))) {
+            try {
+              process.kill(pid, "SIGKILL");
+              killed++;
+            } catch {}
+          }
+        }
+      }
+    }
+  } catch {}
+
+  return {
+    killedCount: killed,
+    message: "Đã dọn dẹp tiến trình treo thành công.",
+  };
 }
 
 // GET: Lấy thông tin phiên bản commit hiện tại
@@ -50,8 +119,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST: Thực hiện đồng bộ kéo code mới nhất từ GitHub và khởi động lại ứng dụng
-// BẢO VỆ 100% DỮ LIỆU KHÁCH HÀNG (LEADS), CẤU HÌNH (SITECONFIG) VÀ BÀI VIẾT (ARTICLES)
+// POST: Thực hiện đồng bộ kéo code mới nhất từ GitHub VÀ tự động giải phóng tiến trình
 export async function POST(request: NextRequest) {
   if (!verifyAdminAuth(request)) {
     return NextResponse.json(
@@ -60,13 +128,29 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Kiểm tra nếu là yêu cầu dọn dẹp tiến trình độc lập (Manual Cleanup)
+  try {
+    const body = await request.json().catch(() => ({}));
+    if (body?.action === "cleanup") {
+      const cleanResult = await cleanupStaleProcesses();
+      return NextResponse.json({
+        success: true,
+        message: "Đã quét và giải phóng thành công các tiến trình treo trên hosting cPanel!",
+        data: cleanResult,
+      });
+    }
+  } catch {}
+
   const rootDir = process.cwd();
   const persistentDataDir = path.join(rootDir, "data");
   const seedDataDir = path.join(rootDir, "src", "data");
   const backupDir = path.join(rootDir, "tmp", `sync_backup_${Date.now()}`);
 
   try {
-    // BƯỚC 1: Sao lưu an toàn toàn bộ dữ liệu đang chạy trước khi kéo Git
+    // BƯỚC 1: Dọn dẹp tiến trình treo & rác trước khi bắt đầu để hạ mức Processes
+    await cleanupStaleProcesses();
+
+    // BƯỚC 2: Sao lưu an toàn toàn bộ dữ liệu đang chạy trước khi kéo Git
     if (!fs.existsSync(backupDir)) {
       fs.mkdirSync(backupDir, { recursive: true });
     }
@@ -79,7 +163,6 @@ export async function POST(request: NextRequest) {
       const seedPath = path.join(seedDataDir, file);
       const backupPath = path.join(backupDir, file);
 
-      // Ưu tiên file trong data/ (persistent), nếu chưa có thì lấy từ src/data/
       const sourcePath = fs.existsSync(persistentPath)
         ? persistentPath
         : fs.existsSync(seedPath)
@@ -96,7 +179,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // BƯỚC 2: Chạy Git fetch & reset đè code mới nhất từ GitHub bằng execFile trực tiếp
+    // BƯỚC 3: Chạy Git fetch & reset đè code mới nhất từ GitHub
     let stdout = "";
     let stderr = "";
     try {
@@ -115,12 +198,17 @@ export async function POST(request: NextRequest) {
         gitErr?.message?.includes("EAGAIN");
 
       if (isProcessLimit) {
+        // Cố gắng giải phóng cưỡng chế một lần nữa
+        await cleanupStaleProcesses();
         throw new Error(
-          "Hosting cPanel của bạn đang bị đầy tiến trình (Processes đạt 99/100). Vui lòng vào cPanel > 'Setup Node.js App' bấm 'Restart' ứng dụng hoặc vào 'Terminal' chạy lệnh 'killall node' để giải phóng tiến trình trước khi bấm Đồng bộ lại!"
+          "Hosting cPanel của bạn đang bị đầy tiến trình (Processes đạt 99/100). Hệ thống đã tự động dọn dẹp các tiến trình treo. Vui lòng thử bấm Đồng Bộ lại hoặc bấm 'Giải Phóng Processes' trên thanh công cụ!"
         );
       }
       throw gitErr;
     }
+
+    // BƯỚC 4: Giải phóng tiến trình phụ ngay sau khi Git hoàn thành
+    await cleanupStaleProcesses();
 
     // Tạo file restart.txt bằng fs nội bộ của Node.js (không fork thêm tiến trình shell)
     try {
@@ -133,7 +221,7 @@ export async function POST(request: NextRequest) {
       console.error("Không thể ghi file restart.txt:", touchErr);
     }
 
-    // BƯỚC 3: Khôi phục lại 100% dữ liệu đã sao lưu vào thư mục persistent data/ và src/data/
+    // BƯỚC 5: Khôi phục lại 100% dữ liệu đã sao lưu vào thư mục persistent data/ và src/data/
     if (!fs.existsSync(persistentDataDir)) {
       fs.mkdirSync(persistentDataDir, { recursive: true });
     }
@@ -175,7 +263,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message:
-        "Đồng bộ mã nguồn từ GitHub thành công! Toàn bộ cấu hình và dữ liệu khách hàng được bảo tồn nguyên vẹn.",
+        "Đồng bộ mã nguồn từ GitHub thành công! Đã tự động dọn dẹp & giải phóng bảng tiến trình trên máy chủ.",
       commit: latestCommit,
       output: stdout || stderr,
     });

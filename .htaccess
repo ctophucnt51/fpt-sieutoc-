@@ -1,0 +1,23 @@
+# ==============================================================================
+# TỐI ƯU TIẾN TRÌNH CPANEL / CLOUDLINUX (GIẢI PHÓNG PROCESSES & TRÁNH TRÀN 100/100)
+# ==============================================================================
+<IfModule mod_passenger.c>
+  # 1. Giới hạn số lượng tiến trình Node.js tối đa là 1 (Tránh Passenger tự sinh 5-6 workers gây kịch trần 100 Processes)
+  PassengerMaxInstances 1
+  PassengerMinInstances 1
+
+  # 2. Thời gian đóng worker nhàn rỗi (120 giây) để nhanh chóng giải phóng RAM & Process cho hosting
+  PassengerPoolIdleTime 120
+
+  # 3. Tự động tái tạo worker sau 1000 lượt request để chống rò rỉ bộ nhớ
+  PassengerMaxRequests 1000
+
+  # 4. Tắt trang lỗi thân thiện để giảm tải tiến trình phụ
+  PassengerFriendlyErrorPages off
+</IfModule>
+
+# Cấu hình LiteSpeed Web Server (nếu hosting dùng OpenLiteSpeed / LiteSpeed Enterprise)
+<IfModule Litespeed>
+  SetEnv LSAPI_CHILDREN 1
+  SetEnv LSAPI_MAX_REQS 1000
+</IfModule>
