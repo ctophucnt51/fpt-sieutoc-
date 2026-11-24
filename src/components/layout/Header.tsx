@@ -166,30 +166,35 @@ export default function Header() {
             <Menu className="w-6 h-6 stroke-[2.2]" />
           </button>
 
-          {/* Logo FPT Telecom + Text "Lắp mạng FPT siêu tốc" */}
-          <Link href="/" className="flex items-center gap-1.5 min-w-0 group">
+          {/* Logo FPT Telecom + Text "Lắp mạng FPT siêu tốc" xuống dòng 2 hàng để chừa chỗ */}
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 min-w-0 group shrink-0">
             <img
               src="/images/logo-ftel.svg"
               alt="FPT Telecom"
-              width={65}
-              height={22}
+              width={58}
+              height={20}
               loading="eager"
               decoding="async"
-              className="h-5.5 w-auto object-contain brightness-0 invert drop-shadow-xs shrink-0"
+              className="h-5 sm:h-5.5 w-auto object-contain brightness-0 invert drop-shadow-xs shrink-0"
             />
-            <span className="font-black text-[13px] sm:text-sm tracking-tight text-white truncate leading-tight drop-shadow-xs">
-              Lắp mạng FPT siêu tốc
-            </span>
+            <div className="flex flex-col leading-[1.15] shrink-0 text-left">
+              <span className="font-black text-[11.5px] sm:text-[13px] tracking-tight text-white drop-shadow-xs whitespace-nowrap">
+                Lắp mạng
+              </span>
+              <span className="font-black text-[11.5px] sm:text-[13px] tracking-tight text-amber-200 drop-shadow-xs whitespace-nowrap">
+                FPT siêu tốc
+              </span>
+            </div>
           </Link>
 
-          {/* Nút Yêu Cầu Tư Vấn (Phong cách viên thuốc màu vàng như Long Châu) */}
+          {/* Nút Đăng Ký Tư Vấn (Nội dung Đăng ký như phiên bản trước) */}
           <button
             type="button"
-            onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
+            onClick={() => handleOpenPromoModal("Mobile Header Đăng Ký")}
             className="px-2.5 sm:px-3 py-1.5 rounded-full bg-[#FFCC00] hover:bg-[#FFD633] active:scale-95 text-[#C84600] font-black text-[11px] sm:text-xs shadow-md transition-all flex items-center gap-1 shrink-0 cursor-pointer whitespace-nowrap"
           >
             <Headset className="w-3.5 h-3.5 shrink-0" />
-            <span>Tư vấn 0đ</span>
+            <span>Đăng ký ngay</span>
           </button>
         </div>
 
@@ -344,9 +349,14 @@ export default function Header() {
                   height={22}
                   className="h-5.5 w-auto object-contain brightness-0 invert shrink-0"
                 />
-                <span className="font-black text-sm tracking-tight text-white leading-tight">
-                  Lắp mạng FPT siêu tốc
-                </span>
+                <div className="flex flex-col leading-[1.15] text-left">
+                  <span className="font-black text-xs tracking-tight text-white">
+                    Lắp mạng
+                  </span>
+                  <span className="font-black text-xs tracking-tight text-amber-200">
+                    FPT siêu tốc
+                  </span>
+                </div>
               </Link>
 
               <button

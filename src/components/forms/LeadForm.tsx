@@ -519,7 +519,7 @@ export default function LeadForm({
                 "Đang gửi đăng ký..."
               ) : (
                 <>
-                  <span>Tư vấn ngay</span>
+                  <span>Gửi đăng ký</span>
                   <span className="text-base sm:text-lg font-bold leading-none">→</span>
                 </>
               )}
