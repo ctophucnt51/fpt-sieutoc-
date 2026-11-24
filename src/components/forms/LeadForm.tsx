@@ -156,15 +156,21 @@ export default function LeadForm({
       const attribution = captureAttribution();
       const eventId = `lead_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
-      // 1. Gửi trực tiếp tới Cloudflare Worker để bắn thông báo về Telegram tức thì
+      // 1. Gửi trực tiếp tới Cloudflare Worker để bắn thông báo về Telegram tức thì (Chuẩn 100% schema worker)
       const workerPayload = {
         name: fullName.trim(),
         phone: cleanedPhone,
         address: address.trim(),
+        province: "can-tho",
         area: "Cần Thơ",
+        package: selectedService,
+        package_interest: selectedService,
+        plan: selectedService,
         service: selectedService,
-        note: undefined,
+        packageInterested: selectedService,
+        form_location: formLocation,
         formLocation: formLocation,
+        note: "",
         source: attribution.utm_source || "direct",
         campaign: attribution.utm_campaign || undefined,
         medium: attribution.utm_medium || undefined,
@@ -172,6 +178,16 @@ export default function LeadForm({
         content: attribution.utm_content || undefined,
         fbclid: attribution.fbclid || undefined,
         gclid: attribution.gclid || undefined,
+        utm_source: attribution.utm_source || "",
+        utm_medium: attribution.utm_medium || "",
+        utm_campaign: attribution.utm_campaign || "",
+        utm_content: attribution.utm_content || "",
+        utm_term: attribution.utm_term || "",
+        page_url: typeof window !== "undefined" ? window.location.href : "https://gofpt.vn",
+        page_path: pathname || "/",
+        referrer: typeof document !== "undefined" ? document.referrer : "",
+        submitted_at: new Date().toISOString(),
+        user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "",
       };
 
       const WORKER_ENDPOINT = "https://form-fpt.cto-phucnt51.workers.dev/";

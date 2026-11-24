@@ -45,7 +45,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
 
     // 6. Trigger Telegram & Meta CAPI notifications
     if (result.leadRecord && !result.isDuplicate) {
-      // 6.1 Gửi thông báo về Cloudflare Worker kết nối Telegram cũ của bạn
+      // 6.1 Gửi thông báo về Cloudflare Worker kết nối Telegram cũ của bạn (đầy đủ các biến package, plan, package_interest)
       fetch("https://form-fpt.cto-phucnt51.workers.dev/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -53,10 +53,16 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
           name: result.leadRecord.fullName,
           phone: result.leadRecord.phone,
           address: result.leadRecord.address,
+          province: "can-tho",
           area: result.leadRecord.area,
+          package: result.leadRecord.packageInterested,
+          package_interest: result.leadRecord.packageInterested,
+          plan: result.leadRecord.packageInterested,
           service: result.leadRecord.packageInterested,
-          note: result.leadRecord.note,
+          packageInterested: result.leadRecord.packageInterested,
+          form_location: body.leadLocation,
           formLocation: body.leadLocation,
+          note: "",
           source: body.utm_source || "direct",
           campaign: body.utm_campaign,
           medium: body.utm_medium,
@@ -64,6 +70,13 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
           content: body.utm_content,
           fbclid: body.fbclid,
           gclid: body.gclid,
+          utm_source: body.utm_source || "",
+          utm_medium: body.utm_medium || "",
+          utm_campaign: body.utm_campaign || "",
+          page_url: body.landingPage || "https://gofpt.vn",
+          page_path: body.landingPage || "/",
+          submitted_at: new Date().toISOString(),
+          user_agent: userAgent,
         }),
       }).catch((err) => console.warn("Worker Telegram dispatch non-fatal error:", err));
 
