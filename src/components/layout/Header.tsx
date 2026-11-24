@@ -183,20 +183,17 @@ export default function Header() {
             <Menu className="w-6 h-6 stroke-[2.2]" />
           </button>
 
-          {/* Logo FPT Telecom ở giữa */}
-          <Link href="/" className="flex items-center gap-1.5 shrink-0 group">
+          {/* Logo FPT Telecom ở giữa (Logo gốc đã chứa sẵn chữ TELECOM) */}
+          <Link href="/" className="flex items-center shrink-0 group">
             <img
               src="/images/logo-ftel.svg"
               alt="FPT Telecom"
-              width={88}
-              height={26}
+              width={105}
+              height={30}
               loading="eager"
               decoding="async"
-              className="h-6 w-auto object-contain brightness-0 invert drop-shadow-xs"
+              className="h-7 w-auto object-contain brightness-0 invert drop-shadow-xs"
             />
-            <span className="font-black text-sm tracking-tight text-white uppercase drop-shadow-xs">
-              TELECOM
-            </span>
           </Link>
 
           {/* Nút Yêu Cầu Tư Vấn (Phong cách viên thuốc màu vàng như Long Châu) */}
@@ -352,18 +349,15 @@ export default function Header() {
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2"
+                className="flex items-center"
               >
                 <img
                   src="/images/logo-ftel.svg"
                   alt="FPT Telecom"
-                  width={90}
-                  height={26}
-                  className="h-6 w-auto object-contain brightness-0 invert"
+                  width={105}
+                  height={30}
+                  className="h-7 w-auto object-contain brightness-0 invert"
                 />
-                <span className="font-black text-sm tracking-tight text-white uppercase">
-                  TELECOM
-                </span>
               </Link>
 
               <button
@@ -431,7 +425,7 @@ export default function Header() {
                       onClick={() => setMobileMenuOpen(false)}
                       className="block py-1 hover:text-[#F37021] font-medium transition-colors"
                     >
-                      • Gói GIGA (150 Mbps) - Siêu tiết kiệm
+                      • Gói GIGA (300 Mbps) - Siêu tiết kiệm
                     </Link>
                     <Link
                       href="/lap-mang-fpt"
