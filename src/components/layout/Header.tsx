@@ -166,22 +166,22 @@ export default function Header() {
             <Menu className="w-6 h-6 stroke-[2.2]" />
           </button>
 
-          {/* Logo FPT Telecom + Text "Lắp mạng FPT siêu tốc" xuống dòng 2 hàng để chừa chỗ */}
-          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 min-w-0 group shrink-0">
+          {/* Logo FPT Telecom + Text "Lắp mạng FPT siêu tốc" to rõ chuẩn phong cách Long Châu */}
+          <Link href="/" className="flex items-center gap-2 min-w-0 group shrink-0">
             <img
               src="/images/logo-ftel.svg"
               alt="FPT Telecom"
-              width={58}
-              height={20}
+              width={85}
+              height={28}
               loading="eager"
               decoding="async"
-              className="h-5 sm:h-5.5 w-auto object-contain brightness-0 invert drop-shadow-xs shrink-0"
+              className="h-7 sm:h-8 w-auto object-contain brightness-0 invert drop-shadow-xs shrink-0"
             />
-            <div className="flex flex-col leading-[1.15] shrink-0 text-left">
-              <span className="font-black text-[11.5px] sm:text-[13px] tracking-tight text-white drop-shadow-xs whitespace-nowrap">
+            <div className="flex flex-col leading-[1.12] shrink-0 text-left">
+              <span className="font-black text-[13px] sm:text-[14px] tracking-tight text-white drop-shadow-xs whitespace-nowrap">
                 Lắp mạng
               </span>
-              <span className="font-black text-[11.5px] sm:text-[13px] tracking-tight text-amber-200 drop-shadow-xs whitespace-nowrap">
+              <span className="font-black text-[13px] sm:text-[14px] tracking-tight text-amber-200 drop-shadow-xs whitespace-nowrap">
                 FPT siêu tốc
               </span>
             </div>
@@ -218,22 +218,22 @@ export default function Header() {
       <div className="hidden lg:block bg-white border-b border-[#E4E8ED] shadow-[0px_2px_8px_-2px_rgba(243,112,33,0.06)]">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-8 h-16 lg:h-[70px] flex items-center justify-between gap-3">
           {/* Left: Logo FPT & Slogan Thành viên FPT */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <Link href="/" className="flex items-center gap-3.5 group shrink-0">
             <img
               src="/images/logo-ftel.svg"
               alt="FPT Telecom"
-              width={109}
-              height={36}
+              width={120}
+              height={40}
               loading="eager"
               decoding="async"
-              className="h-8 w-auto object-contain transition-transform group-hover:scale-102"
+              className="h-9 lg:h-10 w-auto object-contain transition-transform group-hover:scale-102"
             />
-            <div className="h-5 w-px bg-[#E4E8ED] mx-0.5" />
+            <div className="h-6 w-px bg-[#E4E8ED] mx-0.5" />
             <div className="flex flex-col">
-              <span className="font-extrabold text-base text-[#20283D] tracking-tight whitespace-nowrap group-hover:text-[#F37021] transition-colors leading-tight">
+              <span className="font-black text-lg lg:text-[19px] text-[#20283D] tracking-tight whitespace-nowrap group-hover:text-[#F37021] transition-colors leading-tight">
                 Lắp Mạng FPT Siêu Tốc
               </span>
-              <span className="text-[10px] text-[#C44D06] font-semibold leading-none">
+              <span className="text-[11px] text-[#C44D06] font-bold leading-none mt-0.5">
                 Đại Lý Tiếp Nhận Dịch Vụ
               </span>
             </div>
@@ -340,20 +340,20 @@ export default function Header() {
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2.5"
               >
                 <img
                   src="/images/logo-ftel.svg"
                   alt="FPT Telecom"
-                  width={68}
-                  height={22}
-                  className="h-5.5 w-auto object-contain brightness-0 invert shrink-0"
+                  width={85}
+                  height={28}
+                  className="h-7 sm:h-8 w-auto object-contain brightness-0 invert shrink-0"
                 />
-                <div className="flex flex-col leading-[1.15] text-left">
-                  <span className="font-black text-xs tracking-tight text-white">
+                <div className="flex flex-col leading-[1.12] text-left">
+                  <span className="font-black text-[13px] sm:text-sm tracking-tight text-white">
                     Lắp mạng
                   </span>
-                  <span className="font-black text-xs tracking-tight text-amber-200">
+                  <span className="font-black text-[13px] sm:text-sm tracking-tight text-amber-200">
                     FPT siêu tốc
                   </span>
                 </div>
