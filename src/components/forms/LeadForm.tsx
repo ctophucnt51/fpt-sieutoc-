@@ -22,15 +22,10 @@ interface LeadFormProps {
 
 const DUPLICATE_STORAGE_KEY = "fpt_recent_submissions";
 
-type ServiceType =
-  | "Internet"
-  | "Truyền hình"
-  | "Camera"
-  | "Combo Internet - FPT Play"
-  | "Combo Internet - Camera";
+type ServiceType = "Internet" | "Combo Ngoại Hạng Anh" | "Combo Tặng Camera";
 
 export default function LeadForm({
-  defaultPackage = "Internet",
+  defaultPackage = "Combo Ngoại Hạng Anh",
   headline,
   subheadline,
   className = "",
@@ -47,21 +42,18 @@ export default function LeadForm({
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  // 2. Trạng thái dịch vụ chọn (Internet | Truyền hình | Camera | Combo Internet - FPT Play | Combo Internet - Camera)
+  // 2. Trạng thái dịch vụ chọn (Internet | Combo Ngoại Hạng Anh | Combo Tặng Camera)
   const [selectedService, setSelectedService] = useState<ServiceType>(() => {
-    if (defaultPackage?.includes("Camera") && !defaultPackage?.includes("Combo") && !defaultPackage?.includes("combo")) {
-      return "Camera";
+    if (defaultPackage?.includes("Camera")) {
+      return "Combo Tặng Camera";
     }
-    if (defaultPackage?.includes("Camera") || defaultPackage?.includes("combo-camera")) {
-      return "Combo Internet - Camera";
+    if (defaultPackage?.includes("Ngoại Hạng Anh") || defaultPackage?.includes("Combo") || defaultPackage?.includes("Play")) {
+      return "Combo Ngoại Hạng Anh";
     }
-    if (defaultPackage?.includes("Truyền hình") || defaultPackage?.includes("TV") || defaultPackage?.includes("truyen-hinh")) {
-      return "Truyền hình";
+    if (defaultPackage?.includes("Chỉ") || defaultPackage?.includes("Internet") || defaultPackage?.includes("SKY") || defaultPackage?.includes("GIGA")) {
+      return "Internet";
     }
-    if (defaultPackage?.includes("Play") || defaultPackage?.includes("Combo") || defaultPackage?.includes("Ngoại Hạng Anh")) {
-      return "Combo Internet - FPT Play";
-    }
-    return "Internet";
+    return "Combo Ngoại Hạng Anh";
   });
 
   // Anti-spam & Phản hồi
@@ -73,16 +65,12 @@ export default function LeadForm({
   // Đồng bộ khi prop defaultPackage thay đổi
   useEffect(() => {
     if (defaultPackage) {
-      if (defaultPackage.includes("Camera") && !defaultPackage.includes("Combo") && !defaultPackage.includes("combo")) {
-        setSelectedService("Camera");
-      } else if (defaultPackage.includes("Camera") || defaultPackage.includes("combo-camera")) {
-        setSelectedService("Combo Internet - Camera");
-      } else if (defaultPackage.includes("Truyền hình") || defaultPackage.includes("TV") || defaultPackage.includes("truyen-hinh")) {
-        setSelectedService("Truyền hình");
-      } else if (defaultPackage.includes("Play") || defaultPackage.includes("Combo") || defaultPackage.includes("Ngoại Hạng Anh")) {
-        setSelectedService("Combo Internet - FPT Play");
-      } else {
+      if (defaultPackage.includes("Camera")) {
+        setSelectedService("Combo Tặng Camera");
+      } else if (defaultPackage.includes("Chỉ") || defaultPackage.includes("SKY") || defaultPackage.includes("GIGA")) {
         setSelectedService("Internet");
+      } else if (defaultPackage.includes("Ngoại Hạng Anh") || defaultPackage.includes("Play") || defaultPackage.includes("Combo")) {
+        setSelectedService("Combo Ngoại Hạng Anh");
       }
     }
   }, [defaultPackage]);
@@ -381,13 +369,12 @@ export default function LeadForm({
             />
           </div>
 
-          {/* HÀNG 3: DỊCH VỤ CẦN TƯ VẤN (5 TÙY CHỌN CHUẨN: 3 CỘT HÀNG TRÊN, 2 CỘT HÀNG DƯỚI) */}
+          {/* HÀNG 3: DỊCH VỤ CẦN TƯ VẤN (3 TÙY CHỌN: Internet, Combo Ngoại Hạng Anh, Combo Tặng Camera) */}
           <div className="mt-4 sm:mt-5">
             <span className="block text-white font-bold text-xs sm:text-sm mb-2 sm:mb-2.5">
               Dịch vụ cần tư vấn
             </span>
 
-            {/* Hàng trên: 3 dịch vụ đơn lẻ (Internet | Truyền hình | Camera) */}
             <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {/* Tùy chọn 1: Internet */}
               <div
@@ -426,59 +413,62 @@ export default function LeadForm({
                 </span>
               </div>
 
-              {/* Tùy chọn 2: Truyền hình */}
+              {/* Tùy chọn 2: Combo Ngoại Hạng Anh */}
               <div
-                onClick={() => setSelectedService("Truyền hình")}
+                onClick={() => setSelectedService("Combo Ngoại Hạng Anh")}
                 className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[105px] sm:min-h-[120px] border-2 ${
-                  selectedService === "Truyền hình"
+                  selectedService === "Combo Ngoại Hạng Anh"
                     ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
                     : "border-transparent hover:border-white/50 hover:shadow-xs"
                 }`}
               >
                 <div
                   className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
-                    selectedService === "Truyền hình"
+                    selectedService === "Combo Ngoại Hạng Anh"
                       ? "border-[#FF7A00] bg-[#FF7A00]"
                       : "border-[#FFA64D] bg-transparent"
                   }`}
                 >
-                  {selectedService === "Truyền hình" && (
+                  {selectedService === "Combo Ngoại Hạng Anh" && (
                     <div className="w-1.5 h-1.5 bg-white rounded-full" />
                   )}
                 </div>
 
-                {/* Icon Truyền hình / FPT Play */}
+                {/* Icon Ngoại Hạng Anh */}
                 <div className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center mb-1">
                   <img
-                    src="/images/icons/liquid-glass/fpt-play.webp"
-                    alt="Truyền hình"
+                    src="/images/icons/liquid-glass/ngoai-hang-anh.webp"
+                    alt="Combo Ngoại Hạng Anh"
                     width={44}
                     height={44}
                     className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
                   />
                 </div>
                 <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
-                  Truyền hình
+                  Combo
+                </span>
+                <span className="text-[10px] sm:text-[11px] font-bold text-[#C84600] mt-0.5">
+                  Ngoại Hạng Anh
                 </span>
               </div>
 
-              {/* Tùy chọn 3: Camera */}
+              {/* Tùy chọn 3: Combo Tặng Camera */}
               <div
-                onClick={() => setSelectedService("Camera")}
+                onClick={() => setSelectedService("Combo Tặng Camera")}
                 className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[105px] sm:min-h-[120px] border-2 ${
-                  selectedService === "Camera"
+                  selectedService === "Combo Tặng Camera"
                     ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
                     : "border-transparent hover:border-white/50 hover:shadow-xs"
                 }`}
               >
                 <div
                   className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
-                    selectedService === "Camera"
+                    selectedService === "Combo Tặng Camera"
                       ? "border-[#FF7A00] bg-[#FF7A00]"
                       : "border-[#FFA64D] bg-transparent"
                   }`}
                 >
-                  {selectedService === "Camera" && (
+                  {selectedService === "Combo Tặng Camera" && (
                     <div className="w-1.5 h-1.5 bg-white rounded-full" />
                   )}
                 </div>
@@ -487,46 +477,7 @@ export default function LeadForm({
                 <div className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center mb-1">
                   <img
                     src="/images/icons/liquid-glass/camera-ai.webp"
-                    alt="Camera"
-                    width={44}
-                    height={44}
-                    className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
-                  />
-                </div>
-                <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
-                  Camera
-                </span>
-              </div>
-            </div>
-
-            {/* Hàng dưới: 2 gói Combo (Combo Internet - FPT Play | Combo Internet - Camera) */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-2 sm:mt-3">
-              {/* Tùy chọn 4: Combo Internet - FPT Play */}
-              <div
-                onClick={() => setSelectedService("Combo Internet - FPT Play")}
-                className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[105px] sm:min-h-[120px] border-2 ${
-                  selectedService === "Combo Internet - FPT Play"
-                    ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
-                    : "border-transparent hover:border-white/50 hover:shadow-xs"
-                }`}
-              >
-                <div
-                  className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
-                    selectedService === "Combo Internet - FPT Play"
-                      ? "border-[#FF7A00] bg-[#FF7A00]"
-                      : "border-[#FFA64D] bg-transparent"
-                  }`}
-                >
-                  {selectedService === "Combo Internet - FPT Play" && (
-                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
-                  )}
-                </div>
-
-                {/* Icon Combo FPT Play */}
-                <div className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center mb-1">
-                  <img
-                    src="/images/icons/liquid-glass/fpt-play.webp"
-                    alt="Combo Internet - FPT Play"
+                    alt="Combo Tặng Camera"
                     width={44}
                     height={44}
                     className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
@@ -535,47 +486,8 @@ export default function LeadForm({
                 <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
                   Combo
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold text-[#C84600] mt-0.5 leading-tight">
-                  Internet - FPT Play
-                </span>
-              </div>
-
-              {/* Tùy chọn 5: Combo Internet - Camera */}
-              <div
-                onClick={() => setSelectedService("Combo Internet - Camera")}
-                className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[105px] sm:min-h-[120px] border-2 ${
-                  selectedService === "Combo Internet - Camera"
-                    ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
-                    : "border-transparent hover:border-white/50 hover:shadow-xs"
-                }`}
-              >
-                <div
-                  className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
-                    selectedService === "Combo Internet - Camera"
-                      ? "border-[#FF7A00] bg-[#FF7A00]"
-                      : "border-[#FFA64D] bg-transparent"
-                  }`}
-                >
-                  {selectedService === "Combo Internet - Camera" && (
-                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
-                  )}
-                </div>
-
-                {/* Icon Combo Camera */}
-                <div className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center mb-1">
-                  <img
-                    src="/images/icons/liquid-glass/camera-ai.webp"
-                    alt="Combo Internet - Camera"
-                    width={44}
-                    height={44}
-                    className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
-                  />
-                </div>
-                <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
-                  Combo
-                </span>
-                <span className="text-[11px] sm:text-xs font-bold text-[#C84600] mt-0.5 leading-tight">
-                  Internet - Camera
+                <span className="text-[10px] sm:text-[11px] font-bold text-emerald-600 mt-0.5">
+                  Tặng Camera
                 </span>
               </div>
             </div>
