@@ -156,56 +156,10 @@ export default function LeadForm({
       const attribution = captureAttribution();
       const eventId = `lead_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
-      // 1. Gửi trực tiếp tới Cloudflare Worker để bắn thông báo về Telegram tức thì (Chuẩn 100% schema worker)
-      const workerPayload = {
-        name: fullName.trim(),
-        phone: cleanedPhone,
-        address: address.trim(),
-        province: "can-tho",
-        area: "Cần Thơ",
-        package: selectedService,
-        package_interest: selectedService,
-        plan: selectedService,
-        service: selectedService,
-        packageInterested: selectedService,
-        form_location: formLocation,
-        formLocation: formLocation,
-        note: "",
-        source: attribution.utm_source || "direct",
-        campaign: attribution.utm_campaign || undefined,
-        medium: attribution.utm_medium || undefined,
-        term: attribution.utm_term || undefined,
-        content: attribution.utm_content || undefined,
-        fbclid: attribution.fbclid || undefined,
-        gclid: attribution.gclid || undefined,
-        utm_source: attribution.utm_source || "",
-        utm_medium: attribution.utm_medium || "",
-        utm_campaign: attribution.utm_campaign || "",
-        utm_content: attribution.utm_content || "",
-        utm_term: attribution.utm_term || "",
-        page_url: typeof window !== "undefined" ? window.location.href : "https://gofpt.vn",
-        page_path: pathname || "/",
-        referrer: typeof document !== "undefined" ? document.referrer : "",
-        submitted_at: new Date().toISOString(),
-        user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "",
-      };
-
-      const WORKER_ENDPOINT = "https://form-fpt.cto-phucnt51.workers.dev/";
-
-      try {
-        await fetch(WORKER_ENDPOINT, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(workerPayload),
-        });
-      } catch (cfErr: unknown) {
-        console.warn("Cloudflare Worker dispatch warning:", cfErr);
-      }
-
-      // 2. Gửi vào máy chủ API nội bộ /api/leads để lưu trữ & trigger tracking
+      // 1. Gửi vào máy chủ API nội bộ /api/leads để lưu trữ & bắn Telegram qua Cloudflare Worker
       let leadId = `FPT-${Date.now().toString(36).toUpperCase()}`;
+      let internalSuccess = false;
+
       try {
         const internalRes = await fetch("/api/leads", {
           method: "POST",
@@ -227,6 +181,7 @@ export default function LeadForm({
         });
 
         if (internalRes.ok) {
+          internalSuccess = true;
           const internalData = await internalRes.json();
           if (internalData.leadId) {
             leadId = internalData.leadId;
@@ -234,6 +189,50 @@ export default function LeadForm({
         }
       } catch (internalErr) {
         console.warn("Internal leads API error:", internalErr);
+      }
+
+      // Dự phòng duy nhất: Nếu máy chủ API /api/leads gặp sự cố không phản hồi, gửi trực tiếp tới Cloudflare Worker để đảm bảo không thất thoát khách
+      if (!internalSuccess) {
+        try {
+          await fetch("https://form-fpt.cto-phucnt51.workers.dev/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: fullName.trim(),
+              phone: cleanedPhone,
+              address: address.trim(),
+              province: "can-tho",
+              area: "Cần Thơ",
+              package: selectedService,
+              package_interest: selectedService,
+              plan: selectedService,
+              service: selectedService,
+              packageInterested: selectedService,
+              form_location: formLocation,
+              formLocation: formLocation,
+              note: "",
+              source: attribution.utm_source || "direct",
+              campaign: attribution.utm_campaign || undefined,
+              medium: attribution.utm_medium || undefined,
+              term: attribution.utm_term || undefined,
+              content: attribution.utm_content || undefined,
+              fbclid: attribution.fbclid || undefined,
+              gclid: attribution.gclid || undefined,
+              utm_source: attribution.utm_source || "",
+              utm_medium: attribution.utm_medium || "",
+              utm_campaign: attribution.utm_campaign || "",
+              utm_content: attribution.utm_content || "",
+              utm_term: attribution.utm_term || "",
+              page_url: typeof window !== "undefined" ? window.location.href : "https://gofpt.vn",
+              page_path: pathname || "/",
+              referrer: typeof document !== "undefined" ? document.referrer : "",
+              submitted_at: new Date().toISOString(),
+              user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+            }),
+          });
+        } catch (cfErr: unknown) {
+          console.warn("Fallback Cloudflare Worker dispatch warning:", cfErr);
+        }
       }
 
       markPhoneSubmitted(cleanedPhone);
@@ -325,8 +324,9 @@ export default function LeadForm({
             autoComplete="off"
           />
 
-          {/* HÀNG 1: Họ tên * | Số điện thoại * (2 Cột không bo tròn viên thuốc, chuẩn góc bo nhẹ rounded-xl như phiên bản trước) */}
-          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          {/* CÁC TRƯỜNG THÔNG TIN: MỖI DÒNG 1 THÔNG TIN (Họ tên, Số điện thoại, Địa chỉ) */}
+          <div className="space-y-2.5 sm:space-y-3">
+            {/* DÒNG 1: Họ và tên * */}
             <div className="relative">
               <input
                 type="text"
@@ -343,6 +343,7 @@ export default function LeadForm({
               )}
             </div>
 
+            {/* DÒNG 2: Số điện thoại * */}
             <div className="relative">
               <input
                 type="tel"
@@ -365,23 +366,23 @@ export default function LeadForm({
                 </p>
               )}
             </div>
-          </div>
 
-          {/* HÀNG 2: Địa chỉ lắp đặt * (Full width góc bo nhẹ rounded-xl) */}
-          <div className="mt-2.5 sm:mt-3 relative">
-            <input
-              type="text"
-              required
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white text-slate-800 text-base sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
-            />
-            {!address && (
-              <div className="pointer-events-none absolute inset-y-0 left-3.5 sm:left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
-                <span>Địa chỉ lắp đặt</span>
-                <span className="text-red-500 font-bold ml-1">*</span>
-              </div>
-            )}
+            {/* DÒNG 3: Địa chỉ lắp đặt * */}
+            <div className="relative">
+              <input
+                type="text"
+                required
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-white text-slate-800 text-base sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
+              />
+              {!address && (
+                <div className="pointer-events-none absolute inset-y-0 left-3.5 sm:left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
+                  <span>Địa chỉ lắp đặt</span>
+                  <span className="text-red-500 font-bold ml-1">*</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* HÀNG 3: DỊCH VỤ CẦN TƯ VẤN (3 TÙY CHỌN: Internet, Combo Ngoại Hạng Anh, Combo Tặng Camera) */}
