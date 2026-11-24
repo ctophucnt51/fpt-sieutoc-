@@ -22,186 +22,17 @@ interface LeadFormProps {
 
 const DUPLICATE_STORAGE_KEY = "fpt_recent_submissions";
 
-// Danh sách 63 Tỉnh / Thành phố Việt Nam (TP. Cần Thơ ưu tiên đầu)
-const VIETNAM_PROVINCES = [
-  "TP. Cần Thơ",
-  "TP. Hồ Chí Minh",
-  "Hà Nội",
-  "Đà Nẵng",
-  "Hải Phòng",
-  "An Giang",
-  "Bà Rịa - Vũng Tàu",
-  "Bắc Giang",
-  "Bắc Kạn",
-  "Bạc Liêu",
-  "Bắc Ninh",
-  "Bến Tre",
-  "Bình Định",
-  "Bình Dương",
-  "Bình Phước",
-  "Bình Thuận",
-  "Cà Mau",
-  "Cao Bằng",
-  "Đắk Lắk",
-  "Đắk Nông",
-  "Điện Biên",
-  "Đồng Nai",
-  "Đồng Tháp",
-  "Gia Lai",
-  "Hà Giang",
-  "Hà Nam",
-  "Hà Tĩnh",
-  "Hải Dương",
-  "Hậu Giang",
-  "Hòa Bình",
-  "Hưng Yên",
-  "Khánh Hòa",
-  "Kiên Giang",
-  "Kon Tum",
-  "Lai Châu",
-  "Lâm Đồng",
-  "Lạng Sơn",
-  "Lào Cai",
-  "Long An",
-  "Nam Định",
-  "Nghệ An",
-  "Ninh Bình",
-  "Ninh Thuận",
-  "Phú Thọ",
-  "Phú Yên",
-  "Quảng Bình",
-  "Quảng Nam",
-  "Quảng Ngãi",
-  "Quảng Ninh",
-  "Quảng Trị",
-  "Sóc Trăng",
-  "Sơn La",
-  "Tây Ninh",
-  "Thái Bình",
-  "Thái Nguyên",
-  "Thanh Hóa",
-  "Thừa Thiên Huế",
-  "Tiền Giang",
-  "Trà Vinh",
-  "Tuyên Quang",
-  "Vĩnh Long",
-  "Vĩnh Phúc",
-  "Yên Bái",
-];
-
-// 31 Phường trực thuộc TP. Cần Thơ sau sáp nhập 07/2025
-const CAN_THO_PHUONG_2025 = [
-  "Phường Ninh Kiều",
-  "Phường Cái Khế",
-  "Phường Tân An",
-  "Phường An Bình",
-  "Phường Thới An Đông",
-  "Phường Bình Thủy",
-  "Phường Long Tuyền",
-  "Phường Cái Răng",
-  "Phường Hưng Phú",
-  "Phường Ô Môn",
-  "Phường Phước Thới",
-  "Phường Thới Long",
-  "Phường Trung Nhứt",
-  "Phường Thuận Hưng",
-  "Phường Thốt Nốt",
-  "Phường Tân Lộc",
-  "Phường Vị Thanh",
-  "Phường Vị Tân",
-  "Phường Long Bình",
-  "Phường Long Mỹ",
-  "Phường Long Phú 1",
-  "Phường Đại Thành",
-  "Phường Ngã Bảy",
-  "Phường Phú Lợi",
-  "Phường Sóc Trăng",
-  "Phường Mỹ Xuyên",
-  "Phường Vĩnh Phước",
-  "Phường Vĩnh Châu",
-  "Phường Khánh Hòa",
-  "Phường Ngã Năm",
-  "Phường Mỹ Quới",
-];
-
-// 72 Xã trực thuộc TP. Cần Thơ sau sáp nhập 07/2025
-const CAN_THO_XA_2025 = [
-  "Xã Phong Điền",
-  "Xã Nhơn Ái",
-  "Xã Thới Lai",
-  "Xã Đông Thuận",
-  "Xã Trường Xuân",
-  "Xã Trường Thành",
-  "Xã Cờ Đỏ",
-  "Xã Đông Hiệp",
-  "Xã Trung Hưng",
-  "Xã Vĩnh Thạnh",
-  "Xã Vĩnh Trinh",
-  "Xã Thạnh An",
-  "Xã Thạnh Quới",
-  "Xã Hỏa Lựu",
-  "Xã Vị Thủy",
-  "Xã Vĩnh Thuận Đông",
-  "Xã Vị Thanh 1",
-  "Xã Vĩnh Tường",
-  "Xã Vĩnh Viễn",
-  "Xã Xà Phiên",
-  "Xã Lương Tâm",
-  "Xã Thạnh Xuân",
-  "Xã Tân Hòa",
-  "Xã Trường Long Tây",
-  "Xã Châu Thành",
-  "Xã Đông Phước",
-  "Xã Phú Hữu",
-  "Xã Tân Bình",
-  "Xã Hòa An",
-  "Xã Phương Bình",
-  "Xã Tân Phước Hưng",
-  "Xã Hiệp Hưng",
-  "Xã Phụng Hiệp",
-  "Xã Thạnh Hòa",
-  "Xã Hòa Tú",
-  "Xã Gia Hòa",
-  "Xã Nhu Gia",
-  "Xã Ngọc Tố",
-  "Xã Trường Khánh",
-  "Xã Đại Ngãi",
-  "Xã Tân Thạnh",
-  "Xã Long Phú",
-  "Xã Nhơn Mỹ",
-  "Xã An Lạc Thôn",
-  "Xã Kế Sách",
-  "Xã Thới An Hội",
-  "Xã Đại Hải",
-  "Xã Phú Tâm",
-  "Xã An Ninh",
-  "Xã Thuận Hòa",
-  "Xã Hồ Đắc Kiện",
-  "Xã Mỹ Tú",
-  "Xã Long Hưng",
-  "Xã Mỹ Hương",
-  "Xã Tân Long",
-  "Xã Phú Lộc",
-  "Xã Vĩnh Lợi",
-  "Xã Lâm Tân",
-  "Xã Thạnh Thới An",
-  "Xã Tài Văn",
-  "Xã Trường Long",
-  "Xã Thạnh Phú",
-  "Xã Thới Hưng",
-  "Xã Phong Nẫm",
-  "Xã Mỹ Phước",
-  "Xã Lai Hòa",
-  "Xã Vĩnh Hải",
-  "Xã Cù Lao Dung",
-  "Xã Thạnh Lộc",
-  "Xã Thạnh Mỹ",
-  "Xã Thạnh Trị",
-  "Xã Trần Đề",
-];
+type ServiceType =
+  | "Internet"
+  | "Truyền hình"
+  | "Camera"
+  | "Combo Internet - FPT Play"
+  | "Combo Internet - Camera";
 
 export default function LeadForm({
-  defaultPackage = "Combo GIGA",
+  defaultPackage = "Combo Internet - FPT Play",
+  headline,
+  subheadline,
   className = "",
   formLocation = "hero-form",
   onSuccess,
@@ -210,44 +41,51 @@ export default function LeadForm({
   const siteConfig = useSiteConfig();
   const router = useRouter();
   const pathname = usePathname();
-  const formId = (formLocation || "lead").replace(/[^a-zA-Z0-9_-]/g, "_");
 
-  // Form states chuẩn theo thiết kế mẫu (Image 3)
+  // 1. Trạng thái các trường nhập liệu
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("TP. Cần Thơ");
-  const [ward, setWard] = useState("");
   const [address, setAddress] = useState("");
-  const [packageInterested, setPackageInterested] = useState(() => {
-    if (defaultPackage === "Combo GIGA" || defaultPackage.includes("220")) {
-      return "Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)";
+
+  // 2. Trạng thái dịch vụ chọn
+  const [selectedService, setSelectedService] = useState<ServiceType>(() => {
+    if (defaultPackage?.includes("Camera") && defaultPackage?.includes("Combo")) {
+      return "Combo Internet - Camera";
     }
-    if (defaultPackage === "SKY" || defaultPackage.includes("195")) {
-      return "Chỉ Internet Wi-Fi 6 (195.000đ/tháng)";
+    if (defaultPackage?.includes("Camera")) {
+      return "Camera";
     }
-    return defaultPackage;
+    if (defaultPackage?.includes("Truyền hình") || defaultPackage?.includes("Play") || defaultPackage?.includes("Combo")) {
+      return "Combo Internet - FPT Play";
+    }
+    if (defaultPackage?.includes("Chỉ") || defaultPackage?.includes("Internet") || defaultPackage?.includes("SKY") || defaultPackage?.includes("GIGA")) {
+      return "Internet";
+    }
+    return "Combo Internet - FPT Play";
   });
 
-  // Anti-spam & Status
+  // Anti-spam & Phản hồi
   const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
 
-  // Đồng bộ defaultPackage khi component nhận prop mới
+  // Đồng bộ khi prop defaultPackage thay đổi
   useEffect(() => {
     if (defaultPackage) {
-      if (defaultPackage === "SKY" || defaultPackage.includes("195")) {
-        setPackageInterested("Chỉ Internet Wi-Fi 6 (195.000đ/tháng)");
-      } else if (defaultPackage === "Combo GIGA" || defaultPackage.includes("220")) {
-        setPackageInterested("Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)");
-      } else {
-        setPackageInterested(defaultPackage);
+      if (defaultPackage.includes("Camera") && defaultPackage.includes("Combo")) {
+        setSelectedService("Combo Internet - Camera");
+      } else if (defaultPackage.includes("Camera")) {
+        setSelectedService("Camera");
+      } else if (defaultPackage.includes("Chỉ") || defaultPackage.includes("SKY") || defaultPackage.includes("GIGA")) {
+        setSelectedService("Internet");
+      } else if (defaultPackage.includes("Truyền hình") || defaultPackage.includes("Play") || defaultPackage.includes("Combo")) {
+        setSelectedService("Combo Internet - FPT Play");
       }
     }
   }, [defaultPackage]);
 
-  // Validate số điện thoại VN 10 chữ số
+  // Validate số điện thoại Việt Nam
   const validatePhone = (val: string) => {
     const cleaned = val.replace(/\s+/g, "").replace(/[-.]/g, "");
     const vnPhoneRegex = /^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$/;
@@ -256,7 +94,7 @@ export default function LeadForm({
       return false;
     }
     if (!vnPhoneRegex.test(cleaned)) {
-      setPhoneError("Số điện thoại không hợp lệ (cần 10 chữ số).");
+      setPhoneError("Số điện thoại không hợp lệ (10 chữ số).");
       return false;
     }
     setPhoneError(null);
@@ -310,9 +148,14 @@ export default function LeadForm({
       return;
     }
 
+    if (!address.trim()) {
+      setErrorMessage("Vui lòng nhập địa chỉ lắp đặt.");
+      return;
+    }
+
     if (isDuplicatePhone(cleanedPhone)) {
       setErrorMessage(
-        "Số điện thoại này vừa gửi đăng ký. Chuyên viên FPT Telecom sẽ liên hệ lại ngay!"
+        "Số điện thoại này vừa gửi đăng ký. Chuyên viên FPT sẽ liên hệ lại bạn ngay!"
       );
       return;
     }
@@ -323,34 +166,14 @@ export default function LeadForm({
       const attribution = captureAttribution();
       const eventId = `lead_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
-      const selectedArea = ward ? `${city} - ${ward}` : city;
-      const detailedAddress = address.trim()
-        ? `${address.trim()}, ${selectedArea}`
-        : selectedArea;
-
-      const payload = {
-        fullName: fullName.trim(),
-        phone: cleanedPhone,
-        address: detailedAddress,
-        area: selectedArea,
-        packageInterested: packageInterested || "Chưa chọn gói",
-        note: `Tỉnh: ${city} | Phường/Xã: ${ward || "Chưa chọn"}`,
-        agreeConsent: true,
-        landingPage: pathname || "/",
-        leadLocation: formLocation,
-        eventId: eventId,
-        website: honeypot,
-        ...attribution,
-      };
-
-      // 1. Chuẩn bị payload và gửi trực tiếp tới Cloudflare Worker để bắn thông báo về Telegram
+      // 1. Gửi trực tiếp tới Cloudflare Worker đã kết nối Telegram của bạn
       const workerPayload = {
         name: fullName.trim(),
         phone: cleanedPhone,
-        address: detailedAddress,
-        area: selectedArea,
-        service: packageInterested || "Chưa chọn gói",
-        note: `Tỉnh: ${city} | Phường/Xã: ${ward || "Chưa chọn"}`,
+        address: address.trim(),
+        area: "Cần Thơ",
+        service: selectedService,
+        note: `Dịch vụ đăng ký: ${selectedService}`,
         formLocation: formLocation,
         source: attribution.utm_source || "direct",
         campaign: attribution.utm_campaign || undefined,
@@ -384,10 +207,10 @@ export default function LeadForm({
           body: JSON.stringify({
             fullName: fullName.trim(),
             phone: cleanedPhone,
-            address: detailedAddress,
-            area: selectedArea,
-            packageInterested: packageInterested || "Chưa chọn gói",
-            note: `Tỉnh: ${city} | Phường/Xã: ${ward || "Chưa chọn"}`,
+            address: address.trim(),
+            area: "Cần Thơ",
+            packageInterested: selectedService,
+            note: `Dịch vụ đăng ký: ${selectedService}`,
             agreeConsent: true,
             landingPage: pathname || "/",
             leadLocation: formLocation,
@@ -409,11 +232,11 @@ export default function LeadForm({
 
       markPhoneSubmitted(cleanedPhone);
 
-      // 2. Kích hoạt Tracking Pixel & Google Ads chuyển đổi
-      fbTracker.lead(eventId, packageInterested || "Chưa chọn gói");
-      googleTracker.formConversion(packageInterested || "Chưa chọn gói", leadId);
+      // 3. Kích hoạt Tracking Pixel & Google Ads
+      fbTracker.lead(eventId, selectedService);
+      googleTracker.formConversion(selectedService, leadId);
 
-      // 3. Lưu thông tin xác nhận cho trang Cảm Ơn
+      // 4. Lưu thông tin trang Cảm Ơn
       try {
         sessionStorage.setItem(
           "fpt_lead_confirmation",
@@ -421,8 +244,8 @@ export default function LeadForm({
             leadId,
             fullName: fullName.trim(),
             phone: cleanedPhone.slice(-4),
-            packageInterested: packageInterested || "Chưa chọn gói",
-            area: selectedArea,
+            packageInterested: selectedService,
+            area: address.trim(),
             timestamp: new Date().toLocaleTimeString("vi-VN"),
           })
         );
@@ -434,7 +257,7 @@ export default function LeadForm({
         onSuccess();
       }
 
-      // 4. Chuyển hướng người dùng tới trang Cảm Ơn
+      // 5. Chuyển hướng tới trang Cảm Ơn
       router.push(`/cam-on?code=${leadId}`);
     } catch (err: unknown) {
       console.error("Submission failed:", err);
@@ -451,266 +274,346 @@ export default function LeadForm({
   return (
     <div
       id="lead-form"
-      className={`bg-[#FFF8F4] rounded-2xl sm:rounded-3xl border border-[#F6D6C6] shadow-sm p-4 sm:p-6 lg:p-7 ${className}`}
+      className={`bg-gradient-to-b from-[#FF7A00] to-[#FF6200] rounded-[28px] sm:rounded-[34px] p-2.5 sm:p-3 shadow-2xl relative ${className}`}
     >
-      {/* 1. Header: Logo FPT Telecom / GOFPT + | + Tiêu đề + Biểu tượng Wi-Fi cam + Nút đóng */}
-      <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#F7DFCE]">
-        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
-          {/* Logo FPT Telecom chính hãng */}
-          <img
-            src="/images/logo-ftel.svg"
-            alt="FPT Telecom"
-            width={92}
-            height={30}
-            className="h-6 sm:h-7 w-auto object-contain shrink-0"
-          />
-          <span className="text-[#9CA3AF] font-light text-base sm:text-lg leading-none">|</span>
-          <h3 className="text-base sm:text-lg font-bold text-[#1E293B] tracking-tight truncate">
-            Đăng ký lắp mạng FPT
-          </h3>
-        </div>
-
-        <div className="flex items-center gap-2 shrink-0 ml-2">
-          {/* Biểu tượng Wi-Fi sóng FPT màu cam */}
-          <svg
-            width="22"
-            height="18"
-            viewBox="0 0 24 20"
-            fill="none"
-            stroke="#C84600"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-            className="shrink-0"
-            aria-hidden="true"
+      {/* Khung viền mỏng bo tròn bên trong chuẩn theo bản thiết kế */}
+      <div className="border border-white/40 rounded-[22px] sm:rounded-[28px] p-4 sm:p-6 lg:p-7 relative">
+        {/* Nút đóng (hiển thị khi ở chế độ Modal Popup) */}
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute top-2.5 right-2.5 sm:top-3.5 sm:right-3.5 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-lg leading-none transition-colors cursor-pointer z-10"
+            aria-label="Đóng cửa sổ"
           >
-            <path d="M3 5C7.8 1 16.2 1 21 5" />
-            <path d="M6.5 9.5C9.8 6.5 14.2 6.5 17.5 9.5" />
-            <path d="M10 14C11.2 12.8 12.8 12.8 14 14" />
-          </svg>
+            ✕
+          </button>
+        )}
 
-          {/* Nút đóng (hiển thị khi nằm trong Popup Modal) */}
-          {onClose && (
-            <button
-              type="button"
-              onClick={onClose}
-              className="text-[#64748B] hover:text-[#0F172A] p-0.5 text-xl font-normal leading-none cursor-pointer transition-colors"
-              aria-label="Đóng cửa sổ"
-            >
-              &times;
-            </button>
-          )}
+        {/* 1. Tiêu đề chính & Tiêu đề phụ */}
+        <div className="text-center">
+          <h3 className="text-xl sm:text-2xl lg:text-[28px] font-black text-white uppercase tracking-tight leading-tight">
+            {headline || "NHẬN TƯ VẤN MIỄN PHÍ"}
+          </h3>
+          <p className="text-white/95 text-xs sm:text-sm font-medium mt-1 sm:mt-1.5 leading-snug">
+            {subheadline || "Tặng thiết bị WiFi 6 cho 300 KH đầu tiên"}
+          </p>
         </div>
-      </div>
 
-      {/* Thông báo lỗi nếu có */}
-      {errorMessage && (
-        <div className="mb-3.5 p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs leading-snug">
-          {errorMessage}
-        </div>
-      )}
+        {/* Thông báo lỗi nếu có */}
+        {errorMessage && (
+          <div className="mt-3 p-2.5 rounded-xl bg-white text-red-600 font-semibold text-xs leading-snug shadow-sm">
+            {errorMessage}
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
-        {/* Trường chống Spam Honeypot */}
-        <input
-          type="text"
-          name="website"
-          value={honeypot}
-          onChange={(e) => setHoneypot(e.target.value)}
-          className="hidden"
-          tabIndex={-1}
-          autoComplete="off"
-        />
+        <form onSubmit={handleSubmit} className="mt-4 sm:mt-5">
+          {/* Trường chống spam honeypot */}
+          <input
+            type="text"
+            name="website"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+          />
 
-        {/* HÀNG 1: Họ và tên | Số điện thoại (2 Cột Desktop / 1 Cột Mobile) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
-          <div>
-            <label
-              htmlFor={`${formId}-fullName`}
-              className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1"
-            >
-              Họ và tên
-            </label>
+          {/* HÀNG 1: Họ tên * | Số điện thoại * (2 Cột hình viên thuốc) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+            <div>
+              <input
+                type="text"
+                required
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Nhập họ và tên *"
+                className="w-full px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 placeholder:text-slate-400 text-xs sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
+              />
+            </div>
+
+            <div>
+              <input
+                type="tel"
+                required
+                value={phone}
+                onChange={handlePhoneChange}
+                placeholder="Nhập số điện thoại *"
+                className={`w-full px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 placeholder:text-slate-400 text-xs sm:text-sm font-medium outline-none shadow-xs transition-all ${
+                  phoneError ? "ring-2 ring-red-400" : "focus:ring-2 focus:ring-[#FFCC00]"
+                }`}
+              />
+              {phoneError && (
+                <p className="text-white bg-red-600/90 px-3 py-0.5 rounded-full text-[11px] font-semibold mt-1">
+                  {phoneError}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* HÀNG 2: Địa chỉ lắp đặt * (Full width hình viên thuốc) */}
+          <div className="mt-2.5 sm:mt-3">
             <input
-              id={`${formId}-fullName`}
               type="text"
               required
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="Nhập họ và tên"
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Địa chỉ lắp đặt *"
+              className="w-full px-4 py-2.5 sm:py-3 rounded-full bg-white text-slate-800 placeholder:text-slate-400 text-xs sm:text-sm font-medium outline-none shadow-xs focus:ring-2 focus:ring-[#FFCC00] transition-all"
             />
           </div>
 
-          <div>
-            <label
-              htmlFor={`${formId}-phone`}
-              className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1"
-            >
-              Số điện thoại
-            </label>
-            <input
-              id={`${formId}-phone`}
-              type="tel"
-              required
-              value={phone}
-              onChange={handlePhoneChange}
-              placeholder="Nhập số điện thoại"
-              className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none transition-all ${
-                phoneError
-                  ? "border-red-400 focus:ring-1 focus:ring-red-400"
-                  : "border-[#E2E8F0] focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20"
-              }`}
-            />
-            {phoneError && (
-              <p className="text-red-600 text-xs mt-1">{phoneError}</p>
-            )}
-          </div>
-        </div>
+          {/* HÀNG 3: DỊCH VỤ CẦN TƯ VẤN */}
+          <div className="mt-4 sm:mt-5">
+            <span className="block text-white font-bold text-xs sm:text-sm mb-2 sm:mb-2.5">
+              Dịch vụ cần tư vấn
+            </span>
 
-        {/* HÀNG 2: Tỉnh / thành phố | Phường / xã (63 Tỉnh thành + Đơn vị Cần Thơ 07/2025) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
-          <div>
-            <label
-              htmlFor={`${formId}-city`}
-              className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1"
-            >
-              Tỉnh / thành phố
-            </label>
-            <select
-              id={`${formId}-city`}
-              value={city}
-              onChange={(e) => {
-                setCity(e.target.value);
-                setWard("");
-              }}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
-              }}
-            >
-              {VIETNAM_PROVINCES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label
-              htmlFor={`${formId}-ward`}
-              className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1"
-            >
-              Phường / xã
-            </label>
-            {city === "TP. Cần Thơ" ? (
-              <select
-                id={`${formId}-ward`}
-                value={ward}
-                onChange={(e) => setWard(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
-                }}
+            {/* Hàng trên: 3 Thẻ dịch vụ (Internet, Truyền hình, Camera) */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
+              {/* Thẻ 1: Internet */}
+              <div
+                onClick={() => setSelectedService("Internet")}
+                className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[96px] sm:min-h-[108px] border-2 ${
+                  selectedService === "Internet"
+                    ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
+                    : "border-transparent hover:border-white/50 hover:shadow-xs"
+                }`}
               >
-                <option value="">Chọn phường / xã</option>
-                <optgroup label="31 Phường (Sau sáp nhập 07/2025)">
-                  {CAN_THO_PHUONG_2025.map((w) => (
-                    <option key={w} value={w}>
-                      {w}
-                    </option>
-                  ))}
-                </optgroup>
-                <optgroup label="72 Xã (Sau sáp nhập 07/2025)">
-                  {CAN_THO_XA_2025.map((w) => (
-                    <option key={w} value={w}>
-                      {w}
-                    </option>
-                  ))}
-                </optgroup>
-              </select>
-            ) : (
-              <input
-                id={`${formId}-ward`}
-                type="text"
-                value={ward}
-                onChange={(e) => setWard(e.target.value)}
-                placeholder="Chọn phường / xã"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
-              />
-            )}
+                {/* Nút tròn radio ở góc trên bên phải */}
+                <div
+                  className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
+                    selectedService === "Internet"
+                      ? "border-[#FF7A00] bg-[#FF7A00]"
+                      : "border-[#FFA64D] bg-transparent"
+                  }`}
+                >
+                  {selectedService === "Internet" && (
+                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                  )}
+                </div>
+
+                {/* Icon Internet (Modem / Wi-Fi) */}
+                <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center mb-1">
+                  <img
+                    src="/images/icons/liquid-glass/wifi-6.webp"
+                    alt="Internet"
+                    width={40}
+                    height={40}
+                    className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
+                  />
+                </div>
+                <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
+                  Internet
+                </span>
+              </div>
+
+              {/* Thẻ 2: Truyền hình */}
+              <div
+                onClick={() => setSelectedService("Truyền hình")}
+                className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[96px] sm:min-h-[108px] border-2 ${
+                  selectedService === "Truyền hình"
+                    ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
+                    : "border-transparent hover:border-white/50 hover:shadow-xs"
+                }`}
+              >
+                <div
+                  className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
+                    selectedService === "Truyền hình"
+                      ? "border-[#FF7A00] bg-[#FF7A00]"
+                      : "border-[#FFA64D] bg-transparent"
+                  }`}
+                >
+                  {selectedService === "Truyền hình" && (
+                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                  )}
+                </div>
+
+                {/* Icon Truyền hình (FPT Play) */}
+                <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center mb-1">
+                  <img
+                    src="/images/icons/liquid-glass/fpt-play.webp"
+                    alt="Truyền hình"
+                    width={40}
+                    height={40}
+                    className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
+                  />
+                </div>
+                <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
+                  Truyền hình
+                </span>
+              </div>
+
+              {/* Thẻ 3: Camera */}
+              <div
+                onClick={() => setSelectedService("Camera")}
+                className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[96px] sm:min-h-[108px] border-2 ${
+                  selectedService === "Camera"
+                    ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
+                    : "border-transparent hover:border-white/50 hover:shadow-xs"
+                }`}
+              >
+                <div
+                  className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
+                    selectedService === "Camera"
+                      ? "border-[#FF7A00] bg-[#FF7A00]"
+                      : "border-[#FFA64D] bg-transparent"
+                  }`}
+                >
+                  {selectedService === "Camera" && (
+                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                  )}
+                </div>
+
+                {/* Icon Camera AI */}
+                <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center mb-1">
+                  <img
+                    src="/images/icons/liquid-glass/camera-ai.webp"
+                    alt="Camera"
+                    width={40}
+                    height={40}
+                    className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
+                  />
+                </div>
+                <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
+                  Camera
+                </span>
+              </div>
+            </div>
+
+            {/* Hàng dưới: 2 Thẻ dịch vụ Combo (Combo Internet - FPT Play, Combo Internet - Camera) */}
+            <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mt-2 sm:mt-2.5">
+              {/* Thẻ 4: Combo Internet - FPT Play */}
+              <div
+                onClick={() => setSelectedService("Combo Internet - FPT Play")}
+                className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[102px] sm:min-h-[114px] border-2 ${
+                  selectedService === "Combo Internet - FPT Play"
+                    ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
+                    : "border-transparent hover:border-white/50 hover:shadow-xs"
+                }`}
+              >
+                <div
+                  className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
+                    selectedService === "Combo Internet - FPT Play"
+                      ? "border-[#FF7A00] bg-[#FF7A00]"
+                      : "border-[#FFA64D] bg-transparent"
+                  }`}
+                >
+                  {selectedService === "Combo Internet - FPT Play" && (
+                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                  )}
+                </div>
+
+                {/* Icon Combo Play + Sóng Wi-Fi */}
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center mb-1">
+                  <img
+                    src="/images/icons/liquid-glass/fpt-play.webp"
+                    alt="FPT Play"
+                    width={38}
+                    height={38}
+                    className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
+                  />
+                  {/* Biểu tượng sóng Wi-Fi phát trên đầu */}
+                  <span className="absolute -top-1 -right-0.5 w-4 h-4 rounded-full bg-gradient-to-tr from-orange-500 to-amber-400 text-white flex items-center justify-center shadow-xs">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    >
+                      <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                      <path d="M8.5 16.5a6 6 0 0 1 7 0" />
+                      <line x1="12" y1="20" x2="12.01" y2="20" />
+                    </svg>
+                  </span>
+                </div>
+                <div className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-snug">
+                  <div>Combo</div>
+                  <div className="text-[11px] sm:text-xs font-semibold text-slate-600">
+                    Internet - FPT Play
+                  </div>
+                </div>
+              </div>
+
+              {/* Thẻ 5: Combo Internet - Camera */}
+              <div
+                onClick={() => setSelectedService("Combo Internet - Camera")}
+                className={`bg-white rounded-2xl p-2.5 sm:p-3 text-center cursor-pointer transition-all duration-200 relative flex flex-col items-center justify-center min-h-[102px] sm:min-h-[114px] border-2 ${
+                  selectedService === "Combo Internet - Camera"
+                    ? "border-[#FFCC00] ring-2 ring-[#FFCC00]/50 shadow-md scale-[1.02]"
+                    : "border-transparent hover:border-white/50 hover:shadow-xs"
+                }`}
+              >
+                <div
+                  className={`absolute top-2 right-2 w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
+                    selectedService === "Combo Internet - Camera"
+                      ? "border-[#FF7A00] bg-[#FF7A00]"
+                      : "border-[#FFA64D] bg-transparent"
+                  }`}
+                >
+                  {selectedService === "Combo Internet - Camera" && (
+                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                  )}
+                </div>
+
+                {/* Icon Camera + Sóng Wi-Fi */}
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center mb-1">
+                  <img
+                    src="/images/icons/liquid-glass/camera-ai.webp"
+                    alt="Camera"
+                    width={38}
+                    height={38}
+                    className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
+                  />
+                  {/* Biểu tượng sóng Wi-Fi phát trên đầu */}
+                  <span className="absolute -top-1 -right-0.5 w-4 h-4 rounded-full bg-gradient-to-tr from-orange-500 to-amber-400 text-white flex items-center justify-center shadow-xs">
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    >
+                      <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+                      <path d="M8.5 16.5a6 6 0 0 1 7 0" />
+                      <line x1="12" y1="20" x2="12.01" y2="20" />
+                    </svg>
+                  </span>
+                </div>
+                <div className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-snug">
+                  <div>Combo</div>
+                  <div className="text-[11px] sm:text-xs font-semibold text-slate-600">
+                    Internet - Camera
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* HÀNG 3: Địa chỉ lắp đặt */}
-        <div>
-          <label
-            htmlFor={`${formId}-address`}
-            className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1"
-          >
-            Địa chỉ lắp đặt
-          </label>
-          <input
-            id={`${formId}-address`}
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder="Số nhà, tên đường hoặc ấp"
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] placeholder:text-[#94A3B8] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all"
-          />
-        </div>
-
-        {/* HÀNG 4: Gói quan tâm */}
-        <div>
-          <label
-            htmlFor={`${formId}-packageInterested`}
-            className="block text-xs sm:text-sm font-semibold text-[#1E293B] mb-1"
-          >
-            Gói quan tâm
-          </label>
-          <select
-            id={`${formId}-packageInterested`}
-            name="packageInterested"
-            value={packageInterested}
-            onChange={(e) => setPackageInterested(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] bg-white text-sm text-[#0F172A] outline-none focus:border-[#C84600] focus:ring-1 focus:ring-[#C84600]/20 transition-all cursor-pointer appearance-none bg-no-repeat bg-[right_14px_center] pr-9"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
-            }}
-          >
-            <option value="">Chưa chọn gói</option>
-            <option value="Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)">
-              Combo Internet + Ngoại Hạng Anh (220.000đ/tháng)
-            </option>
-            <option value="Chỉ Internet Wi-Fi 6 (195.000đ/tháng)">
-              Chỉ Internet Wi-Fi 6 (195.000đ/tháng)
-            </option>
-            <option value="F-GAME (235.000đ/tháng)">
-              Gói Game F-GAME (235.000đ/tháng)
-            </option>
-            <option value="META 1 Gbps (300.000đ/tháng)">
-              Gói META 1 Gbps (300.000đ/tháng)
-            </option>
-            <option value="Tư vấn gói cước phù hợp">
-              Tư vấn gói cước phù hợp
-            </option>
-          </select>
-        </div>
-
-        {/* HÀNG 5: Nút Gửi đăng ký (Màu cam FPT đậm chuẩn theo mockup Image 3) */}
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full py-3 sm:py-3.5 px-6 rounded-xl bg-[#C84600] hover:bg-[#B33E06] active:bg-[#9E3605] text-white font-bold text-base tracking-wide transition-all cursor-pointer disabled:opacity-60 shadow-xs mt-1.5"
-        >
-          {isSubmitting ? "Đang gửi đăng ký..." : "Gửi đăng ký"}
-        </button>
-
-        {/* HÀNG 6: Dòng xác nhận dưới nút */}
-        <p className="text-center text-xs sm:text-sm text-[#475569] font-medium pt-1">
-          GOFPT sẽ gọi lại để xác nhận.
-        </p>
-      </form>
+          {/* HÀNG 4: NÚT BẤM CTA VÀNG NỔI BẬT HÌNH VIÊN THUỐC */}
+          <div className="mt-5 sm:mt-6 flex justify-center">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="px-8 sm:px-10 py-2.5 sm:py-3 rounded-full bg-[#FFCC00] hover:bg-[#FFD633] active:scale-95 text-[#D95300] font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-75"
+            >
+              {isSubmitting ? (
+                "Đang gửi đăng ký..."
+              ) : (
+                <>
+                  <span>Tư vấn ngay</span>
+                  <span className="text-base sm:text-lg font-bold leading-none">→</span>
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
