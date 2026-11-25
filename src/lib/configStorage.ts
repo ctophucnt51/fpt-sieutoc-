@@ -25,6 +25,16 @@ function ensureConfigFile(): void {
       }
     }
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(defaultSiteConfig, null, 2), "utf8");
+  } else {
+    // Luôn đồng bộ email hỗ trợ cố định chính xác theo yêu cầu người dùng
+    try {
+      const raw = fs.readFileSync(CONFIG_FILE, "utf8");
+      const parsed = JSON.parse(raw);
+      if (parsed.contact && parsed.contact.supportEmail !== "PhucNT51@fpt.com") {
+        parsed.contact.supportEmail = "PhucNT51@fpt.com";
+        fs.writeFileSync(CONFIG_FILE, JSON.stringify(parsed, null, 2), "utf8");
+      }
+    } catch {}
   }
 }
 
@@ -37,12 +47,17 @@ export function getDynamicConfig(): SiteConfigType {
   try {
     const raw = fs.readFileSync(CONFIG_FILE, "utf8");
     const parsed = JSON.parse(raw);
+    const cleanContact = {
+      ...defaultSiteConfig.contact,
+      ...(parsed.contact || {}),
+      supportEmail: "PhucNT51@fpt.com", // Luôn đảm bảo email hỗ trợ cố định chính xác PhucNT51@fpt.com
+    };
     // Deep merge with defaults to avoid any missing property crashes
     return {
       ...defaultSiteConfig,
       ...parsed,
       brand: { ...defaultSiteConfig.brand, ...(parsed.brand || {}) },
-      contact: { ...defaultSiteConfig.contact, ...(parsed.contact || {}) },
+      contact: cleanContact,
       promo: { ...defaultSiteConfig.promo, ...(parsed.promo || {}) },
       tracking: { ...defaultSiteConfig.tracking, ...(parsed.tracking || {}) },
       telegram: { ...defaultSiteConfig.telegram, ...(parsed.telegram || {}) },

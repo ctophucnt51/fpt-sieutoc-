@@ -86,7 +86,7 @@ export default function ChinhSachBaoMatPage() {
               <p>
                 Quý khách có toàn quyền yêu cầu chúng tôi kiểm tra, cập nhật hoặc xóa bỏ hoàn toàn dữ liệu cá nhân của mình bất kỳ lúc nào bằng cách liên hệ qua hotline:{" "}
                 <strong className="text-fpt-orange">{siteConfig.contact.hotlineDisplay}</strong> hoặc gửi email về{" "}
-                <strong className="text-[#20283D]">{siteConfig.contact.supportEmail}</strong>.
+                <strong className="text-[#20283D]">PhucNT51@fpt.com</strong>.
               </p>
             </section>
 

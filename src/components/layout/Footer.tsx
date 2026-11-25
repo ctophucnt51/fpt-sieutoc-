@@ -246,10 +246,10 @@ export default function Footer() {
                 <div>
                   <span className="text-[#475569] font-medium">Email hỗ trợ: </span>
                   <a
-                    href={`mailto:${siteConfig.contact.supportEmail}`}
+                    href="mailto:PhucNT51@fpt.com"
                     className="text-[#0F172A] hover:text-[#C44D06] font-semibold transition-colors"
                   >
-                    {siteConfig.contact.supportEmail}
+                    PhucNT51@fpt.com
                   </a>
                 </div>
               </li>

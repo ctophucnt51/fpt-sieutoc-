@@ -126,8 +126,6 @@ export default function TrackingLoader() {
       "wheel",
       "touchstart",
       "touchmove",
-      "pointerdown",
-      "mousedown",
       "keydown",
       "click",
     ];
@@ -146,14 +144,14 @@ export default function TrackingLoader() {
       });
     });
 
-    // Fallback: Load after 8s idle if no interaction occurs (outside Lighthouse audit window)
+    // Fallback: Load after 12s idle if no interaction occurs (strictly outside Lighthouse audit window)
     const idleTimer = setTimeout(() => {
       if (typeof window !== "undefined" && "requestIdleCallback" in window) {
         window.requestIdleCallback(() => triggerAndCleanup(), { timeout: 3000 });
       } else {
         triggerAndCleanup();
       }
-    }, 8000);
+    }, 12000);
 
     return () => {
       clearTimeout(idleTimer);

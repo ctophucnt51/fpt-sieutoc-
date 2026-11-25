@@ -237,6 +237,20 @@ export async function POST(request: NextRequest) {
           if (fs.existsSync(seedDataDir)) {
             fs.copyFileSync(backupPath, seedPath);
           }
+          // Luôn đồng bộ email hỗ trợ cố định theo cấu hình người dùng
+          if (file === "siteConfig.json") {
+            try {
+              const raw = fs.readFileSync(persistentPath, "utf8");
+              const parsed = JSON.parse(raw);
+              if (parsed.contact) {
+                parsed.contact.supportEmail = "PhucNT51@fpt.com";
+                fs.writeFileSync(persistentPath, JSON.stringify(parsed, null, 2), "utf8");
+                if (fs.existsSync(seedPath)) {
+                  fs.writeFileSync(seedPath, JSON.stringify(parsed, null, 2), "utf8");
+                }
+              }
+            } catch {}
+          }
         } catch (restoreErr) {
           console.error(`Lỗi khi khôi phục dữ liệu ${file}:`, restoreErr);
         }
