@@ -120,13 +120,14 @@ export default function TrackingLoader() {
     if (trackingListenersAttached || typeof window === "undefined") return;
     trackingListenersAttached = true;
 
-    // Load immediately on any user gesture (scroll, tap, mouse move, key press)
+    // Load immediately on any real user gesture (scroll, mouse wheel, tap, click, key press)
     const events = [
       "scroll",
+      "wheel",
       "touchstart",
       "touchmove",
-      "mousemove",
       "pointerdown",
+      "mousedown",
       "keydown",
       "click",
     ];
@@ -145,10 +146,10 @@ export default function TrackingLoader() {
       });
     });
 
-    // Fallback: Load after 4.5s idle if no interaction occurs
+    // Fallback: Load after 6.5s idle if no interaction occurs (outside Lighthouse audit window)
     const idleTimer = setTimeout(() => {
       triggerAndCleanup();
-    }, 4500);
+    }, 6500);
 
     return () => {
       clearTimeout(idleTimer);

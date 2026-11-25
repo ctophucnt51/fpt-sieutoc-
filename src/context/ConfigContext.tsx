@@ -41,10 +41,8 @@ export function ConfigProvider({
     }
   }, []);
 
-  // Tự động kéo cấu hình mới nhất ngay khi tải trang và khi người dùng quay lại tab
+  // Tự động kéo cấu hình mới khi người dùng quay lại tab (không chặn render lần đầu)
   useEffect(() => {
-    refreshConfig();
-
     const handleFocus = () => {
       refreshConfig();
     };

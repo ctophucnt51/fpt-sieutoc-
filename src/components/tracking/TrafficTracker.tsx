@@ -30,7 +30,7 @@ export default function TrafficTracker() {
       });
     }
 
-    // 2. Send lightweight internal Pageview beacon (non-blocking, zero impact on LCP)
+    // 2. Send lightweight internal Pageview beacon (non-blocking, zero impact on TBT/LCP)
     const timer = setTimeout(() => {
       try {
         let isNewSession = false;
@@ -78,7 +78,7 @@ export default function TrafficTracker() {
       } catch {
         // Non-blocking
       }
-    }, 300);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, [pathname, enableGa4, ga4Id]);
