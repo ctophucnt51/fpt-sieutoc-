@@ -148,13 +148,11 @@ h1, h2, h3, h4 {
   transform: translate3d(0, 14px, 0);
   transition: opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
 }
 
 .reveal-section.reveal-visible {
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  will-change: auto;
 }
 
 /* Text Shimmer Sweep Animation - Tia sáng quét mượt mà liên tục từ trái qua phải, không gián đoạn/khựng */
@@ -185,6 +183,7 @@ h1, h2, h3, h4 {
   color: transparent;
   display: inline-block;
   animation: textShimmerSweep 2.8s linear infinite;
+  animation-delay: 2.5s;
 }
 
 /* Below-the-fold layout/paint deferral for fast Speed Index & low TBT */

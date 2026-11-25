@@ -38,8 +38,10 @@ export default function HeroSection({
           src="/images/banners/vietnam-network-map.png"
           alt=""
           aria-hidden="true"
-          fetchPriority="high"
-          loading="eager"
+          loading="lazy"
+          decoding="async"
+          width={540}
+          height={540}
           className="w-full h-full object-contain"
         />
       </div>
@@ -84,6 +86,7 @@ export default function HeroSection({
                           alt="Modem Wi-Fi 6 FPT"
                           width={74}
                           height={151}
+                          fetchPriority="high"
                           loading="eager"
                           decoding="async"
                           className="h-full w-auto max-w-[85%] object-contain drop-shadow-sm group-hover:scale-105 transition-transform"
@@ -206,7 +209,7 @@ export default function HeroSection({
                         alt="Modem Wi-Fi 6 FPT"
                         width={90}
                         height={120}
-                        loading="eager"
+                        loading="lazy"
                         decoding="async"
                         className="max-h-full w-auto object-contain drop-shadow-sm"
                       />
@@ -227,7 +230,7 @@ export default function HeroSection({
                         alt="Camera FPT AI"
                         width={90}
                         height={120}
-                        loading="eager"
+                        loading="lazy"
                         decoding="async"
                         className="max-h-full w-auto object-contain drop-shadow-sm"
                       />
@@ -248,7 +251,7 @@ export default function HeroSection({
                         alt="Hạ tầng FPT Phủ Sóng Toàn Quốc"
                         width={90}
                         height={120}
-                        loading="eager"
+                        loading="lazy"
                         decoding="async"
                         className="max-h-full w-auto object-contain drop-shadow-sm"
                       />

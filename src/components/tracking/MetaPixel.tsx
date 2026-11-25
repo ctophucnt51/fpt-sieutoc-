@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import Script from "next/script";
 import { siteConfig } from "@/config/siteConfig";
+import { ensureTrackingLoaded } from "./TrackingLoader";
 
 declare global {
   interface Window {
@@ -19,9 +19,10 @@ export function trackMetaEvent(
   params?: Record<string, unknown>,
   options?: { eventID?: string }
 ) {
-  if (typeof window === "undefined" || !window.fbq) {
+  if (typeof window === "undefined") {
     return;
   }
+  ensureTrackingLoaded();
 
   // Only track if Pixel ID is configured and not a placeholder
   const pixelId = siteConfig.tracking.facebookPixelId;
@@ -33,10 +34,12 @@ export function trackMetaEvent(
     return;
   }
 
-  if (options?.eventID) {
-    window.fbq("track", eventName, params, { eventID: options.eventID });
-  } else {
-    window.fbq("track", eventName, params);
+  if (typeof window.fbq === "function") {
+    if (options?.eventID) {
+      window.fbq("track", eventName, params, { eventID: options.eventID });
+    } else {
+      window.fbq("track", eventName, params);
+    }
   }
 }
 
@@ -92,36 +95,5 @@ export default function MetaPixel() {
     return null;
   }
 
-  return (
-    <>
-      <Script
-        id="meta-pixel"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${pixelId}');
-            fbq('track', 'PageView');
-          `,
-        }}
-      />
-      <noscript>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          height="1"
-          width="1"
-          style={{ display: "none" }}
-          src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
-          alt=""
-        />
-      </noscript>
-    </>
-  );
+  return null;
 }

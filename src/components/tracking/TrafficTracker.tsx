@@ -83,31 +83,5 @@ export default function TrafficTracker() {
     return () => clearTimeout(timer);
   }, [pathname, enableGa4, ga4Id]);
 
-  if (!needsOwnGtagScript) {
-    return null;
-  }
-
-  return (
-    <>
-      <Script
-        id="ga4-tag-src"
-        strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
-      />
-      <Script
-        id="ga4-tag-init"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${ga4Id}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-      />
-    </>
-  );
+  return null;
 }

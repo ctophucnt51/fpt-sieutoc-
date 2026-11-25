@@ -7,7 +7,7 @@ import FaqSection from "@/components/home/FaqSection";
 import BottomCtaSection from "@/components/home/BottomCtaSection";
 import RevealSection from "@/components/ui/RevealSection";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default function HomePage() {
   return (

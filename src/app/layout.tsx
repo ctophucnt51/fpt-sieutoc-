@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/siteConfig";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyMobileBar from "@/components/layout/StickyMobileBar";
+import TrackingLoader from "@/components/tracking/TrackingLoader";
 import MetaPixel from "@/components/tracking/MetaPixel";
 import GoogleAds from "@/components/tracking/GoogleAds";
 import TrafficTracker from "@/components/tracking/TrafficTracker";
@@ -12,7 +13,7 @@ import { getDynamicConfig } from "@/lib/configStorage";
 import { ConfigProvider } from "@/context/ConfigContext";
 import { LeadModalProvider } from "@/context/LeadModalContext";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -99,14 +100,8 @@ export default function RootLayout({
         <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <Script
-          id="gtm-n4vb2hj6-src"
-          strategy="lazyOnload"
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-N4VB2HJ6"
-        />
-        <Script
-          id="gtm-n4vb2hj6-init"
-          strategy="lazyOnload"
+        <script
+          id="gtm-data-layer-init"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -119,6 +114,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col font-sans antialiased text-[#2F364A] bg-[#F4F6FB] selection:bg-[#FFF4ED] selection:text-[#F37021]">
         <ConfigProvider initialConfig={dynamicConfig}>
           <LeadModalProvider>
+            <TrackingLoader />
             <MetaPixel />
             <GoogleAds />
             <TrafficTracker />

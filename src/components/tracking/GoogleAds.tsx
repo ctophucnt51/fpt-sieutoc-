@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import Script from "next/script";
 import { useSiteConfig } from "@/context/ConfigContext";
 import { captureAttribution } from "@/lib/trackingUtils";
+import { ensureTrackingLoaded } from "./TrackingLoader";
 
 interface TrackingRuntimeConfig {
   googleAdsId: string;
@@ -84,6 +84,9 @@ export function trackGoogleConversion(params?: {
   if ((!enableGoogleAds && !params?.forceTest) || !googleAdsId) {
     return false;
   }
+
+  // Ensure tracking scripts are loaded when a conversion event occurs
+  ensureTrackingLoaded();
 
   const eventType = params?.eventType || "form_submit";
   const isCall = eventType === "hotline_click" || eventType === "zalo_click";
@@ -218,27 +221,5 @@ export default function GoogleAds() {
     return null;
   }
 
-  return (
-    <>
-      <Script
-        id="google-tag-src"
-        strategy="lazyOnload"
-        src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`}
-      />
-      <Script
-        id="google-tag-init"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${googleAdsId}', {
-              page_path: window.location.pathname,
-            });
-          `,
-        }}
-      />
-    </>
-  );
+  return null;
 }
