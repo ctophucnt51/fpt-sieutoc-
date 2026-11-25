@@ -69,7 +69,7 @@ export default function ChinhSachBaoMatPage() {
                 2. Cam Kết Không Mua Bán Hoặc Tiết Lộ Dữ Liệu
               </h2>
               <p>
-                Chúng tôi tuyệt đối cam kết <strong className="text-[#20283D]">KHÔNG</strong> chia sẻ, cho thuê, trao đổi hoặc bán dữ liệu cá nhân của quý khách cho bất kỳ bên thứ ba nào vì mục đích quảng cáo hoặc tiếp thị không liên quan.
+                Chúng tôi cam kết <strong className="text-[#20283D]">KHÔNG</strong> chia sẻ, cho thuê, trao đổi hoặc bán dữ liệu cá nhân của quý khách cho bất kỳ bên thứ ba nào vì mục đích quảng cáo hoặc tiếp thị không liên quan.
               </p>
               <p>
                 Thông tin của quý khách chỉ được chuyển giao trực tiếp cho hệ thống tư vấn viên và kỹ thuật viên trực thuộc FPT Telecom để phục vụ việc khảo sát hạ tầng và ký kết hợp đồng dịch vụ viễn thông theo yêu cầu của quý khách.

@@ -37,6 +37,14 @@ const PROHIBITED_ADS_PATTERNS = [
   /300\s*KH\s*đầu\s*tiên/i,
   /đơn\s*giản\s*nhất\s*thị\s*trường/i,
   /an\s*toàn\s*tuyệt\s*đối/i,
+  /bảo\s*mật\s*tuyệt\s*đối/i,
+  /tuyệt\s*đối\s*cam\s*kết/i,
+  /bảo\s*hành\s*trọn\s*đời/i,
+  /bảo\s*trì\s*trọn\s*đời/i,
+  /số\s*1\s*(việt\s*nam|thị\s*trường|thế\s*giới)/i,
+  /tốt\s*nhất\s*(thị\s*trường|việt\s*nam)/i,
+  /giảm\s*99%/i,
+  /100%\s*(không\s*giật|miễn\s*phí\s*mãi)/i,
 ];
 
 function extractTagContent(html: string, regex: RegExp): string {

@@ -4,6 +4,19 @@ Tài liệu này là quy chuẩn bắt buộc của toàn bộ dự án `gofpt.v
 
 ---
 
+## 0. KIM CHỈ NAM TỐI THƯỢNG: TUÂN THỦ 100% CHÍNH SÁCH GOOGLE ADS
+Mọi nội dung trên website (trang chủ, trang dịch vụ, bảng giá, bài viết tin tức, meta SEO) đều phải lấy **Chính sách Google Ads** làm kim chỉ nam, tuyệt đối không để xảy ra vi phạm:
+1. **Không tuyên bố phóng đại / không thể kiểm chứng (Unreliable Claims):**
+   - CẤM dùng: `tuyệt đối` (*an toàn tuyệt đối, bảo mật tuyệt đối, cam kết tuyệt đối*), `số 1 Việt Nam/thị trường`, `tốt nhất`, `duy nhất`, `bảo hành trọn đời`, `giảm 99%`, `100% không giật lag`, `4.9/5` tự phong, `hoàn toàn miễn phí` (nếu có điều kiện đi kèm phải ghi rõ *"miễn phí theo chính sách gói cước"*).
+2. **Minh bạch tư cách pháp nhân (Misrepresentation / Authorized Agent):**
+   - Luôn giữ rõ tuyên bố `gofpt.vn` là **kênh đại lý/tư vấn và tiếp nhận đăng ký dịch vụ viễn thông của FPT Telecom** (giữ nguyên `officialDisclaimer` ở Footer & Điều khoản). Không tự nhận là "Trang chủ Tập đoàn FPT".
+3. **Minh bạch giá cước & Quyền riêng tư:**
+   - Giá cước luôn ghi rõ đơn vị (`/tháng`), VAT (đã gồm VAT), và điều kiện áp dụng.
+   - Thông tin liên hệ phải khớp 100% thực tế: Địa chỉ `Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ`, Hotline `0878 800 400`, Email `PhucNT51@fpt.com`.
+4. **Kiểm tra tự động:** Trước khi đẩy code, luôn đảm bảo bộ lọc `PROHIBITED_ADS_PATTERNS` trong `src/lib/seoAuditor.ts` không phát hiện vi phạm trên bất kỳ trang nào.
+
+---
+
 ## 1. THÔNG TIN DOANH NGHIỆP CỐ ĐỊNH (KHÔNG ĐƯỢC TỰ Ý SỬA ĐỔI)
 - **Tên thương hiệu:** FPT Siêu Tốc / FPT Telecom Cần Thơ (gofpt.vn)
 - **Địa chỉ trụ sở chính:** `Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ`

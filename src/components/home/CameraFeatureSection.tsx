@@ -76,7 +76,7 @@ export default function CameraFeatureSection() {
             </div>
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5">Bảo Hành Chính Hãng</h3>
             <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Bảo hành 24 tháng chính hãng FPT, hỗ trợ kỹ thuật và bảo trì trọn đời tận nơi 24/7 trên toàn quốc.
+              Bảo hành 24 tháng chính hãng FPT, hỗ trợ kỹ thuật và bảo trì tận nơi 24/7 trên toàn quốc trong suốt thời gian sử dụng dịch vụ.
             </p>
           </div>
         </div>

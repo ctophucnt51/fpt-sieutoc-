@@ -19,7 +19,7 @@ export default function HoiDapPage() {
             Câu Hỏi Thường Gặp <span className="text-[#F37021]">Dịch Vụ FPT</span>
           </>
         }
-        subheadline="Tổng hợp chi tiết các câu hỏi về thủ tục đăng ký, gói cước, thiết bị Wi-Fi 6, Camera AI và bảo trì kỹ thuật trọn đời."
+        subheadline="Tổng hợp chi tiết các câu hỏi về thủ tục đăng ký, gói cước, thiết bị Wi-Fi 6, Camera AI và chính sách bảo trì kỹ thuật."
         defaultPackage="SKY"
         formHeadline="GỬI CÂU HỎI CHO CHUYÊN VIÊN FPT"
       />

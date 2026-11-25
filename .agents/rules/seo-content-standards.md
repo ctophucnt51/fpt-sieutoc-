@@ -5,6 +5,11 @@ description: "Quy chuẩn cố định và giao thức viết bài tự động 
 
 # QUY CHUẨN DỰ ÁN & GIAO THỨC VIẾT BÀI TỰ ĐỘNG (GOFPT.VN)
 
+## 0. KIM CHỈ NAM: TUÂN THỦ CHÍNH SÁCH GOOGLE ADS
+- CẤM các từ ngữ phóng đại/tuyệt đối: `tuyệt đối`, `số 1`, `tốt nhất`, `duy nhất`, `bảo hành trọn đời`, `giảm 99%`, `100% không giật`, `hoàn toàn miễn phí` (không nêu điều kiện).
+- Minh bạch tư cách đại lý/kênh tư vấn dịch vụ FPT Telecom; không giả mạo tập đoàn.
+- Giá cước & khuyến mãi rõ ràng, trung thực, đúng chính sách.
+
 ## 1. THÔNG TIN DOANH NGHIỆP CỐ ĐỊNH
 - Hotline: 0878 800 400
 - Zalo: https://zalo.me/0878800400 (0878 800 400)
