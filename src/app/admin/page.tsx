@@ -14,6 +14,7 @@ import GeneralConfigEditor from "@/components/admin/GeneralConfigEditor";
 import PricingConfigEditor from "@/components/admin/PricingConfigEditor";
 import AreaConfigEditor from "@/components/admin/AreaConfigEditor";
 import SeoManagement from "@/components/admin/SeoManagement";
+import GoogleAdsManagement from "@/components/admin/GoogleAdsManagement";
 import {
   LayoutDashboard,
   Users,
@@ -32,11 +33,12 @@ import {
   GitBranch,
   Zap,
   TrendingUp,
+  Target,
   Menu,
   X,
 } from "lucide-react";
 
-type AdminTab = "overview" | "leads" | "articles" | "seo" | "config" | "pricing" | "areas";
+type AdminTab = "overview" | "leads" | "google-ads" | "articles" | "seo" | "config" | "pricing" | "areas";
 
 const TAB_META: Record<AdminTab, { title: string; subtitle: string }> = {
   overview: {
@@ -46,6 +48,10 @@ const TAB_META: Record<AdminTab, { title: string; subtitle: string }> = {
   leads: {
     title: "Quản Lý Khách Hàng (Leads)",
     subtitle: "Theo dõi, lọc trạng thái và chăm sóc danh sách khách hàng đăng ký.",
+  },
+  "google-ads": {
+    title: "Google Ads & Chuyển Đổi",
+    subtitle: "Cấu hình mã chuyển đổi Google Ads, theo dõi GCLID, chiến dịch và nhật ký sự kiện.",
   },
   articles: {
     title: "Bài Viết & Tin Tức",
@@ -382,6 +388,15 @@ export default function AdminPage() {
           badge: "GSC",
           badgeColor: "bg-emerald-100 text-emerald-700",
         },
+        {
+          id: "google-ads",
+          label: "Google Ads & Chuyển Đổi",
+          icon: <Target className="w-4 h-4 shrink-0" />,
+          badge: config?.tracking.enableGoogleAds ? "ON" : "OFF",
+          badgeColor: config?.tracking.enableGoogleAds
+            ? "bg-blue-100 text-blue-700"
+            : "bg-slate-100 text-slate-500",
+        },
       ],
     },
     {
@@ -655,6 +670,16 @@ export default function AdminPage() {
 
         {/* Tab 3B: SEO Center & Google Search Console */}
         {activeTab === "seo" && <SeoManagement onShowToast={showToast} />}
+
+        {/* Tab 3C: Google Ads Conversion Center */}
+        {activeTab === "google-ads" && config && (
+          <GoogleAdsManagement
+            config={config}
+            leads={leads}
+            onSaveConfig={handleSaveConfig}
+            showToast={showToast}
+          />
+        )}
 
         {/* Tab 4: General Config Editor */}
         {activeTab === "config" && config && (

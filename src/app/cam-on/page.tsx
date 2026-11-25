@@ -35,6 +35,7 @@ function CamOnContent() {
 
   const handleHotlineCall = () => {
     fbTracker.contact("hotline", "Thank You Page Hotline Call");
+    googleTracker.callConversion("hotline", "Thank You Page Hotline Call");
   };
 
   return (

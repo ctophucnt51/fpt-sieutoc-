@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLeadModal } from "@/context/LeadModalContext";
 import { useSiteConfig } from "@/context/ConfigContext";
 import { fbTracker } from "@/components/tracking/MetaPixel";
+import { googleTracker } from "@/components/tracking/GoogleAds";
 import { Home, Tag, Send, MessageCircle, PhoneCall } from "lucide-react";
 
 export default function StickyMobileBar() {
@@ -33,6 +34,12 @@ export default function StickyMobileBar() {
 
   const handleContactClick = () => {
     fbTracker.contact("hotline", "Mobile Bottom Bar - Hotline");
+    googleTracker.callConversion("hotline", "Mobile Bottom Bar - Hotline");
+  };
+
+  const handleZaloClick = () => {
+    fbTracker.contact("zalo", "Mobile Bottom Bar - Zalo");
+    googleTracker.callConversion("zalo", "Mobile Bottom Bar - Zalo");
   };
 
   return (
@@ -92,6 +99,7 @@ export default function StickyMobileBar() {
           href={siteConfig.contact.zaloUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={handleZaloClick}
           className="flex flex-col items-center justify-center h-full rounded-xl text-[#0068FF] hover:bg-blue-50/70 active:scale-95 transition-all select-none font-bold"
         >
           <MessageCircle className="w-5 h-5 stroke-[2.2]" />

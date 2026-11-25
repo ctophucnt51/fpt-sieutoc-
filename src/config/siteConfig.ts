@@ -53,6 +53,8 @@ export const siteConfig = {
     enablePixel: Boolean(process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID),
     googleAdsId: process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "",
     googleAdsConversionLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL || "",
+    googleAdsCallConversionLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_CALL_LABEL || "",
+    googleAdsConversionValue: Number(process.env.NEXT_PUBLIC_GOOGLE_ADS_VALUE || 1),
     enableGoogleAds: Boolean(process.env.NEXT_PUBLIC_GOOGLE_ADS_ID),
   },
   telegram: {
