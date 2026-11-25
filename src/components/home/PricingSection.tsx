@@ -70,8 +70,8 @@ export default function PricingSection({
     <section id="bang-gia" className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] relative">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header + Filter Segment Tabs */}
-        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-9">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#C44D06] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-2xs">
+        <div className="text-left sm:text-center max-w-3xl mx-auto mb-5 sm:mb-9">
+          <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white text-[#C44D06] border border-[#E4E8ED] font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-2 shadow-2xs">
             <img
               src="/images/icons/svg/bang-gia.svg"
               alt="Bảng Giá"
@@ -79,19 +79,19 @@ export default function PricingSection({
               height={16}
               loading="lazy"
               decoding="async"
-              className="w-4 h-4 object-contain shrink-0"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4 object-contain shrink-0"
             />
             <span>Bảng Giá Minh Bạch &bull; Chính Hãng FPT</span>
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0F172A] tracking-tight leading-tight">
+          <h2 className="text-[21px] sm:text-3xl lg:text-4xl font-black text-[#0F172A] tracking-tight leading-snug sm:leading-tight">
             {title}
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-[#475569] font-medium">
+          <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-[#475569] font-medium leading-relaxed">
             {subtitle}
           </p>
 
           {/* Responsive Filter Pills (Scroll-safe on small screens) */}
-          <div className="mt-5 sm:mt-7 inline-flex p-1.5 rounded-2xl sm:rounded-full bg-white border border-[#E4E8ED] shadow-xs max-w-full overflow-x-auto no-scrollbar mx-auto gap-1">
+          <div className="mt-4 sm:mt-7 flex sm:inline-flex p-1 sm:p-1.5 rounded-2xl sm:rounded-full bg-white border border-[#E4E8ED] shadow-xs w-full sm:w-auto overflow-x-auto no-scrollbar sm:mx-auto gap-1">
             {[
               { id: "all", label: "Tất Cả" },
               { id: "internet", label: "Chỉ Internet" },

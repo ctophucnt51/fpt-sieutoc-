@@ -3,7 +3,7 @@
 import { useSiteConfig } from "@/context/ConfigContext";
 import { useLeadModal } from "@/context/LeadModalContext";
 import LeadForm from "@/components/forms/LeadForm";
-import { ShieldCheck, ArrowRight, Check } from "lucide-react";
+import { ShieldCheck, ArrowRight, Check, PhoneCall, Sparkles } from "lucide-react";
 
 interface HeroSectionProps {
   badge?: string;
@@ -45,26 +45,117 @@ export default function HeroSection({
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 items-start xl:items-center">
           {/* Left Column: Clear Value Proposition, Hardware Showcase & Priority Packages */}
-          <div className="lg:col-span-7 space-y-3.5 sm:space-y-4.5 text-center lg:text-left">
+          <div className="lg:col-span-7 space-y-3 sm:space-y-4.5 text-left lg:text-left">
             {/* Top Pill Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] text-[11px] sm:text-xs font-semibold text-[#0F172A] shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] shrink-0" />
-              <span>{badge}</span>
+            <div className="flex justify-start lg:justify-start">
+              <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white border border-[#E4E8ED] text-[11px] sm:text-xs font-semibold text-[#0F172A] shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] shrink-0" />
+                <span>{badge}</span>
+              </div>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-[22px] sm:text-3xl md:text-4xl lg:text-[38px] font-black text-[#0F172A] tracking-tight leading-snug sm:leading-[1.18] break-words">
+            <h1 className="text-[23px] sm:text-3xl md:text-4xl lg:text-[38px] font-black text-[#0F172A] tracking-tight leading-[1.22] sm:leading-[1.18] break-words">
               {headline}
             </h1>
 
             {showPriorityCards ? (
-              <div className="space-y-3.5 sm:space-y-4 text-left max-w-2xl mx-auto lg:max-w-none">
-                <p className="text-xs sm:text-sm text-[#475569] leading-relaxed text-center lg:text-left font-medium">
+              <div className="space-y-3 sm:space-y-4 text-left max-w-2xl mx-auto lg:max-w-none">
+                {/* Mobile Compact Value Summary + Hardware Strip (Gọn nhẹ, đưa thẻ gói cước lên ngay tầm mắt) */}
+                <div className="sm:hidden space-y-2.5">
+                  <p className="text-[12.5px] text-[#475569] leading-snug font-medium">
+                    Cáp quang tốc độ đến <strong className="text-[#0F172A]">1 Gbps</strong> &bull; Lắp nhanh trong 24h. Trang bị sẵn:
+                  </p>
+
+                  {/* Unified 3-Column Compact Hardware Strip */}
+                  <div className="grid grid-cols-3 divide-x divide-[#E4E8ED] rounded-2xl bg-white border border-[#E4E8ED] shadow-2xs overflow-hidden">
+                    <div className="px-1.5 py-2 flex flex-col items-center text-center gap-1">
+                      <div className="w-9 h-9 rounded-lg bg-[#F8FAFC] flex items-center justify-center p-1">
+                        <img
+                          src="/images/products/modem-wifi-6.jpg"
+                          alt="Modem Wi-Fi 6 FPT"
+                          width={36}
+                          height={36}
+                          loading="eager"
+                          decoding="async"
+                          className="max-h-full w-auto object-contain mix-blend-multiply"
+                        />
+                      </div>
+                      <span className="text-[10.5px] font-extrabold text-[#0F172A] leading-tight">
+                        Wi-Fi 6
+                      </span>
+                      <span className="text-[9.5px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-full leading-none">
+                        Trang bị 0đ
+                      </span>
+                    </div>
+
+                    <div className="px-1.5 py-2 flex flex-col items-center text-center gap-1">
+                      <div className="w-9 h-9 rounded-lg bg-[#F8FAFC] flex items-center justify-center p-1">
+                        <img
+                          src="/images/products/camera-fpt-ai.png"
+                          alt="Camera FPT AI"
+                          width={36}
+                          height={36}
+                          loading="eager"
+                          decoding="async"
+                          className="max-h-full w-auto object-contain"
+                        />
+                      </div>
+                      <span className="text-[10.5px] font-extrabold text-[#0F172A] leading-tight">
+                        Camera AI
+                      </span>
+                      <span className="text-[9.5px] font-bold text-[#C44D06] bg-[#FFF4ED] px-1.5 py-0.5 rounded-full leading-none">
+                        Tặng kèm 0đ
+                      </span>
+                    </div>
+
+                    <div className="px-1.5 py-2 flex flex-col items-center text-center gap-1">
+                      <div className="w-9 h-9 rounded-lg bg-[#F8FAFC] flex items-center justify-center p-1">
+                        <img
+                          src="/images/banners/vietnam-network-map.png"
+                          alt="Hạ tầng FPT Phủ Sóng Toàn Quốc"
+                          width={36}
+                          height={36}
+                          loading="eager"
+                          decoding="async"
+                          className="max-h-full w-auto object-contain"
+                        />
+                      </div>
+                      <span className="text-[10.5px] font-extrabold text-[#0F172A] leading-tight">
+                        63 Tỉnh
+                      </span>
+                      <span className="text-[9.5px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded-full leading-none">
+                        Lắp đặt 24h
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Mobile Quick Jump CTA */}
+                  <div className="grid grid-cols-5 gap-2">
+                    <a
+                      href="#lead-form"
+                      className="col-span-3 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-[0_3px_10px_rgba(243,112,33,0.25)] active:scale-[0.98] transition-transform whitespace-nowrap"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                      <span>Nhận tư vấn ngay</span>
+                    </a>
+                    <a
+                      href={siteConfig.contact.hotlineTel}
+                      className="col-span-2 py-2.5 px-2.5 rounded-xl bg-white border border-[#E4E8ED] text-[#0F172A] font-extrabold text-xs flex items-center justify-center gap-1 shadow-2xs active:scale-[0.98] transition-transform whitespace-nowrap"
+                    >
+                      <PhoneCall className="w-3.5 h-3.5 text-[#F37021] shrink-0" />
+                      <span>Gọi ngay</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Desktop/Tablet Description + 3 Real Hardware & Infrastructure Visuals */}
+                <p className="hidden sm:block text-sm text-[#475569] leading-relaxed text-center lg:text-left font-medium">
                   Đường truyền cáp quang tốc độ lên đến <strong className="text-[#0F172A]">1 Gbps</strong>, lắp đặt nhanh trong 24h. Trang bị trọn bộ thiết bị chính hãng:
                 </p>
 
-                {/* Mobile Quick Jump CTA (Chỉ hiện trên Mobile để khách bấm điền form hoặc gọi ngay không cần cuộn sâu) */}
-                <div className="flex lg:hidden items-center justify-center gap-2 pt-0.5">
+                {/* Desktop/Tablet Quick Jump CTA (Tablet only, hidden on Mobile & Desktop) */}
+                <div className="hidden sm:flex lg:hidden items-center justify-center gap-2 pt-0.5">
                   <a
                     href="#lead-form"
                     className="flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white font-extrabold text-xs text-center shadow-sm active:scale-95 transition-transform whitespace-nowrap"
@@ -79,8 +170,8 @@ export default function HeroSection({
                   </a>
                 </div>
 
-                {/* 1. Showcase 3 Real Hardware & Infrastructure Visuals */}
-                <div className="grid grid-cols-3 gap-2 sm:gap-3.5">
+                {/* 1. Showcase 3 Real Hardware & Infrastructure Visuals (Tablet & Desktop) */}
+                <div className="hidden sm:grid grid-cols-3 gap-3.5">
                   {/* Hardware 1: Modem Wi-Fi 6 */}
                   <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2 sm:p-3 text-center shadow-2xs hover:border-orange-300 transition-all flex flex-col items-center">
                     <div className="w-full h-14 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
