@@ -67,84 +67,90 @@ export default function HeroSection({
                     Đăng ký lắp mạng Internet FPT đến <strong className="text-[#0F172A]">1 Gbps</strong> tại <strong className="text-[#0F172A]">Cần Thơ, Sóc Trăng, Hậu Giang</strong> &bull; Lắp nhanh 24h:
                   </p>
 
-                  {/* 3 Hardware & Value Cards (Mobile Clean & Premium Design) */}
+                  {/* 3 Hardware & Value Cards (Mobile Clean, Transparent & Fit Design) */}
                   <div className="grid grid-cols-3 gap-2">
                     {/* Card 1: Modem Wi-Fi 6 */}
-                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(15,23,42,0.04)] transition-all">
+                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center justify-between shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:border-orange-200 transition-all">
                       <div className="w-full flex justify-end">
                         <span className="text-[9px] font-bold text-[#F37021] bg-orange-50 border border-orange-100 px-1.5 py-0.5 rounded-full leading-none">
                           0đ
                         </span>
                       </div>
-                      <div className="w-full h-14 flex items-center justify-center my-1">
+                      <div className="w-full h-16 flex items-center justify-center my-1">
                         <img
-                          src="/images/products/modem-wifi-6.jpg"
+                          src="/images/products/modem-wifi6-transparent.png"
                           alt="Modem Wi-Fi 6 FPT"
-                          width={60}
-                          height={60}
+                          width={74}
+                          height={151}
                           loading="eager"
                           decoding="async"
-                          className="max-h-full w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
+                          className="h-full w-auto max-w-[85%] object-contain drop-shadow-sm group-hover:scale-105 transition-transform"
                         />
                       </div>
-                      <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight mt-0.5">
-                        Wi-Fi 6
-                      </span>
-                      <span className="text-[9.5px] font-medium text-emerald-600 leading-tight mt-0.5">
-                        Trang bị miễn phí
-                      </span>
+                      <div className="w-full flex flex-col items-center">
+                        <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight">
+                          Wi-Fi 6
+                        </span>
+                        <span className="text-[9px] font-semibold text-emerald-600 leading-tight mt-0.5">
+                          Trang bị 0đ
+                        </span>
+                      </div>
                     </div>
 
                     {/* Card 2: Camera FPT AI */}
-                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(15,23,42,0.04)] transition-all">
+                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center justify-between shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:border-orange-200 transition-all">
                       <div className="w-full flex justify-end">
                         <span className="text-[9px] font-bold text-[#F37021] bg-orange-50 border border-orange-100 px-1.5 py-0.5 rounded-full leading-none">
                           0đ
                         </span>
                       </div>
-                      <div className="w-full h-14 flex items-center justify-center my-1">
+                      <div className="w-full h-16 flex items-center justify-center my-1">
                         <img
-                          src="/images/products/camera-fpt-ai.png"
+                          src="/images/products/camera-ai-clean.png"
                           alt="Camera FPT AI"
-                          width={60}
-                          height={60}
+                          width={100}
+                          height={150}
                           loading="eager"
                           decoding="async"
-                          className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform"
+                          className="h-full w-auto max-w-[85%] object-contain drop-shadow-sm group-hover:scale-105 transition-transform"
                         />
                       </div>
-                      <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight mt-0.5">
-                        Camera AI
-                      </span>
-                      <span className="text-[9.5px] font-medium text-emerald-600 leading-tight mt-0.5">
-                        Tặng kèm gói
-                      </span>
+                      <div className="w-full flex flex-col items-center">
+                        <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight">
+                          Camera AI
+                        </span>
+                        <span className="text-[9px] font-semibold text-[#C44D06] leading-tight mt-0.5">
+                          Tặng kèm 0đ
+                        </span>
+                      </div>
                     </div>
 
                     {/* Card 3: Hạ tầng FPT 63 tỉnh */}
-                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(15,23,42,0.04)] transition-all">
+                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center justify-between shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:border-blue-200 transition-all">
                       <div className="w-full flex justify-end">
                         <span className="text-[9px] font-bold text-blue-600 bg-blue-50 border border-blue-100 px-1.5 py-0.5 rounded-full leading-none">
                           24h
                         </span>
                       </div>
-                      <div className="w-full h-14 flex items-center justify-center my-1">
+                      <div className="w-full h-16 flex items-center justify-center my-1">
                         <img
-                          src="/images/banners/vietnam-network-map.png"
+                          src="/images/banners/vietnam-map-clean.png"
                           alt="Hạ tầng FPT 63 tỉnh"
-                          width={60}
-                          height={60}
+                          width={130}
+                          height={150}
                           loading="eager"
                           decoding="async"
-                          className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform"
+                          className="h-full w-auto max-w-[90%] object-contain drop-shadow-sm group-hover:scale-105 transition-transform"
                         />
                       </div>
-                      <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight mt-0.5">
-                        63 Tỉnh
-                      </span>
-                      <span className="text-[9.5px] font-medium text-blue-600 leading-tight mt-0.5">
-                        Lắp trong 24h
-                      </span>
+                      <div className="w-full flex flex-col items-center">
+                        <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight">
+                          63 Tỉnh
+                        </span>
+                        <span className="text-[9px] font-semibold text-blue-600 leading-tight mt-0.5">
+                          Lắp đặt 24h
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -192,15 +198,15 @@ export default function HeroSection({
                 <div className="hidden sm:grid grid-cols-3 gap-3.5">
                   {/* Hardware 1: Modem Wi-Fi 6 */}
                   <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2 sm:p-3 text-center shadow-2xs hover:border-orange-300 transition-all flex flex-col items-center">
-                    <div className="w-full h-14 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
+                    <div className="w-full h-16 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1.5">
                       <img
-                        src="/images/products/modem-wifi-6.jpg"
+                        src="/images/products/modem-wifi6-transparent.png"
                         alt="Modem Wi-Fi 6 FPT"
                         width={90}
-                        height={90}
+                        height={120}
                         loading="eager"
                         decoding="async"
-                        className="max-h-full w-auto object-contain mix-blend-multiply"
+                        className="max-h-full w-auto object-contain drop-shadow-sm"
                       />
                     </div>
                     <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight whitespace-nowrap">
@@ -213,15 +219,15 @@ export default function HeroSection({
 
                   {/* Hardware 2: Camera FPT AI */}
                   <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2 sm:p-3 text-center shadow-2xs hover:border-orange-300 transition-all flex flex-col items-center">
-                    <div className="w-full h-14 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
+                    <div className="w-full h-16 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1.5">
                       <img
-                        src="/images/products/camera-fpt-ai.png"
+                        src="/images/products/camera-ai-clean.png"
                         alt="Camera FPT AI"
                         width={90}
-                        height={90}
+                        height={120}
                         loading="eager"
                         decoding="async"
-                        className="max-h-full w-auto object-contain"
+                        className="max-h-full w-auto object-contain drop-shadow-sm"
                       />
                     </div>
                     <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight whitespace-nowrap">
@@ -234,15 +240,15 @@ export default function HeroSection({
 
                   {/* Infrastructure 3: Vietnam Fiber Coverage */}
                   <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2 sm:p-3 text-center shadow-2xs hover:border-blue-300 transition-all flex flex-col items-center">
-                    <div className="w-full h-14 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
+                    <div className="w-full h-16 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1.5">
                       <img
-                        src="/images/banners/vietnam-network-map.png"
+                        src="/images/banners/vietnam-map-clean.png"
                         alt="Hạ tầng FPT Phủ Sóng Toàn Quốc"
                         width={90}
-                        height={90}
+                        height={120}
                         loading="eager"
                         decoding="async"
-                        className="max-h-full w-auto object-contain"
+                        className="max-h-full w-auto object-contain drop-shadow-sm"
                       />
                     </div>
                     <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight whitespace-nowrap">
