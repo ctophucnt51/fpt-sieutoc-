@@ -450,10 +450,19 @@ export default function LeadManagement({
                             Khách: &quot;{lead.note}&quot;
                           </div>
                         )}
-                        {lead.utm_source && (
-                          <div className="text-[10px] text-slate-400 mt-0.5">
-                            Ads: <span className="font-semibold">{lead.utm_source}</span>
-                            {lead.utm_campaign ? ` / ${lead.utm_campaign}` : ""}
+                        {(lead.utm_source || lead.utm_term || lead.gclid) && (
+                          <div className="text-[10px] text-slate-500 mt-1 space-y-0.5">
+                            {lead.utm_source && (
+                              <div className="text-slate-600 truncate max-w-[180px]">
+                                Nguồn: <span className="font-semibold text-slate-800">{lead.utm_source}</span>
+                                {lead.utm_campaign ? ` / ${lead.utm_campaign}` : ""}
+                              </div>
+                            )}
+                            {lead.utm_term && (
+                              <div className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-50 text-amber-900 font-bold border border-amber-200 mt-0.5">
+                                🔍 Từ khóa: {lead.utm_term}
+                              </div>
+                            )}
                           </div>
                         )}
                       </td>

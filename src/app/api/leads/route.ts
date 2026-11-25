@@ -94,6 +94,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
         utmSource: body.utm_source,
         utmMedium: body.utm_medium,
         utmCampaign: body.utm_campaign,
+        utmTerm: body.utm_term,
+        gclid: body.gclid,
       }).catch((err) => console.warn("Telegram direct dispatch non-fatal error:", err));
 
       // Bắn sự kiện lên Meta Conversions API

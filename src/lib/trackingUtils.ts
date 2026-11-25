@@ -24,7 +24,7 @@ function getCookie(name: string): string | undefined {
 }
 
 /**
- * Capture and persist UTM and Facebook click ID
+ * Capture and persist UTM, search keywords, and click IDs (Google Ads, Facebook, Organic Search)
  */
 export function captureAttribution(): TrackingParams {
   if (typeof window === "undefined") return {};
@@ -50,6 +50,71 @@ export function captureAttribution(): TrackingParams {
       hasNewParams = true;
     }
   });
+
+  // Tự động nhận diện từ khóa quảng cáo/tìm kiếm qua các alias phổ biến (keyword, kw, query, q)
+  if (!currentParams.utm_term) {
+    const kw =
+      searchParams.get("keyword") ||
+      searchParams.get("kw") ||
+      searchParams.get("query") ||
+      searchParams.get("q");
+    if (kw) {
+      currentParams.utm_term = kw;
+      hasNewParams = true;
+    }
+  }
+
+  // Nếu có gclid từ Google Ads nhưng chưa gắn utm_source, tự động gán nguồn là Google Ads (cpc)
+  if (currentParams.gclid && !currentParams.utm_source) {
+    currentParams.utm_source = "google";
+    currentParams.utm_medium = "cpc";
+    if (!currentParams.utm_campaign) {
+      currentParams.utm_campaign = "Google Search Ads";
+    }
+    hasNewParams = true;
+  }
+
+  // Tự động nhận diện nguồn tìm kiếm tự nhiên qua Referrer nếu không có tham số UTM trong URL
+  if (!currentParams.utm_source && typeof document !== "undefined" && document.referrer) {
+    const ref = document.referrer.toLowerCase();
+    try {
+      const refUrl = new URL(document.referrer);
+      const queryParam = refUrl.searchParams.get("q") || refUrl.searchParams.get("query");
+      if (queryParam && !currentParams.utm_term) {
+        currentParams.utm_term = queryParam;
+        hasNewParams = true;
+      }
+    } catch {}
+
+    if (ref.includes("google.")) {
+      currentParams.utm_source = "google";
+      currentParams.utm_medium = "organic";
+      currentParams.utm_campaign = "Google Search (Tự nhiên / SEO)";
+      hasNewParams = true;
+    } else if (ref.includes("coccoc.com")) {
+      currentParams.utm_source = "coccoc";
+      currentParams.utm_medium = "organic";
+      currentParams.utm_campaign = "Cốc Cốc Search";
+      hasNewParams = true;
+    } else if (ref.includes("bing.com")) {
+      currentParams.utm_source = "bing";
+      currentParams.utm_medium = "organic";
+      currentParams.utm_campaign = "Bing Search";
+      hasNewParams = true;
+    } else if (ref.includes("facebook.com") || ref.includes("fb.com")) {
+      currentParams.utm_source = "facebook";
+      currentParams.utm_medium = "social";
+      hasNewParams = true;
+    } else if (ref.includes("zalo.me")) {
+      currentParams.utm_source = "zalo";
+      currentParams.utm_medium = "social";
+      hasNewParams = true;
+    } else if (ref.includes("tiktok.com")) {
+      currentParams.utm_source = "tiktok";
+      currentParams.utm_medium = "social";
+      hasNewParams = true;
+    }
+  }
 
   // Extract Facebook cookies if present
   const fbc = getCookie("_fbc");

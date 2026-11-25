@@ -13,6 +13,8 @@ export interface TelegramLeadData {
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
+  utmTerm?: string;
+  gclid?: string;
 }
 
 export interface TelegramConfig {
@@ -92,7 +94,7 @@ export async function sendTelegramNotification(lead: TelegramLeadData): Promise<
 📦 <b>Gói quan tâm:</b> ${escapeHtml(lead.packageInterested || "Chưa chọn gói")}
 ${lead.note ? `📝 <b>Ghi chú:</b> ${escapeHtml(lead.note)}\n` : ""}⏰ <b>Thời gian:</b> ${nowStr}
 🌐 <b>Trang tiếp nhận:</b> ${escapeHtml(lead.landingPage || "/")} (${escapeHtml(lead.leadLocation || "form")})
-${lead.utmSource ? `🎯 <b>Nguồn quảng cáo:</b> ${escapeHtml(lead.utmSource)} / ${escapeHtml(lead.utmMedium || "-")}\n` : ""}━━━━━━━━━━━━━━━━━━
+${lead.utmTerm ? `🔍 <b>Từ khóa tìm kiếm:</b> <code>${escapeHtml(lead.utmTerm)}</code>\n` : ""}${lead.utmSource ? `🎯 <b>Nguồn truy cập:</b> ${escapeHtml(lead.utmSource)} ${lead.utmMedium ? `(${escapeHtml(lead.utmMedium)})` : ""} ${lead.utmCampaign ? `- ${escapeHtml(lead.utmCampaign)}` : ""}\n` : ""}${lead.gclid ? `🔗 <b>Google Ads:</b> Khách từ quảng cáo Google Search\n` : ""}━━━━━━━━━━━━━━━━━━
 <i>Hệ thống tự động tiếp nhận từ gofpt.vn</i>
 `.trim();
 
