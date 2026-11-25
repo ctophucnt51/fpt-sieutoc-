@@ -190,15 +190,26 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Right: Nút Tư Vấn Nhanh đồng bộ CTA Dock (Ẩn trên màn hình < 405px để không che chữ FPT Siêu Tốc) */}
-          <button
-            type="button"
-            onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
-            className="hidden min-[405px]:flex px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
-          >
-            <Headset className="w-3.5 h-3.5 shrink-0" />
-            <span>Tư vấn ngay</span>
-          </button>
+          {/* Right: 3 cấp độ hiển thị theo độ rộng màn hình: >=405px (Đầy đủ) | 310px-404px (Chỉ icon điện thoại) | <310px (Ẩn luôn) */}
+          <div className="flex items-center shrink-0">
+            <a
+              href={siteConfig.contact.hotlineTel}
+              onClick={() => handleHotlineClick("Mobile Header Phone Icon")}
+              className="hidden min-[310px]:flex min-[405px]:hidden w-9 h-9 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] active:scale-95 text-white shadow-[0_3px_10px_rgba(243,112,33,0.3)] items-center justify-center transition-all shrink-0"
+              aria-label="Gọi tư vấn ngay"
+            >
+              <Phone className="w-4 h-4 fill-current" />
+            </a>
+
+            <button
+              type="button"
+              onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
+              className="hidden min-[405px]:flex px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
+            >
+              <Headset className="w-3.5 h-3.5 shrink-0" />
+              <span>Tư vấn ngay</span>
+            </button>
+          </div>
         </div>
       </div>
 
