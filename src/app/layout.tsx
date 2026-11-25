@@ -17,8 +17,6 @@ export const dynamic = "force-dynamic";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   themeColor: "#F37021",
 };
 
@@ -103,12 +101,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <Script
           id="gtm-n4vb2hj6-src"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtm.js?id=GTM-N4VB2HJ6"
         />
         <Script
           id="gtm-n4vb2hj6-init"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];

@@ -25,7 +25,7 @@ export default function BottomCtaSection({
           {/* Header & Value Highlights */}
           <div className="lg:col-span-6 space-y-3.5 sm:space-y-4 text-center lg:text-left">
             <div>
-              <span className="inline-block px-3 py-1 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200/80 font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-2.5 shadow-xs">
+              <span className="inline-block px-3 py-1 rounded-full bg-[#FFF4ED] text-[#9A3412] border border-orange-200/80 font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-2.5 shadow-xs">
                 Đăng Ký Siêu Tốc &bull; Khảo Sát 0đ
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0F172A] tracking-tight leading-snug">
@@ -57,14 +57,14 @@ export default function BottomCtaSection({
               </div>
               <a
                 href={siteConfig.contact.hotlineTel}
-                className="px-4 py-2 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-bold shadow-xs transition-all shrink-0 cursor-pointer"
+                className="px-4 py-2 rounded-full bg-[#C84A00] hover:bg-[#E05D10] text-white text-xs font-bold shadow-xs transition-all shrink-0 cursor-pointer"
               >
                 Gọi ngay
               </a>
             </div>
 
             <div className="flex items-center justify-center lg:justify-start gap-1.5 text-xs text-[#475569] font-medium">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+              <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
               <span>Cam kết bảo mật 100% &amp; không làm phiền nếu chưa có nhu cầu</span>
             </div>
           </div>

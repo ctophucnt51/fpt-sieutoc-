@@ -57,7 +57,7 @@ export default function FaqSection() {
     <section className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] border-b border-[#E4E8ED]">
       <div className="max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 sm:mb-8 max-w-2xl mx-auto">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#C44D06] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#9A3412] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
               src="/images/icons/svg/cau-hoi.svg"
               alt="Hỏi đáp"
@@ -131,7 +131,7 @@ export default function FaqSection() {
         <div className="mt-6 text-center">
           <Link
             href="/hoi-dap"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white hover:bg-[#FFF4ED] border border-[#E4E8ED] hover:border-orange-300 text-xs sm:text-sm font-bold text-[#0F172A] hover:text-[#C44D06] shadow-2xs transition-all whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white hover:bg-[#FFF4ED] border border-[#E4E8ED] hover:border-orange-300 text-xs sm:text-sm font-bold text-[#0F172A] hover:text-[#9A3412] shadow-2xs transition-all whitespace-nowrap"
           >
             <span>Xem trang Hỏi Đáp &amp; Hỗ Trợ Kỹ Thuật</span>
             <ArrowRight className="w-4 h-4" />

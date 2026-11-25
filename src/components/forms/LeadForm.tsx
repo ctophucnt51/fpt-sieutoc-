@@ -296,14 +296,14 @@ export default function LeadForm({
 
       {/* 1. Tiêu đề chính & Tiêu đề phụ */}
       <div className="text-center">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF4ED] text-[#C44D06] text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2">
-          <span className="w-2 h-2 rounded-full bg-[#F37021] animate-pulse" />
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF4ED] text-[#9A3412] text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2">
+          <span className="w-2 h-2 rounded-full bg-[#C2410C] animate-pulse" />
           <span>Tiếp Nhận Đăng Ký Siêu Tốc</span>
         </div>
         <h3 className="text-xl sm:text-2xl lg:text-[26px] font-black text-[#0F172A] uppercase tracking-tight leading-tight">
           {headline || "NHẬN TƯ VẤN MIỄN PHÍ"}
         </h3>
-        <p className="text-[#64748B] text-xs sm:text-sm font-medium mt-1 leading-snug">
+        <p className="text-[#475569] text-xs sm:text-sm font-medium mt-1 leading-snug">
           {subheadline || "Kiểm tra hạ tầng & tư vấn gói cước miễn phí"}
         </p>
       </div>
@@ -333,15 +333,16 @@ export default function LeadForm({
           <div className="relative">
             <input
               type="text"
+              aria-label="Họ và tên"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-800 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20 transition-all"
+              className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#C2410C] focus:ring-2 focus:ring-[#C2410C]/20 transition-all"
             />
             {!fullName && (
-              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
+              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-600 font-medium select-none truncate pr-2">
                 <span>Nhập họ và tên</span>
-                <span className="text-red-500 font-bold ml-1">*</span>
+                <span className="text-red-600 font-bold ml-1">*</span>
               </div>
             )}
           </div>
@@ -350,23 +351,24 @@ export default function LeadForm({
           <div className="relative">
             <input
               type="tel"
+              aria-label="Số điện thoại"
               required
               value={phone}
               onChange={handlePhoneChange}
-              className={`w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-800 text-base sm:text-sm font-medium outline-none border transition-all ${
+              className={`w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border transition-all ${
                 phoneError
-                  ? "border-red-400 ring-2 ring-red-400/20"
-                  : "border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20"
+                  ? "border-red-500 ring-2 ring-red-500/20"
+                  : "border-[#E2E8F0] focus:border-[#C2410C] focus:ring-2 focus:ring-[#C2410C]/20"
               }`}
             />
             {!phone && (
-              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
+              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-600 font-medium select-none truncate pr-2">
                 <span>Nhập số điện thoại</span>
-                <span className="text-red-500 font-bold ml-1">*</span>
+                <span className="text-red-600 font-bold ml-1">*</span>
               </div>
             )}
             {phoneError && (
-              <p className="text-red-600 text-[11px] font-semibold mt-1 px-1">
+              <p className="text-red-700 text-[11px] font-semibold mt-1 px-1">
                 {phoneError}
               </p>
             )}
@@ -376,15 +378,16 @@ export default function LeadForm({
           <div className="relative">
             <input
               type="text"
+              aria-label="Địa chỉ lắp đặt"
               required
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-800 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20 transition-all"
+              className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#C2410C] focus:ring-2 focus:ring-[#C2410C]/20 transition-all"
             />
             {!address && (
-              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-400 font-medium select-none truncate pr-2">
+              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-600 font-medium select-none truncate pr-2">
                 <span>Địa chỉ lắp đặt</span>
-                <span className="text-red-500 font-bold ml-1">*</span>
+                <span className="text-red-600 font-bold ml-1">*</span>
               </div>
             )}
           </div>
@@ -507,7 +510,7 @@ export default function LeadForm({
               <span className="text-slate-800 font-bold text-xs sm:text-sm tracking-tight leading-tight">
                 Combo
               </span>
-              <span className="text-[10px] sm:text-[11px] font-bold text-emerald-600 mt-0.5">
+              <span className="text-[10px] sm:text-[11px] font-bold text-emerald-700 mt-0.5">
                 Tặng Camera
               </span>
             </div>
@@ -519,7 +522,7 @@ export default function LeadForm({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-98 text-white font-black text-sm sm:text-base shadow-[0_8px_20px_rgba(243,112,33,0.35)] hover:shadow-[0_10px_25px_rgba(243,112,33,0.45)] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75"
+            className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] active:scale-98 text-white font-black text-sm sm:text-base shadow-[0_8px_20px_rgba(184,67,0,0.3)] hover:shadow-[0_10px_25px_rgba(184,67,0,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75"
           >
             {isSubmitting ? (
               "Đang gửi thông tin..."

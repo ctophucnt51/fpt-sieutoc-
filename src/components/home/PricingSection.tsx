@@ -71,7 +71,7 @@ export default function PricingSection({
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header + Filter Segment Tabs */}
         <div className="text-left sm:text-center max-w-3xl mx-auto mb-5 sm:mb-9">
-          <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white text-[#C44D06] border border-[#E4E8ED] font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-2 shadow-2xs">
+          <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-white text-[#9A3412] border border-[#E4E8ED] font-bold text-[11px] sm:text-xs uppercase tracking-wider mb-2 shadow-2xs">
             <img
               src="/images/icons/svg/bang-gia.svg"
               alt="Bảng Giá"
@@ -105,7 +105,7 @@ export default function PricingSection({
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`py-2 px-3.5 sm:px-5 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-bold transition-all whitespace-nowrap cursor-pointer ${
                     isActive
-                      ? "bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
+                      ? "bg-gradient-to-r from-[#C84A00] to-[#B84300] text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
                       : "text-[#475569] hover:text-[#0F172A] hover:bg-slate-50"
                   }`}
                 >
@@ -150,8 +150,8 @@ export default function PricingSection({
                       <span
                         className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full whitespace-nowrap shrink-0 ${
                           pkg.highlight
-                            ? "bg-[#F37021] text-white shadow-2xs"
-                            : "bg-[#FFF4ED] text-[#C44D06] border border-orange-200"
+                            ? "bg-[#C84A00] text-white shadow-2xs"
+                            : "bg-[#FFF4ED] text-[#9A3412] border border-orange-200"
                         }`}
                       >
                         {pkg.badge}
@@ -173,10 +173,10 @@ export default function PricingSection({
                   {/* Row 3: Big Price + VAT pill */}
                   <div className="mt-3.5 flex items-baseline justify-between gap-2">
                     <div className="flex items-baseline gap-1 whitespace-nowrap">
-                      <span className="text-2xl sm:text-3xl font-black text-[#C44D06] tracking-tight leading-none">
+                      <span className="text-2xl sm:text-3xl font-black text-[#9A3412] tracking-tight leading-none">
                         {startingPrice}
                       </span>
-                      <span className="text-xs text-[#64748B] font-semibold">
+                      <span className="text-xs text-[#475569] font-semibold">
                         {pkg.billingCycle}
                       </span>
                     </div>
@@ -186,7 +186,7 @@ export default function PricingSection({
                   </div>
 
                   {hasRange && (
-                    <p className="text-[11px] text-[#64748B] mt-1">
+                    <p className="text-[11px] text-[#475569] mt-1">
                       Giá tham khảo {pkg.priceDisplay} tùy khu vực
                     </p>
                   )}
@@ -250,7 +250,7 @@ export default function PricingSection({
                     <button
                       type="button"
                       onClick={() => toggleExpand(pkg.id)}
-                      className="md:hidden w-full py-1 text-[11px] font-bold text-[#64748B] hover:text-[#F37021] flex items-center justify-center gap-1 cursor-pointer"
+                      className="md:hidden w-full py-1 text-[11px] font-bold text-[#475569] hover:text-[#F37021] flex items-center justify-center gap-1 cursor-pointer"
                     >
                       <span>{isExpanded ? "Thu gọn chi tiết" : "Xem thiết bị & chi tiết"}</span>
                       <ChevronDown
@@ -267,8 +267,8 @@ export default function PricingSection({
                       onClick={() => handleSelectPackage(pkg.name)}
                       className={`w-full py-3 px-5 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer group active:scale-[0.98] ${
                         pkg.highlight
-                          ? "bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white shadow-[0_6px_18px_rgba(243,112,33,0.32)]"
-                          : "bg-slate-900 hover:bg-[#F37021] text-white shadow-2xs"
+                          ? "bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] text-white shadow-[0_6px_18px_rgba(243,112,33,0.32)]"
+                          : "bg-slate-900 hover:bg-[#C84A00] text-white shadow-2xs"
                       }`}
                     >
                       <span>Đăng Ký Gói Này</span>

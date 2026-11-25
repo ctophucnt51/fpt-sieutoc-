@@ -107,7 +107,7 @@ export default function Header() {
       href: "/khuyen-mai",
       label: "Ưu Đãi",
       badge: "HOT",
-      badgeColor: "bg-[#F37021] text-white",
+      badgeColor: "bg-[#C84A00] text-white",
     },
     {
       href: "/tin-tuc",
@@ -125,7 +125,7 @@ export default function Header() {
         <div className="max-w-[1280px] mx-auto flex items-center justify-between gap-2 min-h-[26px]">
           {/* Desktop Left: Announcement */}
           <div className="flex items-center gap-2 min-w-0">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F37021] text-white text-[9px] font-extrabold tracking-wide uppercase shrink-0">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#C84A00] text-white text-[9px] font-extrabold tracking-wide uppercase shrink-0">
               <Flame className="w-3 h-3 shrink-0" />
               {siteConfig.promo?.topBarBadge || "Ưu Đãi"}
             </span>
@@ -141,7 +141,7 @@ export default function Header() {
           <div className="flex items-center gap-2.5 shrink-0 text-[11px]">
             <button
               onClick={() => handleOpenPromoModal("Top Bar Nhận Ưu Đãi")}
-              className="inline-flex items-center gap-1 text-[#C44D06] hover:text-[#A03D05] font-bold hover:underline cursor-pointer"
+              className="inline-flex items-center gap-1 text-[#9A3412] hover:text-[#A03D05] font-bold hover:underline cursor-pointer"
             >
               <span>Nhận ưu đãi ngay</span>
               <ArrowRight className="w-3 h-3" />
@@ -150,9 +150,9 @@ export default function Header() {
             <a
               href={siteConfig.contact.hotlineTel}
               onClick={() => handleHotlineClick("Top Bar Hotline")}
-              className="font-bold text-[#20283D] hover:text-[#C44D06] transition-colors flex items-center gap-1"
+              className="font-bold text-[#20283D] hover:text-[#9A3412] transition-colors flex items-center gap-1"
             >
-              <Phone className="w-3 h-3 text-[#C44D06] fill-current" />
+              <Phone className="w-3 h-3 text-[#9A3412] fill-current" />
               <span>Tư vấn ngay: {siteConfig.contact.hotlineDisplay}</span>
             </a>
           </div>
@@ -195,7 +195,7 @@ export default function Header() {
             <a
               href={siteConfig.contact.hotlineTel}
               onClick={() => handleHotlineClick("Mobile Header Phone Icon")}
-              className="hidden min-[310px]:flex min-[405px]:hidden w-9 h-9 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] active:scale-95 text-white shadow-[0_3px_10px_rgba(243,112,33,0.3)] items-center justify-center transition-all shrink-0"
+              className="hidden min-[310px]:flex min-[405px]:hidden w-9 h-9 rounded-2xl bg-gradient-to-r from-[#C84A00] to-[#B84300] active:scale-95 text-white shadow-[0_3px_10px_rgba(243,112,33,0.3)] items-center justify-center transition-all shrink-0"
               aria-label="Gọi tư vấn ngay"
             >
               <Phone className="w-4 h-4 fill-current" />
@@ -204,7 +204,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
-              className="hidden min-[405px]:flex px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
+              className="hidden min-[405px]:flex px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
             >
               <Headset className="w-3.5 h-3.5 shrink-0" />
               <span>Tư vấn ngay</span>
@@ -232,7 +232,7 @@ export default function Header() {
               <span className="font-black text-base xl:text-[17px] text-[#20283D] tracking-tight whitespace-nowrap leading-none">
                 FPT <span className="animate-shimmer-orange">Siêu Tốc</span>
               </span>
-              <span className="text-[10px] xl:text-[10.5px] text-[#C44D06] font-bold leading-none mt-1 whitespace-nowrap">
+              <span className="text-[10px] xl:text-[10.5px] text-[#9A3412] font-bold leading-none mt-1 whitespace-nowrap">
                 Tiếp nhận đăng ký 24/7
               </span>
             </div>
@@ -279,10 +279,10 @@ export default function Header() {
                 <Phone className="w-3.5 h-3.5 text-[#F37021] fill-current" />
               </div>
               <div className="text-left">
-                <span className="block text-[9px] text-[#657384] font-medium leading-none">
+                <span className="block text-[9px] text-[#475569] font-medium leading-none">
                   Hotline 24/7
                 </span>
-                <span className="text-xs font-black text-[#C44D06] leading-tight">
+                <span className="text-xs font-black text-[#9A3412] leading-tight">
                   {siteConfig.contact.hotlineDisplay}
                 </span>
               </div>
@@ -294,7 +294,7 @@ export default function Header() {
                 handleHotlineClick("Header CTA Button");
                 handleOpenPromoModal("Desktop Header CTA");
               }}
-              className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white font-extrabold text-xs xl:text-sm shadow-[0_4px_14px_rgba(243,112,33,0.3)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] text-white font-extrabold text-xs xl:text-sm shadow-[0_4px_14px_rgba(243,112,33,0.3)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer"
             >
               <span>Đăng Ký Ngay</span>
             </button>
@@ -318,7 +318,7 @@ export default function Header() {
           {/* Ngăn kéo Menu (Drawer) trượt từ bên trái sang */}
           <div className="relative w-[85%] max-w-[340px] bg-white h-full shadow-2xl flex flex-col z-[9999] overflow-hidden animate-in slide-in-from-left duration-300">
             {/* 1. Header ngăn kéo: Nền cam FPT, Logo và text "Lắp mạng FPT siêu tốc" */}
-            <div className="bg-[#F37021] px-4 py-3.5 flex items-center justify-between text-white shadow-sm shrink-0">
+            <div className="bg-[#C84A00] px-4 py-3.5 flex items-center justify-between text-white shadow-sm shrink-0">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
@@ -354,7 +354,7 @@ export default function Header() {
             {/* 2. Thẻ Ưu Đãi / Tư Vấn Đặc Quyền (Tựa như card Đăng nhập của Long Châu) */}
             <div className="p-3.5 bg-gradient-to-br from-[#FFF4ED] via-orange-50 to-[#FFE8D6] border-b border-orange-200/80 shrink-0">
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="w-5 h-5 rounded-full bg-[#F37021] text-white flex items-center justify-center text-[10px] font-black">
+                <span className="w-5 h-5 rounded-full bg-[#C84A00] text-white flex items-center justify-center text-[10px] font-black">
                   ★
                 </span>
                 <span className="text-xs font-black text-[#20283D] uppercase tracking-tight">
@@ -370,7 +370,7 @@ export default function Header() {
                   setMobileMenuOpen(false);
                   handleOpenPromoModal("Drawer Promo Card");
                 }}
-                className="mt-2.5 w-full py-2 px-4 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white font-extrabold text-xs shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                className="mt-2.5 w-full py-2 px-4 rounded-full bg-[#C84A00] hover:bg-[#E05D10] text-white font-extrabold text-xs shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <span>Nhận ưu đãi tư vấn ngay</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -441,7 +441,7 @@ export default function Header() {
                   className="w-full flex items-center justify-between py-2 text-left font-bold text-[13.5px] text-[#20283D] hover:text-[#F37021] transition-colors"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-6 h-6 rounded-lg bg-red-50 flex items-center justify-center text-red-600">
+                    <div className="w-6 h-6 rounded-lg bg-red-50 flex items-center justify-center text-red-700">
                       <Flame className="w-3.5 h-3.5" />
                     </div>
                     <span>Combo Ngoại Hạng Anh</span>
@@ -525,7 +525,7 @@ export default function Header() {
                   className="flex items-center justify-between py-2 text-left font-bold text-[13.5px] text-[#20283D] hover:text-[#F37021] transition-colors"
                 >
                   <div className="flex items-center gap-2.5">
-                    <div className="w-6 h-6 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-600">
+                    <div className="w-6 h-6 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700">
                       <Tag className="w-3.5 h-3.5" />
                     </div>
                     <span>Bảng Giá Cước Mới Nhất</span>
@@ -609,7 +609,7 @@ export default function Header() {
               <a
                 href={siteConfig.contact.hotlineTel}
                 onClick={() => handleHotlineClick("Mobile Drawer Hotline")}
-                className="w-full py-2.5 px-4 rounded-full bg-[#FFF4ED] hover:bg-orange-100 border border-orange-200 text-[#C44D06] font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs transition-colors"
+                className="w-full py-2.5 px-4 rounded-full bg-[#FFF4ED] hover:bg-orange-100 border border-orange-200 text-[#9A3412] font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs transition-colors"
               >
                 <Phone className="w-4 h-4 fill-current text-[#F37021]" />
                 <span>Gọi Hotline: {siteConfig.contact.hotlineDisplay}</span>

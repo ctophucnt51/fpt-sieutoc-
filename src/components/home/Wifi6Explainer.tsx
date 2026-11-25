@@ -11,7 +11,7 @@ export default function Wifi6Explainer() {
           {/* Left Column: Title & Comparison Table */}
           <div className="lg:col-span-6 space-y-4 min-w-0 max-w-full text-center lg:text-left">
             <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#C44D06] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-2xs backdrop-blur-md">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-[#9A3412] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-2xs backdrop-blur-md">
                 <img
                   src="/images/icons/svg/wifi-6.svg"
                   alt="Wi-Fi 6"
@@ -24,7 +24,7 @@ export default function Wifi6Explainer() {
                 <span>Chuẩn Wi-Fi 6 (802.11ax) Thế Hệ Mới</span>
               </span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug">
-                Tại Sao Nên Chọn <span className="text-[#C44D06]">Wi-Fi 6 Của FPT</span> Thay Vì Wi-Fi Cũ?
+                Tại Sao Nên Chọn <span className="text-[#9A3412]">Wi-Fi 6 Của FPT</span> Thay Vì Wi-Fi Cũ?
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
                 Tất cả gói cước Internet FPT hiện nay đều được trang bị modem Wi-Fi 6 băng tần kép hiện đại. Giải quyết triệt để tình trạng nghẽn mạng, giật lag khi cả gia đình cùng giải trí 4K hoặc làm việc online.
@@ -43,7 +43,7 @@ export default function Wifi6Explainer() {
                       Đến 867 Mbps
                     </div>
                     <div className="p-2 rounded-xl bg-orange-50/80 text-slate-900 font-bold border border-orange-200/70">
-                      <span className="block text-[10px] text-[#C44D06] font-bold">FPT Wi-Fi 6 Mới</span>
+                      <span className="block text-[10px] text-[#9A3412] font-bold">FPT Wi-Fi 6 Mới</span>
                       Lên đến 1 Gbps
                     </div>
                   </div>
@@ -71,7 +71,7 @@ export default function Wifi6Explainer() {
                       Chỉ 8 – 12 máy
                     </div>
                     <div className="p-2 rounded-xl bg-orange-50/80 text-slate-900 font-bold border border-orange-200/70">
-                      <span className="block text-[10px] text-[#C44D06] font-bold">FPT Wi-Fi 6 Mới</span>
+                      <span className="block text-[10px] text-[#9A3412] font-bold">FPT Wi-Fi 6 Mới</span>
                       30+ thiết bị mượt mà
                     </div>
                   </div>
@@ -85,7 +85,7 @@ export default function Wifi6Explainer() {
                       Trung bình
                     </div>
                     <div className="p-2 rounded-xl bg-orange-50/80 text-slate-900 font-bold border border-orange-200/70">
-                      <span className="block text-[10px] text-[#C44D06] font-bold">FPT Wi-Fi 6 Mới</span>
+                      <span className="block text-[10px] text-[#9A3412] font-bold">FPT Wi-Fi 6 Mới</span>
                       Xuyên tường, Mesh
                     </div>
                   </div>
@@ -98,7 +98,7 @@ export default function Wifi6Explainer() {
                 <div className="grid grid-cols-3 bg-slate-100/70 p-3.5 font-bold text-slate-800 border-b border-slate-200/80">
                   <div>Tiêu chí</div>
                   <div className="text-slate-700 font-bold">Wi-Fi 5 Cũ</div>
-                  <div className="text-[#C44D06] font-black">FPT Wi-Fi 6 Mới</div>
+                  <div className="text-[#9A3412] font-black">FPT Wi-Fi 6 Mới</div>
                 </div>
 
                 {/* Table Rows */}
@@ -116,7 +116,7 @@ export default function Wifi6Explainer() {
                   <div className="grid grid-cols-3 p-3.5 items-center hover:bg-orange-50/20 transition-colors">
                     <span className="font-semibold text-slate-900">Thiết bị đồng thời</span>
                     <span className="text-slate-600">Chỉ 8 - 12 máy</span>
-                    <span className="font-bold text-[#C44D06]">30+ thiết bị mượt mà</span>
+                    <span className="font-bold text-[#9A3412]">30+ thiết bị mượt mà</span>
                   </div>
                   <div className="grid grid-cols-3 p-3.5 items-center hover:bg-orange-50/20 transition-colors">
                     <span className="font-semibold text-slate-900">Độ phủ sóng</span>
@@ -218,7 +218,7 @@ export default function Wifi6Explainer() {
                 />
               </div>
               <div className="min-w-0 flex-1">
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-orange-50 text-[#C44D06] border border-orange-200/70 text-[10px] font-bold uppercase whitespace-nowrap mb-1">
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-orange-50 text-[#9A3412] border border-orange-200/70 text-[10px] font-bold uppercase whitespace-nowrap mb-1">
                   <img
                     src="/images/icons/svg/modem.svg"
                     alt="Modem"

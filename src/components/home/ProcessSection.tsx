@@ -37,7 +37,7 @@ export default function ProcessSection() {
     <section className="py-8 sm:py-12 lg:py-16 bg-white border-b border-[#E4E8ED]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF4ED] text-[#9A3412] border border-orange-200/80 font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">
             <img
               src="/images/icons/svg/lap-dat.svg"
               alt="Quy trình"
@@ -66,7 +66,7 @@ export default function ProcessSection() {
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-black text-white bg-[#F37021] px-3 py-0.5 rounded-full shadow-xs uppercase tracking-tight">
+                  <span className="text-[11px] font-black text-white bg-[#C84A00] px-3 py-0.5 rounded-full shadow-xs uppercase tracking-tight">
                     BƯỚC {item.step}
                   </span>
                   <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-white text-[#475569] border border-[#E4E8ED]">
@@ -100,7 +100,7 @@ export default function ProcessSection() {
         <div className="mt-6 text-center">
           <Link
             href="/quy-trinh-lap-dat"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#F4F6FB] hover:bg-[#FFF4ED] border border-[#E4E8ED] hover:border-orange-300 text-xs sm:text-sm font-bold text-[#0F172A] hover:text-[#C44D06] transition-all whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#F4F6FB] hover:bg-[#FFF4ED] border border-[#E4E8ED] hover:border-orange-300 text-xs sm:text-sm font-bold text-[#0F172A] hover:text-[#9A3412] transition-all whitespace-nowrap"
           >
             <span>Xem chi tiết thủ tục &amp; vùng phủ sóng</span>
             <ArrowRight className="w-4 h-4" />
