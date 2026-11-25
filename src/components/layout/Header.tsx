@@ -190,11 +190,11 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Right: Nút Tư Vấn Nhanh đồng bộ CTA Dock */}
+          {/* Right: Nút Tư Vấn Nhanh đồng bộ CTA Dock (Ẩn trên màn hình < 405px để không che chữ FPT Siêu Tốc) */}
           <button
             type="button"
             onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
-            className="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all flex items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
+            className="hidden min-[405px]:flex px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
           >
             <Headset className="w-3.5 h-3.5 shrink-0" />
             <span>Tư vấn ngay</span>
