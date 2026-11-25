@@ -145,7 +145,24 @@ function ensureArticlesFile(): Article[] {
       return INITIAL_ARTICLES;
     }
     const data = fs.readFileSync(ARTICLES_FILE_PATH, "utf-8");
-    return JSON.parse(data) as Article[];
+    const persistentArticles = JSON.parse(data) as Article[];
+    if (fs.existsSync(SEED_ARTICLES_FILE)) {
+      try {
+        const seedData = fs.readFileSync(SEED_ARTICLES_FILE, "utf-8");
+        const seedArticles = JSON.parse(seedData) as Article[];
+        let hasNew = false;
+        for (const sa of seedArticles) {
+          if (!persistentArticles.some((pa) => pa.id === sa.id || pa.slug === sa.slug)) {
+            persistentArticles.unshift(sa);
+            hasNew = true;
+          }
+        }
+        if (hasNew) {
+          fs.writeFileSync(ARTICLES_FILE_PATH, JSON.stringify(persistentArticles, null, 2), "utf-8");
+        }
+      } catch {}
+    }
+    return persistentArticles;
   } catch (err) {
     console.error("Error reading articles file:", err);
     return INITIAL_ARTICLES;

@@ -1,11 +1,12 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/siteConfig";
+import { getAllArticles } from "@/lib/articleStorage";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.brand.domain;
   const lastModified = new Date();
 
-  return [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified,
@@ -85,4 +86,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.4,
     },
   ];
+
+  try {
+    const articles = getAllArticles(false);
+    const articleRoutes: MetadataRoute.Sitemap = articles.map((a) => ({
+      url: `${baseUrl}/tin-tuc/${a.slug}`,
+      lastModified: new Date(a.updatedAt || a.createdAt),
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    }));
+    return [...staticRoutes, ...articleRoutes];
+  } catch {
+    return staticRoutes;
+  }
 }
