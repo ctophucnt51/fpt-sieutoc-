@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyAdminAuth } from "@/lib/adminAuth";
-import { runSeoMasterCycle, dispatchTelegramSeoSummary } from "@/lib/seoOrchestrator";
+import { runSeoMasterCycleAsync, dispatchTelegramSeoSummary } from "@/lib/seoOrchestrator";
 import { checkAndIncrementApiUsage } from "@/lib/seoMemory";
 
 /**
@@ -30,9 +30,9 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const cycleResult = runSeoMasterCycle();
+  const cycleResult = await runSeoMasterCycleAsync({ collectLive: true, runAi: true });
   let telegramSent = false;
-  if (cycleResult.newTasksAdded > 0) {
+  if (cycleResult.newTasksAdded > 0 || cycleResult.newApprovalsAdded > 0) {
     telegramSent = await dispatchTelegramSeoSummary();
   }
 

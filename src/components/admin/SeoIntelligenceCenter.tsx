@@ -79,6 +79,10 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
   const [metaTitle, setMetaTitle] = useState("");
   const [metaDesc, setMetaDesc] = useState("");
 
+  // AI Article Draft form
+  const [draftKw, setDraftKw] = useState("");
+  const [draftArea, setDraftArea] = useState("Cần Thơ");
+
   const fetchIntelligence = useCallback(async () => {
     setLoading(true);
     try {
@@ -248,6 +252,9 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                 </span>
                 <span className={`px-2.5 py-1 rounded-full font-bold text-[11px] ${data.baseline?.mobilePageSpeedScore != null ? "bg-blue-100 text-blue-800" : "bg-slate-200 text-slate-700"}`}>
                   PageSpeed (M / D): {data.baseline?.mobilePageSpeedScore ?? "—"} / {data.baseline?.desktopPageSpeedScore ?? "—"}
+                </span>
+                <span className={`px-2.5 py-1 rounded-full font-bold text-[11px] ${data.connections.geminiConfigured ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}>
+                  Gemini AI Engine: {data.connections.geminiConfigured ? "Đã bật" : "Chưa gắn GEMINI_API_KEY"}
                 </span>
               </div>
             </div>
@@ -456,7 +463,32 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
         )}
 
         {activeModule === "content" && (
-          <div className="space-y-3">
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl bg-orange-50/50 border border-orange-200 space-y-2.5">
+              <div className="font-bold text-slate-900">AI Content Agent — Tự Soạn Bài SEO Vào Approval Center</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <input
+                  value={draftKw}
+                  onChange={(e) => setDraftKw(e.target.value)}
+                  placeholder="Từ khóa (vd: lắp mạng fpt phong điền)"
+                  className="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs"
+                />
+                <input
+                  value={draftArea}
+                  onChange={(e) => setDraftArea(e.target.value)}
+                  placeholder="Khu vực (vd: Phong Điền, Cần Thơ)"
+                  className="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs"
+                />
+                <button
+                  type="button"
+                  disabled={runningCycle || !draftKw.trim()}
+                  onClick={() => callAction({ action: "ai_generate_article_draft", keyword: draftKw, areaName: draftArea })}
+                  className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 disabled:opacity-50"
+                >
+                  {runningCycle ? "AI đang soạn..." : "AI Soạn Bài Nháp"}
+                </button>
+              </div>
+            </div>
             <div className="font-bold text-slate-900">
               Nguồn tri thức chuẩn (`fpt_knowledge.json`): Địa chỉ {data.fptKnowledge?.address} • Hotline {data.fptKnowledge?.hotline}
             </div>

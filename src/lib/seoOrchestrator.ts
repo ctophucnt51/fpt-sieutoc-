@@ -1,14 +1,18 @@
 import { AUDITED_ROUTES, runQaSafetyCheck } from "./seoAuditor";
-import { getAllArticles } from "./articleStorage";
+import { getAllArticles, saveAllArticles, Article } from "./articleStorage";
 import { getSeoConfig, saveSeoConfig } from "./seoStorage";
 import { readTrafficStore } from "./trafficStorage";
 import { getAllLeads } from "./leadStorage";
 import { sendSeoReportAlert } from "./telegram";
+import { fetchGscAnalytics } from "./googleSearchConsole";
+import { checkKeywordSerp } from "./serpChecker";
+import { generateMetaOptimizationProposal, isGeminiConfigured } from "./seoAiEngine";
 import {
   initializeSeoMemory,
   readMemoryFile,
   writeMemoryFile,
   enqueueSeoTask,
+  checkAndIncrementApiUsage,
   SeoInventoryItem,
   SeoKeywordMapItem,
   SeoBaselineRecord,
@@ -390,6 +394,147 @@ export function runSeoMasterCycle(): {
   };
 }
 
+/**
+ * Full Autonomous SEO Master Cycle (Collect GSC/Serper -> Analyze -> AI Propose into Approval Center).
+ */
+export async function runSeoMasterCycleAsync(options?: {
+  collectLive?: boolean;
+  runAi?: boolean;
+}): Promise<{
+  newTasksAdded: number;
+  newApprovalsAdded: number;
+  autoResolvedCount: number;
+  gscSynced: boolean;
+  serpCheckedCount: number;
+  summary: string;
+}> {
+  const collectLive = options?.collectLive !== false;
+  const runAi = options?.runAi !== false;
+  let gscSynced = false;
+  let serpCheckedCount = 0;
+
+  // 1. LIVE COLLECT (GSC + Serper with cache/budget guard)
+  if (collectLive) {
+    const seo = getSeoConfig();
+    const gscFetchedAt = seo.gscCache?.fetchedAt ? new Date(seo.gscCache.fetchedAt).getTime() : 0;
+    const sixHoursMs = 6 * 60 * 60 * 1000;
+    if (
+      seo.gscSettings?.connected &&
+      seo.gscSettings.serviceAccountEmail &&
+      seo.gscSettings.privateKey &&
+      Date.now() - gscFetchedAt > sixHoursMs
+    ) {
+      const budget = checkAndIncrementApiUsage("gsc");
+      if (budget.allowed) {
+        try {
+          const gscData = await fetchGscAnalytics({
+            siteUrl: seo.gscSettings.siteUrl,
+            serviceAccountEmail: seo.gscSettings.serviceAccountEmail,
+            privateKey: seo.gscSettings.privateKey,
+            dateRange: "28d",
+          });
+          seo.gscCache = gscData;
+          saveSeoConfig(seo);
+          gscSynced = true;
+        } catch {
+          // keep cached GSC data on transient error
+        }
+      }
+    }
+
+    if (seo.serperSettings?.connected && seo.serperSettings.apiKey) {
+      const dayMs = 24 * 60 * 60 * 1000;
+      for (const kw of seo.watchlistKeywords || []) {
+        if (serpCheckedCount >= 2) break;
+        const checkedAt = kw.serpCheckedAt ? new Date(kw.serpCheckedAt).getTime() : 0;
+        if (Date.now() - checkedAt < dayMs) continue;
+        const budget = checkAndIncrementApiUsage("serper");
+        if (!budget.allowed) break;
+        try {
+          const res = await checkKeywordSerp({
+            keyword: kw.keyword,
+            apiKey: seo.serperSettings.apiKey,
+            targetDomain: "gofpt.vn",
+          });
+          kw.serpPreviousPosition = kw.serpPosition ?? null;
+          kw.serpPosition = res.ourPosition;
+          kw.serpMatchedUrl = res.ourMatchedUrl;
+          kw.topCompetitors = res.topCompetitors;
+          kw.serpCheckedAt = res.checkedAt;
+          serpCheckedCount++;
+        } catch {
+          // continue on transient SERP error
+        }
+      }
+      if (serpCheckedCount > 0) {
+        saveSeoConfig(seo);
+      }
+    }
+  }
+
+  // 2. ANALYZE & AUTO-RESOLVE
+  const syncRes = runSeoMasterCycle();
+  let newApprovalsAdded = syncRes.newApprovalsAdded;
+
+  // 3. AI EXECUTE (Propose Meta Optimization for Quick-Win Top 4-15 queries into Approval Center)
+  if (runAi && isGeminiConfigured()) {
+    const seo = getSeoConfig();
+    const approvals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []);
+    const quickWins = (seo.gscCache?.topQueries || []).filter(
+      (q) => q.impressions >= 50 && q.position >= 4 && q.position <= 15
+    );
+    const targetQuery = quickWins[0];
+    if (targetQuery) {
+      const targetRoute = "/lap-mang-fpt";
+      const alreadyPending = approvals.some(
+        (a) => a.status === "pending" && a.type === "meta_override" && a.target === targetRoute
+      );
+      if (!alreadyPending) {
+        const currentMeta = seo.pageMetaOverrides[targetRoute];
+        const aiMeta = await generateMetaOptimizationProposal({
+          route: targetRoute,
+          query: targetQuery.query,
+          position: targetQuery.position,
+          impressions: targetQuery.impressions,
+          ctr: targetQuery.ctr,
+          currentTitle: currentMeta?.title || "Lắp Mạng FPT Cần Thơ Wi-Fi 6 Siêu Tốc",
+          currentDesc: currentMeta?.description || "Đăng ký lắp mạng FPT Wi-Fi 6 từ 195.000đ/tháng, lắp đặt trong 24h.",
+        });
+        if (aiMeta.success && aiMeta.title && aiMeta.description) {
+          approvals.unshift({
+            id: `app_ai_meta_${Date.now()}`,
+            type: "meta_override",
+            target: targetRoute,
+            proposedBy: "Onpage Optimization Agent",
+            summary: `AI tối ưu CTR cho từ khóa Quick-Win "${targetQuery.query}" (Top ${targetQuery.position.toFixed(1)}): ${aiMeta.rationale || ""}`,
+            beforeSnapshot: currentMeta || null,
+            afterProposal: {
+              title: aiMeta.title,
+              description: aiMeta.description,
+              keywords: targetQuery.query,
+            },
+            qaPassed: true,
+            status: "pending",
+            createdAt: new Date().toISOString(),
+          });
+          writeMemoryFile("approvals.json", approvals);
+          newApprovalsAdded++;
+        }
+      }
+    }
+  }
+
+  return {
+    ...syncRes,
+    newApprovalsAdded,
+    gscSynced,
+    serpCheckedCount,
+    summary: `${syncRes.summary}${gscSynced ? " Đã đồng bộ GSC." : ""}${
+      serpCheckedCount > 0 ? ` Đã check ${serpCheckedCount} từ khóa SERP.` : ""
+    }${newApprovalsAdded > 0 ? ` AI tạo ${newApprovalsAdded} đề xuất vào Approval Center.` : ""}`,
+  };
+}
+
 export function getFullSeoIntelligenceState() {
   initializeSeoMemory();
   const seo = getSeoConfig();
@@ -410,7 +555,8 @@ export function getFullSeoIntelligenceState() {
     connections: {
       gscConnected: Boolean(seo.gscSettings?.connected),
       serperConnected: Boolean(seo.serperSettings?.connected),
-      ga4Configured: Boolean(process.env.NEXT_PUBLIC_GA4_ID),
+      ga4Configured: Boolean(process.env.GA4_PROPERTY_ID || process.env.NEXT_PUBLIC_GA4_ID),
+      geminiConfigured: isGeminiConfigured(),
     },
   };
 }
@@ -472,6 +618,55 @@ export function decideSeoApproval(
       appliedAt: new Date().toISOString(),
     });
     writeMemoryFile("changes.json", changes.slice(0, 100));
+  } else if (item.type === "article_draft") {
+    const draft = item.afterProposal || {};
+    const qa = runQaSafetyCheck({
+      title: draft.title,
+      description: draft.excerpt,
+      contentHtml: draft.content,
+    });
+    if (!qa.passed) {
+      return {
+        success: false,
+        message: `QA & Safety Agent chặn xuất bản: ${qa.violations.join(" ")}`,
+      };
+    }
+
+    const articles = getAllArticles(true);
+    const nowIso = new Date().toISOString();
+    const newArticle: Article = {
+      id: `art-ai-${Date.now()}`,
+      slug: String(draft.slug || `bai-viet-seo-${Date.now()}`),
+      title: String(draft.title || ""),
+      excerpt: String(draft.excerpt || ""),
+      content: String(draft.content || ""),
+      category: draft.category || "huong-dan",
+      categoryName: draft.categoryName || "Hướng Dẫn Kỹ Thuật",
+      thumbnail: "/images/products/modem-wifi6-official.png",
+      author: "FPT Telecom Cần Thơ",
+      published: true,
+      featured: false,
+      views: 1,
+      readTimeMinutes: 4,
+      createdAt: nowIso,
+      updatedAt: nowIso,
+    };
+
+    const filtered = articles.filter((a) => a.slug !== newArticle.slug);
+    saveAllArticles([newArticle, ...filtered]);
+
+    const changes = readMemoryFile<SeoChangeRecord[]>("changes.json", []);
+    changes.unshift({
+      id: `chg_${Date.now()}`,
+      approvalId: item.id,
+      target: `/tin-tuc/${newArticle.slug}`,
+      changeType: "article_draft",
+      beforeSnapshot: null,
+      afterSnapshot: { id: newArticle.id, slug: newArticle.slug, title: newArticle.title },
+      appliedBy: "Admin Approval",
+      appliedAt: nowIso,
+    });
+    writeMemoryFile("changes.json", changes.slice(0, 100));
   }
 
   item.status = "approved";
@@ -498,6 +693,10 @@ export function rollbackSeoChange(changeId: string): { success: boolean; message
       delete seo.pageMetaOverrides[chg.target];
     }
     saveSeoConfig(seo);
+  } else if (chg.changeType === "article_draft") {
+    const slug = chg.afterSnapshot?.slug || chg.target.replace(/^\/tin-tuc\//, "");
+    const articles = getAllArticles(true);
+    saveAllArticles(articles.filter((a) => a.slug !== slug));
   }
 
   chg.rolledBack = true;

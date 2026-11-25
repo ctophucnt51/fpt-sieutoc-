@@ -3,6 +3,7 @@ import { verifyAdminAuth } from "@/lib/adminAuth";
 import {
   getFullSeoIntelligenceState,
   runSeoMasterCycle,
+  runSeoMasterCycleAsync,
   decideSeoApproval,
   rollbackSeoChange,
   dispatchTelegramSeoSummary,
@@ -13,11 +14,13 @@ import {
   SeoKeywordMapItem,
   SeoTaskItem,
   SeoApprovalItem,
+  FptProductKnowledge,
 } from "@/lib/seoMemory";
 import { runQaSafetyCheck } from "@/lib/seoAuditor";
 import { runPageSpeedCheck } from "@/lib/pageSpeedClient";
 import { fetchGa4OrganicSummary } from "@/lib/ga4Client";
 import { getSeoConfig } from "@/lib/seoStorage";
+import { generateSeoArticleDraft } from "@/lib/seoAiEngine";
 
 export async function GET(request: NextRequest) {
   if (!verifyAdminAuth(request)) {
@@ -52,7 +55,7 @@ export async function POST(request: NextRequest) {
     const { action } = body;
 
     if (action === "run_orchestrator") {
-      const result = runSeoMasterCycle();
+      const result = await runSeoMasterCycleAsync({ collectLive: true, runAi: true });
       return NextResponse.json({
         success: true,
         message: result.summary,
@@ -215,6 +218,43 @@ export async function POST(request: NextRequest) {
           ? ga4.error
           : `GA4 (28 ngày): ${ga4.organicSessions} phiên Organic / ${ga4.sessions} tổng phiên, ${ga4.conversions} chuyển đổi.`,
         ga4,
+        intelligence: getFullSeoIntelligenceState(),
+      });
+    }
+
+    if (action === "ai_generate_article_draft") {
+      const keyword = String(body.keyword || "").trim();
+      const areaName = String(body.areaName || "Cần Thơ").trim();
+      if (!keyword) {
+        return NextResponse.json({ success: false, message: "Vui lòng nhập từ khóa mục tiêu." }, { status: 400 });
+      }
+      const knowledge = readMemoryFile<FptProductKnowledge | null>("fpt_knowledge.json", null);
+      const draftRes = await generateSeoArticleDraft({ keyword, areaName, knowledge });
+      if (!draftRes.success || !draftRes.article) {
+        return NextResponse.json(
+          { success: false, message: draftRes.error || "Không thể tạo bản nháp bài viết." },
+          { status: 400 }
+        );
+      }
+
+      const approvals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []);
+      approvals.unshift({
+        id: `app_art_${Date.now()}`,
+        type: "article_draft",
+        target: `/tin-tuc/${draftRes.article.slug}`,
+        proposedBy: "Content SEO Agent",
+        summary: `AI soạn bài viết mới cho từ khóa "${keyword}" (${areaName}) — Đã qua QA Google Ads Gate`,
+        beforeSnapshot: null,
+        afterProposal: draftRes.article,
+        qaPassed: true,
+        status: "pending",
+        createdAt: new Date().toISOString(),
+      });
+      writeMemoryFile("approvals.json", approvals);
+
+      return NextResponse.json({
+        success: true,
+        message: `Đã đưa bài nháp "${draftRes.article.title}" vào Approval Center chờ duyệt!`,
         intelligence: getFullSeoIntelligenceState(),
       });
     }
