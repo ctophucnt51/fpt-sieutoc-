@@ -11,310 +11,469 @@ d:I[8848,["972","static/chunks/972-6123d02e9066823e.js","669","static/chunks/669
 e:I[8278,["972","static/chunks/972-6123d02e9066823e.js","669","static/chunks/669-e46e909739108eca.js","476","static/chunks/476-8299e5b537ac4a99.js","121","static/chunks/121-f73a3f4aac2769fb.js","185","static/chunks/app/layout-346eef678c7a6ce8.js"],"default"]
 f:I[1131,["972","static/chunks/972-6123d02e9066823e.js","669","static/chunks/669-e46e909739108eca.js","476","static/chunks/476-8299e5b537ac4a99.js","121","static/chunks/121-f73a3f4aac2769fb.js","185","static/chunks/app/layout-346eef678c7a6ce8.js"],"default"]
 10:I[5110,["972","static/chunks/972-6123d02e9066823e.js","669","static/chunks/669-e46e909739108eca.js","476","static/chunks/476-8299e5b537ac4a99.js","121","static/chunks/121-f73a3f4aac2769fb.js","185","static/chunks/app/layout-346eef678c7a6ce8.js"],"default"]
-3:T5a44,
-<h2 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-3 pt-6 pb-2.5 border-b-2 border-orange-100">
-  <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shrink-0 shadow-xs">1</span>
-  <span>Khúc Cua Định Mệnh: Ngoại Hạng Anh Vòng 12 Rực Lửa Đại Chiến</span>
-</h2>
-<p class="text-slate-800 leading-relaxed text-base">
-  Sau những vòng đấu nghẹt thở, giải bóng đá hấp dẫn nhất hành tinh <strong>Ngoại Hạng Anh (English Premier League)</strong> bước vào <strong>Vòng đấu thứ 12</strong> với những cuộc đại chiến mang tính bước ngoặt của cả mùa giải. Mọi tâm điểm sẽ hướng trọn về sân vận động Emirates trong màn thư hùng đỉnh cao giữa <strong>Arsenal và Manchester City</strong> – trận chiến trực tiếp định đoạt ngôi vương. Cùng với đó là chảo lửa Goodison Park bùng cháy trong trận <strong>Derby Merseyside rực lửa giữa Everton và Liverpool</strong>.
-</p>
+3:T6f93,
+<!-- BENTO HERO HEADER -->
+<div class="not-prose rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white p-6 sm:p-8 border border-slate-800 shadow-md relative overflow-hidden my-6">
+  <div class="absolute top-0 right-0 w-80 h-80 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  
+  <div class="relative z-10 space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/90 border border-red-600/70 text-red-300 font-extrabold text-xs uppercase tracking-wider">
+      <img src="/images/icons/svg/ngoai-hang-anh.svg" alt="EPL" width="16" height="16" class="w-4 h-4 object-contain brightness-0 invert" />
+      <span>Bản Quyền Trực Tiếp Ngoại Hạng Anh Vòng 12</span>
+    </div>
+    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+      Cuối Tuần Rực Lửa, <span class="text-red-400">Đại Chiến Bùng Nổ!</span>
+    </h2>
+    <p class="text-slate-200 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
+      Trọn vẹn 10 trận đấu kịch tính của giải Ngoại Hạng Anh được phát sóng trực tiếp trên <strong>FPT Play</strong> với chất lượng hình ảnh lên tới <strong>4K Ultra HD</strong>. Tâm điểm đại chiến Arsenal vs Man City và rực lửa derby Merseyside Everton vs Liverpool!
+    </p>
+  </div>
+</div>
 
-<!-- Khối Thông Tin Phát Sóng: Độ Tương Phản Cao, Chữ Đậm Rõ Nét -->
-<div class="my-6 p-5 rounded-2xl bg-orange-50/90 border-2 border-orange-300 shadow-xs">
-  <div class="flex items-center gap-2 mb-2">
-    <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-orange-600 text-white text-xs font-black uppercase tracking-wider shadow-xs">
-      ⚡ THÔNG TIN PHÁT SÓNG ĐỘC QUYỀN
+<!-- SECTION 1: LỊCH THI ĐẤU DẠNG MATCH CARDS (TRỰC QUAN THEO ĐÚNG HÌNH ẢNH BANNER) -->
+<div class="not-prose my-8 space-y-6">
+  <div class="flex items-center justify-between border-b-2 border-orange-500/20 pb-3">
+    <div class="flex items-center gap-2.5">
+      <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shadow-xs">1</span>
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Lịch Thi Đấu Chi Tiết 10 Trận Đấu Vòng 12</h3>
+    </div>
+    <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-orange-600 font-bold text-xs border border-orange-200">
+      ⚡ 10 Trận Độc Quyền FPT Play
     </span>
-    <span class="text-xs font-bold text-orange-950">Chính thức tại Việt Nam</span>
   </div>
-  <p class="text-sm sm:text-base leading-relaxed text-slate-900 font-semibold mb-0">
-    Toàn bộ <strong>10 trận đấu của Vòng 12 Ngoại Hạng Anh</strong> được phát sóng <strong>trực tiếp &amp; trọn vẹn trên FPT Play</strong> với độ phân giải siêu nét lên tới <strong>4K Ultra HD</strong>, âm thanh vòm sống động và đội ngũ bình luận viên tiếng Việt giàu nhiệt huyết.
-  </p>
-</div>
 
-<h2 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-3 pt-6 pb-2.5 border-b-2 border-orange-100">
-  <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shrink-0 shadow-xs">2</span>
-  <span>Bảng Lịch Thi Đấu Chi Tiết Vòng 12 Ngoại Hạng Anh Trên FPT Play</span>
-</h2>
-<p class="text-slate-800 leading-relaxed text-base">
-  Dưới đây là lịch thi đấu chi tiết 10 trận cầu Vòng 12 giải Ngoại Hạng Anh được phân chia cụ thể theo từng ngày (theo giờ Việt Nam) để quý khán giả chủ động sắp xếp thời gian theo dõi:
-</p>
-
-<!-- BẢNG THỨ SÁU & THỨ BẢY: NGÀY 28/11 -->
-<div class="my-6 space-y-3">
-  <div class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 text-white font-black text-xs uppercase tracking-wider w-fit shadow-xs">
-    📅 NGÀY 28/11/2026 (THỨ SÁU &amp; THỨ BẢY)
-  </div>
-  <div class="overflow-x-auto rounded-2xl border-2 border-slate-200 shadow-xs">
-    <table class="w-full text-left text-sm border-collapse bg-white">
-      <thead>
-        <tr class="bg-slate-100 text-slate-900 font-black text-xs uppercase border-b-2 border-slate-200">
-          <th class="p-3.5 font-black text-slate-900">Giờ đấu</th>
-          <th class="p-3.5 font-black text-slate-900">Cặp đấu</th>
-          <th class="p-3.5 font-black text-slate-900">Tiêu điểm trận đấu</th>
-          <th class="p-3.5 font-black text-slate-900 text-right">Kênh phát sóng</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-100 text-slate-800 font-medium">
-        <tr class="hover:bg-orange-50/60 transition-colors">
-          <td class="p-3.5 font-black text-orange-600 text-base">03:00</td>
-          <td class="p-3.5 font-black text-slate-900 text-base">Nottingham Forest – Chelsea</td>
-          <td class="p-3.5 text-xs text-slate-600 font-semibold">Thử thách The Blues tại The City Ground</td>
-          <td class="p-3.5 text-right"><span class="px-2.5 py-1 rounded-md bg-red-600 text-white text-[11px] font-black shadow-2xs">4K ULTRA HD</span></td>
-        </tr>
-        <tr class="hover:bg-slate-50 transition-colors">
-          <td class="p-3.5 font-bold text-slate-600">22:00</td>
-          <td class="p-3.5 font-bold text-slate-900">Leeds United – Coventry City</td>
-          <td class="p-3.5 text-xs text-slate-500">Cuộc chiến giành giật từng điểm số</td>
-          <td class="p-3.5 text-right"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">FPT Play Full HD</span></td>
-        </tr>
-        <tr class="hover:bg-orange-50/60 transition-colors bg-orange-50/30">
-          <td class="p-3.5 font-black text-orange-600 text-base">22:00</td>
-          <td class="p-3.5 font-black text-slate-900 text-base">Manchester United – Brentford</td>
-          <td class="p-3.5 text-xs text-orange-800 font-bold">🔥 Quỷ Đỏ quyết tâm giành trọn 3 điểm</td>
-          <td class="p-3.5 text-right"><span class="px-2.5 py-1 rounded-md bg-orange-600 text-white text-[11px] font-black shadow-2xs">FPT PLAY 1</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- BẢNG CHỦ NHẬT: NGÀY 29/11 -->
-<div class="my-6 space-y-3">
-  <div class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-orange-600 text-white font-black text-xs uppercase tracking-wider w-fit shadow-xs">
-    📅 NGÀY 29/11/2026 (CHỦ NHẬT) – NGÀY ĐẠI CHIẾN BÙNG NỔ
-  </div>
-  <div class="overflow-x-auto rounded-2xl border-2 border-slate-200 shadow-xs">
-    <table class="w-full text-left text-sm border-collapse bg-white">
-      <thead>
-        <tr class="bg-slate-100 text-slate-900 font-black text-xs uppercase border-b-2 border-slate-200">
-          <th class="p-3.5 font-black text-slate-900">Giờ đấu</th>
-          <th class="p-3.5 font-black text-slate-900">Cặp đấu</th>
-          <th class="p-3.5 font-black text-slate-900">Tiêu điểm trận đấu</th>
-          <th class="p-3.5 font-black text-slate-900 text-right">Kênh phát sóng</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-100 text-slate-800 font-medium">
-        <tr class="hover:bg-slate-50 transition-colors">
-          <td class="p-3.5 font-bold text-slate-600">00:30</td>
-          <td class="p-3.5 font-bold text-slate-900">Ipswich Town – Aston Villa</td>
-          <td class="p-3.5 text-xs text-slate-500">Thầy trò Unai Emery săn vé Top 4</td>
-          <td class="p-3.5 text-right"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">FPT Play Full HD</span></td>
-        </tr>
-        <tr class="hover:bg-orange-50/60 transition-colors bg-red-50/40">
-          <td class="p-3.5 font-black text-red-600 text-base">19:00</td>
-          <td class="p-3.5 font-black text-slate-900 text-base">Everton – Liverpool</td>
-          <td class="p-3.5 text-xs text-red-700 font-black">🔥 DERBY MERSEYSIDE RỰC LỬA GOODISON PARK</td>
-          <td class="p-3.5 text-right"><span class="px-2.5 py-1 rounded-md bg-red-600 text-white text-[11px] font-black shadow-2xs">4K ULTRA HD</span></td>
-        </tr>
-        <tr class="hover:bg-slate-50 transition-colors">
-          <td class="p-3.5 font-bold text-slate-600">21:05</td>
-          <td class="p-3.5 font-bold text-slate-900">Brighton – Newcastle United</td>
-          <td class="p-3.5 text-xs text-slate-500">Đại chiến tấn công cởi mở</td>
-          <td class="p-3.5 text-right"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">FPT Play Full HD</span></td>
-        </tr>
-        <tr class="hover:bg-slate-50 transition-colors">
-          <td class="p-3.5 font-bold text-slate-600">21:05</td>
-          <td class="p-3.5 font-bold text-slate-900">Crystal Palace – Hull City</td>
-          <td class="p-3.5 text-xs text-slate-500">Cạnh tranh bứt phá nửa dưới bảng</td>
-          <td class="p-3.5 text-right"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">FPT Play Full HD</span></td>
-        </tr>
-        <tr class="hover:bg-slate-50 transition-colors">
-          <td class="p-3.5 font-bold text-slate-600">21:05</td>
-          <td class="p-3.5 font-bold text-slate-900">Fulham – AFC Bournemouth</td>
-          <td class="p-3.5 text-xs text-slate-500">Đọ sức cân tài cân sức</td>
-          <td class="p-3.5 text-right"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">FPT Play Full HD</span></td>
-        </tr>
-        <tr class="hover:bg-slate-50 transition-colors">
-          <td class="p-3.5 font-bold text-slate-600">21:05</td>
-          <td class="p-3.5 font-bold text-slate-900">Sunderland – Tottenham Hotspur</td>
-          <td class="p-3.5 text-xs text-slate-500">Son Heung-min và Spurs tìm chiến thắng</td>
-          <td class="p-3.5 text-right"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">FPT Play Full HD</span></td>
-        </tr>
-        <tr class="hover:bg-orange-50/60 transition-colors bg-gradient-to-r from-orange-100/70 to-amber-100/70 border-t-2 border-orange-500">
-          <td class="p-3.5 font-black text-red-600 text-lg">23:30</td>
-          <td class="p-3.5 font-black text-slate-950 text-lg">Arsenal – Manchester City</td>
-          <td class="p-3.5 text-xs text-orange-950 font-black">👑 SIÊU ĐẠI CHIẾN ĐỈNH BẢNG NGOẠI HẠNG ANH</td>
-          <td class="p-3.5 text-right"><span class="px-2.5 py-1 rounded-md bg-red-600 text-white text-[11px] font-black shadow-2xs">4K ULTRA HD</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<h2 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-3 pt-6 pb-2.5 border-b-2 border-orange-100">
-  <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shrink-0 shadow-xs">3</span>
-  <span>Phân Tích Chuyên Sâu Các Trận Cầu Tâm Điểm</span>
-</h2>
-
-<!-- TIÊU ĐỀ CHẤM 3.1: NỔI BẬT VIỀN CAM, CHỮ ĐẬM -->
-<h3 class="text-lg sm:text-xl font-black text-slate-900 border-l-4 border-orange-500 pl-3.5 py-1 my-4">
-  <span class="text-orange-600 font-black">3.1.</span> Đại Chiến Arsenal vs Manchester City (23h30 | 29/11): Đỉnh Cao Chiến Thuật
-</h3>
-<p class="text-slate-800 leading-relaxed text-base">
-  Cuộc so tài tại thánh địa Emirates xứng đáng là trận chung kết sớm của mùa giải. <strong>Arsenal</strong> dưới sự chỉ đạo của Mikel Arteta sở hữu khối phòng ngự chắc chắn nhất giải đấu với cặp trung vệ thép William Saliba và Gabriel Magalhães. Trong khi đó, <strong>Manchester City</strong> của Pep Guardiola mang đến hỏa lực đáng sợ nhất châu Âu với cỗ máy săn bàn Erling Haaland. Trận đấu hứa hẹn màn đọ trí đỉnh cao, nghẹt thở từ phút đầu tiên tới giây cuối cùng.
-</p>
-<div class="my-4 p-4 rounded-xl bg-amber-50/80 border-l-4 border-amber-500 text-sm text-slate-900 font-semibold italic">
-  &ldquo;Cuộc so tài giữa hàng thủ thép Arsenal và sát thủ Erling Haaland chính là bài toán cân não của hai bộ óc chiến thuật kiệt xuất nhất thế giới hiện nay.&rdquo;
-</div>
-
-<!-- TIÊU ĐỀ CHẤM 3.2 -->
-<h3 class="text-lg sm:text-xl font-black text-slate-900 border-l-4 border-orange-500 pl-3.5 py-1 my-4">
-  <span class="text-orange-600 font-black">3.2.</span> Everton vs Liverpool (19h00 | 29/11): Rực Lửa Derby Merseyside
-</h3>
-<p class="text-slate-800 leading-relaxed text-base">
-  Trận <strong>Derby Merseyside</strong> giữa Everton và Liverpool chưa từng khoan nhượng dù trong bất kỳ hoàn cảnh nào. Goodison Park chắc chắn sẽ là chảo lửa cuồng nhiệt khi The Toffees luôn thi đấu với hơn 200% sức mạnh mỗi khi chạm trán sắc đỏ thành phố cảng.
-</p>
-
-<!-- TIÊU ĐỀ CHẤM 3.3 -->
-<h3 class="text-lg sm:text-xl font-black text-slate-900 border-l-4 border-orange-500 pl-3.5 py-1 my-4">
-  <span class="text-orange-600 font-black">3.3.</span> Manchester United vs Brentford (22h00 | 28/11): Thử Thách Quỷ Đỏ
-</h3>
-<p class="text-slate-800 leading-relaxed text-base">
-  Tại Old Trafford, <strong>Manchester United</strong> đặt mục tiêu tối thượng là 3 điểm trọn vẹn để bám đuổi nhóm dự Champions League. Tuy nhiên, lối chơi áp sát và phản công chớp nhoáng của Brentford luôn là bài toán khó giải cho mọi đội bóng lớn.
-</p>
-
-<h2 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-3 pt-6 pb-2.5 border-b-2 border-orange-100">
-  <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shrink-0 shadow-xs">4</span>
-  <span>Tại Sao Nên Thưởng Thức Ngoại Hạng Anh Trên FPT Play?</span>
-</h2>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
-  <div class="p-5 rounded-2xl bg-white border-2 border-slate-200/90 shadow-2xs space-y-2">
-    <div class="text-orange-600 font-black text-base flex items-center gap-2">
-      📺 Bản Quyền 100% Trọn Vẹn
+  <!-- NGÀY 28/11 -->
+  <div class="space-y-3">
+    <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900 text-white font-black text-xs uppercase tracking-wider w-fit shadow-xs">
+      <span>📅 THỨ SÁU &amp; THỨ BẢY | 28.11.2026</span>
     </div>
-    <p class="text-sm text-slate-700 leading-relaxed font-medium">
-      FPT Play sở hữu bản quyền chính thức trọn vẹn toàn bộ 380 trận đấu mỗi mùa. Nói không với chặn link, link lậu hay gián đoạn giữa chừng.
-    </p>
-  </div>
-  <div class="p-5 rounded-2xl bg-white border-2 border-slate-200/90 shadow-2xs space-y-2">
-    <div class="text-orange-600 font-black text-base flex items-center gap-2">
-      🌟 Chuẩn Siêu Nét 4K Ultra HD
-    </div>
-    <p class="text-sm text-slate-700 leading-relaxed font-medium">
-      Trải nghiệm từng đường bóng với độ phân giải siêu nét 4K sắc sảo gấp 4 lần Full HD, khung hình 60fps mượt mà trên Smart TV màn hình lớn.
-    </p>
-  </div>
-  <div class="p-5 rounded-2xl bg-white border-2 border-slate-200/90 shadow-2xs space-y-2">
-    <div class="text-orange-600 font-black text-base flex items-center gap-2">
-      ⚡ Mạng Wi-Fi 6 Siêu Tốc
-    </div>
-    <p class="text-sm text-slate-700 leading-relaxed font-medium">
-      Kết hợp hạ tầng cáp quang FPT Wi-Fi 6 thế hệ mới, độ trễ cực thấp (Ping &lt; 10ms), cam kết không giật lag ngay cả trong khung giờ cao điểm triệu người xem.
-    </p>
-  </div>
-  <div class="p-5 rounded-2xl bg-white border-2 border-slate-200/90 shadow-2xs space-y-2">
-    <div class="text-orange-600 font-black text-base flex items-center gap-2">
-      📱 Xem Mọi Lúc, Mọi Thiết Bị
-    </div>
-    <p class="text-sm text-slate-700 leading-relaxed font-medium">
-      Đăng nhập và xem đồng thời trên Smart TV, Smartphone, iPad, Máy tính hoặc đầu thu FPT Play Box mà không phát sinh thêm chi phí.
-    </p>
-  </div>
-</div>
 
-<h2 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-3 pt-6 pb-2.5 border-b-2 border-orange-100">
-  <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shrink-0 shadow-xs">5</span>
-  <span>Bảng Giá Đăng Ký Combo Internet FPT + Ngoại Hạng Anh Ưu Đãi Nhất 2026</span>
-</h2>
-<p class="text-slate-800 leading-relaxed text-base">
-  FPT Telecom áp dụng bảng giá ưu đãi đặc biệt dành cho khách hàng đăng ký trọn gói Internet Wi-Fi 6 kết hợp bản quyền FPT Play:
-</p>
+    <!-- Match 1: Nottm Forest vs Chelsea (4K) -->
+    <div class="rounded-2xl bg-white border border-slate-200 hover:border-orange-500 shadow-2xs hover:shadow-md transition-all p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-black text-slate-900 text-sm sm:text-base tracking-tight">
+          NOTT&apos;M FOREST
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-slate-900 text-white font-black text-xs shrink-0 tracking-wider shadow-2xs group-hover:bg-orange-600 transition-colors">
+          28.11 • 03:00
+        </div>
+        <div class="text-left sm:flex-1 font-black text-slate-900 text-sm sm:text-base tracking-tight">
+          CHELSEA
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="text-xs text-slate-500 font-semibold sm:hidden">The City Ground</span>
+        <span class="px-2.5 py-1 rounded-md bg-red-600 text-white text-[11px] font-black uppercase tracking-wider shadow-2xs">
+          4K ULTRA HD
+        </span>
+      </div>
+    </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-  <div class="p-5 rounded-2xl bg-white border-2 border-orange-500 shadow-sm space-y-3 relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-bl-xl tracking-wider">
-      ĐƯỢC ĐĂNG KÝ NHIỀU NHẤT
+    <!-- Match 2: Leeds vs Coventry -->
+    <div class="rounded-2xl bg-white border border-slate-200 hover:border-orange-500 shadow-2xs hover:shadow-md transition-all p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          LEEDS UNITED
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 font-bold text-xs shrink-0 tracking-wider border border-slate-200 group-hover:bg-slate-900 group-hover:text-white transition-colors">
+          28.11 • 22:00
+        </div>
+        <div class="text-left sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          COVENTRY CITY
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-200">
+          FPT Play Full HD
+        </span>
+      </div>
     </div>
-    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Gói Hộ Gia Đình</span>
-    <h4 class="text-2xl font-black text-slate-900">Combo GIGA (EPL)</h4>
-    <div class="text-3xl font-black text-orange-600">
-      220.000đ <span class="text-xs font-normal text-slate-500">/tháng (đã gồm VAT)</span>
+
+    <!-- Match 3: Man Utd vs Brentford (HOT) -->
+    <div class="rounded-2xl bg-gradient-to-r from-orange-50/60 via-white to-orange-50/60 border-2 border-orange-200 hover:border-orange-500 shadow-2xs hover:shadow-md transition-all p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-black text-slate-900 text-sm sm:text-base tracking-tight">
+          🔴 MANCHESTER UNITED
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-orange-600 text-white font-black text-xs shrink-0 tracking-wider shadow-2xs">
+          28.11 • 22:00
+        </div>
+        <div class="text-left sm:flex-1 font-black text-slate-900 text-sm sm:text-base tracking-tight">
+          BRENTFORD 🐝
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="px-2.5 py-1 rounded-md bg-orange-600 text-white text-[11px] font-black uppercase tracking-wider shadow-2xs">
+          🔥 FPT PLAY 1
+        </span>
+      </div>
     </div>
-    <ul class="text-xs text-slate-800 space-y-2 pt-3 border-t border-slate-100 font-semibold">
-      <li>✓ <strong>Tốc độ cao:</strong> 150 Mbps cáp quang FTTH ổn định</li>
-      <li>✓ <strong>Ngoại Hạng Anh:</strong> Xem trọn vẹn 10 trận/vòng bản quyền FPT Play</li>
-      <li>✓ <strong>Truyền hình:</strong> Gần 170 kênh truyền hình đặc sắc</li>
-      <li>✓ <strong>Thiết bị:</strong> Miễn phí Modem Wi-Fi 6 hai băng tần</li>
-      <li>✓ <strong>Quà tặng:</strong> Tặng kèm Camera AI an ninh thông minh 0đ</li>
-    </ul>
-    <a href="/combo-ngoai-hang-anh" class="block w-full py-2.5 text-center rounded-xl bg-orange-600 text-white font-black text-xs hover:bg-orange-700 transition-colors mt-2 shadow-xs">
-      ĐĂNG KÝ GÓI COMBO GIGA 220K
-    </a>
   </div>
 
-  <div class="p-5 rounded-2xl bg-white border-2 border-slate-900 shadow-sm space-y-3 relative overflow-hidden">
-    <div class="absolute top-0 right-0 bg-slate-900 text-white text-[10px] font-black uppercase px-3 py-1 rounded-bl-xl tracking-wider">
-      TỐC ĐỘ 1 GBPS
+  <!-- NGÀY 29/11 -->
+  <div class="space-y-3 pt-4">
+    <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 to-orange-600 text-white font-black text-xs uppercase tracking-wider w-fit shadow-xs">
+      <span>📅 CHỦ NHẬT | 29.11.2026 – NGÀY ĐẠI CHIẾN BÙNG NỔ</span>
     </div>
-    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Gói Quán Cafe &amp; Doanh Nghiệp</span>
-    <h4 class="text-2xl font-black text-slate-900">Combo SKY (EPL)</h4>
-    <div class="text-3xl font-black text-slate-900">
-      250.000đ <span class="text-xs font-normal text-slate-500">/tháng (đã gồm VAT)</span>
+
+    <!-- Match 4: Ipswich vs Aston Villa -->
+    <div class="rounded-2xl bg-white border border-slate-200 hover:border-orange-500 shadow-2xs hover:shadow-md transition-all p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          IPSWICH TOWN
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 font-bold text-xs shrink-0 tracking-wider border border-slate-200 group-hover:bg-slate-900 group-hover:text-white transition-colors">
+          29.11 • 00:30
+        </div>
+        <div class="text-left sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          ASTON VILLA
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-200">
+          FPT Play Full HD
+        </span>
+      </div>
     </div>
-    <ul class="text-xs text-slate-800 space-y-2 pt-3 border-t border-slate-100 font-semibold">
-      <li>✓ <strong>Tốc độ cực đại:</strong> 1 Gbps (1000 Mbps) tải trang tức thì</li>
-      <li>✓ <strong>Màn hình lớn:</strong> Chuẩn 4K Ultra HD mượt mà cho quán cafe, phòng chiếu</li>
-      <li>✓ <strong>Đa nền tảng:</strong> Phục vụ 20 - 40 người xem cùng lúc</li>
-      <li>✓ <strong>Trang bị:</strong> Modem Wi-Fi 6 công suất phát sóng xuyên tường</li>
-      <li>✓ <strong>Lắp đặt:</strong> Kỹ thuật viên hỗ trợ tận nơi trong 24 giờ</li>
-    </ul>
-    <a href="/combo-ngoai-hang-anh" class="block w-full py-2.5 text-center rounded-xl bg-slate-900 text-white font-black text-xs hover:bg-slate-800 transition-colors mt-2 shadow-xs">
-      ĐĂNG KÝ GÓI COMBO SKY 250K
-    </a>
+
+    <!-- Match 5: Everton vs Liverpool (Derby Merseyside - 4K) -->
+    <div class="rounded-2xl bg-gradient-to-r from-blue-50/60 via-white to-red-50/60 border-2 border-red-300 hover:border-red-500 shadow-xs hover:shadow-md transition-all p-3.5 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-black text-blue-900 text-sm sm:text-base tracking-tight">
+          🔵 EVERTON
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-red-600 text-white font-black text-xs shrink-0 tracking-wider shadow-2xs">
+          29.11 • 19:00
+        </div>
+        <div class="text-left sm:flex-1 font-black text-red-900 text-sm sm:text-base tracking-tight">
+          LIVERPOOL 🔴
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="text-xs text-red-600 font-bold hidden md:inline">Derby Merseyside</span>
+        <span class="px-2.5 py-1 rounded-md bg-red-600 text-white text-[11px] font-black uppercase tracking-wider shadow-2xs">
+          4K ULTRA HD
+        </span>
+      </div>
+    </div>
+
+    <!-- Match 6: Brighton vs Newcastle -->
+    <div class="rounded-2xl bg-white border border-slate-200 hover:border-orange-500 shadow-2xs hover:shadow-md transition-all p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          BRIGHTON
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 font-bold text-xs shrink-0 tracking-wider border border-slate-200">
+          29.11 • 21:05
+        </div>
+        <div class="text-left sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          NEWCASTLE
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-200">
+          FPT Play Full HD
+        </span>
+      </div>
+    </div>
+
+    <!-- Match 7: Crystal Palace vs Hull -->
+    <div class="rounded-2xl bg-white border border-slate-200 hover:border-orange-500 shadow-2xs hover:shadow-md transition-all p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          CRYSTAL PALACE
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 font-bold text-xs shrink-0 tracking-wider border border-slate-200">
+          29.11 • 21:05
+        </div>
+        <div class="text-left sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          HULL CITY
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-200">
+          FPT Play Full HD
+        </span>
+      </div>
+    </div>
+
+    <!-- Match 8: Fulham vs Bournemouth -->
+    <div class="rounded-2xl bg-white border border-slate-200 hover:border-orange-500 shadow-2xs hover:shadow-md transition-all p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          FULHAM
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 font-bold text-xs shrink-0 tracking-wider border border-slate-200">
+          29.11 • 21:05
+        </div>
+        <div class="text-left sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          BOURNEMOUTH
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-200">
+          FPT Play Full HD
+        </span>
+      </div>
+    </div>
+
+    <!-- Match 9: Sunderland vs Spurs -->
+    <div class="rounded-2xl bg-white border border-slate-200 hover:border-orange-500 shadow-2xs hover:shadow-md transition-all p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 group">
+      <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-3 sm:gap-4 flex-1">
+        <div class="text-right sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          SUNDERLAND
+        </div>
+        <div class="px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 font-bold text-xs shrink-0 tracking-wider border border-slate-200">
+          29.11 • 21:05
+        </div>
+        <div class="text-left sm:flex-1 font-bold text-slate-800 text-sm sm:text-base">
+          TOTTENHAM SPURS
+        </div>
+      </div>
+      <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-2 border-t sm:border-t-0 pt-2 sm:pt-0 border-slate-100">
+        <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 text-[11px] font-bold border border-slate-200">
+          FPT Play Full HD
+        </span>
+      </div>
+    </div>
+
+    <!-- Match 10: ARSENAL VS MAN CITY (SUPER MATCH BENTO - 4K) -->
+    <div class="rounded-3xl bg-gradient-to-r from-red-600 via-orange-600 to-amber-600 p-1 shadow-lg hover:shadow-xl transition-all">
+      <div class="rounded-[22px] bg-slate-950 text-white p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center justify-between md:justify-start w-full md:w-auto gap-4 flex-1">
+          <div class="text-right md:flex-1">
+            <span class="text-[11px] text-red-400 font-bold uppercase block">Đầu Bảng</span>
+            <span class="text-lg sm:text-2xl font-black text-white tracking-tight">ARSENAL</span>
+          </div>
+          <div class="text-center px-4 py-2 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shrink-0">
+            <div class="text-[10px] text-orange-400 font-bold uppercase tracking-wider">ĐẠI CHIẾN NGÔI VƯƠNG</div>
+            <div class="text-base sm:text-lg font-black text-white">29.11 • 23:30</div>
+          </div>
+          <div class="text-left md:flex-1">
+            <span class="text-[11px] text-sky-400 font-bold uppercase block">Đương Kim Vô Địch</span>
+            <span class="text-lg sm:text-2xl font-black text-white tracking-tight">MAN CITY</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-between md:justify-end w-full md:w-auto gap-3 border-t md:border-t-0 pt-3 md:pt-0 border-white/10">
+          <span class="text-xs text-slate-300 font-medium hidden lg:inline">Sân Emirates</span>
+          <span class="px-3.5 py-1.5 rounded-xl bg-red-600 text-white text-xs font-black uppercase tracking-wider shadow-md animate-pulse">
+            👑 4K ULTRA HD
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<h2 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-3 pt-6 pb-2.5 border-b-2 border-orange-100">
-  <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shrink-0 shadow-xs">6</span>
-  <span>Câu Hỏi Thường Gặp Khi Xem Ngoại Hạng Anh Trên FPT Play</span>
-</h2>
-<div class="space-y-3 my-6">
-  <div class="p-4 rounded-xl bg-slate-50 border-2 border-slate-200">
-    <h4 class="font-black text-sm text-slate-900 mb-1.5 flex items-center gap-2">
-      <span class="text-orange-600 font-black">Q1:</span> FPT Play có chiếu đầy đủ tất cả các trận đấu Vòng 12 không?
-    </h4>
-    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-      Có. FPT Play là đơn vị phát sóng độc quyền trọn vẹn 10/10 trận đấu mỗi vòng của giải Ngoại Hạng Anh tại Việt Nam, bao gồm đầy đủ các khung giờ sớm, khung giờ vàng và trận muộn.
-    </p>
+<!-- SECTION 2: BENTO SPOTLIGHT - 2 TRẬN ĐẠI CHIẾN NẢY LỬA -->
+<div class="not-prose my-10 space-y-6">
+  <div class="flex items-center gap-2.5 border-b-2 border-orange-500/20 pb-3">
+    <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shadow-xs">2</span>
+    <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Tâm Điểm Đại Chiến: Không Khí Rực Lửa</h3>
   </div>
-  <div class="p-4 rounded-xl bg-slate-50 border-2 border-slate-200">
-    <h4 class="font-black text-sm text-slate-900 mb-1.5 flex items-center gap-2">
-      <span class="text-orange-600 font-black">Q2:</span> Tôi có thể xem Ngoại Hạng Anh trên mấy thiết bị cùng lúc?
-    </h4>
-    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-      Một tài khoản FPT Play cho phép đăng nhập và xem đồng thời trên 3 - 5 thiết bị khác nhau (Smart TV trong phòng khách, điện thoại di động, máy tính bảng cá nhân).
-    </p>
-  </div>
-  <div class="p-4 rounded-xl bg-slate-50 border-2 border-slate-200">
-    <h4 class="font-black text-sm text-slate-900 mb-1.5 flex items-center gap-2">
-      <span class="text-orange-600 font-black">Q3:</span> Thủ tục đăng ký lắp mạng FPT xem bóng đá gồm những gì?
-    </h4>
-    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
-      Khách hàng chỉ cần chuẩn bị ảnh chụp 2 mặt Căn cước công dân (CCCD). Chuyên viên FPT sẽ hoàn tất hợp đồng điện tử và kỹ thuật viên triển khai lắp đặt hoàn tất trong vòng 24 giờ.
-    </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <!-- Card 1: Arsenal vs Man City -->
+    <div class="rounded-3xl bg-slate-900 text-white p-6 border border-slate-800 shadow-sm space-y-3 relative overflow-hidden flex flex-col justify-between">
+      <div class="space-y-2">
+        <span class="px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider inline-block">
+          CHUNG KẾT SỚM
+        </span>
+        <h4 class="text-xl font-black text-white">Arsenal vs Man City (23:30 | 29/11)</h4>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+          Màn đọ trí cân não giữa Mikel Arteta và Pep Guardiola. Hàng thủ thép Saliba - Gabriel sẽ có bài kiểm tra tối thượng trước cỗ máy săn bàn Erling Haaland. 90 phút tại Emirates sẽ quyết định ngôi vương lượt đi!
+        </p>
+      </div>
+      <div class="pt-3 border-t border-slate-800 text-xs text-orange-400 font-bold flex items-center justify-between">
+        <span>📍 Sân Vận Động Emirates</span>
+        <span>📺 Kênh 4K FPT Play</span>
+      </div>
+    </div>
+
+    <!-- Card 2: Everton vs Liverpool -->
+    <div class="rounded-3xl bg-slate-900 text-white p-6 border border-slate-800 shadow-sm space-y-3 relative overflow-hidden flex flex-col justify-between">
+      <div class="space-y-2">
+        <span class="px-3 py-1 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase tracking-wider inline-block">
+          DERBY MERSEYSIDE
+        </span>
+        <h4 class="text-xl font-black text-white">Everton vs Liverpool (19:00 | 29/11)</h4>
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+          Trận derby rực lửa vùng Merseyside tại chảo lửa Goodison Park. Sức nóng trên khán đài kết hợp tinh thần không khoan nhượng của Sean Dyche sẽ thách thức tham vọng của thầy trò Arne Slot.
+        </p>
+      </div>
+      <div class="pt-3 border-t border-slate-800 text-xs text-orange-400 font-bold flex items-center justify-between">
+        <span>📍 Sân Goodison Park</span>
+        <span>📺 Kênh 4K FPT Play</span>
+      </div>
+    </div>
   </div>
 </div>
 
-<h2 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-3 pt-6 pb-2.5 border-b-2 border-orange-100">
-  <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shrink-0 shadow-xs">7</span>
-  <span>Thông Tin Liên Hệ &amp; Đăng Ký Lắp Mạng FPT Hỏa Tốc</span>
-</h2>
-<p class="text-slate-800 leading-relaxed text-base">
-  Để không bỏ lỡ những trận cầu siêu kinh điển cuối tuần này, quý khách hàng hãy liên hệ ngay với FPT Telecom qua các kênh chính thức sau:
-</p>
+<!-- SECTION 3: 4 THẺ CÔNG NGHỆ XEM BÓNG ĐÁ ĐỈNH CAO (ĐỒNG BỘ PHONG CÁCH TRANG CHỦ) -->
+<div class="not-prose my-10 space-y-6">
+  <div class="flex items-center gap-2.5 border-b-2 border-orange-500/20 pb-3">
+    <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shadow-xs">3</span>
+    <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Đặc Quyền Xem Ngoại Hạng Anh Trên FPT Play</h3>
+  </div>
 
-<!-- KHỐI LIÊN HỆ: CHUẨN THÔNG TIN CỐ ĐỊNH, CHỮ ĐẬM SẮC NÉT -->
-<div class="p-6 rounded-2xl bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100/50 border-2 border-orange-300 text-slate-900 my-4 space-y-3 shadow-xs">
-  <p class="text-sm sm:text-base font-semibold">📍 <strong>Địa chỉ trung tâm:</strong> Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ</p>
-  <p class="text-sm sm:text-base font-semibold">📞 <strong>Hotline tư vấn 24/7:</strong> <a href="tel:0878800400" class="text-orange-600 font-black text-lg hover:underline">0878 800 400</a> (Tư vấn miễn phí)</p>
-  <p class="text-sm sm:text-base font-semibold">💬 <strong>Zalo hỗ trợ trực tiếp:</strong> <a href="https://zalo.me/0878800400" target="_blank" class="text-blue-600 font-black hover:underline">0878 800 400 (FPT Siêu Tốc)</a></p>
-  <p class="text-sm sm:text-base font-semibold">✉️ <strong>Email tiếp nhận:</strong> <a href="mailto:PhucNT51@fpt.com" class="text-slate-900 font-bold hover:underline">PhucNT51@fpt.com</a></p>
-  <p class="text-sm sm:text-base font-semibold">🌐 <strong>Cổng thông tin chính thức:</strong> <a href="https://gofpt.vn" class="text-orange-600 font-black hover:underline">https://gofpt.vn</a></p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="p-5 rounded-2xl bg-white border-2 border-slate-200/90 shadow-2xs space-y-2.5">
+      <div class="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center p-2">
+        <img src="/images/icons/svg/ngoai-hang-anh.svg" alt="Bản quyền" class="w-6 h-6 object-contain" />
+      </div>
+      <h4 class="text-base font-black text-slate-900">Bản Quyền 100% Trọn Vẹn</h4>
+      <p class="text-xs text-slate-600 leading-relaxed font-medium">
+        Xem đầy đủ toàn bộ 380 trận đấu mỗi mùa. Tuyệt đối không lo bị cắt sóng, chặn link hay giật lag.
+      </p>
+    </div>
+
+    <div class="p-5 rounded-2xl bg-white border-2 border-slate-200/90 shadow-2xs space-y-2.5">
+      <div class="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center p-2">
+        <img src="/images/icons/svg/ultra-fast.svg" alt="4K" class="w-6 h-6 object-contain" />
+      </div>
+      <h4 class="text-base font-black text-slate-900">Chuẩn Siêu Nét 4K Ultra HD</h4>
+      <p class="text-xs text-slate-600 leading-relaxed font-medium">
+        Hình ảnh chân thực từng ngọn cỏ, sắc nét gấp 4 lần Full HD với khung hình 60fps mượt mà trên Smart TV.
+      </p>
+    </div>
+
+    <div class="p-5 rounded-2xl bg-white border-2 border-slate-200/90 shadow-2xs space-y-2.5">
+      <div class="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center p-2">
+        <img src="/images/icons/svg/wifi-6.svg" alt="Wi-Fi 6" class="w-6 h-6 object-contain" />
+      </div>
+      <h4 class="text-base font-black text-slate-900">Mạng Wi-Fi 6 Siêu Tốc</h4>
+      <p class="text-xs text-slate-600 leading-relaxed font-medium">
+        Đường truyền cáp quang băng rộng thế hệ mới, độ trễ cực thấp (Ping &lt; 10ms), mượt mà giờ cao điểm.
+      </p>
+    </div>
+
+    <div class="p-5 rounded-2xl bg-white border-2 border-slate-200/90 shadow-2xs space-y-2.5">
+      <div class="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center p-2">
+        <img src="/images/icons/svg/smart-tv.svg" alt="Smart TV" class="w-6 h-6 object-contain" />
+      </div>
+      <h4 class="text-base font-black text-slate-900">Xem Đa Thiết Bị Linh Hoạt</h4>
+      <p class="text-xs text-slate-600 leading-relaxed font-medium">
+        Xem đồng thời trên Smart TV, Smartphone, iPad, Máy tính hoặc đầu thu FPT Play Box tiện lợi.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: BẢNG GIÁ COMBO EPL BÁN CHẠY (CHUẨN BENTO TRANG CHỦ) -->
+<div class="not-prose my-10 space-y-6">
+  <div class="flex items-center gap-2.5 border-b-2 border-orange-500/20 pb-3">
+    <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shadow-xs">4</span>
+    <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Gói Cước Combo Internet + FPT Play Ưu Đãi Nhất</h3>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <!-- Gói 1: Combo GIGA 220K -->
+    <div class="rounded-3xl bg-white border-2 border-orange-500 p-6 shadow-sm space-y-4 relative overflow-hidden flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider">
+            GÓI ĐƯỢC CHỌN NHIỀU NHẤT
+          </span>
+          <span class="text-xs font-bold text-slate-400">Gia Đình</span>
+        </div>
+        <h4 class="text-2xl font-black text-slate-900">Combo GIGA (EPL)</h4>
+        <div class="text-3xl font-black text-orange-600">
+          220.000đ <span class="text-xs font-normal text-slate-500">/tháng (đã gồm VAT)</span>
+        </div>
+        <ul class="text-xs sm:text-sm text-slate-700 space-y-2 pt-3 border-t border-slate-100 font-semibold">
+          <li>✓ Internet Wi-Fi 6 tốc độ 150 Mbps ổn định</li>
+          <li>✓ Trọn vẹn 10 trận/vòng Ngoại Hạng Anh trên FPT Play</li>
+          <li>✓ Gần 170 kênh truyền hình trong nước &amp; quốc tế</li>
+          <li>✓ Miễn phí trang bị Modem Wi-Fi 6 hai băng tần</li>
+          <li>✓ <strong>Tặng thêm Camera FPT AI an ninh thông minh 0đ</strong></li>
+        </ul>
+      </div>
+      <a href="/combo-ngoai-hang-anh" class="block w-full py-3 text-center rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-black text-xs uppercase tracking-wider shadow-sm transition-all">
+        ĐĂNG KÝ GÓI COMBO GIGA 220K
+      </a>
+    </div>
+
+    <!-- Gói 2: Combo SKY 250K -->
+    <div class="rounded-3xl bg-white border-2 border-slate-900 p-6 shadow-sm space-y-4 relative overflow-hidden flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-wider">
+            TỐC ĐỘ 1 GBPS
+          </span>
+          <span class="text-xs font-bold text-slate-400">Cafe &amp; Game</span>
+        </div>
+        <h4 class="text-2xl font-black text-slate-900">Combo SKY (EPL)</h4>
+        <div class="text-3xl font-black text-slate-900">
+          250.000đ <span class="text-xs font-normal text-slate-500">/tháng (đã gồm VAT)</span>
+        </div>
+        <ul class="text-xs sm:text-sm text-slate-700 space-y-2 pt-3 border-t border-slate-100 font-semibold">
+          <li>✓ Tốc độ mở rộng không giới hạn lên đến 1 Gbps (1000 Mbps)</li>
+          <li>✓ Chuẩn 4K Ultra HD mượt mà cho Smart TV màn hình lớn</li>
+          <li>✓ Phục vụ từ 20 - 40 người xem cùng lúc tại quán cafe</li>
+          <li>✓ Modem Wi-Fi 6 công suất lớn phát sóng xuyên tường</li>
+          <li>✓ Kỹ thuật viên hỗ trợ lắp đặt hỏa tốc trong 24 giờ</li>
+        </ul>
+      </div>
+      <a href="/combo-ngoai-hang-anh" class="block w-full py-3 text-center rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-black text-xs uppercase tracking-wider shadow-sm transition-all">
+        ĐĂNG KÝ GÓI COMBO SKY 250K
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: FAQ & KHUNG LIÊN HỆ CHUẨN CỐ ĐỊNH -->
+<div class="not-prose my-10 space-y-6">
+  <div class="flex items-center gap-2.5 border-b-2 border-orange-500/20 pb-3">
+    <span class="w-8 h-8 rounded-xl bg-orange-600 text-white inline-flex items-center justify-center text-sm font-black shadow-xs">5</span>
+    <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Hỏi - Đáp &amp; Hướng Dẫn Đăng Ký</h3>
+  </div>
+
+  <div class="space-y-3">
+    <div class="p-4 rounded-2xl bg-white border border-slate-200">
+      <h4 class="font-black text-sm text-slate-900 mb-1 flex items-center gap-2">
+        <span class="text-orange-600 font-black">Q:</span> FPT Play có chiếu đầy đủ 10 trận Vòng 12 không?
+      </h4>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+        Có. FPT Play phát sóng trực tiếp bản quyền chính thức 10/10 trận đấu mỗi vòng của giải Ngoại Hạng Anh tại Việt Nam.
+      </p>
+    </div>
+    <div class="p-4 rounded-2xl bg-white border border-slate-200">
+      <h4 class="font-black text-sm text-slate-900 mb-1 flex items-center gap-2">
+        <span class="text-orange-600 font-black">Q:</span> Tôi có thể xem Ngoại Hạng Anh trên mấy thiết bị cùng lúc?
+      </h4>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+        Một tài khoản FPT Play cho phép đăng nhập và xem đồng thời trên 3 - 5 thiết bị (Smart TV phòng khách, điện thoại, máy tính bảng).
+      </p>
+    </div>
+  </div>
+
+  <!-- BENTO BOTTOM CTA (ĐÚNG PHONG CÁCH TRANG CHỦ GOFPT.VN) -->
+  <div class="rounded-3xl bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100/60 border-2 border-orange-300 p-6 sm:p-8 space-y-4 shadow-sm">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <span class="text-xs font-black uppercase tracking-wider text-orange-600 block mb-1">TRUNG TÂM TIẾP NHẬN ĐĂNG KÝ HỎA TỐC</span>
+        <h4 class="text-xl sm:text-2xl font-black text-slate-900">Liên Hệ FPT Telecom Cần Thơ</h4>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1 font-medium">Kỹ thuật viên tư vấn tận tình, khảo sát tuyến cáp và triển khai trong 24 giờ</p>
+      </div>
+      <div class="flex items-center gap-2.5 shrink-0">
+        <a href="tel:0878800400" class="px-5 py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-black text-sm shadow-md transition-all flex items-center gap-2">
+          <span>Gọi 0878 800 400</span>
+        </a>
+        <a href="https://zalo.me/0878800400" target="_blank" class="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-blue-600 font-black text-sm border-2 border-blue-600 shadow-xs transition-all">
+          <span>Chat Zalo</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-4 border-t border-orange-200/80 text-xs text-slate-700 font-semibold">
+      <div>📍 <strong>Địa chỉ:</strong> Số 10 Phan Văn Trị, Phường Ninh Kiều, TP. Cần Thơ</div>
+      <div>✉️ <strong>Email:</strong> PhucNT51@fpt.com</div>
+      <div>🌐 <strong>Website:</strong> https://gofpt.vn</div>
+    </div>
+  </div>
 </div>
 6:["slug","lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play","d"]
-0:["KpBN8wj43JeHvj4UtrM1w",[[["",{"children":["tin-tuc",{"children":[["slug","lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play","d"],{"children":["__PAGE__?{\"slug\":\"lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play\"}",{}]}]}]},"$undefined","$undefined",true],["",{"children":["tin-tuc",{"children":[["slug","lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play","d"],{"children":["__PAGE__",{},[["$L1",["$","div",null,{"className":"bg-[#F4F6FB] min-h-screen py-8 sm:py-14","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"NewsArticle\",\"headline\":\"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play\",\"description\":\"Lịch thi đấu Ngoại Hạng Anh Vòng 12 mới nhất: Tâm điểm đại chiến Arsenal vs Man City, rực lửa derby Merseyside Everton vs Liverpool, MU quyết đấu Brentford. Trực tiếp trọn vẹn 10 trận chuẩn 4K Ultra HD trên FPT Play.\",\"image\":[\"http://localhost:3000/images/banners/ngoai-hang-anh-vong-12-fpt-play.jpg\"],\"datePublished\":\"2026-11-25T15:00:00.000Z\",\"dateModified\":\"2026-11-25T15:23:34.807Z\",\"author\":{\"@type\":\"Organization\",\"name\":\"FPT Telecom Cần Thơ\",\"url\":\"http://localhost:3000\"},\"publisher\":{\"@type\":\"Organization\",\"name\":\"Lắp Mạng FPT Siêu Tốc\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"http://localhost:3000/images/logo-gofpt-square.png\"}},\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"http://localhost:3000/tin-tuc/lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play\"}}"}}],["$","div",null,{"className":"max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8","children":[["$","div",null,{"className":"flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap","children":[["$","$L2",null,{"href":"/","className":"hover:text-fpt-orange transition-colors","children":"Trang chủ"}],["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-chevron-right w-3.5 h-3.5 shrink-0","children":[["$","path","mthhwq",{"d":"m9 18 6-6-6-6"}],"$undefined"]}],["$","$L2",null,{"href":"/tin-tuc","className":"hover:text-fpt-orange transition-colors","children":"Tin Tức & Cẩm Nang"}],["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-chevron-right w-3.5 h-3.5 shrink-0","children":[["$","path","mthhwq",{"d":"m9 18 6-6-6-6"}],"$undefined"]}],["$","span",null,{"className":"text-slate-900 font-semibold truncate max-w-xs sm:max-w-md","children":"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play"}]]}],["$","div",null,{"className":"grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start","children":[["$","article",null,{"className":"lg:col-span-8 bg-white rounded-2xl border border-slate-200/80 shadow-2xs p-6 sm:p-10 space-y-6","children":[["$","div",null,{"className":"space-y-3 border-b border-slate-100 pb-6","children":[["$","div",null,{"className":"flex items-center gap-2 flex-wrap","children":[["$","span",null,{"className":"px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200","children":"Tin Tức FPT"}],["$","span",null,{"className":"text-xs text-slate-400","children":"•"}],["$","span",null,{"className":"flex items-center gap-1 text-xs text-slate-500","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-calendar w-3.5 h-3.5","children":[["$","path","1cmpym",{"d":"M8 2v4"}],["$","path","4m81vk",{"d":"M16 2v4"}],["$","rect","1hopcy",{"width":"18","height":"18","x":"3","y":"4","rx":"2"}],["$","path","8toen8",{"d":"M3 10h18"}],"$undefined"]}],"25/11/2026"]}],["$","span",null,{"className":"text-xs text-slate-400","children":"•"}],["$","span",null,{"className":"flex items-center gap-1 text-xs text-slate-500","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-clock w-3.5 h-3.5","children":[["$","circle","1mglay",{"cx":"12","cy":"12","r":"10"}],["$","polyline","68esgv",{"points":"12 6 12 12 16 14"}],"$undefined"]}],4," phút đọc"]}],["$","span",null,{"className":"text-xs text-slate-400","children":"•"}],["$","span",null,{"className":"flex items-center gap-1 text-xs text-slate-500","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-eye w-3.5 h-3.5","children":[["$","path","1nclc0",{"d":"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"}],["$","circle","1v7zrd",{"cx":"12","cy":"12","r":"3"}],"$undefined"]}],96," lượt xem"]}]]}],["$","h1",null,{"className":"text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug sm:leading-tight","children":"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play"}],["$","div",null,{"className":"text-xs text-slate-500 font-medium","children":["Tác giả: ",["$","strong",null,{"className":"text-slate-800","children":"FPT Telecom Cần Thơ"}]]}]]}],["$","div",null,{"className":"rounded-2xl overflow-hidden border border-slate-200 shadow-2xs","children":["$","img",null,{"src":"/images/banners/ngoai-hang-anh-vong-12-fpt-play.jpg","alt":"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play","className":"w-full h-auto max-h-[420px] object-cover"}]}],["$","div",null,{"className":"p-4 sm:p-5 rounded-2xl bg-orange-50/70 border-l-4 border-fpt-orange text-xs sm:text-sm text-slate-700 leading-relaxed font-medium","children":"Lịch thi đấu Ngoại Hạng Anh Vòng 12 mới nhất: Tâm điểm đại chiến Arsenal vs Man City, rực lửa derby Merseyside Everton vs Liverpool, MU quyết đấu Brentford. Trực tiếp trọn vẹn 10 trận chuẩn 4K Ultra HD trên FPT Play."}],["$","div",null,{"className":"prose prose-slate max-w-none text-slate-800 text-sm sm:text-base leading-relaxed space-y-4 prose-headings:font-black prose-headings:text-slate-900 prose-headings:tracking-tight prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:pt-4 prose-h2:border-t prose-h2:border-slate-100 prose-h3:text-lg sm:prose-h3:text-xl prose-p:leading-relaxed prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900 prose-a:text-fpt-orange prose-a:font-bold hover:prose-a:underline","dangerouslySetInnerHTML":{"__html":"$3"}}],["$","div",null,{"className":"mt-8 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4","children":[["$","div",null,{"children":[["$","h4",null,{"className":"font-bold text-slate-900 text-sm sm:text-base","children":"Cần đăng ký lắp mạng FPT siêu tốc tại Cần Thơ?"}],["$","p",null,{"className":"text-xs text-slate-500 mt-0.5","children":"Gói Sky 1 Gbps chỉ 195K/tháng • Combo EPL 220K/tháng • Tặng Camera AI miễn phí"}]]}],["$","a",null,{"href":"tel:0878800400","className":"px-4 py-2.5 rounded-xl bg-fpt-orange hover:bg-fpt-hover text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5 whitespace-nowrap","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-phone w-3.5 h-3.5 fill-current","children":[["$","path","foiqr5",{"d":"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"}],"$undefined"]}],["$","span",null,{"children":["Gọi ","0878 800 400"]}]]}]]}]]}],["$","aside",null,{"className":"lg:col-span-4 space-y-6 lg:sticky lg:top-24","children":[["$","div",null,{"className":"bg-white rounded-2xl border border-slate-200/80 shadow-2xs p-5 sm:p-6 space-y-4","children":[["$","span",null,{"className":"text-xs font-bold uppercase tracking-wider text-slate-900 block border-b border-slate-100 pb-2","children":"2 Gói Cước Bán Chạy Nhất"}],["$","div",null,{"className":"p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2","children":[["$","div",null,{"className":"flex items-center justify-between","children":[["$","h4",null,{"className":"font-bold text-slate-900 text-sm","children":"Gói SKY (Wi-Fi 6)"}],["$","span",null,{"className":"px-2 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-bold","children":"1 Gbps"}]]}],["$","div",null,{"className":"text-xs text-slate-500","children":["Chỉ ",["$","strong",null,{"className":"text-base font-bold text-slate-900","children":"195.000đ"}],"/tháng"]}],["$","p",null,{"className":"text-[11px] text-slate-500","children":"Tặng kèm Camera FPT AI an ninh thông minh miễn phí"}],["$","$L2",null,{"href":"/lap-mang-fpt","className":"block w-full py-2 text-center rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-slate-800 transition-colors","children":"Xem Gói Sky 195K"}]]}],["$","div",null,{"className":"p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2","children":[["$","div",null,{"className":"flex items-center justify-between","children":[["$","h4",null,{"className":"font-bold text-slate-900 text-sm","children":"Combo GIGA (EPL)"}],["$","span",null,{"className":"px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-bold","children":"HOT"}]]}],["$","div",null,{"className":"text-xs text-slate-500","children":["Chỉ ",["$","strong",null,{"className":"text-base font-bold text-red-600","children":"220.000đ"}],"/tháng"]}],["$","p",null,{"className":"text-[11px] text-slate-500","children":"Bản quyền Ngoại hạng Anh • Xem Smart TV không cần Box"}],["$","$L2",null,{"href":"/combo-ngoai-hang-anh","className":"block w-full py-2 text-center rounded-xl bg-red-600 text-white font-semibold text-xs hover:bg-red-700 transition-colors","children":"Xem Combo EPL 220K"}]]}]]}],["$","div",null,{"className":"bg-white rounded-2xl border border-slate-200/80 shadow-2xs p-5","children":[["$","h3",null,{"className":"font-black text-slate-900 text-sm mb-2 text-center","children":"Đăng Ký Khảo Sát Tuyến Cáp 0đ"}],["$","p",null,{"className":"text-[11px] text-slate-500 mb-4 text-center","children":"Chuyên viên FPT sẽ liên hệ tư vấn vị trí lắp đặt và cổng quang gần nhất"}],["$","$L4",null,{"defaultPackage":"SKY","headline":"Nhận Báo Giá Ưu Đãi","subheadline":"Liên hệ lại sau 5 - 15 phút","formLocation":"news-sidebar-form"}]]}],["$","div",null,{"className":"bg-white rounded-3xl border border-slate-200/90 shadow-2xs p-5 space-y-3","children":[["$","span",null,{"className":"text-xs font-bold uppercase tracking-wider text-slate-900 block border-b border-slate-100 pb-2","children":"Bài Viết Liên Quan"}],["$","div",null,{"className":"divide-y divide-slate-100","children":[["$","$L2","art-camera-ai-fpt-an-toan",{"href":"/tin-tuc/fpt-can-tho-tang-camera-ai-mien-phi-khi-lap-mang-moi","className":"py-3 block group hover:text-fpt-orange transition-colors","children":[["$","h5",null,{"className":"font-bold text-xs text-slate-800 group-hover:text-fpt-orange line-clamp-2 leading-snug","children":"FPT Cần Thơ Tặng Camera AI An Ninh Miễn Phí Cho Khách Hàng Lắp Mạng Mới"}],["$","span",null,{"className":"text-[10px] text-slate-400 mt-1 block","children":"24/10/2026"}]]}],["$","$L2","art-danh-gia-wifi-6-fpt",{"href":"/tin-tuc/danh-gia-toc-do-wifi-6-khi-lap-mang-fpt-can-tho","className":"py-3 block group hover:text-fpt-orange transition-colors","children":[["$","h5",null,{"className":"font-bold text-xs text-slate-800 group-hover:text-fpt-orange line-clamp-2 leading-snug","children":"Đánh Giá Tốc Độ Wi-Fi 6 Khi Lắp Mạng FPT Cần Thơ Cho Hộ Gia Đình"}],["$","span",null,{"className":"text-[10px] text-slate-400 mt-1 block","children":"22/10/2026"}]]}],["$","$L2","art-fpt-can-tho-khuyen-mai-2026",{"href":"/tin-tuc/bang-gia-lap-mang-fpt-can-tho-khuyen-mai-moi-nhat","className":"py-3 block group hover:text-fpt-orange transition-colors","children":[["$","h5",null,{"className":"font-bold text-xs text-slate-800 group-hover:text-fpt-orange line-clamp-2 leading-snug","children":"Lắp Mạng FPT Cần Thơ: Bảng Giá Cước 2026 & Ưu Đãi Mới Nhất Tại FPT Cần Thơ"}],["$","span",null,{"className":"text-[10px] text-slate-400 mt-1 block","children":"20/10/2026"}]]}]]}]]}]]}]]}]]}]]}],null],null],null]},[null,["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","tin-tuc","children","$6","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L7",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]],null]},[null,["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","tin-tuc","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L7",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]],null]},[[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/9a57bf09c8779f40.css","precedence":"next","crossOrigin":"$undefined"}]],["$","html",null,{"lang":"vi","className":"scroll-smooth","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","href":"/favicon-48x48.png","sizes":"48x48","type":"image/png"}],["$","link",null,{"rel":"icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}],["$","link",null,{"rel":"apple-touch-icon","href":"/apple-touch-icon.png","sizes":"180x180"}],["$","link",null,{"rel":"icon","href":"/favicon.svg","type":"image/svg+xml"}],["$","script",null,{"id":"gtm-data-layer-init","dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n            "}}]]}],["$","body",null,{"className":"min-h-screen flex flex-col font-sans antialiased text-[#2F364A] bg-[#F4F6FB] selection:bg-[#FFF4ED] selection:text-[#F37021]","children":["$","$L8",null,{"initialConfig":{"brand":{"name":"Lắp Mạng FPT Siêu Tốc","shortName":"FPT Siêu Tốc","tagline":"Đăng ký Internet Wi-Fi 6, Truyền Hình FPT Play & Thể Thao Ngoại Hạng Anh","description":"Cổng tư vấn và tiếp nhận đăng ký lắp đặt Internet FPT tại Thành phố Cần Thơ & toàn quốc. Triển khai siêu tốc trong 24h, tặng Modem Wi-Fi 6 và Camera AI an ninh miễn phí, bảo hành trọn đời.","domain":"http://localhost:3000"},"promo":{"topBarAnnouncement":"Trang bị miễn phí Modem Wi-Fi 6 & Camera FPT","topBarBadge":"Ưu Đãi Tháng 11","heroGiftText":"Trang bị Modem Wi-Fi 6 thế hệ mới & Tặng kèm Camera FPT AI an ninh thông minh miễn phí","leadFormUrgentNote":"Cần lắp đặt gấp trong 2 - 4 giờ?"},"contact":{"hotlineDisplay":"0878 800 400","hotlineRaw":"0878800400","hotlineTel":"tel:0878800400","address":"Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ","addressShort":"Số 10 Phan Văn Trị, Phường Ninh Kiều, Cần Thơ","partnerRole":"Kênh Đại Lý Tiếp Nhận Dịch Vụ FPT Telecom","zaloUrl":"https://zalo.me/0878800400","messengerUrl":"https://www.facebook.com/fpttelecomonline51/","workingHours":"7:30 - 21:30 (Thứ 2 - Chủ Nhật, kể cả ngày lễ)","installationCommitment":"Khảo sát và lắp đặt nhanh trong 24h","supportEmail":"PhucNT51@fpt.com"},"tracking":{"facebookPixelId":"","enablePixel":false,"googleAdsId":"AW-18594624810","googleAdsConversionLabel":"_CuxCN_bib8dEKrqzaJF","googleAdsCallConversionLabel":"SmL9COLbib8dEKrqzaJF","googleAdsConversionValue":200000,"enableGoogleAds":true,"googleAnalyticsId":"G-5XCNM798CE","enableGa4":true},"telegram":{"botToken":"","chatId":"","enabled":true},"disclaimer":{"officialDisclaimer":"Website là kênh đại lý đối tác tư vấn và hỗ trợ đăng ký dịch vụ viễn thông của FPT Telecom tại Cần Thơ, Hậu Giang, Sóc Trăng và các tỉnh lân cận. Chúng tôi không tự xưng là cổng thông tin tập đoàn chính thức FPT Telecom. Tất cả logo, biểu trưng thương hiệu và tên gói cước thuộc bản quyền của FPT Telecom.","privacyNote":"Thông tin cá nhân của bạn được bảo mật tuyệt đối theo Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân, chỉ sử dụng cho mục đích tư vấn và hỗ trợ khảo sát hạ tầng lắp đặt dịch vụ."},"popularAreas":[{"code":"CT-P-NK","name":"Cần Thơ - Phường Ninh Kiều","isPopular":true},{"code":"CT-P-CK","name":"Cần Thơ - Phường Cái Khế","isPopular":true},{"code":"CT-P-TA","name":"Cần Thơ - Phường Tân An","isPopular":true},{"code":"CT-P-AB","name":"Cần Thơ - Phường An Bình","isPopular":true},{"code":"CT-P-TAD","name":"Cần Thơ - Phường Thới An Đông","isPopular":true},{"code":"CT-P-BT","name":"Cần Thơ - Phường Bình Thủy","isPopular":true},{"code":"CT-P-LT","name":"Cần Thơ - Phường Long Tuyền","isPopular":true},{"code":"CT-P-CR","name":"Cần Thơ - Phường Cái Răng","isPopular":true},{"code":"CT-P-HP","name":"Cần Thơ - Phường Hưng Phú","isPopular":true},{"code":"CT-P-OM","name":"Cần Thơ - Phường Ô Môn","isPopular":true},{"code":"CT-P-PT","name":"Cần Thơ - Phường Phước Thới","isPopular":true},{"code":"CT-P-TL","name":"Cần Thơ - Phường Thới Long","isPopular":true},{"code":"CT-P-TN1","name":"Cần Thơ - Phường Trung Nhứt","isPopular":true},{"code":"CT-P-TH","name":"Cần Thơ - Phường Thuận Hưng","isPopular":true},{"code":"CT-P-TN","name":"Cần Thơ - Phường Thốt Nốt","isPopular":true},{"code":"CT-P-TLOC","name":"Cần Thơ - Phường Tân Lộc","isPopular":true},{"code":"CT-P-VT","name":"Cần Thơ - Phường Vị Thanh","isPopular":true},{"code":"CT-P-VTAN","name":"Cần Thơ - Phường Vị Tân","isPopular":true},{"code":"CT-P-LB","name":"Cần Thơ - Phường Long Bình","isPopular":true},{"code":"CT-P-LM","name":"Cần Thơ - Phường Long Mỹ","isPopular":true},{"code":"CT-P-LP1","name":"Cần Thơ - Phường Long Phú 1","isPopular":true},{"code":"CT-P-DT","name":"Cần Thơ - Phường Đại Thành","isPopular":true},{"code":"CT-P-NB","name":"Cần Thơ - Phường Ngã Bảy","isPopular":true},{"code":"CT-P-PL","name":"Cần Thơ - Phường Phú Lợi","isPopular":true},{"code":"CT-P-ST","name":"Cần Thơ - Phường Sóc Trăng","isPopular":true},{"code":"CT-P-MX","name":"Cần Thơ - Phường Mỹ Xuyên","isPopular":true},{"code":"CT-P-VP","name":"Cần Thơ - Phường Vĩnh Phước","isPopular":true},{"code":"CT-P-VC","name":"Cần Thơ - Phường Vĩnh Châu","isPopular":true},{"code":"CT-P-KH","name":"Cần Thơ - Phường Khánh Hòa","isPopular":true},{"code":"CT-P-NN","name":"Cần Thơ - Phường Ngã Năm","isPopular":true},{"code":"CT-P-MQ","name":"Cần Thơ - Phường Mỹ Quới","isPopular":true},{"code":"CT-X-PD","name":"Cần Thơ - Xã Phong Điền","isPopular":true},{"code":"CT-X-NA","name":"Cần Thơ - Xã Nhơn Ái","isPopular":true},{"code":"CT-X-TL","name":"Cần Thơ - Xã Thới Lai","isPopular":true},{"code":"CT-X-DT","name":"Cần Thơ - Xã Đông Thuận","isPopular":true},{"code":"CT-X-TX","name":"Cần Thơ - Xã Trường Xuân","isPopular":true},{"code":"CT-X-TTH","name":"Cần Thơ - Xã Trường Thành","isPopular":true},{"code":"CT-X-CD","name":"Cần Thơ - Xã Cờ Đỏ","isPopular":true},{"code":"CT-X-DH","name":"Cần Thơ - Xã Đông Hiệp","isPopular":true},{"code":"CT-X-THU","name":"Cần Thơ - Xã Trung Hưng","isPopular":true},{"code":"CT-X-VT","name":"Cần Thơ - Xã Vĩnh Thạnh","isPopular":true},{"code":"CT-X-VTR","name":"Cần Thơ - Xã Vĩnh Trinh","isPopular":true},{"code":"CT-X-TA","name":"Cần Thơ - Xã Thạnh An","isPopular":true},{"code":"CT-X-TQ","name":"Cần Thơ - Xã Thạnh Quới","isPopular":true},{"code":"CT-X-HL","name":"Cần Thơ - Xã Hỏa Lựu","isPopular":true},{"code":"CT-X-VTH","name":"Cần Thơ - Xã Vị Thủy","isPopular":true},{"code":"CT-X-VTD","name":"Cần Thơ - Xã Vĩnh Thuận Đông","isPopular":true},{"code":"CT-X-VT1","name":"Cần Thơ - Xã Vị Thanh 1","isPopular":true},{"code":"CT-X-VTU","name":"Cần Thơ - Xã Vĩnh Tường","isPopular":true},{"code":"CT-X-VV","name":"Cần Thơ - Xã Vĩnh Viễn","isPopular":true},{"code":"CT-X-XP","name":"Cần Thơ - Xã Xà Phiên","isPopular":true},{"code":"CT-X-LT","name":"Cần Thơ - Xã Lương Tâm","isPopular":true},{"code":"CT-X-TXU","name":"Cần Thơ - Xã Thạnh Xuân","isPopular":true},{"code":"CT-X-TH","name":"Cần Thơ - Xã Tân Hòa","isPopular":true},{"code":"CT-X-TLT","name":"Cần Thơ - Xã Trường Long Tây","isPopular":true},{"code":"CT-X-CT","name":"Cần Thơ - Xã Châu Thành","isPopular":true},{"code":"CT-X-DP","name":"Cần Thơ - Xã Đông Phước","isPopular":true},{"code":"CT-X-PHU","name":"Cần Thơ - Xã Phú Hữu","isPopular":true},{"code":"CT-X-TB","name":"Cần Thơ - Xã Tân Bình","isPopular":true},{"code":"CT-X-HA","name":"Cần Thơ - Xã Hòa An","isPopular":true},{"code":"CT-X-PB","name":"Cần Thơ - Xã Phương Bình","isPopular":true},{"code":"CT-X-TPH","name":"Cần Thơ - Xã Tân Phước Hưng","isPopular":true},{"code":"CT-X-HH","name":"Cần Thơ - Xã Hiệp Hưng","isPopular":true},{"code":"CT-X-PH","name":"Cần Thơ - Xã Phụng Hiệp","isPopular":true},{"code":"CT-X-THO","name":"Cần Thơ - Xã Thạnh Hòa","isPopular":true},{"code":"CT-X-HT","name":"Cần Thơ - Xã Hòa Tú","isPopular":true},{"code":"CT-X-GH","name":"Cần Thơ - Xã Gia Hòa","isPopular":true},{"code":"CT-X-NG","name":"Cần Thơ - Xã Nhu Gia","isPopular":true},{"code":"CT-X-NT","name":"Cần Thơ - Xã Ngọc Tố","isPopular":true},{"code":"CT-X-TK","name":"Cần Thơ - Xã Trường Khánh","isPopular":true},{"code":"CT-X-DN","name":"Cần Thơ - Xã Đại Ngãi","isPopular":true},{"code":"CT-X-TT","name":"Cần Thơ - Xã Tân Thạnh","isPopular":true},{"code":"CT-X-LP","name":"Cần Thơ - Xã Long Phú","isPopular":true},{"code":"CT-X-NM","name":"Cần Thơ - Xã Nhơn Mỹ","isPopular":true},{"code":"CT-X-ALT","name":"Cần Thơ - Xã An Lạc Thôn","isPopular":true},{"code":"CT-X-KS","name":"Cần Thơ - Xã Kế Sách","isPopular":true},{"code":"CT-X-TAH","name":"Cần Thơ - Xã Thới An Hội","isPopular":true},{"code":"CT-X-DHA","name":"Cần Thơ - Xã Đại Hải","isPopular":true},{"code":"CT-X-PT","name":"Cần Thơ - Xã Phú Tâm","isPopular":true},{"code":"CT-X-AN","name":"Cần Thơ - Xã An Ninh","isPopular":true},{"code":"CT-X-THOA","name":"Cần Thơ - Xã Thuận Hòa","isPopular":true},{"code":"CT-X-HDK","name":"Cần Thơ - Xã Hồ Đắc Kiện","isPopular":true},{"code":"CT-X-MT","name":"Cần Thơ - Xã Mỹ Tú","isPopular":true},{"code":"CT-X-LH","name":"Cần Thơ - Xã Long Hưng","isPopular":true},{"code":"CT-X-MH","name":"Cần Thơ - Xã Mỹ Hương","isPopular":true},{"code":"CT-X-TLO","name":"Cần Thơ - Xã Tân Long","isPopular":true},{"code":"CT-X-PL","name":"Cần Thơ - Xã Phú Lộc","isPopular":true},{"code":"CT-X-VL","name":"Cần Thơ - Xã Vĩnh Lợi","isPopular":true},{"code":"CT-X-LTA","name":"Cần Thơ - Xã Lâm Tân","isPopular":true},{"code":"CT-X-TTA","name":"Cần Thơ - Xã Thạnh Thới An","isPopular":true},{"code":"CT-X-TV","name":"Cần Thơ - Xã Tài Văn","isPopular":true},{"code":"CT-X-TLON","name":"Cần Thơ - Xã Trường Long","isPopular":true},{"code":"CT-X-TP","name":"Cần Thơ - Xã Thạnh Phú","isPopular":true},{"code":"CT-X-THU2","name":"Cần Thơ - Xã Thới Hưng","isPopular":true},{"code":"CT-X-PN","name":"Cần Thơ - Xã Phong Nẫm","isPopular":true},{"code":"CT-X-MP","name":"Cần Thơ - Xã Mỹ Phước","isPopular":true},{"code":"CT-X-LH2","name":"Cần Thơ - Xã Lai Hòa","isPopular":true},{"code":"CT-X-VH","name":"Cần Thơ - Xã Vĩnh Hải","isPopular":true},{"code":"CT-X-CLD","name":"Cần Thơ - Xã Cù Lao Dung","isPopular":true},{"code":"CT-X-TL2","name":"Cần Thơ - Xã Thạnh Lộc","isPopular":true},{"code":"CT-X-TM","name":"Cần Thơ - Xã Thạnh Mỹ","isPopular":true},{"code":"CT-X-TTR","name":"Cần Thơ - Xã Thạnh Trị","isPopular":true},{"code":"CT-X-TDE","name":"Cần Thơ - Xã Trần Đề","isPopular":true},{"code":"OTHER","name":"Các Tỉnh / Thành Phố Khác (Toàn Quốc)","isPopular":false}],"packages":{"internet":[{"id":"net-sky","name":"SKY","category":"internet","speed":"1 Gbps (1000 Mbps)","uploadSpeed":"300 Mbps","priceDisplay":"195.000đ","priceValue":195000,"billingCycle":"/tháng","badge":"Gói Bán Chạy Nhất • 195K/Tháng","highlight":true,"idealFor":"Hộ gia đình, xem phim 4K, học tập, bán hàng online mượt mà (10 - 25 thiết bị)","features":["Tốc độ Download cực khủng lên đến 1 Gbps (1000 Mbps)","Tốc độ Upload: 300 Mbps","Trang bị miễn phí Modem Wi-Fi 6 băng tần kép thế hệ mới","Khảo sát và lắp đặt nhanh trong 24 giờ","Bảo hành trọn đời thiết bị"],"equipment":["1 Modem Wi-Fi 6 hai băng tần thế hệ mới tốc độ 1 Gbps"]},{"id":"net-fgame","name":"F-GAME","category":"internet","speed":"1 Gbps + Ultra Fast","uploadSpeed":"300 Mbps","priceDisplay":"235.000đ - 265.000đ","priceValue":235000,"billingCycle":"/tháng","badge":"Dành riêng game thủ","highlight":false,"idealFor":"Game thủ chuyên nghiệp, giảm ping giật lag tối đa khi chơi Liên Quân, FO4, Valorant, PUBG...","features":["Tích hợp tính năng Ultra Fast giảm ping tự động","Tốc độ Download lên đến 1 Gbps","Modem Wi-Fi 6 độ trễ siêu thấp","Tối ưu hơn 50+ tựa game phổ biến"],"equipment":["1 Modem Wi-Fi 6 tích hợp tính năng Game Booster"]},{"id":"net-meta","name":"META","category":"internet","speed":"1 Gbps Đối Xứng","uploadSpeed":"1 Gbps","priceDisplay":"300.000đ - 350.000đ","priceValue":300000,"billingCycle":"/tháng","badge":"Băng thông cực đại","highlight":false,"idealFor":"Gia đình biệt thự, nhà nhiều tầng, livestreamer 4K, quán cafe, văn phòng (25+ thiết bị)","features":["Tốc độ Download & Upload đối xứng: 1 Gbps / 1 Gbps","Công nghệ Wi-Fi 6 tiên tiến chịu tải cao","Đường truyền ưu tiên băng thông quốc tế","Miễn phí lắp đặt khi trả trước 6 hoặc 12 tháng"],"equipment":["1 Modem Wi-Fi 6 chuẩn chuyên dụng chịu tải"]}],"combo":[{"id":"combo-giga","name":"Combo GIGA","category":"combo","speed":"300 Mbps + Ngoại Hạng Anh (EPL)","priceDisplay":"220.000đ","priceValue":220000,"billingCycle":"/tháng","badge":"Gói Phổ Biến Nhất • 220K/Tháng","highlight":true,"idealFor":"Fan Ngoại Hạng Anh & giải trí cả gia đình với mức cước tiết kiệm nhất (Không cần Box)","features":["Bản Quyền Trọn Vẹn Ngoại Hạng Anh (EPL) trực tiếp Full HD","Internet cáp quang 300 Mbps trang bị Modem Wi-Fi 6","Gần 170 kênh truyền hình FPT Play giải trí đặc sắc","Cài ứng dụng FPT Play xem mượt mà trên Smart TV, Điện thoại, Máy tính bảng (Không cần Box)","Xem trực tiếp Cúp Châu Âu, V-League, phim ảnh 4K","Tặng kèm Camera FPT AI an ninh thông minh miễn phí"],"equipment":["1 Modem Wi-Fi 6 hai băng tần thế hệ mới"]},{"id":"combo-sky","name":"Combo SKY","category":"combo","speed":"1 Gbps (1000 Mbps) + EPL","priceDisplay":"239.000đ - 269.000đ","priceValue":239000,"billingCycle":"/tháng","badge":"Tốc độ 1 Gbps","highlight":false,"idealFor":"Fan hâm mộ Ngoại Hạng Anh cần Internet siêu tốc 1 Gbps cho nhiều thiết bị","features":["Tốc độ Internet cực khủng lên tới 1 Gbps (Wi-Fi 6)","Bản Quyền Trọn Vẹn Ngoại Hạng Anh (EPL) bản quyền","Xem các cúp Châu Âu, V-League, Golf, Võ thuật MMA...","Tài khoản FPT Play xem đồng thời trên nhiều Smart TV & thiết bị di động (Không cần Box)","Bảo hành và bảo trì trọn đời đường truyền"],"equipment":["1 Modem Wi-Fi 6 hai băng tần thế hệ mới"]},{"id":"combo-meta","name":"Combo META","category":"combo","speed":"1 Gbps Đối Xứng","priceDisplay":"340.000đ - 380.000đ","priceValue":340000,"billingCycle":"/tháng","badge":"VIP cao cấp nhất","highlight":false,"idealFor":"Hộ gia đình cao cấp, nhà thông minh, yêu cầu hình ảnh 4K mượt mà trên nhiều TV","features":["Internet 1 Gbps đối xứng Upload và Download","Gói truyền hình V.VIP đầy đủ kênh Thể thao Ngoại Hạng Anh & Phim ảnh","Xem mượt mà trên tất cả thiết bị Smart TV trong nhà qua App FPT Play (Không cần Box)","Ưu tiên xử lý sự cố trong vòng 60 phút"],"equipment":["1 Modem Wi-Fi 6 công suất lớn chịu tải"]}],"camera":[]}},"children":["$","$L9",null,{"children":[["$","$La",null,{}],["$","$Lb",null,{}],["$","$Lc",null,{}],["$","$Ld",null,{}],["$","$Le",null,{}],["$","main",null,{"className":"flex-1","children":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L7",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[]}]}],["$","$Lf",null,{}],["$","$L10",null,{}]]}]}]}]]}]],null],null],["$L11",null]]]]
+0:["iw8Cj-wAwIS9VHqC3Fv0_",[[["",{"children":["tin-tuc",{"children":[["slug","lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play","d"],{"children":["__PAGE__?{\"slug\":\"lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play\"}",{}]}]}]},"$undefined","$undefined",true],["",{"children":["tin-tuc",{"children":[["slug","lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play","d"],{"children":["__PAGE__",{},[["$L1",["$","div",null,{"className":"bg-[#F4F6FB] min-h-screen py-8 sm:py-14","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"NewsArticle\",\"headline\":\"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play\",\"description\":\"Lịch thi đấu Ngoại Hạng Anh Vòng 12 mới nhất: Tâm điểm đại chiến Arsenal vs Man City, rực lửa derby Merseyside Everton vs Liverpool, MU quyết đấu Brentford. Trực tiếp trọn vẹn 10 trận chuẩn 4K Ultra HD trên FPT Play.\",\"image\":[\"http://localhost:3000/images/banners/ngoai-hang-anh-vong-12-fpt-play.jpg\"],\"datePublished\":\"2026-11-25T15:00:00.000Z\",\"dateModified\":\"2026-11-25T15:31:04.661Z\",\"author\":{\"@type\":\"Organization\",\"name\":\"FPT Telecom Cần Thơ\",\"url\":\"http://localhost:3000\"},\"publisher\":{\"@type\":\"Organization\",\"name\":\"Lắp Mạng FPT Siêu Tốc\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"http://localhost:3000/images/logo-gofpt-square.png\"}},\"mainEntityOfPage\":{\"@type\":\"WebPage\",\"@id\":\"http://localhost:3000/tin-tuc/lich-thi-dau-ngoai-hang-anh-vong-12-truc-tiep-fpt-play\"}}"}}],["$","div",null,{"className":"max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8","children":[["$","div",null,{"className":"flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap","children":[["$","$L2",null,{"href":"/","className":"hover:text-fpt-orange transition-colors","children":"Trang chủ"}],["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-chevron-right w-3.5 h-3.5 shrink-0","children":[["$","path","mthhwq",{"d":"m9 18 6-6-6-6"}],"$undefined"]}],["$","$L2",null,{"href":"/tin-tuc","className":"hover:text-fpt-orange transition-colors","children":"Tin Tức & Cẩm Nang"}],["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-chevron-right w-3.5 h-3.5 shrink-0","children":[["$","path","mthhwq",{"d":"m9 18 6-6-6-6"}],"$undefined"]}],["$","span",null,{"className":"text-slate-900 font-semibold truncate max-w-xs sm:max-w-md","children":"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play"}]]}],["$","div",null,{"className":"grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start","children":[["$","article",null,{"className":"lg:col-span-8 bg-white rounded-2xl border border-slate-200/80 shadow-2xs p-6 sm:p-10 space-y-6","children":[["$","div",null,{"className":"space-y-3 border-b border-slate-100 pb-6","children":[["$","div",null,{"className":"flex items-center gap-2 flex-wrap","children":[["$","span",null,{"className":"px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200","children":"Tin Tức FPT"}],["$","span",null,{"className":"text-xs text-slate-400","children":"•"}],["$","span",null,{"className":"flex items-center gap-1 text-xs text-slate-500","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-calendar w-3.5 h-3.5","children":[["$","path","1cmpym",{"d":"M8 2v4"}],["$","path","4m81vk",{"d":"M16 2v4"}],["$","rect","1hopcy",{"width":"18","height":"18","x":"3","y":"4","rx":"2"}],["$","path","8toen8",{"d":"M3 10h18"}],"$undefined"]}],"25/11/2026"]}],["$","span",null,{"className":"text-xs text-slate-400","children":"•"}],["$","span",null,{"className":"flex items-center gap-1 text-xs text-slate-500","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-clock w-3.5 h-3.5","children":[["$","circle","1mglay",{"cx":"12","cy":"12","r":"10"}],["$","polyline","68esgv",{"points":"12 6 12 12 16 14"}],"$undefined"]}],4," phút đọc"]}],["$","span",null,{"className":"text-xs text-slate-400","children":"•"}],["$","span",null,{"className":"flex items-center gap-1 text-xs text-slate-500","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-eye w-3.5 h-3.5","children":[["$","path","1nclc0",{"d":"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"}],["$","circle","1v7zrd",{"cx":"12","cy":"12","r":"3"}],"$undefined"]}],98," lượt xem"]}]]}],["$","h1",null,{"className":"text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-snug sm:leading-tight","children":"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play"}],["$","div",null,{"className":"text-xs text-slate-500 font-medium","children":["Tác giả: ",["$","strong",null,{"className":"text-slate-800","children":"FPT Telecom Cần Thơ"}]]}]]}],["$","div",null,{"className":"rounded-2xl overflow-hidden border border-slate-200 shadow-2xs","children":["$","img",null,{"src":"/images/banners/ngoai-hang-anh-vong-12-fpt-play.jpg","alt":"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play","className":"w-full h-auto max-h-[420px] object-cover"}]}],["$","div",null,{"className":"p-4 sm:p-5 rounded-2xl bg-orange-50/70 border-l-4 border-fpt-orange text-xs sm:text-sm text-slate-700 leading-relaxed font-medium","children":"Lịch thi đấu Ngoại Hạng Anh Vòng 12 mới nhất: Tâm điểm đại chiến Arsenal vs Man City, rực lửa derby Merseyside Everton vs Liverpool, MU quyết đấu Brentford. Trực tiếp trọn vẹn 10 trận chuẩn 4K Ultra HD trên FPT Play."}],["$","div",null,{"className":"prose prose-slate max-w-none text-slate-800 text-sm sm:text-base leading-relaxed space-y-4 prose-headings:font-black prose-headings:text-slate-900 prose-headings:tracking-tight prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:pt-4 prose-h2:border-t prose-h2:border-slate-100 prose-h3:text-lg sm:prose-h3:text-xl prose-p:leading-relaxed prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-slate-900 prose-a:text-fpt-orange prose-a:font-bold hover:prose-a:underline","dangerouslySetInnerHTML":{"__html":"$3"}}],["$","div",null,{"className":"mt-8 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4","children":[["$","div",null,{"children":[["$","h4",null,{"className":"font-bold text-slate-900 text-sm sm:text-base","children":"Cần đăng ký lắp mạng FPT siêu tốc tại Cần Thơ?"}],["$","p",null,{"className":"text-xs text-slate-500 mt-0.5","children":"Gói Sky 1 Gbps chỉ 195K/tháng • Combo EPL 220K/tháng • Tặng Camera AI miễn phí"}]]}],["$","a",null,{"href":"tel:0878800400","className":"px-4 py-2.5 rounded-xl bg-fpt-orange hover:bg-fpt-hover text-white font-bold text-xs shadow-xs transition-colors flex items-center gap-1.5 whitespace-nowrap","children":[["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","width":24,"height":24,"viewBox":"0 0 24 24","fill":"none","stroke":"currentColor","strokeWidth":2,"strokeLinecap":"round","strokeLinejoin":"round","className":"lucide lucide-phone w-3.5 h-3.5 fill-current","children":[["$","path","foiqr5",{"d":"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"}],"$undefined"]}],["$","span",null,{"children":["Gọi ","0878 800 400"]}]]}]]}]]}],["$","aside",null,{"className":"lg:col-span-4 space-y-6 lg:sticky lg:top-24","children":[["$","div",null,{"className":"bg-white rounded-2xl border border-slate-200/80 shadow-2xs p-5 sm:p-6 space-y-4","children":[["$","span",null,{"className":"text-xs font-bold uppercase tracking-wider text-slate-900 block border-b border-slate-100 pb-2","children":"2 Gói Cước Bán Chạy Nhất"}],["$","div",null,{"className":"p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2","children":[["$","div",null,{"className":"flex items-center justify-between","children":[["$","h4",null,{"className":"font-bold text-slate-900 text-sm","children":"Gói SKY (Wi-Fi 6)"}],["$","span",null,{"className":"px-2 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-bold","children":"1 Gbps"}]]}],["$","div",null,{"className":"text-xs text-slate-500","children":["Chỉ ",["$","strong",null,{"className":"text-base font-bold text-slate-900","children":"195.000đ"}],"/tháng"]}],["$","p",null,{"className":"text-[11px] text-slate-500","children":"Tặng kèm Camera FPT AI an ninh thông minh miễn phí"}],["$","$L2",null,{"href":"/lap-mang-fpt","className":"block w-full py-2 text-center rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-slate-800 transition-colors","children":"Xem Gói Sky 195K"}]]}],["$","div",null,{"className":"p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2","children":[["$","div",null,{"className":"flex items-center justify-between","children":[["$","h4",null,{"className":"font-bold text-slate-900 text-sm","children":"Combo GIGA (EPL)"}],["$","span",null,{"className":"px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-bold","children":"HOT"}]]}],["$","div",null,{"className":"text-xs text-slate-500","children":["Chỉ ",["$","strong",null,{"className":"text-base font-bold text-red-600","children":"220.000đ"}],"/tháng"]}],["$","p",null,{"className":"text-[11px] text-slate-500","children":"Bản quyền Ngoại hạng Anh • Xem Smart TV không cần Box"}],["$","$L2",null,{"href":"/combo-ngoai-hang-anh","className":"block w-full py-2 text-center rounded-xl bg-red-600 text-white font-semibold text-xs hover:bg-red-700 transition-colors","children":"Xem Combo EPL 220K"}]]}]]}],["$","div",null,{"className":"bg-white rounded-2xl border border-slate-200/80 shadow-2xs p-5","children":[["$","h3",null,{"className":"font-black text-slate-900 text-sm mb-2 text-center","children":"Đăng Ký Khảo Sát Tuyến Cáp 0đ"}],["$","p",null,{"className":"text-[11px] text-slate-500 mb-4 text-center","children":"Chuyên viên FPT sẽ liên hệ tư vấn vị trí lắp đặt và cổng quang gần nhất"}],["$","$L4",null,{"defaultPackage":"SKY","headline":"Nhận Báo Giá Ưu Đãi","subheadline":"Liên hệ lại sau 5 - 15 phút","formLocation":"news-sidebar-form"}]]}],["$","div",null,{"className":"bg-white rounded-3xl border border-slate-200/90 shadow-2xs p-5 space-y-3","children":[["$","span",null,{"className":"text-xs font-bold uppercase tracking-wider text-slate-900 block border-b border-slate-100 pb-2","children":"Bài Viết Liên Quan"}],["$","div",null,{"className":"divide-y divide-slate-100","children":[["$","$L2","art-camera-ai-fpt-an-toan",{"href":"/tin-tuc/fpt-can-tho-tang-camera-ai-mien-phi-khi-lap-mang-moi","className":"py-3 block group hover:text-fpt-orange transition-colors","children":[["$","h5",null,{"className":"font-bold text-xs text-slate-800 group-hover:text-fpt-orange line-clamp-2 leading-snug","children":"FPT Cần Thơ Tặng Camera AI An Ninh Miễn Phí Cho Khách Hàng Lắp Mạng Mới"}],["$","span",null,{"className":"text-[10px] text-slate-400 mt-1 block","children":"24/10/2026"}]]}],["$","$L2","art-danh-gia-wifi-6-fpt",{"href":"/tin-tuc/danh-gia-toc-do-wifi-6-khi-lap-mang-fpt-can-tho","className":"py-3 block group hover:text-fpt-orange transition-colors","children":[["$","h5",null,{"className":"font-bold text-xs text-slate-800 group-hover:text-fpt-orange line-clamp-2 leading-snug","children":"Đánh Giá Tốc Độ Wi-Fi 6 Khi Lắp Mạng FPT Cần Thơ Cho Hộ Gia Đình"}],["$","span",null,{"className":"text-[10px] text-slate-400 mt-1 block","children":"22/10/2026"}]]}],["$","$L2","art-fpt-can-tho-khuyen-mai-2026",{"href":"/tin-tuc/bang-gia-lap-mang-fpt-can-tho-khuyen-mai-moi-nhat","className":"py-3 block group hover:text-fpt-orange transition-colors","children":[["$","h5",null,{"className":"font-bold text-xs text-slate-800 group-hover:text-fpt-orange line-clamp-2 leading-snug","children":"Lắp Mạng FPT Cần Thơ: Bảng Giá Cước 2026 & Ưu Đãi Mới Nhất Tại FPT Cần Thơ"}],["$","span",null,{"className":"text-[10px] text-slate-400 mt-1 block","children":"20/10/2026"}]]}]]}]]}]]}]]}]]}]]}],null],null],null]},[null,["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","tin-tuc","children","$6","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L7",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]],null]},[null,["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children","tin-tuc","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L7",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]],null]},[[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/9a57bf09c8779f40.css","precedence":"next","crossOrigin":"$undefined"}]],["$","html",null,{"lang":"vi","className":"scroll-smooth","children":[["$","head",null,{"children":[["$","link",null,{"rel":"icon","href":"/favicon-48x48.png","sizes":"48x48","type":"image/png"}],["$","link",null,{"rel":"icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}],["$","link",null,{"rel":"apple-touch-icon","href":"/apple-touch-icon.png","sizes":"180x180"}],["$","link",null,{"rel":"icon","href":"/favicon.svg","type":"image/svg+xml"}],["$","script",null,{"id":"gtm-data-layer-init","dangerouslySetInnerHTML":{"__html":"\n              window.dataLayer = window.dataLayer || [];\n              function gtag(){dataLayer.push(arguments);}\n              gtag('js', new Date());\n            "}}]]}],["$","body",null,{"className":"min-h-screen flex flex-col font-sans antialiased text-[#2F364A] bg-[#F4F6FB] selection:bg-[#FFF4ED] selection:text-[#F37021]","children":["$","$L8",null,{"initialConfig":{"brand":{"name":"Lắp Mạng FPT Siêu Tốc","shortName":"FPT Siêu Tốc","tagline":"Đăng ký Internet Wi-Fi 6, Truyền Hình FPT Play & Thể Thao Ngoại Hạng Anh","description":"Cổng tư vấn và tiếp nhận đăng ký lắp đặt Internet FPT tại Thành phố Cần Thơ & toàn quốc. Triển khai siêu tốc trong 24h, tặng Modem Wi-Fi 6 và Camera AI an ninh miễn phí, bảo hành trọn đời.","domain":"http://localhost:3000"},"promo":{"topBarAnnouncement":"Trang bị miễn phí Modem Wi-Fi 6 & Camera FPT","topBarBadge":"Ưu Đãi Tháng 11","heroGiftText":"Trang bị Modem Wi-Fi 6 thế hệ mới & Tặng kèm Camera FPT AI an ninh thông minh miễn phí","leadFormUrgentNote":"Cần lắp đặt gấp trong 2 - 4 giờ?"},"contact":{"hotlineDisplay":"0878 800 400","hotlineRaw":"0878800400","hotlineTel":"tel:0878800400","address":"Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ","addressShort":"Số 10 Phan Văn Trị, Phường Ninh Kiều, Cần Thơ","partnerRole":"Kênh Đại Lý Tiếp Nhận Dịch Vụ FPT Telecom","zaloUrl":"https://zalo.me/0878800400","messengerUrl":"https://www.facebook.com/fpttelecomonline51/","workingHours":"7:30 - 21:30 (Thứ 2 - Chủ Nhật, kể cả ngày lễ)","installationCommitment":"Khảo sát và lắp đặt nhanh trong 24h","supportEmail":"PhucNT51@fpt.com"},"tracking":{"facebookPixelId":"","enablePixel":false,"googleAdsId":"AW-18594624810","googleAdsConversionLabel":"_CuxCN_bib8dEKrqzaJF","googleAdsCallConversionLabel":"SmL9COLbib8dEKrqzaJF","googleAdsConversionValue":200000,"enableGoogleAds":true,"googleAnalyticsId":"G-5XCNM798CE","enableGa4":true},"telegram":{"botToken":"","chatId":"","enabled":true},"disclaimer":{"officialDisclaimer":"Website là kênh đại lý đối tác tư vấn và hỗ trợ đăng ký dịch vụ viễn thông của FPT Telecom tại Cần Thơ, Hậu Giang, Sóc Trăng và các tỉnh lân cận. Chúng tôi không tự xưng là cổng thông tin tập đoàn chính thức FPT Telecom. Tất cả logo, biểu trưng thương hiệu và tên gói cước thuộc bản quyền của FPT Telecom.","privacyNote":"Thông tin cá nhân của bạn được bảo mật tuyệt đối theo Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân, chỉ sử dụng cho mục đích tư vấn và hỗ trợ khảo sát hạ tầng lắp đặt dịch vụ."},"popularAreas":[{"code":"CT-P-NK","name":"Cần Thơ - Phường Ninh Kiều","isPopular":true},{"code":"CT-P-CK","name":"Cần Thơ - Phường Cái Khế","isPopular":true},{"code":"CT-P-TA","name":"Cần Thơ - Phường Tân An","isPopular":true},{"code":"CT-P-AB","name":"Cần Thơ - Phường An Bình","isPopular":true},{"code":"CT-P-TAD","name":"Cần Thơ - Phường Thới An Đông","isPopular":true},{"code":"CT-P-BT","name":"Cần Thơ - Phường Bình Thủy","isPopular":true},{"code":"CT-P-LT","name":"Cần Thơ - Phường Long Tuyền","isPopular":true},{"code":"CT-P-CR","name":"Cần Thơ - Phường Cái Răng","isPopular":true},{"code":"CT-P-HP","name":"Cần Thơ - Phường Hưng Phú","isPopular":true},{"code":"CT-P-OM","name":"Cần Thơ - Phường Ô Môn","isPopular":true},{"code":"CT-P-PT","name":"Cần Thơ - Phường Phước Thới","isPopular":true},{"code":"CT-P-TL","name":"Cần Thơ - Phường Thới Long","isPopular":true},{"code":"CT-P-TN1","name":"Cần Thơ - Phường Trung Nhứt","isPopular":true},{"code":"CT-P-TH","name":"Cần Thơ - Phường Thuận Hưng","isPopular":true},{"code":"CT-P-TN","name":"Cần Thơ - Phường Thốt Nốt","isPopular":true},{"code":"CT-P-TLOC","name":"Cần Thơ - Phường Tân Lộc","isPopular":true},{"code":"CT-P-VT","name":"Cần Thơ - Phường Vị Thanh","isPopular":true},{"code":"CT-P-VTAN","name":"Cần Thơ - Phường Vị Tân","isPopular":true},{"code":"CT-P-LB","name":"Cần Thơ - Phường Long Bình","isPopular":true},{"code":"CT-P-LM","name":"Cần Thơ - Phường Long Mỹ","isPopular":true},{"code":"CT-P-LP1","name":"Cần Thơ - Phường Long Phú 1","isPopular":true},{"code":"CT-P-DT","name":"Cần Thơ - Phường Đại Thành","isPopular":true},{"code":"CT-P-NB","name":"Cần Thơ - Phường Ngã Bảy","isPopular":true},{"code":"CT-P-PL","name":"Cần Thơ - Phường Phú Lợi","isPopular":true},{"code":"CT-P-ST","name":"Cần Thơ - Phường Sóc Trăng","isPopular":true},{"code":"CT-P-MX","name":"Cần Thơ - Phường Mỹ Xuyên","isPopular":true},{"code":"CT-P-VP","name":"Cần Thơ - Phường Vĩnh Phước","isPopular":true},{"code":"CT-P-VC","name":"Cần Thơ - Phường Vĩnh Châu","isPopular":true},{"code":"CT-P-KH","name":"Cần Thơ - Phường Khánh Hòa","isPopular":true},{"code":"CT-P-NN","name":"Cần Thơ - Phường Ngã Năm","isPopular":true},{"code":"CT-P-MQ","name":"Cần Thơ - Phường Mỹ Quới","isPopular":true},{"code":"CT-X-PD","name":"Cần Thơ - Xã Phong Điền","isPopular":true},{"code":"CT-X-NA","name":"Cần Thơ - Xã Nhơn Ái","isPopular":true},{"code":"CT-X-TL","name":"Cần Thơ - Xã Thới Lai","isPopular":true},{"code":"CT-X-DT","name":"Cần Thơ - Xã Đông Thuận","isPopular":true},{"code":"CT-X-TX","name":"Cần Thơ - Xã Trường Xuân","isPopular":true},{"code":"CT-X-TTH","name":"Cần Thơ - Xã Trường Thành","isPopular":true},{"code":"CT-X-CD","name":"Cần Thơ - Xã Cờ Đỏ","isPopular":true},{"code":"CT-X-DH","name":"Cần Thơ - Xã Đông Hiệp","isPopular":true},{"code":"CT-X-THU","name":"Cần Thơ - Xã Trung Hưng","isPopular":true},{"code":"CT-X-VT","name":"Cần Thơ - Xã Vĩnh Thạnh","isPopular":true},{"code":"CT-X-VTR","name":"Cần Thơ - Xã Vĩnh Trinh","isPopular":true},{"code":"CT-X-TA","name":"Cần Thơ - Xã Thạnh An","isPopular":true},{"code":"CT-X-TQ","name":"Cần Thơ - Xã Thạnh Quới","isPopular":true},{"code":"CT-X-HL","name":"Cần Thơ - Xã Hỏa Lựu","isPopular":true},{"code":"CT-X-VTH","name":"Cần Thơ - Xã Vị Thủy","isPopular":true},{"code":"CT-X-VTD","name":"Cần Thơ - Xã Vĩnh Thuận Đông","isPopular":true},{"code":"CT-X-VT1","name":"Cần Thơ - Xã Vị Thanh 1","isPopular":true},{"code":"CT-X-VTU","name":"Cần Thơ - Xã Vĩnh Tường","isPopular":true},{"code":"CT-X-VV","name":"Cần Thơ - Xã Vĩnh Viễn","isPopular":true},{"code":"CT-X-XP","name":"Cần Thơ - Xã Xà Phiên","isPopular":true},{"code":"CT-X-LT","name":"Cần Thơ - Xã Lương Tâm","isPopular":true},{"code":"CT-X-TXU","name":"Cần Thơ - Xã Thạnh Xuân","isPopular":true},{"code":"CT-X-TH","name":"Cần Thơ - Xã Tân Hòa","isPopular":true},{"code":"CT-X-TLT","name":"Cần Thơ - Xã Trường Long Tây","isPopular":true},{"code":"CT-X-CT","name":"Cần Thơ - Xã Châu Thành","isPopular":true},{"code":"CT-X-DP","name":"Cần Thơ - Xã Đông Phước","isPopular":true},{"code":"CT-X-PHU","name":"Cần Thơ - Xã Phú Hữu","isPopular":true},{"code":"CT-X-TB","name":"Cần Thơ - Xã Tân Bình","isPopular":true},{"code":"CT-X-HA","name":"Cần Thơ - Xã Hòa An","isPopular":true},{"code":"CT-X-PB","name":"Cần Thơ - Xã Phương Bình","isPopular":true},{"code":"CT-X-TPH","name":"Cần Thơ - Xã Tân Phước Hưng","isPopular":true},{"code":"CT-X-HH","name":"Cần Thơ - Xã Hiệp Hưng","isPopular":true},{"code":"CT-X-PH","name":"Cần Thơ - Xã Phụng Hiệp","isPopular":true},{"code":"CT-X-THO","name":"Cần Thơ - Xã Thạnh Hòa","isPopular":true},{"code":"CT-X-HT","name":"Cần Thơ - Xã Hòa Tú","isPopular":true},{"code":"CT-X-GH","name":"Cần Thơ - Xã Gia Hòa","isPopular":true},{"code":"CT-X-NG","name":"Cần Thơ - Xã Nhu Gia","isPopular":true},{"code":"CT-X-NT","name":"Cần Thơ - Xã Ngọc Tố","isPopular":true},{"code":"CT-X-TK","name":"Cần Thơ - Xã Trường Khánh","isPopular":true},{"code":"CT-X-DN","name":"Cần Thơ - Xã Đại Ngãi","isPopular":true},{"code":"CT-X-TT","name":"Cần Thơ - Xã Tân Thạnh","isPopular":true},{"code":"CT-X-LP","name":"Cần Thơ - Xã Long Phú","isPopular":true},{"code":"CT-X-NM","name":"Cần Thơ - Xã Nhơn Mỹ","isPopular":true},{"code":"CT-X-ALT","name":"Cần Thơ - Xã An Lạc Thôn","isPopular":true},{"code":"CT-X-KS","name":"Cần Thơ - Xã Kế Sách","isPopular":true},{"code":"CT-X-TAH","name":"Cần Thơ - Xã Thới An Hội","isPopular":true},{"code":"CT-X-DHA","name":"Cần Thơ - Xã Đại Hải","isPopular":true},{"code":"CT-X-PT","name":"Cần Thơ - Xã Phú Tâm","isPopular":true},{"code":"CT-X-AN","name":"Cần Thơ - Xã An Ninh","isPopular":true},{"code":"CT-X-THOA","name":"Cần Thơ - Xã Thuận Hòa","isPopular":true},{"code":"CT-X-HDK","name":"Cần Thơ - Xã Hồ Đắc Kiện","isPopular":true},{"code":"CT-X-MT","name":"Cần Thơ - Xã Mỹ Tú","isPopular":true},{"code":"CT-X-LH","name":"Cần Thơ - Xã Long Hưng","isPopular":true},{"code":"CT-X-MH","name":"Cần Thơ - Xã Mỹ Hương","isPopular":true},{"code":"CT-X-TLO","name":"Cần Thơ - Xã Tân Long","isPopular":true},{"code":"CT-X-PL","name":"Cần Thơ - Xã Phú Lộc","isPopular":true},{"code":"CT-X-VL","name":"Cần Thơ - Xã Vĩnh Lợi","isPopular":true},{"code":"CT-X-LTA","name":"Cần Thơ - Xã Lâm Tân","isPopular":true},{"code":"CT-X-TTA","name":"Cần Thơ - Xã Thạnh Thới An","isPopular":true},{"code":"CT-X-TV","name":"Cần Thơ - Xã Tài Văn","isPopular":true},{"code":"CT-X-TLON","name":"Cần Thơ - Xã Trường Long","isPopular":true},{"code":"CT-X-TP","name":"Cần Thơ - Xã Thạnh Phú","isPopular":true},{"code":"CT-X-THU2","name":"Cần Thơ - Xã Thới Hưng","isPopular":true},{"code":"CT-X-PN","name":"Cần Thơ - Xã Phong Nẫm","isPopular":true},{"code":"CT-X-MP","name":"Cần Thơ - Xã Mỹ Phước","isPopular":true},{"code":"CT-X-LH2","name":"Cần Thơ - Xã Lai Hòa","isPopular":true},{"code":"CT-X-VH","name":"Cần Thơ - Xã Vĩnh Hải","isPopular":true},{"code":"CT-X-CLD","name":"Cần Thơ - Xã Cù Lao Dung","isPopular":true},{"code":"CT-X-TL2","name":"Cần Thơ - Xã Thạnh Lộc","isPopular":true},{"code":"CT-X-TM","name":"Cần Thơ - Xã Thạnh Mỹ","isPopular":true},{"code":"CT-X-TTR","name":"Cần Thơ - Xã Thạnh Trị","isPopular":true},{"code":"CT-X-TDE","name":"Cần Thơ - Xã Trần Đề","isPopular":true},{"code":"OTHER","name":"Các Tỉnh / Thành Phố Khác (Toàn Quốc)","isPopular":false}],"packages":{"internet":[{"id":"net-sky","name":"SKY","category":"internet","speed":"1 Gbps (1000 Mbps)","uploadSpeed":"300 Mbps","priceDisplay":"195.000đ","priceValue":195000,"billingCycle":"/tháng","badge":"Gói Bán Chạy Nhất • 195K/Tháng","highlight":true,"idealFor":"Hộ gia đình, xem phim 4K, học tập, bán hàng online mượt mà (10 - 25 thiết bị)","features":["Tốc độ Download cực khủng lên đến 1 Gbps (1000 Mbps)","Tốc độ Upload: 300 Mbps","Trang bị miễn phí Modem Wi-Fi 6 băng tần kép thế hệ mới","Khảo sát và lắp đặt nhanh trong 24 giờ","Bảo hành trọn đời thiết bị"],"equipment":["1 Modem Wi-Fi 6 hai băng tần thế hệ mới tốc độ 1 Gbps"]},{"id":"net-fgame","name":"F-GAME","category":"internet","speed":"1 Gbps + Ultra Fast","uploadSpeed":"300 Mbps","priceDisplay":"235.000đ - 265.000đ","priceValue":235000,"billingCycle":"/tháng","badge":"Dành riêng game thủ","highlight":false,"idealFor":"Game thủ chuyên nghiệp, giảm ping giật lag tối đa khi chơi Liên Quân, FO4, Valorant, PUBG...","features":["Tích hợp tính năng Ultra Fast giảm ping tự động","Tốc độ Download lên đến 1 Gbps","Modem Wi-Fi 6 độ trễ siêu thấp","Tối ưu hơn 50+ tựa game phổ biến"],"equipment":["1 Modem Wi-Fi 6 tích hợp tính năng Game Booster"]},{"id":"net-meta","name":"META","category":"internet","speed":"1 Gbps Đối Xứng","uploadSpeed":"1 Gbps","priceDisplay":"300.000đ - 350.000đ","priceValue":300000,"billingCycle":"/tháng","badge":"Băng thông cực đại","highlight":false,"idealFor":"Gia đình biệt thự, nhà nhiều tầng, livestreamer 4K, quán cafe, văn phòng (25+ thiết bị)","features":["Tốc độ Download & Upload đối xứng: 1 Gbps / 1 Gbps","Công nghệ Wi-Fi 6 tiên tiến chịu tải cao","Đường truyền ưu tiên băng thông quốc tế","Miễn phí lắp đặt khi trả trước 6 hoặc 12 tháng"],"equipment":["1 Modem Wi-Fi 6 chuẩn chuyên dụng chịu tải"]}],"combo":[{"id":"combo-giga","name":"Combo GIGA","category":"combo","speed":"300 Mbps + Ngoại Hạng Anh (EPL)","priceDisplay":"220.000đ","priceValue":220000,"billingCycle":"/tháng","badge":"Gói Phổ Biến Nhất • 220K/Tháng","highlight":true,"idealFor":"Fan Ngoại Hạng Anh & giải trí cả gia đình với mức cước tiết kiệm nhất (Không cần Box)","features":["Bản Quyền Trọn Vẹn Ngoại Hạng Anh (EPL) trực tiếp Full HD","Internet cáp quang 300 Mbps trang bị Modem Wi-Fi 6","Gần 170 kênh truyền hình FPT Play giải trí đặc sắc","Cài ứng dụng FPT Play xem mượt mà trên Smart TV, Điện thoại, Máy tính bảng (Không cần Box)","Xem trực tiếp Cúp Châu Âu, V-League, phim ảnh 4K","Tặng kèm Camera FPT AI an ninh thông minh miễn phí"],"equipment":["1 Modem Wi-Fi 6 hai băng tần thế hệ mới"]},{"id":"combo-sky","name":"Combo SKY","category":"combo","speed":"1 Gbps (1000 Mbps) + EPL","priceDisplay":"239.000đ - 269.000đ","priceValue":239000,"billingCycle":"/tháng","badge":"Tốc độ 1 Gbps","highlight":false,"idealFor":"Fan hâm mộ Ngoại Hạng Anh cần Internet siêu tốc 1 Gbps cho nhiều thiết bị","features":["Tốc độ Internet cực khủng lên tới 1 Gbps (Wi-Fi 6)","Bản Quyền Trọn Vẹn Ngoại Hạng Anh (EPL) bản quyền","Xem các cúp Châu Âu, V-League, Golf, Võ thuật MMA...","Tài khoản FPT Play xem đồng thời trên nhiều Smart TV & thiết bị di động (Không cần Box)","Bảo hành và bảo trì trọn đời đường truyền"],"equipment":["1 Modem Wi-Fi 6 hai băng tần thế hệ mới"]},{"id":"combo-meta","name":"Combo META","category":"combo","speed":"1 Gbps Đối Xứng","priceDisplay":"340.000đ - 380.000đ","priceValue":340000,"billingCycle":"/tháng","badge":"VIP cao cấp nhất","highlight":false,"idealFor":"Hộ gia đình cao cấp, nhà thông minh, yêu cầu hình ảnh 4K mượt mà trên nhiều TV","features":["Internet 1 Gbps đối xứng Upload và Download","Gói truyền hình V.VIP đầy đủ kênh Thể thao Ngoại Hạng Anh & Phim ảnh","Xem mượt mà trên tất cả thiết bị Smart TV trong nhà qua App FPT Play (Không cần Box)","Ưu tiên xử lý sự cố trong vòng 60 phút"],"equipment":["1 Modem Wi-Fi 6 công suất lớn chịu tải"]}],"camera":[]}},"children":["$","$L9",null,{"children":[["$","$La",null,{}],["$","$Lb",null,{}],["$","$Lc",null,{}],["$","$Ld",null,{}],["$","$Le",null,{}],["$","main",null,{"className":"flex-1","children":["$","$L5",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L7",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],"notFoundStyles":[]}]}],["$","$Lf",null,{}],["$","$L10",null,{}]]}]}]}]]}]],null],null],["$L11",null]]]]
 11:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"name":"theme-color","content":"#F37021"}],["$","meta","2",{"charSet":"utf-8"}],["$","title","3",{"children":"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play | Lắp Mạng FPT Siêu Tốc | Lắp Mạng FPT Siêu Tốc"}],["$","meta","4",{"name":"description","content":"Lịch thi đấu Ngoại Hạng Anh Vòng 12 mới nhất: Tâm điểm đại chiến Arsenal vs Man City, rực lửa derby Merseyside Everton vs Liverpool, MU quyết đấu Brentford. Trực tiếp trọn vẹn 10 trận chuẩn 4K Ultra HD trên FPT Play."}],["$","meta","5",{"name":"author","content":"Lắp Mạng FPT Siêu Tốc"}],["$","meta","6",{"name":"keywords","content":"lắp mạng fpt,internet fpt,wifi 6 fpt,combo ngoại hạng anh fpt,truyền hình fpt play,fpt camera,gói cước fpt,đăng ký wifi fpt"}],["$","meta","7",{"name":"robots","content":"index, follow"}],["$","meta","8",{"name":"googlebot","content":"index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"}],["$","meta","9",{"name":"google-site-verification","content":"Lj3Z-qZW24iZE3en8qrzyFuteloAASTXeebu0NN-4p4"}],["$","meta","10",{"property":"og:title","content":"Lịch Thi Đấu Ngoại Hạng Anh Vòng 12: Trực Tiếp Trọn Vẹn 10 Trận Đỉnh Cao Trên FPT Play"}],["$","meta","11",{"property":"og:description","content":"Lịch thi đấu Ngoại Hạng Anh Vòng 12 mới nhất: Tâm điểm đại chiến Arsenal vs Man City, rực lửa derby Merseyside Everton vs Liverpool, MU quyết đấu Brentford. Trực tiếp trọn vẹn 10 trận chuẩn 4K Ultra HD trên FPT Play."}],["$","meta","12",{"property":"og:image","content":"http://localhost:3000/images/banners/ngoai-hang-anh-vong-12-fpt-play.jpg"}],["$","meta","13",{"property":"og:type","content":"article"}],["$","meta","14",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","15",{"name":"twitter:title","content":"Lắp Mạng FPT Siêu Tốc"}],["$","meta","16",{"name":"twitter:description","content":"Cổng tư vấn và tiếp nhận đăng ký lắp đặt Internet FPT tại Thành phố Cần Thơ & toàn quốc. Triển khai siêu tốc trong 24h, tặng Modem Wi-Fi 6 và Camera AI an ninh miễn phí, bảo hành trọn đời."}],["$","meta","17",{"name":"twitter:image","content":"http://localhost:3000/images/banners/og-image.svg"}],["$","link","18",{"rel":"icon","href":"/favicon-48x48.png","sizes":"48x48","type":"image/png"}],["$","link","19",{"rel":"icon","href":"/icon-192.png","sizes":"192x192","type":"image/png"}],["$","link","20",{"rel":"icon","href":"/icon-512.png","sizes":"512x512","type":"image/png"}],["$","link","21",{"rel":"icon","href":"/favicon.svg","type":"image/svg+xml"}],["$","link","22",{"rel":"apple-touch-icon","href":"/apple-touch-icon.png","sizes":"180x180","type":"image/png"}]]
 1:null
