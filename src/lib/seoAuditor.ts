@@ -31,7 +31,7 @@ export const AUDITED_ROUTES: { route: string; name: string }[] = [
   { route: "/dieu-khoan", name: "Điều Khoản Dịch Vụ" },
 ];
 
-const PROHIBITED_ADS_PATTERNS = [
+export const PROHIBITED_ADS_PATTERNS = [
   /4\.9\/5/i,
   /100K\+\s*KH/i,
   /300\s*KH\s*đầu\s*tiên/i,
@@ -46,6 +46,42 @@ const PROHIBITED_ADS_PATTERNS = [
   /giảm\s*99%/i,
   /100%\s*(không\s*giật|miễn\s*phí\s*mãi)/i,
 ];
+
+export interface QaCheckResult {
+  passed: boolean;
+  googleAdsSafe: boolean;
+  violations: string[];
+}
+
+/**
+ * QA & Safety Gate: kiểm tra nội dung văn bản hoặc bài viết trước khi duyệt xuất bản
+ */
+export function runQaSafetyCheck(input: {
+  title?: string;
+  description?: string;
+  contentHtml?: string;
+}): QaCheckResult {
+  const combined = [input.title || "", input.description || "", input.contentHtml || ""].join("\n");
+  const violations: string[] = [];
+  let googleAdsSafe = true;
+
+  for (const pattern of PROHIBITED_ADS_PATTERNS) {
+    if (pattern.test(combined)) {
+      googleAdsSafe = false;
+      violations.push(`Vi phạm chính sách Google Ads: chứa cụm từ cấm (${pattern.source}).`);
+    }
+  }
+
+  if (/hotro@lapmangfpt-sieutoc\.vn|118\s*Đường\s*30\/4/i.test(combined)) {
+    violations.push("Phát hiện thông tin liên hệ cũ (email hoặc địa chỉ sai quy chuẩn cố định).");
+  }
+
+  return {
+    passed: violations.length === 0,
+    googleAdsSafe,
+    violations,
+  };
+}
 
 function extractTagContent(html: string, regex: RegExp): string {
   const m = html.match(regex);

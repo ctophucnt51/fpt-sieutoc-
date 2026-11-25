@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { getAdminHeaders } from "@/lib/clientAdminAuth";
 import type { WatchlistKeyword, GscCacheData } from "@/lib/seoStorage";
 import type { PageAuditResult } from "@/lib/seoAuditor";
+import SeoIntelligenceCenter from "@/components/admin/SeoIntelligenceCenter";
 import {
   Search,
   TrendingUp,
@@ -387,6 +388,8 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
 
   return (
     <div className="space-y-6">
+      <SeoIntelligenceCenter showToast={onShowToast} />
+
       {/* Top Header & Subtabs */}
       <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-2xs">
         <div>
