@@ -266,8 +266,8 @@ export default function HeroSection({
                   </div>
                 </div>
 
-                {/* 3. Trust Strip */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-0.5 text-[11px] text-[#334155] font-semibold">
+                {/* 3. Trust Strip (Hiển thị trên tablet/PC để mobile gọn nhẹ, đẩy Form lên gần hơn) */}
+                <div className="hidden sm:flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-0.5 text-[11px] text-[#334155] font-semibold">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs whitespace-nowrap">
                     <img src="/images/icons/svg/lap-dat.svg" alt="Lắp đặt" width={14} height={14} className="w-3.5 h-3.5 object-contain shrink-0" />
                     <span>Lắp đặt 24H</span>

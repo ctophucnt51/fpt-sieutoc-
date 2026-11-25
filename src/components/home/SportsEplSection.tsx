@@ -34,10 +34,10 @@ export default function SportsEplSection() {
                 <span>Bản Quyền Trực Tiếp Ngoại Hạng Anh (EPL)</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tight leading-snug sm:leading-tight text-white">
-                Combo Internet Wi-Fi 6 +{" "}
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] font-black tracking-tight leading-snug sm:leading-tight text-white">
+                Trực Tiếp Ngoại Hạng Anh Full HD{" "}
                 <span className="text-red-400 font-black">
-                  Xem Bản Quyền Trọn Vẹn Ngoại Hạng Anh
+                  Trên Smart TV &amp; FPT Play
                 </span>
               </h2>
 

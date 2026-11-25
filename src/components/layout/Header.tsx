@@ -159,46 +159,42 @@ export default function Header() {
         </div>
       </div>
 
-      {/* TẦNG 2A: MOBILE MAIN HEADER (Nền trắng tinh tế chuẩn thương hiệu FPT, 1 hàng gọn gàng không thanh tìm kiếm giả) */}
-      <div className="lg:hidden bg-white border-b border-[#E4E8ED] shadow-[0px_2px_10px_-2px_rgba(15,23,42,0.06)]">
-        <div className="px-3 py-2.5 flex items-center justify-between gap-2">
-          {/* Nút Hamburger 3 gạch */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(true)}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#0F172A] hover:bg-slate-100 active:scale-95 transition-all cursor-pointer shrink-0"
-            aria-label="Mở menu điều hướng"
-          >
-            <Menu className="w-6 h-6 stroke-[2.2]" />
-          </button>
+      {/* TẦNG 2A: MOBILE MAIN HEADER (Phong cách App Native kính mờ đồng bộ với thanh chân trang) */}
+      <div className="lg:hidden bg-white/95 backdrop-blur-lg border-b border-slate-200/90 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
+        <div className="px-3.5 h-14 flex items-center justify-between gap-2">
+          {/* Left: Menu + Logo FPT gọn gàng */}
+          <div className="flex items-center gap-2.5 min-w-0">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-800 active:scale-95 transition-all cursor-pointer shrink-0"
+              aria-label="Mở menu điều hướng"
+            >
+              <Menu className="w-5 h-5 stroke-[2.2]" />
+            </button>
 
-          {/* Logo FPT Telecom (Màu nguyên bản sắc nét) + Text "Lắp mạng FPT siêu tốc" */}
-          <Link href="/" className="flex items-center gap-2 min-w-0 group shrink-0">
-            <img
-              src="/images/logo-ftel.svg"
-              alt="FPT Telecom"
-              width={88}
-              height={28}
-              loading="eager"
-              decoding="async"
-              className="h-7 sm:h-8 w-auto object-contain shrink-0"
-            />
-            <div className="h-5 w-px bg-slate-200 shrink-0" />
-            <div className="flex flex-col leading-[1.12] shrink-0 text-left">
-              <span className="font-black text-[12px] sm:text-[13px] tracking-tight text-[#0F172A] whitespace-nowrap">
-                Lắp mạng
+            <Link href="/" className="flex items-center gap-2 min-w-0 shrink-0">
+              <img
+                src="/images/logo-ftel.svg"
+                alt="FPT Telecom"
+                width={80}
+                height={26}
+                loading="eager"
+                decoding="async"
+                className="h-6.5 w-auto object-contain shrink-0"
+              />
+              <div className="h-4 w-px bg-slate-200 shrink-0" />
+              <span className="font-black text-[13px] tracking-tight text-[#0F172A] whitespace-nowrap">
+                FPT <span className="text-[#F37021]">Siêu Tốc</span>
               </span>
-              <span className="font-black text-[12px] sm:text-[13px] tracking-tight text-[#F37021] whitespace-nowrap">
-                FPT siêu tốc
-              </span>
-            </div>
-          </Link>
+            </Link>
+          </div>
 
-          {/* Nút Yêu Cầu Tư Vấn nổi bật màu cam FPT */}
+          {/* Right: Nút Tư Vấn Nhanh đồng bộ CTA Dock */}
           <button
             type="button"
             onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
-            className="px-3 py-1.5 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-95 text-white font-bold text-[11px] sm:text-xs shadow-sm transition-all flex items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
+            className="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all flex items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
           >
             <Headset className="w-3.5 h-3.5 shrink-0" />
             <span>Tư vấn ngay</span>

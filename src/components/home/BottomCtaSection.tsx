@@ -2,7 +2,7 @@
 
 import LeadForm from "@/components/forms/LeadForm";
 import { useSiteConfig } from "@/context/ConfigContext";
-import { Phone, ShieldCheck, MapPin, ArrowRight } from "lucide-react";
+import { Phone, ShieldCheck, ArrowRight } from "lucide-react";
 
 interface BottomCtaSectionProps {
   defaultPackage?: string;
@@ -17,113 +17,10 @@ export default function BottomCtaSection({
 }: BottomCtaSectionProps) {
   const siteConfig = useSiteConfig();
   return (
-    <section className="py-8 sm:py-12 lg:py-16 bg-white border-b border-[#E4E8ED] relative overflow-hidden max-w-full">
+    <section className="py-8 sm:py-12 lg:py-14 bg-white border-b border-[#E4E8ED] relative overflow-hidden max-w-full">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* 4 Cột USP Phong cách Long Châu (Thuốc chính hãng / Đổi trả / Chất lượng / Dược sĩ) */}
-        <div className="mb-10 sm:mb-12 p-6 rounded-2xl bg-[#F4F6FB] border border-[#E4E8ED]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center shrink-0 shadow-xs">
-                <img
-                  src="/images/icons/svg/modem.svg"
-                  alt="Modem Wi-Fi 6"
-                  width={28}
-                  height={28}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-7 h-7 object-contain"
-                />
-              </div>
-              <div>
-                <p className="text-sm font-black text-[#0F172A]">Modem Wi-Fi 6 0đ</p>
-                <p className="text-xs text-[#475569]">Trang bị chuẩn AX3000</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center shrink-0 shadow-xs">
-                <img
-                  src="/images/icons/svg/camera-ai.svg"
-                  alt="Camera AI"
-                  width={28}
-                  height={28}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-7 h-7 object-contain"
-                />
-              </div>
-              <div>
-                <p className="text-sm font-black text-[#0F172A]">Tặng Camera AI</p>
-                <p className="text-xs text-[#475569]">An ninh thông minh 0đ</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center shrink-0 shadow-xs">
-                <img
-                  src="/images/icons/svg/lap-dat.svg"
-                  alt="Lắp đặt 24h"
-                  width={28}
-                  height={28}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-7 h-7 object-contain"
-                />
-              </div>
-              <div>
-                <p className="text-sm font-black text-[#0F172A]">Lắp Đặt Trong 24H</p>
-                <p className="text-xs text-[#475569]">Khảo sát tận nơi 0đ</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E4E8ED] p-1 flex items-center justify-center shrink-0 shadow-xs">
-                <img
-                  src="/images/icons/svg/bao-tri.svg"
-                  alt="Bảo trì"
-                  width={28}
-                  height={28}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-7 h-7 object-contain"
-                />
-              </div>
-              <div>
-                <p className="text-sm font-black text-[#0F172A]">Bảo Trì Trọn Đời</p>
-                <p className="text-xs text-[#475569]">Hỗ trợ kỹ thuật 24/7</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Thanh Băng Ngang Store Locator Banner (Phong cách Long Châu: Hệ thống 2775 nhà thuốc) */}
-        <div className="mb-10 sm:mb-12 p-4 sm:p-5 rounded-2xl bg-[#F37021] text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_4px_20px_rgba(243,112,33,0.25)]">
-          <div className="flex items-center gap-3 text-center sm:text-left">
-            <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-              <MapPin className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h3 className="text-base sm:text-lg font-black tracking-tight leading-tight">
-                Hệ Thống Hạ Tầng FPT Telecom Phủ Khắp 63 Tỉnh Thành
-              </h3>
-              <p className="text-xs sm:text-sm text-white/90 font-medium">
-                Sẵn sàng khảo sát &amp; kéo cáp quang siêu tốc đến từng thôn, xóm, phường, xã trên toàn quốc.
-              </p>
-            </div>
-          </div>
-
-          <a
-            href={siteConfig.contact.hotlineTel}
-            className="px-5 py-2.5 rounded-full bg-white text-[#C44D06] font-extrabold text-xs sm:text-sm hover:bg-orange-50 transition-all shadow-xs flex items-center gap-1.5 whitespace-nowrap shrink-0"
-          >
-            <Phone className="w-4 h-4 text-[#C44D06] fill-current" />
-            <span>Gọi {siteConfig.contact.hotlineDisplay}</span>
-          </a>
-        </div>
-
-        {/* Main Grid: Headline + Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 xl:gap-12 items-center">
+        {/* Main Grid: Headline + Form (Tinh gọn, loại bỏ các khối USP & Banner lặp lại) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           
           {/* Header & Value Highlights */}
           <div className="lg:col-span-6 space-y-3.5 sm:space-y-4 text-center lg:text-left">
