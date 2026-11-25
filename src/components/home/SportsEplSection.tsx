@@ -29,7 +29,7 @@ export default function SportsEplSection() {
                   height={16}
                   loading="lazy"
                   decoding="async"
-                  className="w-4 h-4 object-contain shrink-0"
+                  className="w-4 h-4 object-contain shrink-0 brightness-0 invert"
                 />
                 <span>Bản Quyền Trực Tiếp Ngoại Hạng Anh (EPL)</span>
               </div>
@@ -45,10 +45,10 @@ export default function SportsEplSection() {
                 Không bỏ lỡ bất kỳ trận cầu nảy lửa nào của Manchester United, Arsenal, Liverpool, Manchester City hay Chelsea. Hình ảnh chuẩn Full HD sắc nét, không lo giật lag hay chèn quảng cáo phiền toái.
               </p>
 
-              {/* Feature Bullets - Clean Minimalist Icons */}
+              {/* Feature Bullets - Clean Minimalist Icons (Crisp white icons on dark glass badges) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 pt-0.5 text-left">
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center shrink-0 mt-0.5 p-1 shadow-xs">
+                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mt-0.5 p-1.5 shadow-xs">
                     <img
                       src="/images/icons/svg/ngoai-hang-anh.svg"
                       alt="EPL"
@@ -56,7 +56,7 @@ export default function SportsEplSection() {
                       height={20}
                       loading="lazy"
                       decoding="async"
-                      className="w-5 h-5 object-contain"
+                      className="w-5 h-5 object-contain brightness-0 invert"
                     />
                   </div>
                   <div>
@@ -66,7 +66,7 @@ export default function SportsEplSection() {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center shrink-0 mt-0.5 p-1 shadow-xs">
+                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mt-0.5 p-1.5 shadow-xs">
                     <img
                       src="/images/icons/svg/smart-tv.svg"
                       alt="Smart TV"
@@ -74,7 +74,7 @@ export default function SportsEplSection() {
                       height={20}
                       loading="lazy"
                       decoding="async"
-                      className="w-5 h-5 object-contain"
+                      className="w-5 h-5 object-contain brightness-0 invert"
                     />
                   </div>
                   <div>
@@ -84,7 +84,7 @@ export default function SportsEplSection() {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center shrink-0 mt-0.5 p-1 shadow-xs">
+                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mt-0.5 p-1.5 shadow-xs">
                     <img
                       src="/images/icons/svg/kenh-truyen-hinh.svg"
                       alt="Kênh Truyền Hình"
@@ -92,7 +92,7 @@ export default function SportsEplSection() {
                       height={20}
                       loading="lazy"
                       decoding="async"
-                      className="w-5 h-5 object-contain"
+                      className="w-5 h-5 object-contain brightness-0 invert"
                     />
                   </div>
                   <div>
@@ -102,7 +102,7 @@ export default function SportsEplSection() {
                 </div>
 
                 <div className="flex items-start gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center shrink-0 mt-0.5 p-1 shadow-xs">
+                  <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 mt-0.5 p-1.5 shadow-xs">
                     <img
                       src="/images/icons/svg/da-thiet-bi.svg"
                       alt="Đa Thiết Bị"
@@ -110,7 +110,7 @@ export default function SportsEplSection() {
                       height={20}
                       loading="lazy"
                       decoding="async"
-                      className="w-5 h-5 object-contain"
+                      className="w-5 h-5 object-contain brightness-0 invert"
                     />
                   </div>
                   <div>
