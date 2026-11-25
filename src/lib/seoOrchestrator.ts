@@ -6,7 +6,7 @@ import { getAllLeads } from "./leadStorage";
 import { sendSeoReportAlert } from "./telegram";
 import { fetchGscAnalytics } from "./googleSearchConsole";
 import { checkKeywordSerp } from "./serpChecker";
-import { generateMetaOptimizationProposal, isGeminiConfigured } from "./seoAiEngine";
+import { generateMetaOptimizationProposal, isAiConfigured, pickThumbnail } from "./seoAiEngine";
 import {
   initializeSeoMemory,
   readMemoryFile,
@@ -477,7 +477,7 @@ export async function runSeoMasterCycleAsync(options?: {
   let newApprovalsAdded = syncRes.newApprovalsAdded;
 
   // 3. AI EXECUTE (Propose Meta Optimization for Quick-Win Top 4-15 queries into Approval Center)
-  if (runAi && isGeminiConfigured()) {
+  if (runAi && isAiConfigured()) {
     const seo = getSeoConfig();
     const approvals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []);
     const quickWins = (seo.gscCache?.topQueries || []).filter(
@@ -556,7 +556,7 @@ export function getFullSeoIntelligenceState() {
       gscConnected: Boolean(seo.gscSettings?.connected),
       serperConnected: Boolean(seo.serperSettings?.connected),
       ga4Configured: Boolean(process.env.GA4_PROPERTY_ID || process.env.NEXT_PUBLIC_GA4_ID),
-      geminiConfigured: isGeminiConfigured(),
+      geminiConfigured: isAiConfigured(),
     },
   };
 }
@@ -642,7 +642,7 @@ export function decideSeoApproval(
       content: String(draft.content || ""),
       category: draft.category || "huong-dan",
       categoryName: draft.categoryName || "Hướng Dẫn Kỹ Thuật",
-      thumbnail: "/images/products/modem-wifi6-official.png",
+      thumbnail: draft.thumbnail || pickThumbnail(String(draft.title || draft.slug || ""), draft.category),
       author: "FPT Telecom Cần Thơ",
       published: true,
       featured: false,
