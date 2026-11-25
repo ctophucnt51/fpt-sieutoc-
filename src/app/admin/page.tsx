@@ -11,7 +11,6 @@ import LeadManagement from "@/components/admin/LeadManagement";
 import ArticleManagement from "@/components/admin/ArticleManagement";
 import GeneralConfigEditor from "@/components/admin/GeneralConfigEditor";
 import PricingConfigEditor from "@/components/admin/PricingConfigEditor";
-import AreaConfigEditor from "@/components/admin/AreaConfigEditor";
 import SeoManagement from "@/components/admin/SeoManagement";
 import GoogleAdsManagement from "@/components/admin/GoogleAdsManagement";
 import TrafficManagement from "@/components/admin/TrafficManagement";
@@ -21,7 +20,6 @@ import {
   FileText,
   Settings,
   DollarSign,
-  MapPin,
   ExternalLink,
   LogOut,
   Loader2,
@@ -38,7 +36,7 @@ import {
   X,
 } from "lucide-react";
 
-type AdminTab = "overview" | "leads" | "google-ads" | "articles" | "seo" | "config" | "pricing" | "areas";
+type AdminTab = "overview" | "leads" | "google-ads" | "articles" | "seo" | "config" | "pricing";
 
 const TAB_META: Record<AdminTab, { title: string; subtitle: string }> = {
   overview: {
@@ -64,10 +62,6 @@ const TAB_META: Record<AdminTab, { title: string; subtitle: string }> = {
   pricing: {
     title: "Bảng Giá & Gói Cước",
     subtitle: "Chỉnh sửa giá cước, băng thông và các chương trình ưu đãi hiển thị trên web.",
-  },
-  areas: {
-    title: "Khu Vực Phục Vụ",
-    subtitle: "Quản lý danh sách phường, xã và khu vực tiếp nhận lắp đặt.",
   },
   config: {
     title: "Hotline & Cài Đặt Chung",
@@ -410,11 +404,6 @@ export default function AdminPage() {
           icon: <DollarSign className="w-4 h-4 shrink-0" />,
         },
         {
-          id: "areas",
-          label: "Khu Vực Phục Vụ",
-          icon: <MapPin className="w-4 h-4 shrink-0" />,
-        },
-        {
           id: "config",
           label: "Hotline & Cài Đặt",
           icon: <Settings className="w-4 h-4 shrink-0" />,
@@ -701,15 +690,6 @@ export default function AdminPage() {
         {/* Tab 4: Pricing Packages Editor */}
         {activeTab === "pricing" && config && (
           <PricingConfigEditor
-            config={config}
-            onSave={handleSaveConfig}
-            showToast={showToast}
-          />
-        )}
-
-        {/* Tab 5: Areas Editor */}
-        {activeTab === "areas" && config && (
-          <AreaConfigEditor
             config={config}
             onSave={handleSaveConfig}
             showToast={showToast}
