@@ -12,7 +12,7 @@ interface BottomCtaSectionProps {
 
 export default function BottomCtaSection({
   defaultPackage = "SKY",
-  title = "Đăng Ký Lắp Mạng FPT Ngay Hôm Nay Để Nhận Ưu Đãi Tốt Nhất",
+  title = "Đăng Ký Lắp Mạng FPT Để Nhận Tư Vấn Gói Cước Phù Hợp",
   description = "Chuyên viên kỹ thuật FPT sẽ liên hệ tư vấn vị trí lắp đặt, đo kiểm sóng Wi-Fi và tiến hành khảo sát hạ tầng miễn phí theo khu vực.",
 }: BottomCtaSectionProps) {
   const siteConfig = useSiteConfig();

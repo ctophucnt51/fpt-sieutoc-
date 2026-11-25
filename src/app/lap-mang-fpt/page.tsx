@@ -16,7 +16,7 @@ export default function LapMangFptPage() {
   return (
     <>
       <HeroSection
-        badge="Gói Bán Chạy Nhất • Gói Sky 1 Gbps Chỉ 195K/Tháng"
+        badge="Gói Phổ Biến • Gói Sky 1 Gbps Chỉ 195K/Tháng"
         headline={
           <>
             Lắp Mạng FPT Wi-Fi 6 <br />

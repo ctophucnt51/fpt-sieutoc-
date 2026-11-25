@@ -35,7 +35,7 @@ export default function HomePage() {
       {/* 4. Package Comparison & Pricing */}
       <PricingSection
         initialTab="all"
-        title="Bảng Giá Các Gói Cước Internet & Combo Bán Chạy Nhất"
+        title="Bảng Giá Các Gói Cước Internet & Combo Phổ Biến"
         subtitle="Giá cước tham khảo minh bạch • Trang bị Modem Wi-Fi 6 miễn phí • Hỗ trợ bảo trì trọn đời"
       />
 

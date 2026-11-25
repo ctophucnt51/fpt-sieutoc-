@@ -64,7 +64,7 @@ export const siteConfig = {
   },
   disclaimer: {
     officialDisclaimer: "Website là kênh đại lý đối tác tư vấn và hỗ trợ đăng ký dịch vụ viễn thông của FPT Telecom tại Cần Thơ, Hậu Giang, Sóc Trăng và các tỉnh lân cận. Chúng tôi không tự xưng là cổng thông tin tập đoàn chính thức FPT Telecom. Tất cả logo, biểu trưng thương hiệu và tên gói cước thuộc bản quyền của FPT Telecom.",
-    privacyNote: "Thông tin cá nhân của bạn được bảo mật tuyệt đối theo Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân, chỉ sử dụng cho mục đích tư vấn và hỗ trợ khảo sát hạ tầng lắp đặt dịch vụ.",
+    privacyNote: "Thông tin cá nhân của bạn được bảo mật nghiêm ngặt theo Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân, chỉ sử dụng cho mục đích tư vấn và hỗ trợ khảo sát hạ tầng lắp đặt dịch vụ.",
   },
   // Danh sách đầy đủ 103 Đơn vị hành chính cấp Xã/Phường sau sáp nhập 07/2025 tại Thành phố Cần Thơ (31 Phường + 72 Xã, đã bỏ hoàn toàn cấp quận/huyện)
   popularAreas: [

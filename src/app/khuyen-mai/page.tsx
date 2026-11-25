@@ -14,16 +14,16 @@ export default function KhuyenMaiPage() {
   return (
     <>
       <HeroSection
-        badge="Ưu Đãi Độc Quyền Tháng Này • Tặng Thiết Bị 0đ"
+        badge="Chương Trình Ưu Đãi Hiện Hành • Hỗ Trợ Thiết Bị 0đ"
         headline={
           <>
             Ưu Đãi Lắp Mạng FPT:{" "}
             <span className="text-[#F37021]">Tặng Wi-Fi 6 &amp; Camera AI 0đ</span>
           </>
         }
-        subheadline="Đăng ký online hôm nay để nhận trọn bộ quà tặng thiết bị chính hãng, miễn phí khảo sát hạ tầng tận nơi và ưu đãi tặng thêm tháng cước khi trả trước."
+        subheadline="Đăng ký online để nhận tư vấn gói cước phù hợp, hỗ trợ khảo sát hạ tầng tận nơi và áp dụng ưu đãi tặng thêm tháng cước khi trả trước theo quy định."
         defaultPackage="Combo GIGA"
-        formHeadline="GIỮ SUẤT ƯU ĐÃI TẶNG THIẾT BỊ 0Đ"
+        formHeadline="ĐĂNG KÝ TƯ VẤN GÓI CƯỚC & THIẾT BỊ"
       />
 
       {/* Official FPT Telecom Award Banner from FPT.VN */}
@@ -45,8 +45,8 @@ export default function KhuyenMaiPage() {
 
       <BottomCtaSection
         defaultPackage="Combo GIGA"
-        title="Đăng Ký Ngay Để Không Bỏ Lỡ Ưu Đãi Tháng Này"
-        description="Số lượng thiết bị tặng kèm có hạn theo từng khu vực. Chuyên viên FPT sẽ liên hệ xác nhận suất ưu đãi cho địa chỉ của bạn trong 15 phút."
+        title="Đăng Ký Tư Vấn Gói Cước & Thiết Bị Phù Hợp"
+        description="Chính sách trang bị thiết bị và ưu đãi áp dụng theo điều kiện từng gói cước và khu vực. Chuyên viên FPT sẽ liên hệ kiểm tra hạ tầng cho địa chỉ của bạn trong 15 phút."
       />
     </>
   );
