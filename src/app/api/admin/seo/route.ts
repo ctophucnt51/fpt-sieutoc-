@@ -7,6 +7,7 @@ import {
   WatchlistKeyword,
 } from "@/lib/seoStorage";
 import { fetchGscAnalytics } from "@/lib/googleSearchConsole";
+import { checkKeywordSerp } from "@/lib/serpChecker";
 
 export async function GET(request: NextRequest) {
   if (!verifyAdminAuth(request)) {
@@ -226,6 +227,140 @@ export async function POST(request: NextRequest) {
         message: "Đã xóa từ khóa khỏi danh sách theo dõi.",
         seo: getPublicSafeSeoConfig(config),
       });
+    }
+
+    // 5. Lưu cấu hình Serper.dev API (Real-Time SERP & Top 1-3 Đối Thủ)
+    if (action === "save_serper_settings") {
+      const apiKey = String(body.apiKey || "").trim();
+      const targetDomain = String(body.targetDomain || config.serperSettings?.targetDomain || "gofpt.vn").trim();
+      const location = String(body.location || config.serperSettings?.location || "Can Tho, Vietnam").trim();
+
+      const effectiveKey = apiKey || config.serperSettings?.apiKey || "";
+      if (!effectiveKey) {
+        return NextResponse.json(
+          { success: false, message: "Vui lòng nhập Serper.dev API Key." },
+          { status: 400 }
+        );
+      }
+
+      config.serperSettings = {
+        ...config.serperSettings,
+        apiKey: effectiveKey,
+        targetDomain,
+        location,
+        connected: Boolean(effectiveKey),
+        lastError: undefined,
+      };
+
+      saveSeoConfig(config);
+      return NextResponse.json({
+        success: true,
+        message: "Đã lưu cấu hình Serper.dev SERP API!",
+        seo: getPublicSafeSeoConfig(config),
+      });
+    }
+
+    // 6. Check Top 1-3 Đối Thủ & Thứ hạng thực tế cho 1 từ khóa
+    if (action === "check_serp_single") {
+      const id = String(body.id || "");
+      if (!config.serperSettings?.apiKey) {
+        return NextResponse.json(
+          { success: false, message: "Chưa cấu hình Serper.dev API Key trong tab Kết Nối API." },
+          { status: 400 }
+        );
+      }
+
+      const targetKw = config.watchlistKeywords.find((k) => k.id === id);
+      if (!targetKw) {
+        return NextResponse.json({ success: false, message: "Không tìm thấy từ khóa." }, { status: 404 });
+      }
+
+      try {
+        const result = await checkKeywordSerp({
+          keyword: targetKw.keyword,
+          apiKey: config.serperSettings.apiKey,
+          targetDomain: config.serperSettings.targetDomain,
+          location: config.serperSettings.location,
+        });
+
+        config.watchlistKeywords = config.watchlistKeywords.map((k) =>
+          k.id === id
+            ? {
+                ...k,
+                serpPreviousPosition: k.serpPosition ?? null,
+                serpPosition: result.ourPosition,
+                serpMatchedUrl: result.ourMatchedUrl,
+                topCompetitors: result.topCompetitors,
+                serpCheckedAt: result.checkedAt,
+              }
+            : k
+        );
+        config.serperSettings.lastCheckedAt = result.checkedAt;
+        config.serperSettings.lastError = undefined;
+        saveSeoConfig(config);
+
+        return NextResponse.json({
+          success: true,
+          message: `Đã check xong "${targetKw.keyword}"!`,
+          seo: getPublicSafeSeoConfig(config),
+        });
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Lỗi gọi Serper.dev API.";
+        config.serperSettings.lastError = msg;
+        saveSeoConfig(config);
+        return NextResponse.json({ success: false, message: msg }, { status: 400 });
+      }
+    }
+
+    // 7. Check hàng loạt toàn bộ từ khóa Watchlist qua Serper.dev
+    if (action === "check_serp_all") {
+      if (!config.serperSettings?.apiKey) {
+        return NextResponse.json(
+          { success: false, message: "Chưa cấu hình Serper.dev API Key trong tab Kết Nối API." },
+          { status: 400 }
+        );
+      }
+
+      try {
+        const results = await Promise.all(
+          config.watchlistKeywords.map((kw) =>
+            checkKeywordSerp({
+              keyword: kw.keyword,
+              apiKey: config.serperSettings.apiKey,
+              targetDomain: config.serperSettings.targetDomain,
+              location: config.serperSettings.location,
+            })
+          )
+        );
+
+        const nowIso = new Date().toISOString();
+        config.watchlistKeywords = config.watchlistKeywords.map((kw, idx) => {
+          const r = results[idx];
+          return {
+            ...kw,
+            serpPreviousPosition: kw.serpPosition ?? null,
+            serpPosition: r.ourPosition,
+            serpMatchedUrl: r.ourMatchedUrl,
+            topCompetitors: r.topCompetitors,
+            serpCheckedAt: r.checkedAt,
+          };
+        });
+
+        config.serperSettings.lastCheckedAt = nowIso;
+        config.serperSettings.lastError = undefined;
+        saveSeoConfig(config);
+
+        return NextResponse.json({
+          success: true,
+          message: `Đã quét Top đối thủ theo thời gian thực cho ${results.length} từ khóa!`,
+          seo: getPublicSafeSeoConfig(config),
+        });
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Lỗi gọi Serper.dev API.";
+        config.serperSettings.lastError = msg;
+        saveSeoConfig(config);
+        return NextResponse.json({ success: false, message: msg }, { status: 400 });
+      }
     }
 
     return NextResponse.json({ success: false, message: "Hành động không hợp lệ." }, { status: 400 });

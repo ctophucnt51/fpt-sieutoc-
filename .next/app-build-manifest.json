@@ -12,7 +12,7 @@
       "static/chunks/fd9d1056-15add0245b6aef43.js",
       "static/chunks/117-0e8d46b32c70b19f.js",
       "static/chunks/main-app-df3f40fd38d3dd97.js",
-      "static/css/9658792030867433.css",
+      "static/css/e477888c53120e5b.css",
       "static/chunks/972-682f031695f97030.js",
       "static/chunks/216-cc3c83a3eda8c35e.js",
       "static/chunks/198-666a900e070509d9.js",
@@ -25,8 +25,8 @@
       "static/chunks/117-0e8d46b32c70b19f.js",
       "static/chunks/main-app-df3f40fd38d3dd97.js",
       "static/chunks/972-682f031695f97030.js",
-      "static/chunks/604-2eb8f432ac73b7e8.js",
-      "static/chunks/app/admin/page-ba6beec29731fe6d.js"
+      "static/chunks/973-6d5ebec6597af3d2.js",
+      "static/chunks/app/admin/page-836aea1567509fc7.js"
     ],
     "/camera-fpt/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
@@ -56,20 +56,6 @@
       "static/chunks/61-77a74b3c9cbb0a96.js",
       "static/chunks/app/tin-tuc/[slug]/page-ade32ee21de20e29.js"
     ],
-    "/combo-ngoai-hang-anh/page": [
-      "static/chunks/webpack-a3c37fcbf859f6f9.js",
-      "static/chunks/fd9d1056-15add0245b6aef43.js",
-      "static/chunks/117-0e8d46b32c70b19f.js",
-      "static/chunks/main-app-df3f40fd38d3dd97.js",
-      "static/chunks/972-682f031695f97030.js",
-      "static/chunks/216-cc3c83a3eda8c35e.js",
-      "static/chunks/198-666a900e070509d9.js",
-      "static/chunks/61-77a74b3c9cbb0a96.js",
-      "static/chunks/738-0f6e229c94af6de9.js",
-      "static/chunks/107-80d3fecfc7e77ae0.js",
-      "static/chunks/264-afb8bc4e86088e79.js",
-      "static/chunks/app/combo-ngoai-hang-anh/page-b37352d1e398ff53.js"
-    ],
     "/chinh-sach-bao-mat/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
       "static/chunks/fd9d1056-15add0245b6aef43.js",
@@ -92,7 +78,7 @@
       "static/chunks/776-c79b10cc6d1ea1a1.js",
       "static/chunks/app/bang-gia/page-64f680c110a8589c.js"
     ],
-    "/hoi-dap/page": [
+    "/combo-ngoai-hang-anh/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
       "static/chunks/fd9d1056-15add0245b6aef43.js",
       "static/chunks/117-0e8d46b32c70b19f.js",
@@ -102,7 +88,9 @@
       "static/chunks/198-666a900e070509d9.js",
       "static/chunks/61-77a74b3c9cbb0a96.js",
       "static/chunks/738-0f6e229c94af6de9.js",
-      "static/chunks/app/hoi-dap/page-a2468dc409b8bf48.js"
+      "static/chunks/107-80d3fecfc7e77ae0.js",
+      "static/chunks/264-afb8bc4e86088e79.js",
+      "static/chunks/app/combo-ngoai-hang-anh/page-b37352d1e398ff53.js"
     ],
     "/khuyen-mai/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
@@ -131,6 +119,38 @@
       "static/chunks/776-c79b10cc6d1ea1a1.js",
       "static/chunks/app/lap-mang-fpt/page-ff8236f512b50f3f.js"
     ],
+    "/dieu-khoan/page": [
+      "static/chunks/webpack-a3c37fcbf859f6f9.js",
+      "static/chunks/fd9d1056-15add0245b6aef43.js",
+      "static/chunks/117-0e8d46b32c70b19f.js",
+      "static/chunks/main-app-df3f40fd38d3dd97.js",
+      "static/chunks/972-682f031695f97030.js",
+      "static/chunks/app/dieu-khoan/page-a8dc20156c287e65.js"
+    ],
+    "/quy-trinh-lap-dat/page": [
+      "static/chunks/webpack-a3c37fcbf859f6f9.js",
+      "static/chunks/fd9d1056-15add0245b6aef43.js",
+      "static/chunks/117-0e8d46b32c70b19f.js",
+      "static/chunks/main-app-df3f40fd38d3dd97.js",
+      "static/chunks/972-682f031695f97030.js",
+      "static/chunks/216-cc3c83a3eda8c35e.js",
+      "static/chunks/198-666a900e070509d9.js",
+      "static/chunks/61-77a74b3c9cbb0a96.js",
+      "static/chunks/738-0f6e229c94af6de9.js",
+      "static/chunks/app/quy-trinh-lap-dat/page-f5f67c7862fd5947.js"
+    ],
+    "/hoi-dap/page": [
+      "static/chunks/webpack-a3c37fcbf859f6f9.js",
+      "static/chunks/fd9d1056-15add0245b6aef43.js",
+      "static/chunks/117-0e8d46b32c70b19f.js",
+      "static/chunks/main-app-df3f40fd38d3dd97.js",
+      "static/chunks/972-682f031695f97030.js",
+      "static/chunks/216-cc3c83a3eda8c35e.js",
+      "static/chunks/198-666a900e070509d9.js",
+      "static/chunks/61-77a74b3c9cbb0a96.js",
+      "static/chunks/738-0f6e229c94af6de9.js",
+      "static/chunks/app/hoi-dap/page-a2468dc409b8bf48.js"
+    ],
     "/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
       "static/chunks/fd9d1056-15add0245b6aef43.js",
@@ -145,14 +165,6 @@
       "static/chunks/776-c79b10cc6d1ea1a1.js",
       "static/chunks/264-afb8bc4e86088e79.js",
       "static/chunks/app/page-ba16841b2b05d121.js"
-    ],
-    "/dieu-khoan/page": [
-      "static/chunks/webpack-a3c37fcbf859f6f9.js",
-      "static/chunks/fd9d1056-15add0245b6aef43.js",
-      "static/chunks/117-0e8d46b32c70b19f.js",
-      "static/chunks/main-app-df3f40fd38d3dd97.js",
-      "static/chunks/972-682f031695f97030.js",
-      "static/chunks/app/dieu-khoan/page-a8dc20156c287e65.js"
     ],
     "/wifi-6/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",
@@ -180,18 +192,6 @@
       "static/chunks/738-0f6e229c94af6de9.js",
       "static/chunks/107-80d3fecfc7e77ae0.js",
       "static/chunks/app/truyen-hinh-fpt/page-c6697f52e2d5885b.js"
-    ],
-    "/quy-trinh-lap-dat/page": [
-      "static/chunks/webpack-a3c37fcbf859f6f9.js",
-      "static/chunks/fd9d1056-15add0245b6aef43.js",
-      "static/chunks/117-0e8d46b32c70b19f.js",
-      "static/chunks/main-app-df3f40fd38d3dd97.js",
-      "static/chunks/972-682f031695f97030.js",
-      "static/chunks/216-cc3c83a3eda8c35e.js",
-      "static/chunks/198-666a900e070509d9.js",
-      "static/chunks/61-77a74b3c9cbb0a96.js",
-      "static/chunks/738-0f6e229c94af6de9.js",
-      "static/chunks/app/quy-trinh-lap-dat/page-f5f67c7862fd5947.js"
     ],
     "/tin-tuc/page": [
       "static/chunks/webpack-a3c37fcbf859f6f9.js",

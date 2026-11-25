@@ -1,6 +1,14 @@
 import fs from "fs";
 import path from "path";
 
+export interface SerpCompetitorItem {
+  position: number;
+  title: string;
+  link: string;
+  domain: string;
+  snippet?: string;
+}
+
 export interface WatchlistKeyword {
   id: string;
   keyword: string;
@@ -12,6 +20,12 @@ export interface WatchlistKeyword {
   ctr: number;
   matchedQuery?: string;
   updatedAt?: string;
+  // Real-time SERP (Serper.dev)
+  serpPosition?: number | null;
+  serpPreviousPosition?: number | null;
+  serpMatchedUrl?: string;
+  topCompetitors?: SerpCompetitorItem[];
+  serpCheckedAt?: string;
 }
 
 export interface GscQueryRow {
@@ -62,6 +76,14 @@ export interface SeoConfigData {
     lastSyncedAt?: string;
     lastError?: string;
   };
+  serperSettings: {
+    apiKey: string;
+    targetDomain: string;
+    location: string;
+    connected: boolean;
+    lastCheckedAt?: string;
+    lastError?: string;
+  };
   watchlistKeywords: WatchlistKeyword[];
   pageMetaOverrides: Record<string, PageMetaOverride>;
   gscCache: GscCacheData | null;
@@ -75,6 +97,12 @@ const defaultSeoConfig: SeoConfigData = {
     siteUrl: "https://gofpt.vn/",
     serviceAccountEmail: "",
     privateKey: "",
+    connected: false,
+  },
+  serperSettings: {
+    apiKey: "",
+    targetDomain: "gofpt.vn",
+    location: "Can Tho, Vietnam",
     connected: false,
   },
   watchlistKeywords: [
@@ -164,6 +192,10 @@ export function getSeoConfig(): SeoConfigData {
         ...defaultSeoConfig.gscSettings,
         ...(parsed.gscSettings || {}),
       },
+      serperSettings: {
+        ...defaultSeoConfig.serperSettings,
+        ...(parsed.serperSettings || {}),
+      },
       watchlistKeywords: Array.isArray(parsed.watchlistKeywords)
         ? parsed.watchlistKeywords
         : defaultSeoConfig.watchlistKeywords,
@@ -191,6 +223,14 @@ export function getPublicSafeSeoConfig(data: SeoConfigData) {
       connected: data.gscSettings.connected,
       lastSyncedAt: data.gscSettings.lastSyncedAt,
       lastError: data.gscSettings.lastError,
+    },
+    serperSettings: {
+      hasApiKey: Boolean(data.serperSettings?.apiKey && data.serperSettings.apiKey.length > 10),
+      targetDomain: data.serperSettings?.targetDomain || "gofpt.vn",
+      location: data.serperSettings?.location || "Can Tho, Vietnam",
+      connected: Boolean(data.serperSettings?.connected),
+      lastCheckedAt: data.serperSettings?.lastCheckedAt,
+      lastError: data.serperSettings?.lastError,
     },
     watchlistKeywords: data.watchlistKeywords,
     pageMetaOverrides: data.pageMetaOverrides,

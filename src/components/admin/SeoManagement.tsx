@@ -21,6 +21,8 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   FileSearch,
+  Zap,
+  Trophy,
 } from "lucide-react";
 
 interface PublicSeoConfig {
@@ -30,6 +32,14 @@ interface PublicSeoConfig {
     hasPrivateKey: boolean;
     connected: boolean;
     lastSyncedAt?: string;
+    lastError?: string;
+  };
+  serperSettings: {
+    hasApiKey: boolean;
+    targetDomain: string;
+    location: string;
+    connected: boolean;
+    lastCheckedAt?: string;
     lastError?: string;
   };
   watchlistKeywords: WatchlistKeyword[];
@@ -45,6 +55,8 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
   const [seoData, setSeoData] = useState<PublicSeoConfig | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [isCheckingAllSerp, setIsCheckingAllSerp] = useState(false);
+  const [checkingSingleId, setCheckingSingleId] = useState<string | null>(null);
   const [dateRange, setDateRange] = useState<"7d" | "28d" | "90d">("28d");
 
   // Watchlist add state
@@ -56,7 +68,13 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
   const [siteUrl, setSiteUrl] = useState("https://gofpt.vn/");
   const [serviceAccountEmail, setServiceAccountEmail] = useState("");
   const [serviceAccountJson, setServiceAccountJson] = useState("");
-  const [isSavingSettings, setIsSavingSettings] = useState(false);
+  const [isSavingGsc, setIsSavingGsc] = useState(false);
+
+  // Serper.dev Settings state
+  const [serperApiKey, setSerperApiKey] = useState("");
+  const [serperDomain, setSerperDomain] = useState("gofpt.vn");
+  const [serperLocation, setSerperLocation] = useState("Can Tho, Vietnam");
+  const [isSavingSerper, setIsSavingSerper] = useState(false);
 
   // Site Audit state
   const [auditResults, setAuditResults] = useState<PageAuditResult[]>([]);
@@ -72,6 +90,10 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
         setSeoData(data.seo);
         setSiteUrl(data.seo.gscSettings.siteUrl || "https://gofpt.vn/");
         setServiceAccountEmail(data.seo.gscSettings.serviceAccountEmail || "");
+        if (data.seo.serperSettings) {
+          setSerperDomain(data.seo.serperSettings.targetDomain || "gofpt.vn");
+          setSerperLocation(data.seo.serperSettings.location || "Can Tho, Vietnam");
+        }
         if (data.seo.gscCache?.dateRange) {
           setDateRange(data.seo.gscCache.dateRange);
         }
@@ -115,9 +137,69 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
     }
   };
 
-  const handleSaveSettings = async (e: React.FormEvent) => {
+  const handleCheckAllSerp = async () => {
+    if (!seoData?.serperSettings?.connected) {
+      setSubTab("settings");
+      onShowToast("Vui lòng nhập Serper.dev API Key trước khi quét Top đối thủ!", "error");
+      return;
+    }
+    setIsCheckingAllSerp(true);
+    try {
+      const res = await fetch("/api/admin/seo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify({ action: "check_serp_all" }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSeoData(data.seo);
+        onShowToast(data.message || "Đã check Top đối thủ thành công!", "success");
+      } else {
+        onShowToast(data.message || "Lỗi khi check Top đối thủ.", "error");
+      }
+    } catch {
+      onShowToast("Lỗi kết nối tới máy chủ.", "error");
+    } finally {
+      setIsCheckingAllSerp(false);
+    }
+  };
+
+  const handleCheckSingleSerp = async (id: string) => {
+    if (!seoData?.serperSettings?.connected) {
+      setSubTab("settings");
+      onShowToast("Vui lòng nhập Serper.dev API Key trước khi quét!", "error");
+      return;
+    }
+    setCheckingSingleId(id);
+    try {
+      const res = await fetch("/api/admin/seo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify({ action: "check_serp_single", id }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSeoData(data.seo);
+        onShowToast(data.message, "success");
+      } else {
+        onShowToast(data.message || "Lỗi khi check từ khóa.", "error");
+      }
+    } catch {
+      onShowToast("Lỗi kết nối tới máy chủ.", "error");
+    } finally {
+      setCheckingSingleId(null);
+    }
+  };
+
+  const handleSaveGscSettings = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSavingSettings(true);
+    setIsSavingGsc(true);
     try {
       const res = await fetch("/api/admin/seo", {
         method: "POST",
@@ -143,7 +225,39 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
     } catch {
       onShowToast("Lỗi kết nối máy chủ.", "error");
     } finally {
-      setIsSavingSettings(false);
+      setIsSavingGsc(false);
+    }
+  };
+
+  const handleSaveSerperSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingSerper(true);
+    try {
+      const res = await fetch("/api/admin/seo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify({
+          action: "save_serper_settings",
+          apiKey: serperApiKey.trim() || undefined,
+          targetDomain: serperDomain.trim(),
+          location: serperLocation.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSeoData(data.seo);
+        setSerperApiKey("");
+        onShowToast("Đã lưu cấu hình Serper.dev SERP API!", "success");
+      } else {
+        onShowToast(data.message || "Lỗi lưu cấu hình Serper.dev.", "error");
+      }
+    } catch {
+      onShowToast("Lỗi kết nối máy chủ.", "error");
+    } finally {
+      setIsSavingSerper(false);
     }
   };
 
@@ -218,37 +332,37 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
     }
   };
 
-  const renderPositionBadge = (pos: number | null) => {
+  const renderPositionBadge = (pos: number | null | undefined, emptyLabel = "Chưa có") => {
     if (pos === null || pos === undefined || pos === 0) {
       return (
-        <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-xs font-semibold">
-          Chưa có dữ liệu
+        <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-semibold whitespace-nowrap">
+          {emptyLabel}
         </span>
       );
     }
     if (pos <= 3) {
       return (
-        <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-black">
+        <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-black whitespace-nowrap">
           Top #{pos}
         </span>
       );
     }
     if (pos <= 10) {
       return (
-        <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200 text-xs font-black">
+        <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200 text-xs font-black whitespace-nowrap">
           Top #{pos}
         </span>
       );
     }
     if (pos <= 30) {
       return (
-        <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold">
+        <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold whitespace-nowrap">
           Top #{pos}
         </span>
       );
     }
     return (
-      <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
+      <span className="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap">
         Top #{pos}
       </span>
     );
@@ -265,6 +379,7 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
 
   const gscCache = seoData?.gscCache;
   const gscSettings = seoData?.gscSettings;
+  const serperSettings = seoData?.serperSettings;
   const watchlist = seoData?.watchlistKeywords || [];
   const filteredQueries = (gscCache?.topQueries || []).filter((q) =>
     q.query.toLowerCase().includes(querySearch.toLowerCase().trim())
@@ -275,24 +390,34 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
       {/* Top Header & Subtabs */}
       <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-2xs">
         <div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <h2 className="text-lg sm:text-xl font-black text-slate-900">
               Trung Tâm SEO &amp; Thứ Hạng Google
             </h2>
+            {serperSettings?.connected ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold">
+                <Zap className="w-3 h-3" />
+                Serper Live Ready
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold">
+                Chưa cài Serper
+              </span>
+            )}
             {gscSettings?.connected ? (
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold">
                 <CheckCircle2 className="w-3 h-3" />
-                Đã kết nối GSC
+                GSC Connected
               </span>
             ) : (
               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-bold">
                 <AlertCircle className="w-3 h-3" />
-                Chưa kết nối GSC API
+                Chưa cài GSC
               </span>
             )}
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Theo dõi thứ hạng từ khóa thực tế từ Google Search Console, kiểm tra SEO On-Page và tuân thủ Google Ads.
+            Check Top 1–3 đối thủ theo thời gian thực (Serper.dev), đồng bộ Google Search Console và kiểm tra SEO On-Page.
           </p>
         </div>
 
@@ -306,7 +431,7 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
             }`}
           >
             <TrendingUp className="w-3.5 h-3.5" />
-            <span>Top Từ Khóa</span>
+            <span>Top Từ Khóa &amp; Đối Thủ</span>
           </button>
 
           <button
@@ -330,18 +455,18 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
             }`}
           >
             <Settings className="w-3.5 h-3.5" />
-            <span>Kết Nối GSC API</span>
+            <span>Kết Nối API</span>
           </button>
         </div>
       </div>
 
-      {/* SUBTAB 1: KEYWORD RANK TRACKER & GSC DATA */}
+      {/* SUBTAB 1: KEYWORD RANK TRACKER & SERP COMPETITORS */}
       {subTab === "ranks" && (
         <div className="space-y-6">
           {/* Action Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 bg-white rounded-2xl border border-slate-200 p-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-600">Khoảng thời gian:</span>
+          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-3 bg-white rounded-2xl border border-slate-200 p-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold text-slate-600">Khung GSC:</span>
               {(["7d", "28d", "90d"] as const).map((r) => (
                 <button
                   key={r}
@@ -358,45 +483,40 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
                   {r === "7d" ? "7 ngày" : r === "28d" ? "28 ngày" : "90 ngày"}
                 </button>
               ))}
-              {gscSettings?.lastSyncedAt && (
-                <span className="text-[11px] text-slate-400 hidden sm:inline ml-2">
-                  Cập nhật: {new Date(gscSettings.lastSyncedAt).toLocaleString("vi-VN")}
+              {serperSettings?.lastCheckedAt && (
+                <span className="text-[11px] text-slate-400 ml-1">
+                  • Check SERP lúc {new Date(serperSettings.lastCheckedAt).toLocaleTimeString("vi-VN")}
                 </span>
               )}
             </div>
 
-            <button
-              onClick={() => handleSyncGsc(dateRange)}
-              disabled={isSyncing}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white text-xs font-extrabold flex items-center gap-2 shadow-xs cursor-pointer disabled:opacity-60"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin" : ""}`} />
-              <span>{isSyncing ? "Đang đồng bộ..." : "Đồng bộ Google Search Console"}</span>
-            </button>
-          </div>
-
-          {!gscSettings?.connected && (
-            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-start gap-2.5 text-xs text-amber-900">
-                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="font-bold">Chưa kết nối Google Search Console API:</strong>{" "}
-                  Vui lòng vào tab <strong>Kết Nối GSC API</strong> để dán file JSON Service Account và xem thứ hạng từ khóa thực tế từ Google.
-                </div>
-              </div>
+            <div className="flex flex-wrap items-center gap-2">
               <button
-                onClick={() => setSubTab("settings")}
-                className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shrink-0 cursor-pointer"
+                onClick={handleCheckAllSerp}
+                disabled={isCheckingAllSerp}
+                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold flex items-center gap-2 shadow-xs cursor-pointer disabled:opacity-60"
               >
-                Cấu hình ngay →
+                <Zap className={`w-3.5 h-3.5 text-amber-400 ${isCheckingAllSerp ? "animate-spin" : ""}`} />
+                <span>
+                  {isCheckingAllSerp ? "Đang quét Google..." : "Check Top Đối Thủ (Realtime)"}
+                </span>
+              </button>
+
+              <button
+                onClick={() => handleSyncGsc(dateRange)}
+                disabled={isSyncing}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white text-xs font-extrabold flex items-center gap-2 shadow-xs cursor-pointer disabled:opacity-60"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin" : ""}`} />
+                <span>{isSyncing ? "Đang đồng bộ..." : "Đồng bộ GSC"}</span>
               </button>
             </div>
-          )}
+          </div>
 
           {/* 4 KPI Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
-              <span className="text-xs font-semibold text-slate-500">Tổng Lượt Click (SEO)</span>
+              <span className="text-xs font-semibold text-slate-500">Tổng Lượt Click (GSC)</span>
               <div className="text-2xl font-black text-slate-900 mt-1">
                 {gscCache ? gscCache.totals.clicks.toLocaleString("vi-VN") : "—"}
               </div>
@@ -428,15 +548,17 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
             </div>
           </div>
 
-          {/* Watchlist Target Keywords */}
+          {/* Watchlist Target Keywords + Top 1-3 Competitors */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
             <div className="p-4 sm:p-5 border-b border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
               <div>
-                <h3 className="text-base font-black text-slate-900">
-                  Từ Khóa Mục Tiêu Đang Theo Dõi ({watchlist.length})
+                <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-[#F37021]" />
+                  <span>Bảng Theo Dõi Thứ Hạng &amp; Top 1–3 Đối Thủ ({watchlist.length})</span>
                 </h3>
-                <p className="text-xs text-slate-500">
-                  Tự động đối chiếu vị trí hiện tại của từng từ khóa khi đồng bộ Google Search Console.
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Kiểm tra tức thì website của bạn đang đứng Top mấy và ai đang chiếm Top 1–3 trên Google khu vực{" "}
+                  <strong>{serperSettings?.location || "Can Tho, Vietnam"}</strong>.
                 </p>
               </div>
 
@@ -453,7 +575,7 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
                   value={newTargetUrl}
                   onChange={(e) => setNewTargetUrl(e.target.value)}
                   placeholder="URL đích (VD: /bang-gia)"
-                  className="px-3 py-1.5 rounded-xl border border-slate-200 text-xs outline-none focus:border-[#F37021] w-[140px]"
+                  className="px-3 py-1.5 rounded-xl border border-slate-200 text-xs outline-none focus:border-[#F37021] w-[130px]"
                 />
                 <button
                   type="submit"
@@ -470,60 +592,140 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
                 <thead className="bg-slate-50 text-slate-600 font-bold border-b border-slate-100">
                   <tr>
                     <th className="py-3 px-4">Từ khóa mục tiêu</th>
-                    <th className="py-3 px-4">Vị trí Top</th>
-                    <th className="py-3 px-4">Biến động</th>
-                    <th className="py-3 px-4">Clicks / Hiển thị</th>
-                    <th className="py-3 px-4">CTR</th>
-                    <th className="py-3 px-4">URL Đích</th>
-                    <th className="py-3 px-4 text-right">Xóa</th>
+                    <th className="py-3 px-4">Top Live (SERP)</th>
+                    <th className="py-3 px-4">Top 1–3 Đối Thủ Đang Đứng Đầu</th>
+                    <th className="py-3 px-4">Top GSC (TB)</th>
+                    <th className="py-3 px-4 text-right">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {watchlist.map((kw) => {
-                    const diff =
-                      kw.lastPosition !== null && kw.previousPosition !== null
-                        ? Number((kw.previousPosition - kw.lastPosition).toFixed(1))
+                    const serpDiff =
+                      kw.serpPosition !== null &&
+                      kw.serpPosition !== undefined &&
+                      kw.serpPreviousPosition !== null &&
+                      kw.serpPreviousPosition !== undefined
+                        ? kw.serpPreviousPosition - kw.serpPosition
                         : null;
+
                     return (
-                      <tr key={kw.id} className="hover:bg-slate-50/60">
-                        <td className="py-3 px-4 font-bold text-slate-900">
-                          <div>{kw.keyword}</div>
-                          {kw.matchedQuery && kw.matchedQuery !== kw.keyword && (
-                            <span className="text-[10px] text-slate-400 font-normal">
-                              Khớp GSC: &quot;{kw.matchedQuery}&quot;
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-3 px-4">{renderPositionBadge(kw.lastPosition)}</td>
+                      <tr key={kw.id} className="hover:bg-slate-50/60 align-top">
                         <td className="py-3 px-4">
-                          {diff === null || diff === 0 ? (
-                            <span className="text-slate-400">—</span>
-                          ) : diff > 0 ? (
-                            <span className="inline-flex items-center gap-0.5 text-emerald-600 font-bold">
-                              <ArrowUpRight className="w-3.5 h-3.5" />+{diff}
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-0.5 text-red-600 font-bold">
-                              <ArrowDownRight className="w-3.5 h-3.5" />
-                              {diff}
+                          <div className="font-bold text-slate-900 text-xs sm:text-[13px]">
+                            {kw.keyword}
+                          </div>
+                          <div className="text-[11px] text-slate-400 font-mono mt-0.5">
+                            Đích: {kw.targetUrl}
+                          </div>
+                          {kw.serpMatchedUrl && (
+                            <a
+                              href={kw.serpMatchedUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-[10px] text-emerald-700 font-medium hover:underline mt-0.5"
+                            >
+                              <span>URL lên top: {kw.serpMatchedUrl.replace(/^https?:\/\/[^/]+/, "") || "/"}</span>
+                              <ExternalLink className="w-2.5 h-2.5" />
+                            </a>
+                          )}
+                        </td>
+
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-1.5">
+                            {renderPositionBadge(
+                              kw.serpPosition,
+                              kw.serpCheckedAt ? "Ngoài Top 30" : "Chưa check"
+                            )}
+                            {serpDiff !== null && serpDiff !== 0 && (
+                              <span
+                                className={`inline-flex items-center text-[11px] font-bold ${
+                                  serpDiff > 0 ? "text-emerald-600" : "text-red-600"
+                                }`}
+                              >
+                                {serpDiff > 0 ? (
+                                  <>
+                                    <ArrowUpRight className="w-3 h-3" />+{serpDiff}
+                                  </>
+                                ) : (
+                                  <>
+                                    <ArrowDownRight className="w-3 h-3" />
+                                    {serpDiff}
+                                  </>
+                                )}
+                              </span>
+                            )}
+                          </div>
+                          {kw.serpCheckedAt && (
+                            <span className="block text-[10px] text-slate-400 mt-1">
+                              {new Date(kw.serpCheckedAt).toLocaleTimeString("vi-VN")}
                             </span>
                           )}
                         </td>
-                        <td className="py-3 px-4 font-medium text-slate-700">
-                          {kw.clicks} / {kw.impressions.toLocaleString("vi-VN")}
+
+                        <td className="py-3 px-4 min-w-[260px]">
+                          {kw.topCompetitors && kw.topCompetitors.length > 0 ? (
+                            <div className="space-y-1">
+                              {kw.topCompetitors.map((comp) => (
+                                <a
+                                  key={comp.position}
+                                  href={comp.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title={comp.title}
+                                  className="flex items-center gap-1.5 group text-[11px]"
+                                >
+                                  <span
+                                    className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${
+                                      comp.position === 1
+                                        ? "bg-amber-400 text-slate-900"
+                                        : comp.position === 2
+                                        ? "bg-slate-300 text-slate-800"
+                                        : "bg-orange-200 text-orange-900"
+                                    }`}
+                                  >
+                                    {comp.position}
+                                  </span>
+                                  <span className="font-bold text-slate-700 group-hover:text-[#F37021] truncate max-w-[140px]">
+                                    {comp.domain}
+                                  </span>
+                                  <span className="text-slate-400 truncate max-w-[160px] hidden sm:inline">
+                                    — {comp.title}
+                                  </span>
+                                </a>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="text-slate-400 text-[11px]">
+                              Bấm &quot;Check&quot; để xem Top 1–3 đối thủ
+                            </span>
+                          )}
                         </td>
-                        <td className="py-3 px-4 font-medium text-slate-700">{kw.ctr}%</td>
-                        <td className="py-3 px-4 text-blue-600 font-mono text-[11px]">
-                          {kw.targetUrl}
+
+                        <td className="py-3 px-4">
+                          <div>{renderPositionBadge(kw.lastPosition)}</div>
+                          <div className="text-[11px] text-slate-500 mt-1 whitespace-nowrap">
+                            {kw.clicks} click • {kw.impressions.toLocaleString("vi-VN")} hiển thị
+                          </div>
                         </td>
-                        <td className="py-3 px-4 text-right">
-                          <button
-                            onClick={() => handleRemoveKeyword(kw.id)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 cursor-pointer"
-                            title="Xóa từ khóa"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
+
+                        <td className="py-3 px-4 text-right whitespace-nowrap">
+                          <div className="inline-flex items-center gap-1">
+                            <button
+                              onClick={() => handleCheckSingleSerp(kw.id)}
+                              disabled={checkingSingleId === kw.id}
+                              className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-900 hover:text-white text-slate-700 text-[11px] font-bold transition-colors cursor-pointer disabled:opacity-50"
+                              title="Check Top 1-3 từ khóa này ngay"
+                            >
+                              {checkingSingleId === kw.id ? "..." : "Check"}
+                            </button>
+                            <button
+                              onClick={() => handleRemoveKeyword(kw.id)}
+                              className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 cursor-pointer"
+                              title="Xóa từ khóa"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -717,133 +919,232 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
         </div>
       )}
 
-      {/* SUBTAB 3: GOOGLE SEARCH CONSOLE SETTINGS */}
+      {/* SUBTAB 3: API SETTINGS (SERPER.DEV + GOOGLE SEARCH CONSOLE) */}
       {subTab === "settings" && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          <form
-            onSubmit={handleSaveSettings}
-            className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 space-y-4 shadow-2xs"
-          >
-            <h3 className="text-base font-black text-slate-900">
-              Cấu Hình Kết Nối Google Search Console API
-            </h3>
-
-            {gscSettings?.lastError && (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 font-medium">
-                <strong>Lỗi kết nối gần nhất:</strong> {gscSettings.lastError}
-              </div>
-            )}
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Site URL trên Google Search Console *
-              </label>
-              <input
-                type="text"
-                required
-                value={siteUrl}
-                onChange={(e) => setSiteUrl(e.target.value)}
-                placeholder="VD: https://gofpt.vn/ hoặc sc-domain:gofpt.vn"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm outline-none focus:border-[#F37021]"
-              />
-              <p className="text-[11px] text-slate-400 mt-1">
-                Phải khớp chính xác 100% với tên miền thuộc tính (Property) trong Google Search Console của bạn.
-              </p>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Service Account Email (client_email)
-              </label>
-              <input
-                type="text"
-                value={serviceAccountEmail}
-                onChange={(e) => setServiceAccountEmail(e.target.value)}
-                placeholder="VD: fpt-seo@my-project.iam.gserviceaccount.com"
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs outline-none focus:border-[#F37021] font-mono"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
-                Dán toàn bộ nội dung file JSON Service Account{" "}
-                {gscSettings?.hasPrivateKey && (
-                  <span className="text-emerald-600 font-bold">(Đã lưu Private Key an toàn)</span>
+        <div className="space-y-6">
+          {/* 1. SERPER.DEV REAL-TIME SERP API CARD */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <form
+              onSubmit={handleSaveSerperSettings}
+              className="lg:col-span-7 bg-white rounded-2xl border border-blue-200/80 p-5 space-y-4 shadow-2xs"
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-blue-600" />
+                  <span>1. Serper.dev API (Check Top 1–3 Đối Thủ Realtime)</span>
+                </h3>
+                {serperSettings?.connected && (
+                  <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[11px] font-bold">
+                    Đã kết nối
+                  </span>
                 )}
-              </label>
-              <textarea
-                rows={6}
-                value={serviceAccountJson}
-                onChange={(e) => setServiceAccountJson(e.target.value)}
-                placeholder='Dán nội dung file .json tải từ Google Cloud Console vào đây ({"type": "service_account", "client_email": "...", "private_key": "..."})'
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono outline-none focus:border-[#F37021]"
-              />
-            </div>
+              </div>
 
-            <div className="flex flex-wrap items-center gap-3 pt-1">
-              <button
-                type="submit"
-                disabled={isSavingSettings}
-                className="px-5 py-2.5 rounded-xl bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-extrabold cursor-pointer disabled:opacity-60"
-              >
-                {isSavingSettings ? "Đang lưu..." : "Lưu Cấu Hình API"}
-              </button>
+              {serperSettings?.lastError && (
+                <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 font-medium">
+                  <strong>Lỗi Serper gần nhất:</strong> {serperSettings.lastError}
+                </div>
+              )}
 
-              <button
-                type="button"
-                onClick={() => handleSyncGsc(dateRange)}
-                disabled={isSyncing}
-                className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold cursor-pointer disabled:opacity-60"
-              >
-                {isSyncing ? "Đang kiểm tra..." : "Kiểm Tra & Đồng Bộ Ngay"}
-              </button>
-            </div>
-          </form>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Serper.dev API Key{" "}
+                  {serperSettings?.hasApiKey && (
+                    <span className="text-emerald-600 font-bold">(Đã lưu API Key an toàn)</span>
+                  )}
+                </label>
+                <input
+                  type="password"
+                  value={serperApiKey}
+                  onChange={(e) => setSerperApiKey(e.target.value)}
+                  placeholder={
+                    serperSettings?.hasApiKey
+                      ? "•••••••••••••••••••••••• (Để trống nếu giữ key cũ)"
+                      : "Dán API Key từ serper.dev vào đây..."
+                  }
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm font-mono outline-none focus:border-blue-500"
+                />
+              </div>
 
-          {/* Setup Guide + Sitemap Links */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="bg-white rounded-2xl border border-slate-200 p-5 space-y-3 shadow-2xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Tên miền của bạn (để dò Top)
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={serperDomain}
+                    onChange={(e) => setSerperDomain(e.target.value)}
+                    placeholder="VD: gofpt.vn"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                    Khu vực tìm kiếm Google
+                  </label>
+                  <input
+                    type="text"
+                    value={serperLocation}
+                    onChange={(e) => setSerperLocation(e.target.value)}
+                    placeholder="VD: Can Tho, Vietnam"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs outline-none focus:border-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <button
+                  type="submit"
+                  disabled={isSavingSerper}
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold cursor-pointer disabled:opacity-60"
+                >
+                  {isSavingSerper ? "Đang lưu..." : "Lưu Serper API"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCheckAllSerp}
+                  disabled={isCheckingAllSerp}
+                  className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold cursor-pointer disabled:opacity-60"
+                >
+                  {isCheckingAllSerp ? "Đang quét..." : "Quét Top Đối Thủ Ngay"}
+                </button>
+              </div>
+            </form>
+
+            <div className="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-5 space-y-3 shadow-2xs">
               <h3 className="text-sm font-black text-slate-900">
-                Hướng dẫn kết nối trong 3 bước (Miễn phí 100%)
+                Lấy 2.500 lượt Check miễn phí tại Serper.dev (1 phút)
               </h3>
               <ol className="space-y-2 text-xs text-slate-600 list-decimal list-inside leading-relaxed">
                 <li>
-                  Vào <strong>Google Cloud Console</strong> ➔ Bật API{" "}
-                  <code className="bg-slate-100 px-1 py-0.5 rounded">Google Search Console API</code>.
+                  Truy cập{" "}
+                  <a
+                    href="https://serper.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 font-bold underline"
+                  >
+                    https://serper.dev
+                  </a>{" "}
+                  và đăng nhập nhanh bằng tài khoản Google.
                 </li>
                 <li>
-                  Vào mục <strong>Credentials ➔ Create Service Account</strong> ➔ Tạo key dạng{" "}
-                  <strong>JSON</strong> và tải về máy.
+                  Hệ thống tặng ngay <strong>2.500 credits miễn phí</strong> (không cần thẻ tín dụng).
                 </li>
                 <li>
-                  Mở <strong>Google Search Console</strong> của website ➔{" "}
-                  <strong>Cài đặt ➔ Người dùng và quyền</strong> ➔ Thêm email của Service Account (quyền <em>Restricted / Bị hạn chế</em> hoặc <em>Full</em>).
+                  Vào mục <strong>API Key</strong>, copy mã key dán vào ô bên trái và bấm{" "}
+                  <strong>Lưu Serper API</strong>.
                 </li>
-                <li>Mở file JSON vừa tải, copy toàn bộ dán vào ô bên trái và bấm Lưu.</li>
               </ol>
             </div>
+          </div>
 
-            <div className="bg-white rounded-2xl border border-slate-200 p-5 space-y-2.5 shadow-2xs">
-              <h3 className="text-sm font-black text-slate-900">Kiểm tra Sitemap &amp; Robots</h3>
-              <div className="flex flex-wrap gap-2">
-                <a
-                  href="/sitemap.xml"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 flex items-center gap-1.5"
+          {/* 2. GOOGLE SEARCH CONSOLE API CARD */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <form
+              onSubmit={handleSaveGscSettings}
+              className="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 space-y-4 shadow-2xs"
+            >
+              <h3 className="text-base font-black text-slate-900">
+                2. Google Search Console API (Dữ liệu Click &amp; Hiển thị)
+              </h3>
+
+              {gscSettings?.lastError && (
+                <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 font-medium">
+                  <strong>Lỗi GSC gần nhất:</strong> {gscSettings.lastError}
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Site URL trên Google Search Console *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={siteUrl}
+                  onChange={(e) => setSiteUrl(e.target.value)}
+                  placeholder="VD: https://gofpt.vn/ hoặc sc-domain:gofpt.vn"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm outline-none focus:border-[#F37021]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Service Account Email (client_email)
+                </label>
+                <input
+                  type="text"
+                  value={serviceAccountEmail}
+                  onChange={(e) => setServiceAccountEmail(e.target.value)}
+                  placeholder="VD: fpt-seo@my-project.iam.gserviceaccount.com"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs outline-none focus:border-[#F37021] font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Dán toàn bộ nội dung file JSON Service Account{" "}
+                  {gscSettings?.hasPrivateKey && (
+                    <span className="text-emerald-600 font-bold">(Đã lưu Private Key an toàn)</span>
+                  )}
+                </label>
+                <textarea
+                  rows={5}
+                  value={serviceAccountJson}
+                  onChange={(e) => setServiceAccountJson(e.target.value)}
+                  placeholder='Dán nội dung file .json tải từ Google Cloud Console vào đây...'
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono outline-none focus:border-[#F37021]"
+                />
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <button
+                  type="submit"
+                  disabled={isSavingGsc}
+                  className="px-5 py-2.5 rounded-xl bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-extrabold cursor-pointer disabled:opacity-60"
                 >
-                  <span>Xem sitemap.xml</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-                <a
-                  href="/robots.txt"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 flex items-center gap-1.5"
+                  {isSavingGsc ? "Đang lưu..." : "Lưu Cấu Hình GSC"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSyncGsc(dateRange)}
+                  disabled={isSyncing}
+                  className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold cursor-pointer disabled:opacity-60"
                 >
-                  <span>Xem robots.txt</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
+                  {isSyncing ? "Đang kiểm tra..." : "Đồng Bộ GSC Ngay"}
+                </button>
+              </div>
+            </form>
+
+            <div className="lg:col-span-5 space-y-4">
+              <div className="bg-white rounded-2xl border border-slate-200 p-5 space-y-3 shadow-2xs">
+                <h3 className="text-sm font-black text-slate-900">
+                  Sitemap &amp; Robots.txt
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href="/sitemap.xml"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 flex items-center gap-1.5"
+                  >
+                    <span>Xem sitemap.xml</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <a
+                    href="/robots.txt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 flex items-center gap-1.5"
+                  >
+                    <span>Xem robots.txt</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
