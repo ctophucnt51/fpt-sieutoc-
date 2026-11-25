@@ -28,16 +28,16 @@ export default function LeadModal({ isOpen, selectedPackage, onClose }: LeadModa
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-slate-950/50 backdrop-blur-xs transition-opacity"
+        className="fixed inset-0 bg-slate-950/50 backdrop-blur-xs animate-backdrop-in"
         aria-hidden="true"
       />
 
       {/* Modal Dialog Card Container */}
-      <div className="relative w-full max-w-lg z-10 overflow-hidden my-auto max-h-[96vh] flex flex-col">
+      <div className="relative w-full max-w-lg z-10 overflow-hidden my-auto max-h-[96vh] flex flex-col animate-modal-in">
         <LeadForm
           defaultPackage={selectedPackage || "Combo GIGA"}
           formLocation="lead-modal-form"
