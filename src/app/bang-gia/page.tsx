@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import HeroSection from "@/components/home/HeroSection";
+import Link from "next/link";
 import PricingSection from "@/components/home/PricingSection";
+import PricingComparisonMatrix from "@/components/pricing/PricingComparisonMatrix";
 import Wifi6Explainer from "@/components/home/Wifi6Explainer";
 import BottomCtaSection from "@/components/home/BottomCtaSection";
+import { ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Bảng Giá Cước Internet Wi-Fi 6 & Combo Truyền Hình FPT Mới Nhất",
@@ -13,23 +15,58 @@ export const metadata: Metadata = {
 export default function BangGiaPage() {
   return (
     <>
-      <HeroSection
-        badge="Bảng Giá Niêm Yết • Đã Bao Gồm 10% VAT • Khảo Sát 0đ"
-        headline={
-          <>
-            Bảng Giá Cước <span className="text-[#F37021]">Internet &amp; Combo FPT</span> Mới Nhất
-          </>
-        }
-        subheadline="So sánh đầy đủ các gói cước Internet cáp quang Wi-Fi 6 và Combo truyền hình Ngoại Hạng Anh. Trang bị Modem Wi-Fi 6 miễn phí, hỗ trợ kỹ thuật 24/7."
-        defaultPackage="SKY"
-        formHeadline="NHẬN BÁO GIÁ CHI TIẾT THEO KHU VỰC"
-      />
+      {/* Compact Pricing Page Header (Không lặp lại Hero trang chủ) */}
+      <section className="bg-gradient-to-br from-[#F8FAFC] via-white to-[#FFF7F2] py-7 sm:py-10 border-b border-[#E4E8ED]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium mb-3">
+            <Link href="/" className="hover:text-[#F37021] transition-colors">
+              Trang chủ
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span className="text-[#0F172A] font-bold">Bảng giá cước FPT</span>
+          </div>
+
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0F172A] tracking-tight leading-tight">
+                Bảng Giá Cước <span className="text-[#F37021]">Internet Wi-Fi 6 &amp; Combo FPT</span>
+              </h1>
+              <p className="mt-2 text-xs sm:text-sm text-[#475569] leading-relaxed">
+                Tổng hợp đầy đủ các gói cước cá nhân, gia đình, game thủ và Combo Ngoại Hạng Anh. Giá niêm yết đã bao gồm 10% VAT, khảo sát hạ tầng tận nơi miễn phí.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <a
+                href="#bang-gia"
+                className="px-3.5 py-2 rounded-full bg-white border border-[#E4E8ED] hover:border-[#F37021] text-xs font-bold text-[#0F172A] shadow-2xs transition-colors whitespace-nowrap"
+              >
+                Thẻ gói cước
+              </a>
+              <a
+                href="#so-sanh-nhanh"
+                className="px-3.5 py-2 rounded-full bg-white border border-[#E4E8ED] hover:border-[#F37021] text-xs font-bold text-[#0F172A] shadow-2xs transition-colors whitespace-nowrap"
+              >
+                Bảng so sánh
+              </a>
+              <a
+                href="#chinh-sach-uu-dai"
+                className="px-3.5 py-2 rounded-full bg-white border border-[#E4E8ED] hover:border-[#F37021] text-xs font-bold text-[#0F172A] shadow-2xs transition-colors whitespace-nowrap"
+              >
+                Ưu đãi trả trước
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <PricingSection
         initialTab="all"
-        title="So Sánh Chi Tiết Tất Cả Gói Cước FPT Telecom"
-        subtitle="Lựa chọn gói cước phù hợp nhất cho nhu cầu gia đình, game thủ và cửa hàng kinh doanh"
+        title="Chọn Gói Cước Phù Hợp Nhu Cầu Của Bạn"
+        subtitle="Bấm lọc theo danh mục bên dưới để xem chi tiết tốc độ và thiết bị trang bị"
       />
+
+      <PricingComparisonMatrix />
 
       <Wifi6Explainer />
 
