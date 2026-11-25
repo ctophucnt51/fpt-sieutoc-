@@ -246,6 +246,9 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                 <span className={`px-2.5 py-1 rounded-full font-bold text-[11px] ${data.connections.ga4Configured ? "bg-emerald-100 text-emerald-800" : "bg-slate-200 text-slate-700"}`}>
                   GA4 Property: {data.connections.ga4Configured ? "Đã gắn ID" : "Chưa cấu hình"}
                 </span>
+                <span className={`px-2.5 py-1 rounded-full font-bold text-[11px] ${data.baseline?.mobilePageSpeedScore != null ? "bg-blue-100 text-blue-800" : "bg-slate-200 text-slate-700"}`}>
+                  PageSpeed (M / D): {data.baseline?.mobilePageSpeedScore ?? "—"} / {data.baseline?.desktopPageSpeedScore ?? "—"}
+                </span>
               </div>
             </div>
           </div>
@@ -400,14 +403,55 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
         )}
 
         {activeModule === "technical" && (
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-            <div className="font-bold text-slate-900">Tình trạng Technical SEO &amp; Bảo vệ Chính sách Google Ads:</div>
-            <ul className="space-y-1 text-slate-700 list-disc pl-5">
-              <li>Canonical Tags: Đã bật chuẩn `https://gofpt.vn` trên tất cả 14 route public.</li>
-              <li>Robots &amp; Noindex: Đã chặn `/admin` và `/cam-on` khỏi Google Index.</li>
-              <li>Schema JSON-LD: Đã kích hoạt `LocalBusiness`, `WebSite`, `FAQPage`, `NewsArticle`.</li>
-              <li>QA Guard: Đang bảo vệ không dùng từ cấm (`tuyệt đối`, `trọn đời`, `giảm 99%`). Bấm &ldquo;Quét Toàn Bộ Website&rdquo; bên dưới để kiểm tra live HTML.</li>
-            </ul>
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div className="font-bold text-slate-900">Tình trạng Technical SEO &amp; Bảo vệ Chính sách Google Ads:</div>
+              <ul className="space-y-1 text-slate-700 list-disc pl-5">
+                <li>Canonical Tags: Đã bật chuẩn `https://gofpt.vn` trên tất cả route public.</li>
+                <li>Robots &amp; Noindex: Đã chặn `/admin` và `/cam-on` khỏi Google Index.</li>
+                <li>Schema JSON-LD: Đã kích hoạt `LocalBusiness`, `WebSite`, `FAQPage`, `NewsArticle`.</li>
+                <li>QA Guard: Đang bảo vệ không dùng từ cấm (`tuyệt đối`, `trọn đời`, `giảm 99%`). Bấm &ldquo;Quét Toàn Bộ Website&rdquo; bên dưới để kiểm tra live HTML.</li>
+              </ul>
+            </div>
+
+            <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <div className="font-bold text-slate-900">Google PageSpeed Insights (Core Web Vitals)</div>
+                  <div className="text-[11px] text-slate-500">Đo trực tiếp từ Google PageSpeed v5 API cho trang chủ https://gofpt.vn</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => callAction({ action: "check_pagespeed", url: "https://gofpt.vn", strategy: "mobile" })}
+                    disabled={runningCycle}
+                    className="px-3 py-1.5 rounded-lg bg-fpt-orange text-white font-bold text-[11px] hover:bg-orange-600 disabled:opacity-50"
+                  >
+                    {runningCycle ? "Đang đo..." : "Đo Mobile"}
+                  </button>
+                  <button
+                    onClick={() => callAction({ action: "check_pagespeed", url: "https://gofpt.vn", strategy: "desktop" })}
+                    disabled={runningCycle}
+                    className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-[11px] hover:bg-slate-800 disabled:opacity-50"
+                  >
+                    {runningCycle ? "Đang đo..." : "Đo Desktop"}
+                  </button>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <div className="text-[11px] text-slate-500 font-semibold">Mobile Performance Score</div>
+                  <div className="text-xl font-black text-slate-900 mt-0.5">
+                    {data.baseline?.mobilePageSpeedScore != null ? `${data.baseline.mobilePageSpeedScore} / 100` : "Chưa đo"}
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <div className="text-[11px] text-slate-500 font-semibold">Desktop Performance Score</div>
+                  <div className="text-xl font-black text-slate-900 mt-0.5">
+                    {data.baseline?.desktopPageSpeedScore != null ? `${data.baseline.desktopPageSpeedScore} / 100` : "Chưa đo"}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

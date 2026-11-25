@@ -162,6 +162,7 @@ export function getAnonymizedConversionSummary(): OrganicConversionSummary {
 export function runSeoMasterCycle(): {
   newTasksAdded: number;
   newApprovalsAdded: number;
+  autoResolvedCount: number;
   summary: string;
 } {
   initializeSeoMemory();
@@ -245,6 +246,7 @@ export function runSeoMasterCycle(): {
   // 2. ANALYZE & PRIORITIZE & PLAN
   let newTasksAdded = 0;
   let newApprovalsAdded = 0;
+  const resolvedDedupKeys = new Set<string>();
 
   if (!seo.gscSettings?.connected) {
     const res = enqueueSeoTask({
@@ -257,6 +259,8 @@ export function runSeoMasterCycle(): {
       acceptanceCriteria: "GSC trả về dữ liệu clicks/impressions/queries hợp lệ",
     });
     if (res.added) newTasksAdded++;
+  } else {
+    resolvedDedupKeys.add("config-gsc-connection");
   }
 
   if (!seo.serperSettings?.connected) {
@@ -270,6 +274,8 @@ export function runSeoMasterCycle(): {
       acceptanceCriteria: "Kiểm tra được Top 30 SERP & Top 3 đối thủ cho từ khóa mục tiêu",
     });
     if (res.added) newTasksAdded++;
+  } else {
+    resolvedDedupKeys.add("config-serper-connection");
   }
 
   // Check Local SEO gaps
@@ -299,6 +305,8 @@ export function runSeoMasterCycle(): {
         targetUrl: `/tin-tuc/lap-mang-fpt-${area.slugHint}`,
       });
       if (res.added) newTasksAdded++;
+    } else {
+      resolvedDedupKeys.add(`local-seo-${area.slugHint}`);
     }
   }
 
@@ -322,6 +330,8 @@ export function runSeoMasterCycle(): {
         targetUrl: `/tin-tuc/${art.slug}`,
       });
       if (res.added) newTasksAdded++;
+    } else {
+      resolvedDedupKeys.add(`qa-fix-${art.id}`);
     }
   }
 
@@ -343,13 +353,31 @@ export function runSeoMasterCycle(): {
     }
   }
 
+  // Auto-resolve any pending tasks whose condition is now satisfied
+  let autoResolvedCount = 0;
+  const currentTasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
+  const nowIso = new Date().toISOString();
+  let tasksModified = false;
+  for (const t of currentTasks) {
+    if ((t.status === "pending" || t.status === "in_progress") && resolvedDedupKeys.has(t.dedupKey)) {
+      t.status = "completed";
+      t.updatedAt = nowIso;
+      autoResolvedCount++;
+      tasksModified = true;
+    }
+  }
+  if (tasksModified) {
+    writeMemoryFile("tasks.json", currentTasks);
+  }
+
   // Ensure approvals file exists
   writeMemoryFile("approvals.json", approvals);
 
   return {
     newTasksAdded,
     newApprovalsAdded,
-    summary: `Đã đồng bộ ${inventory.length} URL vào bộ nhớ, phát hiện ${newTasksAdded} nhiệm vụ mới.`,
+    autoResolvedCount,
+    summary: `Đã đồng bộ ${inventory.length} URL vào bộ nhớ, phát hiện ${newTasksAdded} nhiệm vụ mới, tự động hoàn tất ${autoResolvedCount} nhiệm vụ đã xử lý.`,
   };
 }
 
