@@ -236,6 +236,46 @@ function getDefaultKeywords(): SeoKeywordMapItem[] {
       priority: "P1",
       currentPosition: null,
     },
+    {
+      id: "kw-fpt-ninh-kieu",
+      keyword: "lắp mạng fpt ninh kiều",
+      targetUrl: "/tin-tuc/lap-mang-fpt-ninh-kieu-can-tho",
+      intent: "local",
+      priority: "P0",
+      currentPosition: null,
+    },
+    {
+      id: "kw-fpt-cai-rang",
+      keyword: "lắp mạng fpt cái răng",
+      targetUrl: "/tin-tuc/lap-mang-fpt-cai-rang-can-tho",
+      intent: "local",
+      priority: "P1",
+      currentPosition: null,
+    },
+    {
+      id: "kw-fpt-binh-thuy",
+      keyword: "lắp mạng fpt bình thủy",
+      targetUrl: "/tin-tuc/lap-mang-fpt-binh-thuy-can-tho",
+      intent: "local",
+      priority: "P1",
+      currentPosition: null,
+    },
+    {
+      id: "kw-fpt-soc-trang",
+      keyword: "lắp mạng fpt sóc trăng",
+      targetUrl: "/tin-tuc/lap-mang-fpt-soc-trang",
+      intent: "local",
+      priority: "P0",
+      currentPosition: null,
+    },
+    {
+      id: "kw-fpt-hau-giang",
+      keyword: "lắp mạng fpt hậu giang",
+      targetUrl: "/tin-tuc/lap-mang-fpt-hau-giang",
+      intent: "local",
+      priority: "P1",
+      currentPosition: null,
+    },
   ];
 }
 

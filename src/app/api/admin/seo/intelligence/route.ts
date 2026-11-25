@@ -15,6 +15,7 @@ import {
   SeoApprovalItem,
 } from "@/lib/seoMemory";
 import { runQaSafetyCheck } from "@/lib/seoAuditor";
+import { runPageSpeedCheck } from "@/lib/pageSpeedClient";
 
 export async function GET(request: NextRequest) {
   if (!verifyAdminAuth(request)) {
@@ -180,6 +181,21 @@ export async function POST(request: NextRequest) {
         message: ok
           ? "Đã gửi báo cáo SEO tổng hợp về Telegram!"
           : "Không thể gửi Telegram (kiểm tra cấu hình Bot Token / Chat ID).",
+      });
+    }
+
+    if (action === "check_pagespeed") {
+      const url = String(body.url || "https://gofpt.vn/").trim();
+      const strategy = body.strategy === "desktop" ? "desktop" : "mobile";
+      const psi = await runPageSpeedCheck(url, strategy);
+      return NextResponse.json({
+        success: psi.performanceScore !== null,
+        message:
+          psi.performanceScore !== null
+            ? `PageSpeed (${strategy}): Hiệu năng ${psi.performanceScore}/100, SEO ${psi.seoScore}/100 (LCP: ${psi.lcpDisplay || "-"})`
+            : psi.error || "Không thể đo PageSpeed.",
+        pagespeed: psi,
+        intelligence: getFullSeoIntelligenceState(),
       });
     }
 
