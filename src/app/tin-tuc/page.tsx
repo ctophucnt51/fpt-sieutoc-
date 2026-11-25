@@ -16,6 +16,9 @@ export const metadata: Metadata = {
     "Gói cước FPT Cần Thơ",
     "FPT Telecom Cần Thơ",
   ],
+  alternates: {
+    canonical: "/tin-tuc",
+  },
 };
 
 export default function TinTucPage({

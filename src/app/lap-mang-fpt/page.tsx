@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Lắp Mạng Internet FPT Cáp Quang Wi-Fi 6 - Miễn Phí Lắp Đặt 24H",
   description:
     "Đăng ký Internet cáp quang FPT Wi-Fi 6 tốc độ từ 300 Mbps đến 1 Gbps. Trang bị modem Wi-Fi 6 hai băng tần miễn phí. Khảo sát và ký hợp đồng tận nhà trong 24 giờ.",
+  alternates: {
+    canonical: "/lap-mang-fpt",
+  },
 };
 
 export default function LapMangFptPage() {

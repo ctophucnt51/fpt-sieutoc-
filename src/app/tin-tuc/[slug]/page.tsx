@@ -40,6 +40,9 @@ export async function generateMetadata({
   return {
     title: `${article.title} | ${siteConfig.brand.name}`,
     description: article.excerpt,
+    alternates: {
+      canonical: `/tin-tuc/${article.slug}`,
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,

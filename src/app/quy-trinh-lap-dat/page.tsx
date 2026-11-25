@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Quy Trình & Thủ Tục Lắp Đặt Mạng FPT Siêu Tốc Trong 24H",
   description:
     "Hướng dẫn quy trình 4 bước đăng ký lắp đặt Internet FPT đơn giản: Chỉ cần CCCD, ký hợp đồng điện tử bảo mật, kỹ thuật viên kéo cáp bàn giao trong 24 giờ.",
+  alternates: {
+    canonical: "/quy-trinh-lap-dat",
+  },
 };
 
 export default function QuyTrinhLapDatPage() {

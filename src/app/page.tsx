@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 import PricingSection from "@/components/home/PricingSection";
 import Wifi6Explainer from "@/components/home/Wifi6Explainer";
 import SportsEplSection from "@/components/home/SportsEplSection";

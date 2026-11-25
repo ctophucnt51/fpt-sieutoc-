@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Chính Sách Bảo Mật Dữ Liệu Cá Nhân",
   description:
     "Cam kết bảo vệ quyền riêng tư và dữ liệu cá nhân của khách hàng đăng ký tư vấn dịch vụ viễn thông FPT theo Nghị định 13/2023/NĐ-CP.",
+  alternates: {
+    canonical: "/chinh-sach-bao-mat",
+  },
 };
 
 export default function ChinhSachBaoMatPage() {

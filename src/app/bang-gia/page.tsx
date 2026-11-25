@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Bảng Giá Cước Internet Wi-Fi 6 & Combo Truyền Hình FPT Mới Nhất",
   description:
     "Tổng hợp bảng giá cước lắp mạng FPT Telecom cập nhật mới nhất: Gói Giga 300Mbps, Sky 1Gbps, Meta đối xứng, Combo Ngoại Hạng Anh 220K/tháng. Đã bao gồm VAT.",
+  alternates: {
+    canonical: "/bang-gia",
+  },
 };
 
 export default function BangGiaPage() {

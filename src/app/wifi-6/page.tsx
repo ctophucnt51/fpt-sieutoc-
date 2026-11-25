@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Internet FPT Wi-Fi 6 Chuẩn Mới 802.11ax - Siêu Tốc & Độ Trễ Thấp",
   description:
     "Trải nghiệm công nghệ Internet Wi-Fi 6 đột phá từ FPT. Tốc độ gấp 3 lần, giảm 75% độ trễ, kết nối 30+ thiết bị mượt mà cùng lúc. Trang bị miễn phí modem chuẩn Wi-Fi 6.",
+  alternates: {
+    canonical: "/wifi-6",
+  },
 };
 
 export default function Wifi6Page() {

@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Câu Hỏi Thường Gặp & Hỗ Trợ Lắp Mạng FPT Telecom",
   description:
     "Giải đáp toàn bộ thắc mắc về lắp đặt mạng FPT: Thủ tục nhà thuê, thời gian triển khai, chính sách bảo hành Modem Wi-Fi 6, xem Ngoại Hạng Anh trên Smart TV.",
+  alternates: {
+    canonical: "/hoi-dap",
+  },
 };
 
 export default function HoiDapPage() {

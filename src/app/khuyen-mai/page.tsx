@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Khuyến Mãi Lắp Mạng FPT • Tặng Modem Wi-Fi 6 & Camera AI 0đ",
   description:
     "Chương trình ưu đãi lắp mạng FPT mới nhất: Trang bị miễn phí Modem Wi-Fi 6, tặng Camera FPT AI an ninh, ưu đãi trả trước tặng tháng cước, xem Ngoại Hạng Anh 220K.",
+  alternates: {
+    canonical: "/khuyen-mai",
+  },
 };
 
 export default function KhuyenMaiPage() {

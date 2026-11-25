@@ -155,7 +155,7 @@ export async function POST(request: NextRequest) {
       fs.mkdirSync(backupDir, { recursive: true });
     }
 
-    const dataFiles = ["siteConfig.json", "leads.json", "articles.json"];
+    const dataFiles = ["siteConfig.json", "leads.json", "articles.json", "seoConfig.json", "traffic-stats.json"];
     const backedUpFiles: string[] = [];
 
     for (const file of dataFiles) {
@@ -176,6 +176,17 @@ export async function POST(request: NextRequest) {
         } catch (e) {
           console.error(`Không thể sao lưu ${file}:`, e);
         }
+      }
+    }
+
+    // Sao lưu thư mục data/seo-memory nếu tồn tại
+    const persistentSeoMemoryDir = path.join(persistentDataDir, "seo-memory");
+    const backupSeoMemoryDir = path.join(backupDir, "seo-memory");
+    if (fs.existsSync(persistentSeoMemoryDir)) {
+      try {
+        fs.cpSync(persistentSeoMemoryDir, backupSeoMemoryDir, { recursive: true });
+      } catch (e) {
+        console.error("Không thể sao lưu seo-memory:", e);
       }
     }
 
@@ -283,6 +294,15 @@ export async function POST(request: NextRequest) {
         } catch (restoreErr) {
           console.error(`Lỗi khi khôi phục dữ liệu ${file}:`, restoreErr);
         }
+      }
+    }
+
+    // Khôi phục lại thư mục data/seo-memory
+    if (fs.existsSync(backupSeoMemoryDir)) {
+      try {
+        fs.cpSync(backupSeoMemoryDir, persistentSeoMemoryDir, { recursive: true });
+      } catch (e) {
+        console.error("Lỗi khi khôi phục seo-memory:", e);
       }
     }
 

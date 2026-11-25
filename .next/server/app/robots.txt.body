@@ -2,5 +2,6 @@ User-Agent: *
 Allow: /
 Disallow: /api/
 Disallow: /cam-on
+Disallow: /admin
 
-Sitemap: http://localhost:3000/sitemap.xml
+Sitemap: https://gofpt.vn/sitemap.xml

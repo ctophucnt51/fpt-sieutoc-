@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Combo Internet + Truyền Hình FPT Play - Gần 200 Kênh & Phim 4K",
   description:
     "Đăng ký Combo Internet Cáp quang và Truyền hình FPT Play. Xem trực tiếp gần 200 kênh truyền hình trong nước & quốc tế, kho phim 4K và Ngoại Hạng Anh trên Smart TV không cần Box.",
+  alternates: {
+    canonical: "/truyen-hinh-fpt",
+  },
 };
 
 export default function TruyenHinhFptPage() {

@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Điều Khoản Sử Dụng Dịch Vụ",
   description:
     "Quy định, điều kiện và tuyên bố độc lập của cổng tư vấn và hỗ trợ đăng ký dịch vụ Lắp Mạng FPT Siêu Tốc.",
+  alternates: {
+    canonical: "/dieu-khoan",
+  },
 };
 
 export default function DieuKhoanPage() {

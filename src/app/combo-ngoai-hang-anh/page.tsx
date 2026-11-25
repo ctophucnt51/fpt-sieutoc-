@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Combo Internet FPT + Xem Bản Quyền Trọn Vẹn Ngoại Hạng Anh Bản Quyền",
   description:
     "Đăng ký Combo Internet Wi-Fi 6 và Truyền hình FPT Play gói V.VIP thể thao. Xem trực tiếp Bản quyền Ngoại hạng Anh, Cúp Châu Âu mượt mà trên Smart TV không cần Box.",
+  alternates: {
+    canonical: "/combo-ngoai-hang-anh",
+  },
 };
 
 export default function ComboNgoaiHangAnhPage() {

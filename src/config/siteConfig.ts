@@ -27,7 +27,7 @@ export const siteConfig = {
     shortName: "FPT Siêu Tốc",
     tagline: "Đăng ký Internet Wi-Fi 6, Truyền Hình FPT Play & Thể Thao Ngoại Hạng Anh",
     description: "Kênh tư vấn và tiếp nhận đăng ký lắp đặt Internet FPT tại Thành phố Cần Thơ & toàn quốc. Triển khai nhanh trong 24h, trang bị Modem Wi-Fi 6 và hỗ trợ ưu đãi Camera AI theo gói cước, bảo hành suốt thời gian sử dụng.",
-    domain: process.env.NEXT_PUBLIC_SITE_URL || "https://lapmangfpt-sieutoc.vn",
+    domain: process.env.NODE_ENV === "production" ? "https://gofpt.vn" : (process.env.NEXT_PUBLIC_SITE_URL || "https://gofpt.vn"),
   },
   promo: {
     topBarAnnouncement: "Trang bị miễn phí Modem Wi-Fi 6 & Camera FPT",
