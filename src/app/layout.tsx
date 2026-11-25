@@ -101,12 +101,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <Script
           id="gtm-n4vb2hj6-src"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           src="https://www.googletagmanager.com/gtm.js?id=GTM-N4VB2HJ6"
         />
         <Script
           id="gtm-n4vb2hj6-init"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];

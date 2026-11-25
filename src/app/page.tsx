@@ -27,37 +27,35 @@ export default function HomePage() {
         formHeadline="NHẬN TƯ VẤN MIỄN PHÍ"
       />
 
-      {/* 2. Bảng Giá & So Sánh Gói Cước (Đưa lên ngay sau Hero để giữ chân người xem tìm gói cước) */}
-      <RevealSection>
-        <PricingSection
-          initialTab="all"
-          title="Bảng Giá Gói Cước Lắp Mạng FPT & Combo Phổ Biến"
-          subtitle="Giá cước tham khảo đã gồm 10% VAT • Trang bị Modem Wi-Fi 6 theo gói • Khảo sát lắp đặt 24h"
-        />
-      </RevealSection>
+      {/* 2. Bảng Giá & So Sánh Gói Cước (Hiển thị tức thì, không delay opacity để đạt Speed Index tối ưu) */}
+      <PricingSection
+        initialTab="all"
+        title="Bảng Giá Gói Cước Lắp Mạng FPT & Combo Phổ Biến"
+        subtitle="Giá cước tham khảo đã gồm 10% VAT • Trang bị Modem Wi-Fi 6 theo gói • Khảo sát lắp đặt 24h"
+      />
 
       {/* 3. Wi-Fi 6 Advantage Explainer */}
-      <RevealSection>
+      <RevealSection className="cv-auto">
         <Wifi6Explainer />
       </RevealSection>
 
       {/* 4. Chi Tiết Trực Tiếp 380 Trận Ngoại Hạng Anh & FPT Play Trên Smart TV */}
-      <RevealSection>
+      <RevealSection className="cv-auto">
         <SportsEplSection />
       </RevealSection>
 
       {/* 5. Standard 4-Step Installation Process */}
-      <RevealSection>
+      <RevealSection className="cv-auto">
         <ProcessSection />
       </RevealSection>
 
       {/* 6. Objections & FAQ Accordion */}
-      <RevealSection>
+      <RevealSection className="cv-auto">
         <FaqSection />
       </RevealSection>
 
       {/* 7. Bottom Lead Form CTA */}
-      <RevealSection>
+      <RevealSection className="cv-auto">
         <BottomCtaSection
           defaultPackage="Combo GIGA"
           title="Đăng Ký Combo Ngoại Hạng Anh • Nhận Modem Wi-Fi 6 & Camera 0đ"

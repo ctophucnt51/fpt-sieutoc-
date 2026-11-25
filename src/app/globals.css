@@ -186,3 +186,9 @@ h1, h2, h3, h4 {
   display: inline-block;
   animation: textShimmerSweep 2.8s linear infinite;
 }
+
+/* Below-the-fold layout/paint deferral for fast Speed Index & low TBT */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 650px;
+}

@@ -159,8 +159,8 @@ export default function Header() {
         </div>
       </div>
 
-      {/* TẦNG 2A: MOBILE MAIN HEADER (Phong cách App Native kính mờ đồng bộ với thanh chân trang) */}
-      <div className="lg:hidden bg-white/95 backdrop-blur-lg border-b border-slate-200/90 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
+      {/* TẦNG 2A: MOBILE MAIN HEADER (Phong cách App Native tối ưu render GPU 60fps) */}
+      <div className="lg:hidden bg-white/98 border-b border-slate-200/90 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
         <div className="px-3.5 h-14 flex items-center justify-between gap-2">
           {/* Left: Menu + Logo FPT gọn gàng */}
           <div className="flex items-center gap-2.5 min-w-0">
