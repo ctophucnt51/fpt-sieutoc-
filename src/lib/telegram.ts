@@ -236,6 +236,71 @@ ${data.campaign ? `🎯 <b>Chiến dịch:</b> ${escapeHtml(data.campaign)}\n` :
   }
 }
 
+export interface SeoReportTelegramData {
+  summaryTitle: string;
+  totalClicks?: number;
+  totalImpressions?: number;
+  avgPosition?: number;
+  highlights: string[];
+  actionItems?: string[];
+}
+
+/**
+ * Send SEO rank & audit summary report from the Auto-SEO Agent to Telegram
+ */
+export async function sendSeoReportAlert(data: SeoReportTelegramData): Promise<boolean> {
+  const { botToken, chatId, enabled } = getTelegramConfig();
+  if (!enabled || !botToken || !chatId) return false;
+
+  const nowStr = new Date().toLocaleString("vi-VN", {
+    timeZone: "Asia/Ho_Chi_Minh",
+    hour12: false,
+  });
+
+  const statsLine =
+    data.totalClicks !== undefined || data.totalImpressions !== undefined
+      ? `📊 <b>GSC:</b> ${data.totalClicks ?? 0} Clicks | ${data.totalImpressions ?? 0} Hiển thị${
+          data.avgPosition ? ` | Top TB: ${data.avgPosition.toFixed(1)}` : ""
+        }\n`
+      : "";
+
+  const highlightsBlock =
+    data.highlights.length > 0
+      ? `📌 <b>Điểm nổi bật:</b>\n${data.highlights.map((h) => `• ${escapeHtml(h)}`).join("\n")}\n`
+      : "";
+
+  const actionsBlock =
+    data.actionItems && data.actionItems.length > 0
+      ? `🚀 <b>Đề xuất tối ưu:</b>\n${data.actionItems.map((a) => `→ ${escapeHtml(a)}`).join("\n")}\n`
+      : "";
+
+  const msg = `
+📈 <b>BÁO CÁO HỆ THỐNG AUTO-SEO (GOFPT.VN)</b>
+━━━━━━━━━━━━━━━━━━
+🏷️ <b>${escapeHtml(data.summaryTitle)}</b>
+${statsLine}${highlightsBlock}${actionsBlock}⏰ <b>Thời gian:</b> ${nowStr}
+━━━━━━━━━━━━━━━━━━
+<i>Tự động tổng hợp bởi Hệ thống Multi-Agent SEO</i>
+`.trim();
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: msg,
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 function escapeHtml(text: string): string {
   return text
     .replace(/&/g, "&amp;")

@@ -53,8 +53,25 @@ export default function FaqSection() {
     );
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
   return (
     <section className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] border-b border-[#E4E8ED]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 sm:mb-8 max-w-2xl mx-auto">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-[#9A3412] border border-[#E4E8ED] font-bold text-xs uppercase tracking-wider mb-2.5 shadow-xs">

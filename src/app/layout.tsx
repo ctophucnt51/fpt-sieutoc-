@@ -110,6 +110,57 @@ export default function RootLayout({
             `,
           }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                name: dynamicConfig.brand.name,
+                url: siteConfig.brand.domain,
+                logo: `${siteConfig.brand.domain}/images/logo-gofpt-square.png`,
+                image: `${siteConfig.brand.domain}/images/banners/combo-epl-official.jpg`,
+                telephone: "+84878800400",
+                email: "PhucNT51@fpt.com",
+                priceRange: "195.000đ - 500.000đ",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "Số 10 Phan Văn Trị, Phường Ninh Kiều",
+                  addressLocality: "Cần Thơ",
+                  addressRegion: "Cần Thơ",
+                  addressCountry: "VN",
+                },
+                areaServed: [
+                  { "@type": "City", name: "Cần Thơ" },
+                  { "@type": "AdministrativeArea", name: "Sóc Trăng" },
+                  { "@type": "AdministrativeArea", name: "Hậu Giang" },
+                ],
+                openingHoursSpecification: {
+                  "@type": "OpeningHoursSpecification",
+                  dayOfWeek: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday",
+                  ],
+                  opens: "07:30",
+                  closes: "22:00",
+                },
+                sameAs: ["https://zalo.me/0878800400"],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: dynamicConfig.brand.name,
+                url: siteConfig.brand.domain,
+              },
+            ]),
+          }}
+        />
       </head>
       <body className="min-h-screen flex flex-col font-sans antialiased text-[#2F364A] bg-[#F4F6FB] selection:bg-[#FFF4ED] selection:text-[#F37021]">
         <ConfigProvider initialConfig={dynamicConfig}>
