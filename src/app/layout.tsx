@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { siteConfig } from "@/config/siteConfig";
 import Header from "@/components/layout/Header";
@@ -87,6 +88,22 @@ export default function RootLayout({
     <html lang="vi" className="scroll-smooth">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <Script
+          id="gtm-n4vb2hj6-src"
+          strategy="beforeInteractive"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-N4VB2HJ6"
+        />
+        <Script
+          id="gtm-n4vb2hj6-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            `,
+          }}
+        />
       </head>
       <body className="min-h-screen flex flex-col font-sans antialiased text-[#2F364A] bg-[#F4F6FB] selection:bg-[#FFF4ED] selection:text-[#F37021]">
         <ConfigProvider initialConfig={dynamicConfig}>
