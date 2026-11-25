@@ -181,6 +181,61 @@ Hệ thống tiếp nhận thông báo đơn hàng của <b>gofpt.vn</b> đã k�
   }
 }
 
+export interface ClickFraudAlertData {
+  ip: string;
+  location: string;
+  totalAdsClicks: number;
+  uniqueGclids: number;
+  device: string;
+  keywords: string[];
+  campaign?: string;
+}
+
+/**
+ * Send instant anti-click-fraud alert to Telegram Bot when suspicious repeat Google Ads clicks are detected
+ */
+export async function sendClickFraudAlert(data: ClickFraudAlertData): Promise<boolean> {
+  const { botToken, chatId, enabled } = getTelegramConfig();
+  if (!enabled || !botToken || !chatId) return false;
+
+  const nowStr = new Date().toLocaleString("vi-VN", {
+    timeZone: "Asia/Ho_Chi_Minh",
+    hour12: false,
+  });
+
+  const kwText = data.keywords.length > 0 ? data.keywords.join(", ") : "Không rõ";
+
+  const alertText = `
+🚨 <b>CẢNH BÁO NGHI VẤN CLICK TẶC GOOGLE ADS!</b>
+━━━━━━━━━━━━━━━━━━
+🌐 <b>IP nghi vấn:</b> <code>${escapeHtml(data.ip)}</code>
+📍 <b>Vị trí:</b> ${escapeHtml(data.location || "Không xác định")}
+🔁 <b>Tần suất:</b> ${data.totalAdsClicks} lượt truy cập Ads (${data.uniqueGclids > 0 ? `${data.uniqueGclids} mã GCLID` : "cùng phiên/lặp"})
+🔍 <b>Từ khóa:</b> <code>${escapeHtml(kwText)}</code>
+${data.campaign ? `🎯 <b>Chiến dịch:</b> ${escapeHtml(data.campaign)}\n` : ""}📱 <b>Thiết bị:</b> ${escapeHtml(data.device)}
+⏰ <b>Thời gian:</b> ${nowStr}
+━━━━━━━━━━━━━━━━━━
+👉 <i>Hãy copy IP <code>${escapeHtml(data.ip)}</code> đưa vào mục <b>Loại trừ IP</b> trên Google Ads hoặc kiểm tra tại https://gofpt.vn/admin</i>
+`.trim();
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: alertText,
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 function escapeHtml(text: string): string {
   return text
     .replace(/&/g, "&amp;")

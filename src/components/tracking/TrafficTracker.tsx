@@ -7,6 +7,42 @@ import { useSiteConfig } from "@/context/ConfigContext";
 import { captureAttribution } from "@/lib/trackingUtils";
 
 const SESSION_FLAG = "fpt_traffic_session_counted";
+const VISITOR_UID_KEY = "fpt_visitor_uid";
+const ADS_GCLIDS_KEY = "fpt_ads_gclids_24h";
+
+function getOrCreateVisitorId(): string {
+  if (typeof localStorage === "undefined") return "";
+  let uid = localStorage.getItem(VISITOR_UID_KEY) || "";
+  if (!uid) {
+    uid = `v_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+    try {
+      localStorage.setItem(VISITOR_UID_KEY, uid);
+    } catch {}
+  }
+  return uid;
+}
+
+function trackRepeatAdsDevice(gclid?: string): void {
+  if (!gclid || typeof localStorage === "undefined") return;
+  try {
+    const raw = localStorage.getItem(ADS_GCLIDS_KEY);
+    const now = Date.now();
+    const cutoff = now - 24 * 60 * 60 * 1000;
+    let items: { gclid: string; ts: number }[] = raw ? JSON.parse(raw) : [];
+    items = items.filter((i) => i.ts >= cutoff);
+    if (!items.some((i) => i.gclid === gclid)) {
+      items.push({ gclid, ts: now });
+      localStorage.setItem(ADS_GCLIDS_KEY, JSON.stringify(items.slice(-20)));
+    }
+    // If >= 2 distinct GCLIDs from the same browser/device within 24h, emit audience-exclusion signal
+    if (items.length >= 2 && typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "suspicious_repeat_click", {
+        repeat_count: items.length,
+        event_category: "anti_click_fraud",
+      });
+    }
+  } catch {}
+}
 
 export default function TrafficTracker() {
   const pathname = usePathname();
@@ -45,6 +81,8 @@ export default function TrafficTracker() {
         }
 
         const attribution = captureAttribution();
+        const visitorId = getOrCreateVisitorId();
+        trackRepeatAdsDevice(attribution.gclid);
         const isMobile =
           typeof window !== "undefined" &&
           (window.innerWidth < 768 ||
@@ -55,6 +93,7 @@ export default function TrafficTracker() {
           device: isMobile ? "mobile" : "desktop",
           isNewSession,
           sessionId,
+          visitorId,
           gclid: attribution.gclid || "",
           fbclid: attribution.fbclid || "",
           utm_source: attribution.utm_source || "",

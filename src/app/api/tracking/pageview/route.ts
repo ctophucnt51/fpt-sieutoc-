@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { recordPageview } from "@/lib/trafficStorage";
+import { sendClickFraudAlert } from "@/lib/telegram";
 
 const BOT_REGEX =
   /bot|crawler|spider|slurp|mediapartners|lighthouse|pagespeed|headless|curl|wget|python|pingdom|uptime/i;
@@ -170,7 +171,7 @@ export async function POST(request: NextRequest) {
       referrer: body.referrer,
     });
 
-    recordPageview({
+    const { fraudAlert } = recordPageview({
       path: rawPath.slice(0, 160) || "/",
       source,
       sourceDetail,
@@ -181,7 +182,15 @@ export async function POST(request: NextRequest) {
       campaign: body.utm_campaign ? String(body.utm_campaign).slice(0, 120) : undefined,
       term: body.utm_term ? String(body.utm_term).slice(0, 120) : undefined,
       sessionId: body.sessionId ? String(body.sessionId).slice(0, 64) : undefined,
+      gclid: body.gclid ? String(body.gclid).slice(0, 120) : undefined,
+      visitorId: body.visitorId ? String(body.visitorId).slice(0, 64) : undefined,
     });
+
+    if (fraudAlert) {
+      sendClickFraudAlert(fraudAlert).catch((err) =>
+        console.warn("Click fraud Telegram alert error:", err)
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch {
