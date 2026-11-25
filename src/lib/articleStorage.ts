@@ -168,24 +168,30 @@ function ensureArticlesFile(): Article[] {
         const seedArticles = JSON.parse(seedData) as Article[];
         let hasNew = false;
         for (const sa of seedArticles) {
-          const existingIdx = persistentArticles.findIndex((pa) => pa.id === sa.id || pa.slug === sa.slug);
-          if (existingIdx === -1) {
+          const matchedIndices = persistentArticles
+            .map((pa, idx) =>
+              pa.id === sa.id || pa.slug === sa.slug || pa.title === sa.title ? idx : -1
+            )
+            .filter((idx) => idx !== -1);
+          if (matchedIndices.length === 0) {
             persistentArticles.unshift(sa);
             hasNew = true;
           } else {
-            const pa = persistentArticles[existingIdx];
-            const hasLegacyViolation = /bảo\s*mật\s*tuyệt\s*đối|giảm\s*99%|an\s*toàn\s*tuyệt\s*đối/i.test(
-              `${pa.title} ${pa.excerpt} ${pa.content}`
-            );
-            if (hasLegacyViolation || new Date(sa.updatedAt).getTime() > new Date(pa.updatedAt).getTime()) {
-              persistentArticles[existingIdx] = {
-                ...pa,
-                title: sa.title,
-                excerpt: sa.excerpt,
-                content: sa.content,
-                updatedAt: sa.updatedAt,
-              };
-              hasNew = true;
+            for (const existingIdx of matchedIndices) {
+              const pa = persistentArticles[existingIdx];
+              const hasLegacyViolation = /bảo\s*mật\s*tuyệt\s*đối|giảm\s*99%|an\s*toàn\s*tuyệt\s*đối/i.test(
+                `${pa.title} ${pa.excerpt} ${pa.content}`
+              );
+              if (hasLegacyViolation || new Date(sa.updatedAt).getTime() > new Date(pa.updatedAt).getTime()) {
+                persistentArticles[existingIdx] = {
+                  ...pa,
+                  title: sa.title,
+                  excerpt: sa.excerpt,
+                  content: sa.content,
+                  updatedAt: sa.updatedAt,
+                };
+                hasNew = true;
+              }
             }
           }
         }

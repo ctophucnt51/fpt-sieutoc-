@@ -297,7 +297,18 @@ function getDefaultKeywords(): SeoKeywordMapItem[] {
 
 export function initializeSeoMemory(): void {
   readMemoryFile<SeoInventoryItem[]>("inventory.json", []);
-  readMemoryFile<SeoKeywordMapItem[]>("keywords.json", getDefaultKeywords());
+  const defaults = getDefaultKeywords();
+  const currentKeywords = readMemoryFile<SeoKeywordMapItem[]>("keywords.json", defaults);
+  let kwChanged = false;
+  for (const dk of defaults) {
+    if (!currentKeywords.some((ck) => ck.id === dk.id || ck.keyword.toLowerCase() === dk.keyword.toLowerCase())) {
+      currentKeywords.push(dk);
+      kwChanged = true;
+    }
+  }
+  if (kwChanged) {
+    writeMemoryFile("keywords.json", currentKeywords);
+  }
   readMemoryFile<SeoBaselineRecord | null>("baseline.json", null);
   readMemoryFile<SeoCompetitorRecord[]>("competitors.json", []);
   writeMemoryFile<FptProductKnowledge>("fpt_knowledge.json", getDefaultFptKnowledge());
