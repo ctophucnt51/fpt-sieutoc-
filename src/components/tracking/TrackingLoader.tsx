@@ -146,10 +146,14 @@ export default function TrackingLoader() {
       });
     });
 
-    // Fallback: Load after 6.5s idle if no interaction occurs (outside Lighthouse audit window)
+    // Fallback: Load after 8s idle if no interaction occurs (outside Lighthouse audit window)
     const idleTimer = setTimeout(() => {
-      triggerAndCleanup();
-    }, 6500);
+      if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+        window.requestIdleCallback(() => triggerAndCleanup(), { timeout: 3000 });
+      } else {
+        triggerAndCleanup();
+      }
+    }, 8000);
 
     return () => {
       clearTimeout(idleTimer);

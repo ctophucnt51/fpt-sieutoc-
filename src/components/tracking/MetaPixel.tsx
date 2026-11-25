@@ -83,17 +83,5 @@ export const fbTracker = {
  * Meta Pixel Script Tag Component
  */
 export default function MetaPixel() {
-  const pixelId = siteConfig.tracking.facebookPixelId;
-
-  useEffect(() => {
-    if (pixelId) {
-      fbTracker.pageView();
-    }
-  }, [pixelId]);
-
-  if (!pixelId || pixelId.includes("YOUR_") || pixelId === "0000000000") {
-    return null;
-  }
-
   return null;
 }

@@ -35,8 +35,8 @@ export default function RevealSection({ children, className = "" }: RevealSectio
 
     observer.observe(el);
 
-    // Safety fallback so content is always visible even on rapid jumps
-    const fallback = setTimeout(() => setVisible(true), 1200);
+    // Safety fallback so content is always visible even on slow devices
+    const fallback = setTimeout(() => setVisible(true), 6000);
 
     return () => {
       observer.disconnect();
