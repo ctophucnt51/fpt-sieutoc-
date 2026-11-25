@@ -16,7 +16,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  badge = "Đại Lý Tiếp Nhận FPT Telecom • Phủ Sóng Toàn Quốc • Khảo Sát 0đ",
+  badge = "Đại lý tiếp nhận đăng ký Internet FPT",
   headline = (
     <>
       Lắp Mạng FPT <span className="text-[#F37021]">Wi-Fi 6 Siêu Tốc</span>
@@ -146,7 +146,7 @@ export default function HeroSection({
                             height={12}
                             className="w-3 h-3 object-contain shrink-0"
                           />
-                          <span>380 Trận EPL</span>
+                          <span>Bản quyền Ngoại hạng Anh</span>
                         </span>
                         <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white whitespace-nowrap">
                           HOT NHẤT
@@ -172,7 +172,7 @@ export default function HeroSection({
                       <ul className="space-y-1 mt-2 text-xs text-[#334155]">
                         <li className="flex items-center gap-1.5 font-medium">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span>Xem trọn vẹn 380 trận Ngoại Hạng Anh</span>
+                          <span>Xem trực tiếp Bản quyền Ngoại hạng Anh</span>
                         </li>
                         <li className="flex items-center gap-1.5 font-medium">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -322,7 +322,7 @@ export default function HeroSection({
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs font-bold text-[#0F172A] truncate">Combo Net + EPL</p>
-                      <p className="text-[10px] text-red-600 font-semibold truncate">220K/th &bull; 380 trận</p>
+                      <p className="text-[10px] text-red-600 font-semibold truncate">220K/th &bull; Bản quyền Ngoại hạng Anh</p>
                     </div>
                   </div>
 

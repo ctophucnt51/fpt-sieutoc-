@@ -146,16 +146,16 @@ export default function SportsEplSection() {
                   </div>
                 </div>
 
-                {/* Official EPL Banner */}
+                {/* Official EPL Banner from FPT.VN */}
                 <div className="overflow-hidden rounded-2xl border border-slate-800 shadow-xs">
                   <img
-                    src="/images/banners/combo-epl-official.jpg"
-                    alt="Combo Giga Ngoại Hạng Anh FPT"
+                    src="/images/banners/fpt-official-banner.jpg"
+                    alt="Bản quyền Ngoại hạng Anh trên FPT Play"
                     width={480}
-                    height={160}
+                    height={180}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-36 sm:h-40 object-cover"
+                    className="w-full h-40 sm:h-44 object-cover"
                   />
                 </div>
 
@@ -166,7 +166,7 @@ export default function SportsEplSection() {
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Bản quyền trực tiếp 380 trận Ngoại Hạng Anh Full HD</span>
+                    <span>Bản quyền Ngoại hạng Anh chuẩn Full HD</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />

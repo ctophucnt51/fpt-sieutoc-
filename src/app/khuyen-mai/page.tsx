@@ -26,6 +26,19 @@ export default function KhuyenMaiPage() {
         formHeadline="GIỮ SUẤT ƯU ĐÃI TẶNG THIẾT BỊ 0Đ"
       />
 
+      {/* Official FPT Telecom Award Banner from FPT.VN */}
+      <section className="py-6 sm:py-8 bg-white border-b border-[#E4E8ED]">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl overflow-hidden border border-[#E4E8ED] shadow-sm">
+            <img
+              src="/images/banners/fpt-award-banner.jpg"
+              alt="FPT Telecom - Thương hiệu được yêu thích nhất"
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
       <SportsEplSection />
 
       <CameraFeatureSection />

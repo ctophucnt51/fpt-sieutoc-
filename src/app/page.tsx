@@ -13,7 +13,7 @@ export default function HomePage() {
     <>
       {/* 1. Hero Section: Combo Internet Wi-Fi 6 + Ngoại Hạng Anh 220K là gói cước ưu đãi chính */}
       <HeroSection
-        badge="Đại Lý Tiếp Nhận FPT Telecom • Phủ Sóng Toàn Quốc • Khảo Sát 0đ"
+        badge="Đại lý tiếp nhận đăng ký Internet FPT"
         headline={
           <>
             Internet Cáp Quang Wi-Fi 6 &amp;{" "}

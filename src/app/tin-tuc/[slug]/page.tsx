@@ -206,7 +206,7 @@ export default function ArticleDetailPage({
                   Chỉ <strong className="text-base font-bold text-red-600">220.000đ</strong>/tháng
                 </div>
                 <p className="text-[11px] text-slate-500">
-                  380 trận Ngoại Hạng Anh • Xem Smart TV không cần Box
+                  Bản quyền Ngoại hạng Anh • Xem Smart TV không cần Box
                 </p>
                 <Link
                   href="/combo-ngoai-hang-anh"
