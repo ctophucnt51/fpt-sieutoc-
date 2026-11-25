@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import StickyMobileBar from "@/components/layout/StickyMobileBar";
 import MetaPixel from "@/components/tracking/MetaPixel";
 import GoogleAds from "@/components/tracking/GoogleAds";
+import TrafficTracker from "@/components/tracking/TrafficTracker";
 import { getDynamicConfig } from "@/lib/configStorage";
 import { ConfigProvider } from "@/context/ConfigContext";
 import { LeadModalProvider } from "@/context/LeadModalContext";
@@ -110,6 +111,7 @@ export default function RootLayout({
           <LeadModalProvider>
             <MetaPixel />
             <GoogleAds />
+            <TrafficTracker />
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

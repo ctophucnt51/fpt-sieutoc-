@@ -56,6 +56,8 @@ export const siteConfig = {
     googleAdsCallConversionLabel: process.env.NEXT_PUBLIC_GOOGLE_ADS_CALL_LABEL || "",
     googleAdsConversionValue: Number(process.env.NEXT_PUBLIC_GOOGLE_ADS_VALUE || 1),
     enableGoogleAds: Boolean(process.env.NEXT_PUBLIC_GOOGLE_ADS_ID),
+    googleAnalyticsId: process.env.NEXT_PUBLIC_GA4_ID || "",
+    enableGa4: Boolean(process.env.NEXT_PUBLIC_GA4_ID),
   },
   telegram: {
     botToken: process.env.TELEGRAM_BOT_TOKEN || "",

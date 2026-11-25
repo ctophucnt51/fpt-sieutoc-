@@ -15,6 +15,7 @@ import PricingConfigEditor from "@/components/admin/PricingConfigEditor";
 import AreaConfigEditor from "@/components/admin/AreaConfigEditor";
 import SeoManagement from "@/components/admin/SeoManagement";
 import GoogleAdsManagement from "@/components/admin/GoogleAdsManagement";
+import TrafficManagement from "@/components/admin/TrafficManagement";
 import {
   LayoutDashboard,
   Users,
@@ -34,16 +35,21 @@ import {
   Zap,
   TrendingUp,
   Target,
+  BarChart3,
   Menu,
   X,
 } from "lucide-react";
 
-type AdminTab = "overview" | "leads" | "google-ads" | "articles" | "seo" | "config" | "pricing" | "areas";
+type AdminTab = "overview" | "traffic" | "leads" | "google-ads" | "articles" | "seo" | "config" | "pricing" | "areas";
 
 const TAB_META: Record<AdminTab, { title: string; subtitle: string }> = {
   overview: {
     title: "Tổng Quan Hệ Thống",
     subtitle: "Theo dõi nhanh hiệu suất tiếp nhận khách hàng và chuyển đổi.",
+  },
+  traffic: {
+    title: "Lưu Lượng Truy Cập (Traffic)",
+    subtitle: "Thống kê lượt xem, nguồn truy cập, thiết bị, tỷ lệ Traffic → Lead và kết nối GA4.",
   },
   leads: {
     title: "Quản Lý Khách Hàng (Leads)",
@@ -363,6 +369,13 @@ export default function AdminPage() {
           icon: <LayoutDashboard className="w-4 h-4 shrink-0" />,
         },
         {
+          id: "traffic",
+          label: "Lưu Lượng Truy Cập",
+          icon: <BarChart3 className="w-4 h-4 shrink-0" />,
+          badge: "LIVE",
+          badgeColor: "bg-emerald-100 text-emerald-700",
+        },
+        {
           id: "leads",
           label: "Quản Lý Leads",
           icon: <Users className="w-4 h-4 shrink-0" />,
@@ -644,6 +657,16 @@ export default function AdminPage() {
             stats={stats}
             recentLeads={leads}
             onNavigateToLeads={handleNavigateToLeads}
+          />
+        )}
+
+        {/* Tab 1B: Website Traffic Analytics */}
+        {activeTab === "traffic" && config && (
+          <TrafficManagement
+            config={config}
+            leads={leads}
+            onSaveConfig={handleSaveConfig}
+            showToast={showToast}
           />
         )}
 
