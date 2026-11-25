@@ -32,13 +32,47 @@ import {
   GitBranch,
   Zap,
   TrendingUp,
+  Menu,
+  X,
 } from "lucide-react";
 
 type AdminTab = "overview" | "leads" | "articles" | "seo" | "config" | "pricing" | "areas";
 
+const TAB_META: Record<AdminTab, { title: string; subtitle: string }> = {
+  overview: {
+    title: "Tổng Quan Hệ Thống",
+    subtitle: "Theo dõi nhanh hiệu suất tiếp nhận khách hàng và chuyển đổi.",
+  },
+  leads: {
+    title: "Quản Lý Khách Hàng (Leads)",
+    subtitle: "Theo dõi, lọc trạng thái và chăm sóc danh sách khách hàng đăng ký.",
+  },
+  articles: {
+    title: "Bài Viết & Tin Tức",
+    subtitle: "Soạn thảo, xuất bản và quản lý bài viết chuẩn SEO trên website.",
+  },
+  seo: {
+    title: "SEO & Thứ Hạng Google",
+    subtitle: "Theo dõi Top từ khóa qua Google Search Console API và kiểm tra SEO On-Page.",
+  },
+  pricing: {
+    title: "Bảng Giá & Gói Cước",
+    subtitle: "Chỉnh sửa giá cước, băng thông và các chương trình ưu đãi hiển thị trên web.",
+  },
+  areas: {
+    title: "Khu Vực Phục Vụ",
+    subtitle: "Quản lý danh sách phường, xã và khu vực tiếp nhận lắp đặt.",
+  },
+  config: {
+    title: "Hotline & Cài Đặt Chung",
+    subtitle: "Cấu hình Hotline, Email, Địa chỉ, Telegram, Tracking và Đồng bộ hệ thống.",
+  },
+};
+
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [activeTab, setActiveTab] = useState<AdminTab>("overview");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [leadsStatusFilter, setLeadsStatusFilter] = useState<string>("all");
 
   // Data states
@@ -299,11 +333,209 @@ export default function AdminPage() {
     return <AdminLogin onLoginSuccess={() => setIsAuthenticated(true)} />;
   }
 
+  const selectTab = (tab: AdminTab) => {
+    setActiveTab(tab);
+    setSidebarOpen(false);
+  };
+
+  const navGroups: {
+    label: string;
+    items: {
+      id: AdminTab;
+      label: string;
+      icon: React.ReactNode;
+      badge?: string | number;
+      badgeColor?: string;
+    }[];
+  }[] = [
+    {
+      label: "Kinh doanh & Khách hàng",
+      items: [
+        {
+          id: "overview",
+          label: "Tổng Quan",
+          icon: <LayoutDashboard className="w-4 h-4 shrink-0" />,
+        },
+        {
+          id: "leads",
+          label: "Quản Lý Leads",
+          icon: <Users className="w-4 h-4 shrink-0" />,
+          badge: leads.length,
+          badgeColor: "bg-[#F37021] text-white",
+        },
+      ],
+    },
+    {
+      label: "Nội dung & Tăng trưởng",
+      items: [
+        {
+          id: "articles",
+          label: "Bài Viết & Tin Tức",
+          icon: <FileText className="w-4 h-4 shrink-0" />,
+          badge: articles.length,
+          badgeColor: "bg-slate-800 text-white",
+        },
+        {
+          id: "seo",
+          label: "SEO & Thứ Hạng",
+          icon: <TrendingUp className="w-4 h-4 shrink-0" />,
+          badge: "GSC",
+          badgeColor: "bg-emerald-100 text-emerald-700",
+        },
+      ],
+    },
+    {
+      label: "Cấu hình Hệ thống",
+      items: [
+        {
+          id: "pricing",
+          label: "Bảng Giá & Gói Cước",
+          icon: <DollarSign className="w-4 h-4 shrink-0" />,
+        },
+        {
+          id: "areas",
+          label: "Khu Vực Phục Vụ",
+          icon: <MapPin className="w-4 h-4 shrink-0" />,
+        },
+        {
+          id: "config",
+          label: "Hotline & Cài Đặt",
+          icon: <Settings className="w-4 h-4 shrink-0" />,
+        },
+      ],
+    },
+  ];
+
+  const renderSidebarContent = () => (
+    <div className="flex flex-col h-full">
+      {/* Brand */}
+      <div className="h-16 px-4 border-b border-slate-100 flex items-center justify-between shrink-0">
+        <Link href="/admin" className="flex items-center gap-2.5">
+          <img
+            src="/images/logo-ftel.svg"
+            alt="FPT Telecom"
+            width={85}
+            height={28}
+            className="h-6 w-auto object-contain"
+          />
+          <div className="flex flex-col leading-none">
+            <span className="font-black text-sm tracking-tight text-slate-900">
+              Admin <span className="text-[#F37021]">Center</span>
+            </span>
+            <span className="text-[10px] font-bold text-slate-400 mt-0.5">v2.0 PRO</span>
+          </div>
+        </Link>
+        <button
+          type="button"
+          onClick={() => setSidebarOpen(false)}
+          className="lg:hidden p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+          aria-label="Đóng menu"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Grouped Navigation */}
+      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
+        {navGroups.map((group) => (
+          <div key={group.label}>
+            <p className="px-3 mb-2 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+              {group.label}
+            </p>
+            <div className="space-y-1">
+              {group.items.map((item) => {
+                const isActive = activeTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => selectTab(item.id)}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      isActive
+                        ? "bg-[#FFF4ED] text-[#C44D06] shadow-2xs ring-1 ring-orange-200/70"
+                        : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span className={isActive ? "text-[#F37021]" : "text-slate-400"}>
+                        {item.icon}
+                      </span>
+                      <span className="truncate">{item.label}</span>
+                    </div>
+                    {item.badge !== undefined && (
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-black shrink-0 ${
+                          item.badgeColor || "bg-slate-200 text-slate-700"
+                        }`}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </nav>
+
+      {/* Bottom System Actions */}
+      <div className="p-3 border-t border-slate-100 space-y-2 bg-slate-50/70 shrink-0">
+        {commitInfo && (
+          <div className="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200/80 flex items-center gap-1.5 text-[10px] font-mono text-slate-500 truncate">
+            <GitBranch className="w-3 h-3 text-[#F37021] shrink-0" />
+            <span className="truncate">{commitInfo}</span>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={handleSyncGithub}
+          disabled={isSyncing}
+          className="w-full py-2 px-3 rounded-xl bg-white hover:bg-orange-50 border border-slate-200 hover:border-orange-200 text-slate-700 hover:text-[#C44D06] text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin text-[#F37021]" : ""}`} />
+          <span>{isSyncing ? "Đang đồng bộ..." : "Đồng Bộ GitHub"}</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={handleCleanupProcesses}
+          disabled={isCleaningProcesses}
+          className="w-full py-2 px-3 rounded-xl bg-emerald-50/80 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-60"
+          title="Quét và tắt các tiến trình Git/Node treo trên cPanel"
+        >
+          <Zap className={`w-3.5 h-3.5 ${isCleaningProcesses ? "animate-spin" : "fill-current"}`} />
+          <span>{isCleaningProcesses ? "Đang dọn..." : "Giải Phóng Processes"}</span>
+        </button>
+
+        <div className="grid grid-cols-2 gap-2 pt-1">
+          <Link
+            href="/"
+            target="_blank"
+            className="py-2 px-2.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-100 text-xs font-bold text-slate-700 flex items-center justify-center gap-1.5 transition-colors"
+          >
+            <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+            <span>Xem Web</span>
+          </Link>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="py-2 px-2.5 rounded-xl bg-slate-200/70 hover:bg-red-50 hover:text-red-600 text-xs font-bold text-slate-700 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Thoát</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="min-h-screen bg-slate-100/70 text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#F4F6FB] text-slate-900 flex font-sans">
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed top-5 right-5 z-50 animate-in slide-in-from-top duration-200">
+        <div className="fixed top-5 right-5 z-[100] animate-in slide-in-from-top duration-200">
           <div
             className={`flex items-center gap-2.5 px-4 py-3 rounded-2xl shadow-xl text-xs sm:text-sm font-bold ${
               toast.type === "success"
@@ -321,192 +553,69 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* Top Admin Navigation Header */}
-      <header className="sticky top-0 z-40 bg-white border-b border-slate-200/80 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-          {/* Brand */}
-          <div className="flex items-center gap-3">
-            <Link href="/admin" className="flex items-center gap-2">
-              <img
-                src="/images/logo-ftel.svg"
-                alt="FPT Telecom"
-                width={85}
-                height={28}
-                className="h-6 w-auto object-contain"
-              />
-              <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900">
-                Admin <span className="text-fpt-orange">Center</span>
-              </span>
-            </Link>
-            <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-orange-100 text-fpt-dark text-[10px] font-black uppercase">
-              v2.0 PRO
-            </span>
+      {/* Desktop Left Sidebar */}
+      <aside className="hidden lg:flex w-64 shrink-0 bg-white border-r border-slate-200/80 flex-col sticky top-0 h-screen">
+        {renderSidebarContent()}
+      </aside>
+
+      {/* Mobile Slide-Over Sidebar Drawer */}
+      {sidebarOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          <div
+            className="fixed inset-0 bg-slate-950/50 backdrop-blur-xs"
+            onClick={() => setSidebarOpen(false)}
+          />
+          <aside className="relative w-72 max-w-[85%] bg-white h-full shadow-2xl z-10 flex flex-col">
+            {renderSidebarContent()}
+          </aside>
+        </div>
+      )}
+
+      {/* Right Main Area */}
+      <div className="flex-1 min-w-0 flex flex-col">
+        {/* Clean Sticky Topbar */}
+        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <button
+              type="button"
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer shrink-0"
+              aria-label="Mở menu quản trị"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <div className="min-w-0">
+              <h1 className="text-sm sm:text-base font-black text-slate-900 truncate">
+                {TAB_META[activeTab].title}
+              </h1>
+              <p className="text-[11px] text-slate-500 hidden sm:block truncate">
+                {TAB_META[activeTab].subtitle}
+              </p>
+            </div>
           </div>
 
-          {/* Quick Info & Action Header */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 shrink-0">
             {config && (
-              <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-100 text-xs font-bold text-slate-700">
-                <PhoneCall className="w-3.5 h-3.5 text-fpt-orange" />
-                <span>Hotline: {config.contact.hotlineDisplay}</span>
+              <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 text-xs font-bold text-slate-700">
+                <PhoneCall className="w-3.5 h-3.5 text-[#F37021]" />
+                <span>{config.contact.hotlineDisplay}</span>
               </div>
             )}
-
-            {/* Nút Giải Phóng Processes cPanel 1-Click */}
             <button
               type="button"
-              onClick={handleCleanupProcesses}
-              disabled={isCleaningProcesses}
-              className={`py-1.5 px-3 rounded-xl border flex items-center gap-1.5 text-xs font-bold transition-all cursor-pointer ${
-                isCleaningProcesses
-                  ? "bg-emerald-50 border-emerald-200 text-emerald-600 cursor-wait"
-                  : "border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 text-emerald-700"
-              }`}
-              title="Quét và tắt các tiến trình Git/Node treo để hạ mức Processes trên cPanel"
+              onClick={fetchData}
+              disabled={isLoadingData}
+              className="py-1.5 px-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 flex items-center gap-1.5 cursor-pointer"
+              title="Làm mới dữ liệu"
             >
-              <Zap className={`w-3.5 h-3.5 ${isCleaningProcesses ? "animate-spin text-emerald-600" : "fill-current"}`} />
-              <span className="hidden sm:inline">{isCleaningProcesses ? "Đang dọn..." : "Giải Phóng Processes"}</span>
-            </button>
-
-            {/* Nút Đồng bộ GitHub 1-Click */}
-            <button
-              type="button"
-              onClick={handleSyncGithub}
-              disabled={isSyncing}
-              className={`py-1.5 px-3 rounded-xl border flex items-center gap-1.5 text-xs font-bold transition-all cursor-pointer ${
-                isSyncing
-                  ? "bg-orange-50 border-orange-200 text-fpt-orange cursor-wait"
-                  : "border-slate-200 hover:bg-orange-50 hover:border-orange-200 hover:text-fpt-orange text-slate-700"
-              }`}
-              title="Đồng bộ mã nguồn mới nhất từ GitHub"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin text-fpt-orange" : ""}`} />
-              <span className="hidden sm:inline">{isSyncing ? "Đang đồng bộ..." : "Đồng Bộ GitHub"}</span>
-            </button>
-
-            <Link
-              href="/"
-              target="_blank"
-              className="py-1.5 px-3 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-bold text-slate-700 flex items-center gap-1.5 transition-colors"
-            >
-              <span>Xem Website</span>
-              <ExternalLink className="w-3 h-3 text-slate-400" />
-            </Link>
-
-            <button
-              onClick={handleLogout}
-              className="py-1.5 px-3 rounded-xl bg-slate-100 hover:bg-red-50 hover:text-red-600 text-xs font-bold text-slate-600 flex items-center gap-1 transition-colors cursor-pointer"
-              title="Đăng xuất"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Thoát</span>
+              <RefreshCw className={`w-3.5 h-3.5 ${isLoadingData ? "animate-spin text-[#F37021]" : ""}`} />
+              <span className="hidden sm:inline">Làm mới</span>
             </button>
           </div>
-        </div>
+        </header>
 
-        {/* Tab Switcher Bar - Clean Grid on Mobile (No Horizontal Scroll), Flex on Desktop */}
-        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 grid grid-cols-3 sm:flex sm:items-center gap-1 text-xs font-bold border-t border-slate-100 py-2 sm:py-0">
-          <button
-            onClick={() => setActiveTab("overview")}
-            className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
-              activeTab === "overview"
-                ? "bg-orange-50 text-fpt-orange sm:bg-orange-50/40 sm:border-fpt-orange font-black"
-                : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-50 sm:hover:bg-transparent"
-            }`}
-          >
-            <LayoutDashboard className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="hidden sm:inline">Tổng Quan (Dashboard)</span>
-            <span className="sm:hidden truncate">Tổng quan</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("leads")}
-            className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
-              activeTab === "leads"
-                ? "bg-orange-50 text-fpt-orange sm:bg-orange-50/40 sm:border-fpt-orange font-black"
-                : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-50 sm:hover:bg-transparent"
-            }`}
-          >
-            <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="hidden sm:inline">Quản Lý Leads</span>
-            <span className="sm:hidden truncate">Leads</span>
-            <span className="px-1.5 py-0.2 rounded-full bg-fpt-orange text-white text-[10px] font-black shrink-0">
-              {leads.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("articles")}
-            className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
-              activeTab === "articles"
-                ? "bg-orange-50 text-fpt-orange sm:bg-orange-50/40 sm:border-fpt-orange font-black"
-                : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-50 sm:hover:bg-transparent"
-            }`}
-          >
-            <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="hidden sm:inline">Soạn Thảo Bài Viết</span>
-            <span className="sm:hidden truncate">Bài viết</span>
-            <span className="px-1.5 py-0.2 rounded-full bg-slate-800 text-white text-[10px] font-black shrink-0">
-              {articles.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("seo")}
-            className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
-              activeTab === "seo"
-                ? "bg-orange-50 text-fpt-orange sm:bg-orange-50/40 sm:border-fpt-orange font-black"
-                : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-50 sm:hover:bg-transparent"
-            }`}
-          >
-            <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="hidden sm:inline">SEO &amp; Thứ Hạng</span>
-            <span className="sm:hidden truncate">SEO</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("config")}
-            className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
-              activeTab === "config"
-                ? "bg-orange-50 text-fpt-orange sm:bg-orange-50/40 sm:border-fpt-orange font-black"
-                : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-50 sm:hover:bg-transparent"
-            }`}
-          >
-            <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="hidden sm:inline">Hotline &amp; Cấu Hình Chung</span>
-            <span className="sm:hidden truncate">Cấu hình</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("pricing")}
-            className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
-              activeTab === "pricing"
-                ? "bg-orange-50 text-fpt-orange sm:bg-orange-50/40 sm:border-fpt-orange font-black"
-                : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-50 sm:hover:bg-transparent"
-            }`}
-          >
-            <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="hidden sm:inline">Bảng Giá &amp; Gói Cước</span>
-            <span className="sm:hidden truncate">Bảng giá</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("areas")}
-            className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
-              activeTab === "areas"
-                ? "bg-orange-50 text-fpt-orange sm:bg-orange-50/40 sm:border-fpt-orange font-black"
-                : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-50 sm:hover:bg-transparent"
-            }`}
-          >
-            <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span className="hidden sm:inline">Khu Vực Phục Vụ</span>
-            <span className="sm:hidden truncate">Khu vực</span>
-          </button>
-        </div>
-      </header>
-
-      {/* Main Body Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+        {/* Main Body Content */}
+        <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
         {isLoadingData && !config && (
           <div className="py-20 text-center space-y-3">
             <Loader2 className="w-8 h-8 animate-spin mx-auto text-fpt-orange" />
@@ -579,7 +688,8 @@ export default function AdminPage() {
             showToast={showToast}
           />
         )}
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
