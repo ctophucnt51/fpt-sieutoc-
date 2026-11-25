@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLeadModal } from "@/context/LeadModalContext";
 import { useSiteConfig } from "@/context/ConfigContext";
 import { fbTracker } from "@/components/tracking/MetaPixel";
+import { Home, Tag, Send, MessageCircle, PhoneCall } from "lucide-react";
 
 export default function StickyMobileBar() {
   const pathname = usePathname();
@@ -17,130 +18,94 @@ export default function StickyMobileBar() {
   }
 
   const isHomeActive = pathname === "/";
-  const isInternetActive = pathname === "/lap-mang-fpt" || pathname === "/wifi-6";
-  const isEplActive = pathname === "/combo-ngoai-hang-anh" || pathname === "/truyen-hinh-fpt";
+  const isPricingActive =
+    pathname === "/bang-gia" ||
+    pathname === "/lap-mang-fpt" ||
+    pathname === "/wifi-6" ||
+    pathname === "/combo-ngoai-hang-anh" ||
+    pathname === "/truyen-hinh-fpt" ||
+    pathname === "/camera-fpt";
 
   const handleOpenRegister = () => {
-    fbTracker.contact("form", "Floating Mobile Nav - Dang Ky");
+    fbTracker.contact("form", "Mobile Bottom Bar - Dang Ky");
     openLeadModal("Combo GIGA");
   };
 
   const handleContactClick = () => {
-    fbTracker.contact("hotline", "Floating Mobile Nav - Lien He");
+    fbTracker.contact("hotline", "Mobile Bottom Bar - Hotline");
   };
 
   return (
     <nav
-      aria-label="Mobile Navigation"
-      className="fixed bottom-3 inset-x-3 max-w-md mx-auto z-40 md:hidden pb-safe-nav pointer-events-auto"
+      aria-label="Thanh điều hướng di động"
+      className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-white/95 backdrop-blur-lg border-t border-slate-200/90 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] pb-[env(safe-area-inset-bottom)]"
     >
-      <div
-        className="bg-white/95 backdrop-blur-md border border-[#E4E8ED] shadow-[0_8px_30px_rgba(243,112,33,0.15)] rounded-full px-1.5 py-1 flex items-center justify-around h-[62px] transition-all"
-      >
+      <div className="max-w-lg mx-auto px-2 h-[64px] grid grid-cols-5 items-center gap-1">
         {/* 1. Trang chủ */}
         <Link
           href="/"
-          className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
+          className={`relative flex flex-col items-center justify-center h-full rounded-xl transition-colors select-none ${
             isHomeActive
-              ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
-              : "text-[#475569] hover:text-[#0F172A] font-semibold"
+              ? "text-[#F37021] font-extrabold"
+              : "text-slate-500 hover:text-slate-900 font-semibold"
           }`}
         >
-          <img
-            src="/images/icons/svg/trang-chu.svg"
-            alt=""
-            aria-hidden="true"
-            width={22}
-            height={22}
-            loading="eager"
-            decoding="async"
-            className="w-[22px] h-[22px] object-contain shrink-0"
-          />
-          <span className="text-[10.5px] leading-tight mt-0.5 truncate">Trang chủ</span>
+          {isHomeActive && (
+            <span className="absolute top-0 w-6 h-0.5 rounded-full bg-[#F37021]" />
+          )}
+          <Home className={`w-5 h-5 ${isHomeActive ? "stroke-[2.4]" : "stroke-[1.9]"}`} />
+          <span className="text-[10px] leading-tight mt-1 whitespace-nowrap">Trang chủ</span>
         </Link>
 
-        {/* 2. Internet */}
+        {/* 2. Bảng giá */}
         <Link
-          href="/lap-mang-fpt"
-          className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
-            isInternetActive
-              ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
-              : "text-[#475569] hover:text-[#0F172A] font-semibold"
+          href="/bang-gia"
+          className={`relative flex flex-col items-center justify-center h-full rounded-xl transition-colors select-none ${
+            isPricingActive
+              ? "text-[#F37021] font-extrabold"
+              : "text-slate-500 hover:text-slate-900 font-semibold"
           }`}
         >
-          <img
-            src="/images/icons/svg/wifi-6.svg"
-            alt=""
-            aria-hidden="true"
-            width={22}
-            height={22}
-            loading="eager"
-            decoding="async"
-            className="w-[22px] h-[22px] object-contain shrink-0"
-          />
-          <span className="text-[10.5px] leading-tight mt-0.5 truncate">Internet</span>
+          {isPricingActive && (
+            <span className="absolute top-0 w-6 h-0.5 rounded-full bg-[#F37021]" />
+          )}
+          <Tag className={`w-5 h-5 ${isPricingActive ? "stroke-[2.4]" : "stroke-[1.9]"}`} />
+          <span className="text-[10px] leading-tight mt-1 whitespace-nowrap">Bảng giá</span>
         </Link>
 
-        {/* 3. Đăng ký - Nút Nổi Bật Chính Giữa Phong Cách FPT Orange */}
-        <button
-          type="button"
-          onClick={handleOpenRegister}
-          className="flex-1 flex flex-col items-center justify-center -mt-3.5 transition-transform active:scale-95 cursor-pointer select-none"
-        >
-          <div className="w-12 h-12 rounded-full bg-[#F37021] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(243,112,33,0.45)] border-2 border-white">
-            <img
-              src="/images/icons/svg/trang/gui-dang-ky.svg"
-              alt=""
-              aria-hidden="true"
-              width={24}
-              height={24}
-              loading="eager"
-              decoding="async"
-              className="w-6 h-6 object-contain"
-            />
-          </div>
-          <span className="text-[10px] font-bold text-[#C44D06] leading-tight mt-0.5 truncate">Đăng ký 0đ</span>
-        </button>
+        {/* 3. Đăng ký (Nút CTA nổi bật ở trung tâm) */}
+        <div className="flex items-center justify-center px-0.5">
+          <button
+            type="button"
+            onClick={handleOpenRegister}
+            className="w-full py-2 px-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white shadow-[0_4px_14px_rgba(243,112,33,0.35)] active:scale-95 transition-all flex flex-col items-center justify-center cursor-pointer select-none"
+          >
+            <Send className="w-4 h-4 stroke-[2.3]" />
+            <span className="text-[10px] font-black leading-tight mt-0.5 whitespace-nowrap">
+              Đăng ký
+            </span>
+          </button>
+        </div>
 
-        {/* 4. Ngoại hạng Anh */}
-        <Link
-          href="/combo-ngoai-hang-anh"
-          className={`flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 select-none ${
-            isEplActive
-              ? "text-[#C44D06] bg-[#FFF4ED] font-bold"
-              : "text-[#475569] hover:text-[#0F172A] font-semibold"
-          }`}
+        {/* 4. Chat Zalo */}
+        <a
+          href={siteConfig.contact.zaloUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center justify-center h-full rounded-xl text-[#0068FF] hover:bg-blue-50/70 active:scale-95 transition-all select-none font-bold"
         >
-          <img
-            src="/images/icons/svg/ngoai-hang-anh.svg"
-            alt=""
-            aria-hidden="true"
-            width={22}
-            height={22}
-            loading="eager"
-            decoding="async"
-            className="w-[22px] h-[22px] object-contain shrink-0"
-          />
-          <span className="text-[10.5px] leading-tight mt-0.5 truncate">Ngoại Hạng</span>
-        </Link>
+          <MessageCircle className="w-5 h-5 stroke-[2.2]" />
+          <span className="text-[10px] leading-tight mt-1 whitespace-nowrap">Chat Zalo</span>
+        </a>
 
-        {/* 5. Liên hệ */}
+        {/* 5. Gọi Hotline */}
         <a
           href={siteConfig.contact.hotlineTel}
           onClick={handleContactClick}
-          className="flex-1 flex flex-col items-center justify-center h-full rounded-full transition-colors duration-200 cursor-pointer select-none text-[#475569] hover:text-[#0F172A] active:text-[#F37021] font-semibold"
+          className="flex flex-col items-center justify-center h-full rounded-xl text-emerald-600 hover:bg-emerald-50/70 active:scale-95 transition-all select-none font-bold"
         >
-          <img
-            src="/images/icons/svg/hotline.svg"
-            alt=""
-            aria-hidden="true"
-            width={22}
-            height={22}
-            loading="eager"
-            decoding="async"
-            className="w-[22px] h-[22px] object-contain shrink-0"
-          />
-          <span className="text-[10.5px] leading-tight mt-0.5 truncate">Liên hệ</span>
+          <PhoneCall className="w-5 h-5 stroke-[2.2]" />
+          <span className="text-[10px] leading-tight mt-1 whitespace-nowrap">Gọi ngay</span>
         </a>
       </div>
     </nav>
