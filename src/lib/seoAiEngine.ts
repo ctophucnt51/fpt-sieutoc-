@@ -49,7 +49,7 @@ async function callGeminiJson(prompt: string): Promise<{ ok: boolean; data?: any
 
   const preferred = process.env.GEMINI_SEO_MODEL?.trim();
   const candidates = Array.from(
-    new Set([preferred || "gemini-2.5-flash", "gemini-3.8-flash", "gemini-2.5-flash-lite"])
+    new Set([preferred || "gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-3.5-flash"])
   );
 
   let lastError = "Lỗi khi gọi Gemini SEO Engine.";
