@@ -119,7 +119,7 @@ export default function Header() {
 
   return (
     <>
-    <header className="sticky-header sticky top-0 z-40 w-full transition-all">
+    <header className="sticky-header sticky top-0 z-40 w-full transition-all bg-white">
       {/* TẦNG 1: TOP PROMO BAR (Chỉ hiển thị trên Desktop, Ẩn hoàn toàn trên Mobile theo yêu cầu) */}
       <div className="hidden lg:block bg-[#FFF4ED] border-b border-orange-200/60 text-slate-800 text-[11px] sm:text-xs py-1 px-3 sm:px-6">
         <div className="max-w-[1280px] mx-auto flex items-center justify-between gap-2 min-h-[26px]">
@@ -160,7 +160,7 @@ export default function Header() {
       </div>
 
       {/* TẦNG 2A: MOBILE MAIN HEADER (Phong cách App Native tối ưu render GPU 60fps) */}
-      <div className="lg:hidden bg-white/98 border-b border-slate-200/90 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
+      <div className="lg:hidden bg-white border-b border-slate-200 shadow-[0_2px_16px_rgba(15,23,42,0.06)]">
         <div className="px-3.5 h-14 flex items-center justify-between gap-2">
           {/* Left: Menu + Logo FPT gọn gàng */}
           <div className="flex items-center gap-2.5 min-w-0">

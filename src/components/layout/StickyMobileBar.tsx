@@ -45,7 +45,7 @@ export default function StickyMobileBar() {
   return (
     <nav
       aria-label="Thanh điều hướng di động"
-      className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-white/98 border-t border-slate-200/90 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] pb-[env(safe-area-inset-bottom)]"
+      className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-white border-t border-slate-200 shadow-[0_-4px_24px_rgba(15,23,42,0.08)] pb-[env(safe-area-inset-bottom)]"
     >
       <div className="max-w-lg mx-auto px-2 h-[64px] grid grid-cols-5 items-center gap-1">
         {/* 1. Trang chủ */}
