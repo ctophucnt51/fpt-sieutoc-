@@ -26,13 +26,27 @@ function ensureConfigFile(): void {
     }
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(defaultSiteConfig, null, 2), "utf8");
   } else {
-    // Luôn đồng bộ email hỗ trợ cố định chính xác theo yêu cầu người dùng
+    // Luôn đồng bộ email hỗ trợ & địa chỉ cố định chính xác theo yêu cầu người dùng
     try {
       const raw = fs.readFileSync(CONFIG_FILE, "utf8");
       const parsed = JSON.parse(raw);
-      if (parsed.contact && parsed.contact.supportEmail !== "PhucNT51@fpt.com") {
-        parsed.contact.supportEmail = "PhucNT51@fpt.com";
-        fs.writeFileSync(CONFIG_FILE, JSON.stringify(parsed, null, 2), "utf8");
+      let changed = false;
+      if (parsed.contact) {
+        if (parsed.contact.supportEmail !== "PhucNT51@fpt.com") {
+          parsed.contact.supportEmail = "PhucNT51@fpt.com";
+          changed = true;
+        }
+        if (parsed.contact.address !== "Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ") {
+          parsed.contact.address = "Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ";
+          changed = true;
+        }
+        if (parsed.contact.addressShort !== "Số 10 Phan Văn Trị, Phường Ninh Kiều, Cần Thơ") {
+          parsed.contact.addressShort = "Số 10 Phan Văn Trị, Phường Ninh Kiều, Cần Thơ";
+          changed = true;
+        }
+        if (changed) {
+          fs.writeFileSync(CONFIG_FILE, JSON.stringify(parsed, null, 2), "utf8");
+        }
       }
     } catch {}
   }
@@ -50,7 +64,9 @@ export function getDynamicConfig(): SiteConfigType {
     const cleanContact = {
       ...defaultSiteConfig.contact,
       ...(parsed.contact || {}),
-      supportEmail: "PhucNT51@fpt.com", // Luôn đảm bảo email hỗ trợ cố định chính xác PhucNT51@fpt.com
+      supportEmail: "PhucNT51@fpt.com", // Cố định chính xác email hỗ trợ
+      address: "Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ", // Cố định chính xác địa chỉ
+      addressShort: "Số 10 Phan Văn Trị, Phường Ninh Kiều, Cần Thơ",
     };
     // Deep merge with defaults to avoid any missing property crashes
     return {

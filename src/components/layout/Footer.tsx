@@ -236,7 +236,7 @@ export default function Footer() {
                 <MapPin className="w-4 h-4 text-[#94A3B8] mt-0.5 shrink-0" />
                 <div>
                   <span className="text-[#475569] font-medium">Điểm tiếp nhận: </span>
-                  <span className="text-[#0F172A] font-semibold">{siteConfig.contact.address || "Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ"}</span>
+                  <span className="text-[#0F172A] font-semibold">Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ</span>
                 </div>
               </li>
 
