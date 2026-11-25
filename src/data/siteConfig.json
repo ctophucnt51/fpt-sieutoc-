@@ -27,9 +27,11 @@
   "tracking": {
     "facebookPixelId": "",
     "enablePixel": false,
-    "googleAdsId": "",
-    "googleAdsConversionLabel": "",
-    "enableGoogleAds": false
+    "googleAdsId": "AW-18594624810",
+    "googleAdsConversionLabel": "_CuxCN_bib8dEKrqzaJF",
+    "googleAdsCallConversionLabel": "SmL9COLbib8dEKrqzaJF",
+    "googleAdsConversionValue": 220000,
+    "enableGoogleAds": true
   },
   "disclaimer": {
     "officialDisclaimer": "Website là kênh đại lý đối tác tư vấn và hỗ trợ đăng ký dịch vụ viễn thông của FPT Telecom tại Cần Thơ, Hậu Giang, Sóc Trăng và các tỉnh lân cận. Chúng tôi không tự xưng là cổng thông tin tập đoàn chính thức FPT Telecom. Tất cả logo, biểu trưng thương hiệu và tên gói cước thuộc bản quyền của FPT Telecom.",
