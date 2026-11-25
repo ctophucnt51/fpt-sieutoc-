@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { LeadRecord } from "@/lib/types";
 import { SiteConfigType } from "@/lib/configStorage";
 import { getAdminHeaders } from "@/lib/clientAdminAuth";
 import type { DailyTrafficBucket, RecentVisit } from "@/lib/trafficStorage";
@@ -11,7 +10,6 @@ import {
   Eye,
   Smartphone,
   Monitor,
-  TrendingUp,
   RefreshCw,
   Trash2,
   Globe,
@@ -19,11 +17,12 @@ import {
   Loader2,
   CheckCircle2,
   ExternalLink,
+  Activity,
+  MapPin,
 } from "lucide-react";
 
 interface TrafficManagementProps {
   config: SiteConfigType;
-  leads: LeadRecord[];
   onSaveConfig: (updatedConfig: Partial<SiteConfigType>) => Promise<boolean>;
   showToast: (msg: string, type?: "success" | "error") => void;
 }
@@ -34,9 +33,16 @@ function getVnDateKey(offsetDays = 0): string {
   return vnTime.toISOString().slice(0, 10);
 }
 
+function formatRelativeMinutes(iso: string): string | null {
+  const diffMs = Date.now() - new Date(iso).getTime();
+  if (diffMs < 0 || diffMs > 30 * 60 * 1000) return null;
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return "Vừa xong";
+  return `${mins} phút trước`;
+}
+
 export default function TrafficManagement({
   config,
-  leads,
   onSaveConfig,
   showToast,
 }: TrafficManagementProps) {
@@ -115,17 +121,12 @@ export default function TrafficManagement({
     const totalDevices = mobile + desktop;
     const mobilePct = totalDevices > 0 ? Math.round((mobile / totalDevices) * 100) : 0;
 
-    // Leads created within dateKeys
-    const keySet = new Set(dateKeys);
-    const periodLeads = leads.filter((l) => {
-      const vnDate = new Date(new Date(l.createdAt).getTime() + 7 * 60 * 60 * 1000)
-        .toISOString()
-        .slice(0, 10);
-      return keySet.has(vnDate);
-    }).length;
-
-    const trafficToLeadRate =
-      sessions > 0 ? ((periodLeads / sessions) * 100).toFixed(1) : "0.0";
+    // 30-minute real-time window
+    const cutoff30m = Date.now() - 30 * 60 * 1000;
+    const visits30m = recent.filter((v) => new Date(v.timestamp).getTime() >= cutoff30m);
+    const uniqueVisitors30m = new Set(
+      visits30m.map((v) => v.sessionId || v.ip || v.id)
+    ).size;
 
     const sortedSources = Object.entries(sources).sort((a, b) => b[1] - a[1]);
     const sortedPages = Object.entries(pages).sort((a, b) => b[1] - a[1]);
@@ -140,13 +141,13 @@ export default function TrafficManagement({
       mobile,
       desktop,
       mobilePct,
-      periodLeads,
-      trafficToLeadRate,
+      last30mPageviews: visits30m.length,
+      last30mVisitors: uniqueVisitors30m,
       sortedSources,
       sortedPages,
       maxDailyPv,
     };
-  }, [daily, dateKeys, leads]);
+  }, [daily, dateKeys, recent]);
 
   const handleSaveGa4 = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -192,10 +193,10 @@ export default function TrafficManagement({
         <div>
           <h3 className="font-black text-base text-slate-900 flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-[#F37021]" />
-            <span>Thống Kê Lưu Lượng Truy Cập &amp; Chuyển Đổi Website</span>
+            <span>Tổng Quan Lưu Lượng Truy Cập Website</span>
           </h3>
           <p className="text-xs text-slate-500 mt-1">
-            Đo lường tự động mọi lượt xem thực (bỏ qua bot &amp; trang Admin, không bị AdBlock chặn).
+            Theo dõi lượt truy cập 30 phút gần nhất, IP, vị trí, thiết bị và nguồn truy cập chi tiết (đã lọc bỏ bot &amp; trang Admin).
           </p>
         </div>
 
@@ -236,6 +237,7 @@ export default function TrafficManagement({
               type="button"
               onClick={handleClearTraffic}
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 text-xs font-bold cursor-pointer"
+              title="Xóa dữ liệu truy cập"
             >
               <Trash2 className="w-3.5 h-3.5" />
             </button>
@@ -243,12 +245,32 @@ export default function TrafficManagement({
         </div>
       </div>
 
-      {/* 2. 4 Main Traffic KPI Cards */}
+      {/* 2. 4 Main Traffic KPI Cards (Không hiển thị Lead) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* 30-Minute Live Traffic */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50/50 border border-emerald-200/90 shadow-2xs">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              30 Phút Gần Nhất
+            </span>
+            <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+              <Activity className="w-4 h-4" />
+            </div>
+          </div>
+          <div className="text-2xl sm:text-3xl font-black text-emerald-700">
+            {summary.last30mVisitors}
+            <span className="text-xs font-bold text-emerald-600 ml-1.5">khách</span>
+          </div>
+          <p className="text-[11px] text-emerald-800/80 mt-1">
+            <strong>{summary.last30mPageviews}</strong> lượt xem trang trong 30 phút qua
+          </p>
+        </div>
+
         <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-              Lượt Xem Trang
+              Tổng Lượt Xem
             </span>
             <div className="w-8 h-8 rounded-xl bg-orange-50 text-[#F37021] flex items-center justify-center">
               <Eye className="w-4 h-4" />
@@ -275,25 +297,7 @@ export default function TrafficManagement({
             {summary.sessions.toLocaleString("vi-VN")}
           </div>
           <p className="text-[11px] text-slate-500 mt-1">
-            Khách truy cập thực tế
-          </p>
-        </div>
-
-        <div className="p-4 sm:p-5 rounded-2xl bg-emerald-50/40 border border-emerald-200/80 shadow-2xs">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">
-              Traffic → Lead
-            </span>
-            <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
-              <TrendingUp className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="text-2xl sm:text-3xl font-black text-emerald-700">
-            {summary.trafficToLeadRate}%
-          </div>
-          <p className="text-[11px] text-emerald-700/80 mt-1">
-            <strong>{summary.periodLeads}</strong> đơn đăng ký từ{" "}
-            <strong>{summary.sessions}</strong> phiên
+            Phiên người dùng thực tế
           </p>
         </div>
 
@@ -323,7 +327,6 @@ export default function TrafficManagement({
 
       {/* 3. Daily Trend Chart + Sources + Top Pages */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        {/* Daily Bar Chart */}
         <div className="lg:col-span-6 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs">
           <h4 className="font-bold text-sm text-slate-900 mb-4">
             Biểu Đồ Lượt Xem Theo Ngày
@@ -332,7 +335,7 @@ export default function TrafficManagement({
             {dateKeys.map((k) => {
               const pv = daily[k]?.pageviews || 0;
               const pct = Math.max(4, Math.round((pv / summary.maxDailyPv) * 100));
-              const shortLabel = k.slice(5); // MM-DD
+              const shortLabel = k.slice(5);
               return (
                 <div
                   key={k}
@@ -363,7 +366,6 @@ export default function TrafficManagement({
           )}
         </div>
 
-        {/* Traffic Sources */}
         <div className="lg:col-span-3 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs">
           <h4 className="font-bold text-sm text-slate-900 mb-3">
             Nguồn Truy Cập
@@ -398,7 +400,6 @@ export default function TrafficManagement({
           )}
         </div>
 
-        {/* Top Pages */}
         <div className="lg:col-span-3 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs">
           <h4 className="font-bold text-sm text-slate-900 mb-3">
             Trang Xem Nhiều Nhất
@@ -425,7 +426,104 @@ export default function TrafficManagement({
         </div>
       </div>
 
-      {/* 4. Google Analytics 4 (GA4) Config Card */}
+      {/* 4. Recent Visits Feed with IP, Location & Exact Source */}
+      <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <h4 className="font-bold text-sm text-slate-900">
+              Chi Tiết Từng Lượt Truy Cập (Realtime &amp; 30 Phút Gần Nhất)
+            </h4>
+            <p className="text-xs text-slate-500">
+              Hiển thị IP, vị trí địa lý, nguồn truy cập cụ thể, chiến dịch / từ khóa tìm kiếm (nếu có).
+            </p>
+          </div>
+          <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            30 phút qua: {summary.last30mPageviews} lượt
+          </span>
+        </div>
+
+        {recent.length === 0 ? (
+          <p className="text-xs text-slate-500 py-6 text-center bg-slate-50 rounded-xl border border-dashed border-slate-200">
+            Chưa có lượt truy cập mới được ghi nhận. Khi khách vào trang chủ hoặc các trang gói cước, thông tin IP, vị trí và nguồn sẽ hiện ngay tại đây.
+          </p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
+                  <th className="py-2.5 pr-3">Thời gian</th>
+                  <th className="py-2.5 px-3">IP &amp; Vị trí</th>
+                  <th className="py-2.5 px-3">Trang đã xem</th>
+                  <th className="py-2.5 px-3">Nguồn truy cập</th>
+                  <th className="py-2.5 pl-3">Thiết bị</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {recent.slice(0, 50).map((v) => {
+                  const rel = formatRelativeMinutes(v.timestamp);
+                  return (
+                    <tr key={v.id} className="hover:bg-slate-50/70">
+                      <td className="py-2.5 pr-3 whitespace-nowrap">
+                        <div className="text-slate-700 font-medium">
+                          {new Date(v.timestamp).toLocaleTimeString("vi-VN")}
+                        </div>
+                        {rel ? (
+                          <span className="inline-block mt-0.5 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+                            {rel}
+                          </span>
+                        ) : (
+                          <span className="text-[10.5px] text-slate-400">
+                            {new Date(v.timestamp).toLocaleDateString("vi-VN")}
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-2.5 px-3">
+                        <div className="font-mono text-[11px] font-bold text-slate-800">
+                          {v.ip || "—"}
+                        </div>
+                        <div className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
+                          <MapPin className="w-3 h-3 text-[#F37021] shrink-0" />
+                          <span>{v.location || "Không xác định"}</span>
+                        </div>
+                      </td>
+                      <td className="py-2.5 px-3 font-mono text-[11px] text-slate-800">
+                        {v.path}
+                      </td>
+                      <td className="py-2.5 px-3">
+                        <div className="font-bold text-slate-800">{v.source}</div>
+                        <div className="text-[11px] text-slate-500">
+                          {v.sourceDetail || "—"}
+                        </div>
+                        {(v.campaign || v.term) && (
+                          <div className="text-[10.5px] text-blue-700 font-mono mt-0.5">
+                            {v.campaign ? `Camp: ${v.campaign}` : ""}{" "}
+                            {v.term ? `• KW: ${v.term}` : ""}
+                          </div>
+                        )}
+                      </td>
+                      <td className="py-2.5 pl-3 whitespace-nowrap">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-semibold text-[11px]">
+                          {v.device === "mobile" ? (
+                            <>
+                              <Smartphone className="w-3 h-3" /> Mobile
+                            </>
+                          ) : (
+                            <>
+                              <Monitor className="w-3 h-3" /> Desktop
+                            </>
+                          )}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* 5. Google Analytics 4 (GA4) Config Card */}
       <form
         onSubmit={handleSaveGa4}
         className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs space-y-4"
@@ -445,7 +543,7 @@ export default function TrafficManagement({
                 ) : null}
               </h4>
               <p className="text-xs text-slate-500">
-                Dán mã đo lường <code>G-XXXXXXXXXX</code> từ Google Analytics để xem báo cáo chuyên sâu và liên kết Remarketing với Google Ads.
+                Mã đo lường <code>G-XXXXXXXXXX</code> đồng bộ dữ liệu sang Google Analytics 4 &amp; Google Ads.
               </p>
             </div>
           </div>
@@ -469,7 +567,7 @@ export default function TrafficManagement({
               type="text"
               value={ga4Id}
               onChange={(e) => setGa4Id(e.target.value)}
-              placeholder="VD: G-ABC123XYZ9"
+              placeholder="VD: G-5XCNM798CE"
               className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-[#F37021] focus:ring-2 focus:ring-orange-100 text-xs sm:text-sm text-slate-900 outline-none"
             />
           </div>
@@ -496,53 +594,6 @@ export default function TrafficManagement({
           </div>
         </div>
       </form>
-
-      {/* 5. Recent Visits Feed */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs">
-        <h4 className="font-bold text-sm text-slate-900 mb-3">
-          Lượt Truy Cập Gần Đây (Realtime)
-        </h4>
-        {recent.length === 0 ? (
-          <p className="text-xs text-slate-500 py-6 text-center bg-slate-50 rounded-xl border border-dashed border-slate-200">
-            Chưa có lượt truy cập mới được ghi nhận. Khi khách vào trang chủ hoặc các trang gói cước, dữ liệu sẽ cập nhật ngay tại đây.
-          </p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
-                  <th className="py-2 pr-3">Thời gian</th>
-                  <th className="py-2 px-3">Trang đã xem</th>
-                  <th className="py-2 px-3">Nguồn</th>
-                  <th className="py-2 px-3">Thiết bị</th>
-                  <th className="py-2 pl-3">Chiến dịch</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {recent.slice(0, 25).map((v) => (
-                  <tr key={v.id} className="hover:bg-slate-50/70">
-                    <td className="py-2 pr-3 whitespace-nowrap text-slate-500">
-                      {new Date(v.timestamp).toLocaleString("vi-VN")}
-                    </td>
-                    <td className="py-2 px-3 font-mono text-[11px] text-slate-800">
-                      {v.path}
-                    </td>
-                    <td className="py-2 px-3 font-semibold text-slate-700">
-                      {v.source}
-                    </td>
-                    <td className="py-2 px-3 text-slate-600">
-                      {v.device === "mobile" ? "Mobile" : "Desktop"}
-                    </td>
-                    <td className="py-2 pl-3 text-slate-500 font-mono text-[11px]">
-                      {v.campaign || "—"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
     </div>
   );
 }

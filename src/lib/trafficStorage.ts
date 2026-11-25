@@ -16,8 +16,13 @@ export interface RecentVisit {
   timestamp: string;
   path: string;
   source: string;
+  sourceDetail?: string;
   device: "mobile" | "desktop";
+  ip?: string;
+  location?: string;
   campaign?: string;
+  term?: string;
+  sessionId?: string;
 }
 
 export interface TrafficStore {
@@ -28,7 +33,7 @@ export interface TrafficStore {
 const PERSISTENT_DIR = path.join(process.cwd(), "data");
 const TRAFFIC_FILE = path.join(PERSISTENT_DIR, "traffic-stats.json");
 const MAX_DAYS = 90;
-const MAX_RECENT = 80;
+const MAX_RECENT = 500;
 
 function ensureTrafficFile(): void {
   if (!fs.existsSync(PERSISTENT_DIR)) {
@@ -41,7 +46,6 @@ function ensureTrafficFile(): void {
 }
 
 function getVnDateKey(date = new Date()): string {
-  // UTC+7 Vietnam date YYYY-MM-DD
   const vnTime = new Date(date.getTime() + 7 * 60 * 60 * 1000);
   return vnTime.toISOString().slice(0, 10);
 }
@@ -63,9 +67,14 @@ export function readTrafficStore(): TrafficStore {
 export function recordPageview(input: {
   path: string;
   source: string;
+  sourceDetail?: string;
   device: "mobile" | "desktop";
   isNewSession: boolean;
+  ip?: string;
+  location?: string;
   campaign?: string;
+  term?: string;
+  sessionId?: string;
 }): void {
   ensureTrafficFile();
   const store = readTrafficStore();
@@ -95,7 +104,6 @@ export function recordPageview(input: {
   bucket.pages[input.path] = (bucket.pages[input.path] || 0) + 1;
   store.daily[dateKey] = bucket;
 
-  // Keep only last MAX_DAYS
   const sortedDates = Object.keys(store.daily).sort().reverse();
   if (sortedDates.length > MAX_DAYS) {
     for (const oldDate of sortedDates.slice(MAX_DAYS)) {
@@ -108,8 +116,13 @@ export function recordPageview(input: {
     timestamp: new Date().toISOString(),
     path: input.path,
     source: input.source,
+    sourceDetail: input.sourceDetail,
     device: input.device,
+    ip: input.ip,
+    location: input.location,
     campaign: input.campaign,
+    term: input.term,
+    sessionId: input.sessionId,
   };
 
   store.recent = [visit, ...store.recent].slice(0, MAX_RECENT);

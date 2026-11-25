@@ -7,7 +7,6 @@ import { SiteConfigType } from "@/lib/configStorage";
 import { Article } from "@/lib/articleStorage";
 import { getAdminHeaders, clearAdminToken } from "@/lib/clientAdminAuth";
 import AdminLogin from "@/components/admin/AdminLogin";
-import DashboardOverview from "@/components/admin/DashboardOverview";
 import LeadManagement from "@/components/admin/LeadManagement";
 import ArticleManagement from "@/components/admin/ArticleManagement";
 import GeneralConfigEditor from "@/components/admin/GeneralConfigEditor";
@@ -35,21 +34,16 @@ import {
   Zap,
   TrendingUp,
   Target,
-  BarChart3,
   Menu,
   X,
 } from "lucide-react";
 
-type AdminTab = "overview" | "traffic" | "leads" | "google-ads" | "articles" | "seo" | "config" | "pricing" | "areas";
+type AdminTab = "overview" | "leads" | "google-ads" | "articles" | "seo" | "config" | "pricing" | "areas";
 
 const TAB_META: Record<AdminTab, { title: string; subtitle: string }> = {
   overview: {
-    title: "Tổng Quan Hệ Thống",
-    subtitle: "Theo dõi nhanh hiệu suất tiếp nhận khách hàng và chuyển đổi.",
-  },
-  traffic: {
-    title: "Lưu Lượng Truy Cập (Traffic)",
-    subtitle: "Thống kê lượt xem, nguồn truy cập, thiết bị, tỷ lệ Traffic → Lead và kết nối GA4.",
+    title: "Tổng Quan Lưu Lượng Truy Cập",
+    subtitle: "Theo dõi truy cập 30 phút gần nhất, IP, vị trí, nguồn truy cập và kết nối GA4.",
   },
   leads: {
     title: "Quản Lý Khách Hàng (Leads)",
@@ -365,13 +359,8 @@ export default function AdminPage() {
       items: [
         {
           id: "overview",
-          label: "Tổng Quan",
+          label: "Tổng Quan Traffic",
           icon: <LayoutDashboard className="w-4 h-4 shrink-0" />,
-        },
-        {
-          id: "traffic",
-          label: "Lưu Lượng Truy Cập",
-          icon: <BarChart3 className="w-4 h-4 shrink-0" />,
           badge: "LIVE",
           badgeColor: "bg-emerald-100 text-emerald-700",
         },
@@ -651,20 +640,10 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Tab 1: Overview */}
-        {activeTab === "overview" && stats && (
-          <DashboardOverview
-            stats={stats}
-            recentLeads={leads}
-            onNavigateToLeads={handleNavigateToLeads}
-          />
-        )}
-
-        {/* Tab 1B: Website Traffic Analytics */}
-        {activeTab === "traffic" && config && (
+        {/* Tab 1: Overview (Traffic Focused, no Leads) */}
+        {activeTab === "overview" && config && (
           <TrafficManagement
             config={config}
-            leads={leads}
             onSaveConfig={handleSaveConfig}
             showToast={showToast}
           />

@@ -34,9 +34,12 @@ export default function TrafficTracker() {
     const timer = setTimeout(() => {
       try {
         let isNewSession = false;
+        let sessionId = "";
         if (typeof sessionStorage !== "undefined") {
-          if (!sessionStorage.getItem(SESSION_FLAG)) {
-            sessionStorage.setItem(SESSION_FLAG, "1");
+          sessionId = sessionStorage.getItem(SESSION_FLAG) || "";
+          if (!sessionId) {
+            sessionId = `s_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+            sessionStorage.setItem(SESSION_FLAG, sessionId);
             isNewSession = true;
           }
         }
@@ -51,11 +54,13 @@ export default function TrafficTracker() {
           path: pathname,
           device: isMobile ? "mobile" : "desktop",
           isNewSession,
+          sessionId,
           gclid: attribution.gclid || "",
           fbclid: attribution.fbclid || "",
           utm_source: attribution.utm_source || "",
           utm_medium: attribution.utm_medium || "",
           utm_campaign: attribution.utm_campaign || "",
+          utm_term: attribution.utm_term || "",
           referrer: typeof document !== "undefined" ? document.referrer : "",
         });
 
