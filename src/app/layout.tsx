@@ -40,6 +40,15 @@ export const metadata: Metadata = {
     "đăng ký wifi fpt",
   ],
   authors: [{ name: siteConfig.brand.name }],
+  icons: {
+    icon: [
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   verification: {
     google: "Lj3Z-qZW24iZE3en8qrzyFuteloAASTXeebu0NN-4p4",
   },
@@ -88,6 +97,9 @@ export default function RootLayout({
   return (
     <html lang="vi" className="scroll-smooth">
       <head>
+        <link rel="icon" href="/favicon-48x48.png" sizes="48x48" type="image/png" />
+        <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <Script
           id="gtm-n4vb2hj6-src"
