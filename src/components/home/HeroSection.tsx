@@ -67,80 +67,84 @@ export default function HeroSection({
                     Đăng ký lắp mạng Internet FPT đến <strong className="text-[#0F172A]">1 Gbps</strong> tại <strong className="text-[#0F172A]">Cần Thơ, Sóc Trăng, Hậu Giang</strong> &bull; Lắp nhanh 24h:
                   </p>
 
-                  {/* 3 Product Cards – vibrant gradient headers, prominent image, badge */}
+                  {/* 3 Hardware & Value Cards (Mobile Clean & Premium Design) */}
                   <div className="grid grid-cols-3 gap-2">
-                    {/* Card 1: Modem Wi-Fi 6 — Orange gradient */}
-                    <div className="rounded-2xl overflow-hidden border border-orange-100 shadow-sm flex flex-col bg-white">
-                      {/* Gradient header */}
-                      <div className="bg-gradient-to-br from-[#F37021] to-[#FF9A3C] pt-2.5 pb-5 flex items-center justify-center relative">
-                        <span className="absolute top-1.5 right-1.5 text-[8.5px] font-extrabold bg-white/90 text-[#C44D06] px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap shadow-sm">
+                    {/* Card 1: Modem Wi-Fi 6 */}
+                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(15,23,42,0.04)] transition-all">
+                      <div className="w-full flex justify-end">
+                        <span className="text-[9px] font-bold text-[#F37021] bg-orange-50 border border-orange-100 px-1.5 py-0.5 rounded-full leading-none">
                           0đ
                         </span>
+                      </div>
+                      <div className="w-full h-14 flex items-center justify-center my-1">
                         <img
                           src="/images/products/modem-wifi-6.jpg"
                           alt="Modem Wi-Fi 6 FPT"
-                          width={56}
-                          height={56}
+                          width={60}
+                          height={60}
                           loading="eager"
                           decoding="async"
-                          className="w-14 h-14 object-contain drop-shadow-md mix-blend-multiply relative z-10"
+                          className="max-h-full w-auto object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
                         />
                       </div>
-                      {/* Card body */}
-                      <div className="px-1.5 pt-1.5 pb-2 flex flex-col items-center text-center gap-1 -mt-3 relative z-10">
-                        <div className="bg-white rounded-xl px-1 pt-1 w-full flex flex-col items-center gap-0.5">
-                          <span className="text-[10px] font-black text-[#0F172A] leading-tight">Wi-Fi 6</span>
-                          <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap">Trang bị miễn phí</span>
-                        </div>
-                      </div>
+                      <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight mt-0.5">
+                        Wi-Fi 6
+                      </span>
+                      <span className="text-[9.5px] font-medium text-emerald-600 leading-tight mt-0.5">
+                        Trang bị miễn phí
+                      </span>
                     </div>
 
-                    {/* Card 2: Camera AI — Blue gradient */}
-                    <div className="rounded-2xl overflow-hidden border border-blue-100 shadow-sm flex flex-col bg-white">
-                      <div className="bg-gradient-to-br from-[#1E40AF] to-[#3B82F6] pt-2.5 pb-5 flex items-center justify-center relative">
-                        <span className="absolute top-1.5 right-1.5 text-[8.5px] font-extrabold bg-white/90 text-[#C44D06] px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap shadow-sm">
+                    {/* Card 2: Camera FPT AI */}
+                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(15,23,42,0.04)] transition-all">
+                      <div className="w-full flex justify-end">
+                        <span className="text-[9px] font-bold text-[#F37021] bg-orange-50 border border-orange-100 px-1.5 py-0.5 rounded-full leading-none">
                           0đ
                         </span>
+                      </div>
+                      <div className="w-full h-14 flex items-center justify-center my-1">
                         <img
                           src="/images/products/camera-fpt-ai.png"
                           alt="Camera FPT AI"
-                          width={56}
-                          height={56}
+                          width={60}
+                          height={60}
                           loading="eager"
                           decoding="async"
-                          className="w-14 h-14 object-contain drop-shadow-md relative z-10"
+                          className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform"
                         />
                       </div>
-                      <div className="px-1.5 pt-1.5 pb-2 flex flex-col items-center text-center gap-1 -mt-3 relative z-10">
-                        <div className="bg-white rounded-xl px-1 pt-1 w-full flex flex-col items-center gap-0.5">
-                          <span className="text-[10px] font-black text-[#0F172A] leading-tight">Camera AI</span>
-                          <span className="text-[9px] font-bold text-[#C44D06] bg-[#FFF4ED] px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap">Tặng kèm gói</span>
-                        </div>
-                      </div>
+                      <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight mt-0.5">
+                        Camera AI
+                      </span>
+                      <span className="text-[9.5px] font-medium text-emerald-600 leading-tight mt-0.5">
+                        Tặng kèm gói
+                      </span>
                     </div>
 
-                    {/* Card 3: Hạ tầng 63 tỉnh — Slate/Navy gradient */}
-                    <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm flex flex-col bg-white">
-                      <div className="bg-gradient-to-br from-[#0F172A] to-[#334155] pt-2.5 pb-5 flex items-center justify-center relative">
-                        <span className="absolute top-1.5 right-1.5 text-[8.5px] font-extrabold bg-white/90 text-blue-700 px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap shadow-sm">
+                    {/* Card 3: Hạ tầng FPT 63 tỉnh */}
+                    <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center shadow-[0_2px_8px_rgba(15,23,42,0.04)] transition-all">
+                      <div className="w-full flex justify-end">
+                        <span className="text-[9px] font-bold text-blue-600 bg-blue-50 border border-blue-100 px-1.5 py-0.5 rounded-full leading-none">
                           24h
                         </span>
+                      </div>
+                      <div className="w-full h-14 flex items-center justify-center my-1">
                         <img
                           src="/images/banners/vietnam-network-map.png"
                           alt="Hạ tầng FPT 63 tỉnh"
-                          width={56}
-                          height={56}
+                          width={60}
+                          height={60}
                           loading="eager"
                           decoding="async"
-                          className="w-14 h-14 object-contain drop-shadow-md relative z-10 brightness-125"
+                          className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform"
                         />
                       </div>
-                      <div className="px-1.5 pt-1.5 pb-2 flex flex-col items-center text-center gap-1 -mt-3 relative z-10">
-                        <div className="bg-white rounded-xl px-1 pt-1 w-full flex flex-col items-center gap-0.5">
-                          <span className="text-[10px] font-black text-[#0F172A] leading-tight">63 Tỉnh</span>
-                          <span className="text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded-full leading-none whitespace-nowrap">Lắp đặt 24h</span>
-                        </div>
-                      </div>
+                      <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight mt-0.5">
+                        63 Tỉnh
+                      </span>
+                      <span className="text-[9.5px] font-medium text-blue-600 leading-tight mt-0.5">
+                        Lắp trong 24h
+                      </span>
                     </div>
                   </div>
 
