@@ -47,42 +47,46 @@ async function callGeminiJson(prompt: string): Promise<{ ok: boolean; data?: any
     };
   }
 
-  const model = process.env.GEMINI_SEO_MODEL || "gemini-3.8-flash";
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
-    model
-  )}:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const preferred = process.env.GEMINI_SEO_MODEL?.trim();
+  const candidates = Array.from(
+    new Set([preferred || "gemini-2.5-flash", "gemini-3.8-flash", "gemini-2.5-flash-lite"])
+  );
 
-  try {
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.3,
-          responseMimeType: "application/json",
-        },
-      }),
-      signal: AbortSignal.timeout(25000),
-    });
+  let lastError = "Lỗi khi gọi Gemini SEO Engine.";
+  for (const model of candidates) {
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
+      model
+    )}:generateContent?key=${encodeURIComponent(apiKey)}`;
 
-    const json = await res.json();
-    if (!res.ok) {
-      return {
-        ok: false,
-        error: json?.error?.message || `Gemini API trả về HTTP ${res.status}.`,
-      };
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ role: "user", parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.3,
+            responseMimeType: "application/json",
+          },
+        }),
+        signal: AbortSignal.timeout(25000),
+      });
+
+      const json = await res.json();
+      if (!res.ok) {
+        lastError = json?.error?.message || `Gemini API (${model}) trả về HTTP ${res.status}.`;
+        continue;
+      }
+
+      const rawText = json?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      const parsed = JSON.parse(rawText);
+      return { ok: true, data: parsed };
+    } catch (err: any) {
+      lastError = err?.message || `Lỗi khi gọi ${model}.`;
     }
-
-    const rawText = json?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    const parsed = JSON.parse(rawText);
-    return { ok: true, data: parsed };
-  } catch (err: any) {
-    return {
-      ok: false,
-      error: err?.message || "Lỗi khi gọi Gemini SEO Engine.",
-    };
   }
+
+  return { ok: false, error: lastError };
 }
 
 /**
