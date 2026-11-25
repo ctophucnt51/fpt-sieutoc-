@@ -8,7 +8,7 @@
   },
   "promo": {
     "topBarAnnouncement": "Trang bị miễn phí Modem Wi-Fi 6 & Camera FPT",
-    "topBarBadge": "Ưu Đãi Tháng 10",
+    "topBarBadge": "Ưu Đãi Tháng 11",
     "heroGiftText": "Trang bị Modem Wi-Fi 6 thế hệ mới & Tặng kèm Camera FPT AI an ninh thông minh miễn phí",
     "leadFormUrgentNote": "Cần lắp đặt gấp trong 2 - 4 giờ?"
   },
@@ -16,13 +16,14 @@
     "hotlineDisplay": "0878 800 400",
     "hotlineRaw": "0878800400",
     "hotlineTel": "tel:0878800400",
+    "address": "Văn phòng tiếp nhận dịch vụ: Số 118 Đường 30/4, Phường Tân An, TP. Cần Thơ",
+    "addressShort": "118 Đường 30/4, Phường Tân An, Cần Thơ",
+    "partnerRole": "Kênh Đại Lý Tiếp Nhận Dịch Vụ FPT Telecom",
     "zaloUrl": "https://zalo.me/0878800400",
-    "messengerUrl": "https://m.me/lapmangfpt.sieutoc",
+    "messengerUrl": "https://www.facebook.com/fpttelecomonline51/",
     "workingHours": "7:30 - 21:30 (Thứ 2 - Chủ Nhật, kể cả ngày lễ)",
     "installationCommitment": "Khảo sát và lắp đặt nhanh trong 24h",
-    "address": "Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ",
-    "addressShort": "Số 10 Phan Văn Trị, P. Ninh Kiều, TP. Cần Thơ",
-    "supportEmail": "phucnt51@fpt.com"
+    "supportEmail": "hotro@lapmangfpt-sieutoc.vn"
   },
   "tracking": {
     "facebookPixelId": "",
@@ -30,14 +31,19 @@
     "googleAdsId": "AW-18594624810",
     "googleAdsConversionLabel": "_CuxCN_bib8dEKrqzaJF",
     "googleAdsCallConversionLabel": "SmL9COLbib8dEKrqzaJF",
-    "googleAdsConversionValue": 220000,
+    "googleAdsConversionValue": 200000,
     "enableGoogleAds": true,
     "googleAnalyticsId": "G-5XCNM798CE",
     "enableGa4": true
   },
+  "telegram": {
+    "botToken": "",
+    "chatId": "",
+    "enabled": true
+  },
   "disclaimer": {
     "officialDisclaimer": "Website là kênh đại lý đối tác tư vấn và hỗ trợ đăng ký dịch vụ viễn thông của FPT Telecom tại Cần Thơ, Hậu Giang, Sóc Trăng và các tỉnh lân cận. Chúng tôi không tự xưng là cổng thông tin tập đoàn chính thức FPT Telecom. Tất cả logo, biểu trưng thương hiệu và tên gói cước thuộc bản quyền của FPT Telecom.",
-    "privacyNote": "Thông tin cá nhân của bạn được bảo mật nghiêm ngặt theo Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân, chỉ sử dụng cho mục đích tư vấn và hỗ trợ khảo sát hạ tầng lắp đặt dịch vụ."
+    "privacyNote": "Thông tin cá nhân của bạn được bảo mật tuyệt đối theo Nghị định 13/2023/NĐ-CP về Bảo vệ dữ liệu cá nhân, chỉ sử dụng cho mục đích tư vấn và hỗ trợ khảo sát hạ tầng lắp đặt dịch vụ."
   },
   "popularAreas": [
     {
