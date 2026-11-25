@@ -93,8 +93,8 @@ export default function CameraFeatureSection() {
               </div>
               <div className="my-3 flex justify-center">
                 <img
-                  src="/images/products/camera-play-official.jpg"
-                  alt="FPT Camera Play Chính Hãng"
+                  src="/images/products/camera-fpt-ai.png"
+                  alt="FPT Camera Play AI Chính Hãng"
                   width={160}
                   height={160}
                   loading="lazy"
