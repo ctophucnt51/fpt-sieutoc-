@@ -176,16 +176,16 @@ export default function ArticleDetailPage({
               </div>
             )}
 
-            {/* Rendered HTML Body with Professional Typography */}
+            {/* Rendered HTML Body with Clean Editorial Typography */}
             <div
-              className="prose prose-slate max-w-none text-slate-800 text-sm sm:text-base leading-relaxed space-y-4
-                prose-headings:font-black prose-headings:text-slate-900 prose-headings:tracking-tight
-                prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:pt-4 prose-h2:border-t prose-h2:border-slate-100
-                prose-h3:text-lg sm:prose-h3:text-xl
-                prose-p:leading-relaxed prose-p:text-slate-700
-                prose-li:text-slate-700
-                prose-strong:text-slate-900
-                prose-a:text-fpt-orange prose-a:font-bold hover:prose-a:underline"
+              className="prose prose-slate max-w-none text-slate-700 text-sm sm:text-base leading-relaxed
+                prose-headings:tracking-tight
+                prose-h2:text-lg sm:prose-h2:text-xl prose-h2:font-black prose-h2:text-fpt-orange prose-h2:pt-6 prose-h2:pb-2 prose-h2:border-b prose-h2:border-slate-200 prose-h2:mt-6 prose-h2:mb-3
+                prose-h3:text-base sm:prose-h3:text-lg prose-h3:font-bold prose-h3:text-slate-900 prose-h3:mt-5 prose-h3:mb-2
+                prose-p:leading-relaxed prose-p:text-slate-700 prose-p:my-3
+                prose-ul:my-3 prose-li:text-slate-700 prose-li:my-1
+                prose-strong:text-slate-900 prose-strong:font-bold
+                prose-a:text-fpt-orange prose-a:font-semibold hover:prose-a:underline"
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
 
