@@ -174,7 +174,10 @@ function ensureArticlesFile(): Article[] {
             hasNew = true;
           } else {
             const pa = persistentArticles[existingIdx];
-            if (new Date(sa.updatedAt).getTime() > new Date(pa.updatedAt).getTime()) {
+            const hasLegacyViolation = /bảo\s*mật\s*tuyệt\s*đối|giảm\s*99%|an\s*toàn\s*tuyệt\s*đối/i.test(
+              `${pa.title} ${pa.excerpt} ${pa.content}`
+            );
+            if (hasLegacyViolation || new Date(sa.updatedAt).getTime() > new Date(pa.updatedAt).getTime()) {
               persistentArticles[existingIdx] = {
                 ...pa,
                 title: sa.title,

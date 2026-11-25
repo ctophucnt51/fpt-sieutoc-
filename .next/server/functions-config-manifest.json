@@ -1,1 +1,1 @@
-{"version":1,"functions":{"/api/site-config":{},"/combo-ngoai-hang-anh":{},"/hoi-dap":{},"/khuyen-mai":{},"/dieu-khoan":{},"/lap-mang-fpt":{},"/":{},"/quy-trinh-lap-dat":{},"/tin-tuc":{},"/truyen-hinh-fpt":{},"/wifi-6":{},"/tin-tuc/[slug]":{},"/bang-gia":{},"/chinh-sach-bao-mat":{}}}
+{"version":1,"functions":{"/bang-gia":{},"/chinh-sach-bao-mat":{},"/lap-mang-fpt":{},"/dieu-khoan":{},"/":{},"/combo-ngoai-hang-anh":{},"/quy-trinh-lap-dat":{},"/truyen-hinh-fpt":{},"/wifi-6":{},"/hoi-dap":{},"/tin-tuc":{},"/khuyen-mai":{},"/api/site-config":{},"/tin-tuc/[slug]":{}}}
