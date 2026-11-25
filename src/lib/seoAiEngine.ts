@@ -47,7 +47,7 @@ async function callGeminiJson(prompt: string): Promise<{ ok: boolean; data?: any
     };
   }
 
-  const model = process.env.GEMINI_SEO_MODEL || "gemini-2.0-flash";
+  const model = process.env.GEMINI_SEO_MODEL || "gemini-3.8-flash";
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
     model
   )}:generateContent?key=${encodeURIComponent(apiKey)}`;
