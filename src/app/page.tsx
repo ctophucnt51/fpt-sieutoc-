@@ -14,7 +14,7 @@ export default function HomePage() {
     <>
       {/* 1. Hero Section: Khớp 100% nhóm từ khóa Lắp Mạng FPT, Wi-Fi 6, Combo & 3 tỉnh Cần Thơ - Sóc Trăng - Hậu Giang */}
       <HeroSection
-        badge="Đại lý tiếp nhận đăng ký Lắp Mạng FPT • Cần Thơ, Sóc Trăng, Hậu Giang"
+        badge="Đại lý tiếp nhận đăng ký Lắp Mạng FPT"
         headline={
           <>
             Lắp Mạng FPT Wi-Fi 6 &amp;{" "}
