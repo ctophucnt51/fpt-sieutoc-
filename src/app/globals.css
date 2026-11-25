@@ -157,13 +157,13 @@ h1, h2, h3, h4 {
   will-change: auto;
 }
 
-/* Text Shimmer Sweep Animation - Tia sáng quét qua chữ tinh tế, mượt mà */
+/* Text Shimmer Sweep Animation - Tia sáng quét qua chữ từ TRÁI sang PHẢI */
 @keyframes textShimmerSweep {
   0% {
-    background-position: -150% 0;
+    background-position: 150% 0;
   }
   45%, 100% {
-    background-position: 150% 0;
+    background-position: -150% 0;
   }
 }
 
