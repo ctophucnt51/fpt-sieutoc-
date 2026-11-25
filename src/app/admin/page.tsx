@@ -13,6 +13,7 @@ import ArticleManagement from "@/components/admin/ArticleManagement";
 import GeneralConfigEditor from "@/components/admin/GeneralConfigEditor";
 import PricingConfigEditor from "@/components/admin/PricingConfigEditor";
 import AreaConfigEditor from "@/components/admin/AreaConfigEditor";
+import SeoManagement from "@/components/admin/SeoManagement";
 import {
   LayoutDashboard,
   Users,
@@ -30,9 +31,10 @@ import {
   RefreshCw,
   GitBranch,
   Zap,
+  TrendingUp,
 } from "lucide-react";
 
-type AdminTab = "overview" | "leads" | "articles" | "config" | "pricing" | "areas";
+type AdminTab = "overview" | "leads" | "articles" | "seo" | "config" | "pricing" | "areas";
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -450,6 +452,19 @@ export default function AdminPage() {
           </button>
 
           <button
+            onClick={() => setActiveTab("seo")}
+            className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
+              activeTab === "seo"
+                ? "bg-orange-50 text-fpt-orange sm:bg-orange-50/40 sm:border-fpt-orange font-black"
+                : "text-slate-600 hover:text-slate-900 border-transparent hover:bg-slate-50 sm:hover:bg-transparent"
+            }`}
+          >
+            <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            <span className="hidden sm:inline">SEO &amp; Thứ Hạng</span>
+            <span className="sm:hidden truncate">SEO</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab("config")}
             className={`py-2 sm:py-3 px-2 sm:px-3.5 rounded-xl sm:rounded-none sm:border-b-2 flex items-center justify-center sm:justify-start gap-1 sm:gap-2 transition-all cursor-pointer ${
               activeTab === "config"
@@ -528,6 +543,9 @@ export default function AdminPage() {
             showToast={showToast}
           />
         )}
+
+        {/* Tab 3B: SEO Center & Google Search Console */}
+        {activeTab === "seo" && <SeoManagement onShowToast={showToast} />}
 
         {/* Tab 4: General Config Editor */}
         {activeTab === "config" && config && (
