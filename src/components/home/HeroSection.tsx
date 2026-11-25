@@ -64,7 +64,7 @@ export default function HeroSection({
                 {/* Mobile Compact Value Summary + Hardware Strip (Gọn nhẹ, đưa thẻ gói cước lên ngay tầm mắt) */}
                 <div className="sm:hidden space-y-2.5">
                   <p className="text-[12.5px] text-[#475569] leading-snug font-medium">
-                    Cáp quang tốc độ đến <strong className="text-[#0F172A]">1 Gbps</strong> &bull; Lắp nhanh trong 24h. Trang bị sẵn:
+                    Đăng ký lắp mạng Internet FPT đến <strong className="text-[#0F172A]">1 Gbps</strong> tại <strong className="text-[#0F172A]">Cần Thơ, Sóc Trăng, Hậu Giang</strong> &bull; Lắp nhanh 24h:
                   </p>
 
                   {/* Unified 3-Column Compact Hardware Strip */}
@@ -151,7 +151,7 @@ export default function HeroSection({
 
                 {/* Desktop/Tablet Description + 3 Real Hardware & Infrastructure Visuals */}
                 <p className="hidden sm:block text-sm text-[#475569] leading-relaxed text-center lg:text-left font-medium">
-                  Đường truyền cáp quang tốc độ lên đến <strong className="text-[#0F172A]">1 Gbps</strong>, lắp đặt nhanh trong 24h. Trang bị trọn bộ thiết bị chính hãng:
+                  Đăng ký lắp mạng Internet cáp quang FPT tốc độ đến <strong className="text-[#0F172A]">1 Gbps</strong> tại <strong className="text-[#0F172A]">Cần Thơ, Sóc Trăng, Hậu Giang</strong>, lắp đặt nhanh trong 24h:
                 </p>
 
                 {/* Desktop/Tablet Quick Jump CTA (Tablet only, hidden on Mobile & Desktop) */}

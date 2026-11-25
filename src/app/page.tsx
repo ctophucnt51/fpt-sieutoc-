@@ -11,14 +11,14 @@ export const dynamic = "force-dynamic";
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero Section: Combo Internet Wi-Fi 6 + Ngoại Hạng Anh 220K là gói cước ưu đãi chính */}
+      {/* 1. Hero Section: Khớp 100% nhóm từ khóa Lắp Mạng FPT, Wi-Fi 6, Combo & 3 tỉnh Cần Thơ - Sóc Trăng - Hậu Giang */}
       <HeroSection
-        badge="Đại lý tiếp nhận đăng ký Internet FPT"
+        badge="Đại lý tiếp nhận đăng ký Lắp Mạng FPT • Cần Thơ, Sóc Trăng, Hậu Giang"
         headline={
           <>
-            Internet Cáp Quang Wi-Fi 6 &amp;{" "}
+            Lắp Mạng FPT Wi-Fi 6 &amp;{" "}
             <br className="hidden sm:inline" />
-            <span className="text-[#F37021]">Bản Quyền Ngoại Hạng Anh</span>
+            <span className="text-[#F37021]">Combo Internet Ngoại Hạng Anh</span>
           </>
         }
         showPriorityCards={true}
@@ -26,18 +26,18 @@ export default function HomePage() {
         formHeadline="NHẬN TƯ VẤN MIỄN PHÍ"
       />
 
-      {/* 2. Chi Tiết Trực Tiếp 380 Trận Ngoại Hạng Anh & FPT Play Trên Smart TV */}
-      <SportsEplSection />
+      {/* 2. Bảng Giá & So Sánh Gói Cước (Đưa lên ngay sau Hero để giữ chân người xem tìm gói cước) */}
+      <PricingSection
+        initialTab="all"
+        title="Bảng Giá Gói Cước Lắp Mạng FPT & Combo Phổ Biến"
+        subtitle="Giá cước tham khảo đã gồm 10% VAT • Trang bị Modem Wi-Fi 6 theo gói • Khảo sát lắp đặt 24h"
+      />
 
       {/* 3. Wi-Fi 6 Advantage Explainer */}
       <Wifi6Explainer />
 
-      {/* 4. Package Comparison & Pricing */}
-      <PricingSection
-        initialTab="all"
-        title="Bảng Giá Các Gói Cước Internet & Combo Phổ Biến"
-        subtitle="Giá cước tham khảo minh bạch • Trang bị Modem Wi-Fi 6 miễn phí • Hỗ trợ bảo trì trọn đời"
-      />
+      {/* 4. Chi Tiết Trực Tiếp 380 Trận Ngoại Hạng Anh & FPT Play Trên Smart TV */}
+      <SportsEplSection />
 
       {/* 5. Standard 4-Step Installation Process */}
       <ProcessSection />
