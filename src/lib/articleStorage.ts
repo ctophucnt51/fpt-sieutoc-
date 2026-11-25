@@ -168,9 +168,22 @@ function ensureArticlesFile(): Article[] {
         const seedArticles = JSON.parse(seedData) as Article[];
         let hasNew = false;
         for (const sa of seedArticles) {
-          if (!persistentArticles.some((pa) => pa.id === sa.id || pa.slug === sa.slug)) {
+          const existingIdx = persistentArticles.findIndex((pa) => pa.id === sa.id || pa.slug === sa.slug);
+          if (existingIdx === -1) {
             persistentArticles.unshift(sa);
             hasNew = true;
+          } else {
+            const pa = persistentArticles[existingIdx];
+            if (new Date(sa.updatedAt).getTime() > new Date(pa.updatedAt).getTime()) {
+              persistentArticles[existingIdx] = {
+                ...pa,
+                title: sa.title,
+                excerpt: sa.excerpt,
+                content: sa.content,
+                updatedAt: sa.updatedAt,
+              };
+              hasNew = true;
+            }
           }
         }
         if (hasNew) {

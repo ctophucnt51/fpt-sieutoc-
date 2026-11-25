@@ -32,21 +32,26 @@ export async function runPageSpeedCheck(
   }
 
   try {
+    const apiKey = process.env.PAGESPEED_API_KEY || process.env.GOOGLE_API_KEY || "";
     const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
       url
-    )}&strategy=${strategy}&category=performance&category=seo`;
+    )}&strategy=${strategy}&category=performance&category=seo${apiKey ? `&key=${encodeURIComponent(apiKey)}` : ""}`;
 
     const res = await fetch(apiUrl, {
       signal: AbortSignal.timeout(25000),
     });
     if (!res.ok) {
+      const errorMsg =
+        res.status === 429 && !apiKey
+          ? "PageSpeed API đạt giới hạn IP công cộng (HTTP 429). Có thể thêm PAGESPEED_API_KEY vào .env.local trên máy chủ."
+          : `PageSpeed API trả về HTTP ${res.status}.`;
       return {
         url,
         strategy,
         performanceScore: null,
         seoScore: null,
         checkedAt: new Date().toISOString(),
-        error: `PageSpeed API trả về HTTP ${res.status}.`,
+        error: errorMsg,
       };
     }
 
