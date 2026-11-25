@@ -66,10 +66,11 @@ async function callGeminiJson(prompt: string): Promise<{ ok: boolean; data?: any
           contents: [{ role: "user", parts: [{ text: prompt }] }],
           generationConfig: {
             temperature: 0.3,
+            maxOutputTokens: 2048,
             responseMimeType: "application/json",
           },
         }),
-        signal: AbortSignal.timeout(25000),
+        signal: AbortSignal.timeout(50000),
       });
 
       const json = await res.json();
@@ -183,7 +184,7 @@ Quy tắc BẮT BUỘC:
 1. Tuân thủ 100% Google Ads: CẤM dùng "số 1", "tốt nhất", "nhanh nhất", "rẻ nhất", "duy nhất", "tuyệt đối", "trọn đời", "100% miễn phí", "giảm 99%", "hoàn hảo".
 2. Dùng HTML sạch: <h2>, <h3><span class="text-fpt-orange">2.1.</span> ...</h3>, <p>, <ul><li>, 1 bảng giá dùng class "not-prose my-5 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-2xs", khối FAQ dùng "not-prose my-4 space-y-3", khối liên hệ dùng "not-prose my-4 p-4 sm:p-5 rounded-2xl bg-orange-50/70 border border-orange-200".
 3. Chèn internal link tới "/lap-mang-fpt" và "/combo-ngoai-hang-anh".
-4. Không nhồi nhét từ khóa.
+4. Không nhồi nhét từ khóa. Viết ngắn gọn, súc tích khoảng 350-500 từ để phản hồi nhanh.
 
 Trả về JSON đúng schema:
 {
