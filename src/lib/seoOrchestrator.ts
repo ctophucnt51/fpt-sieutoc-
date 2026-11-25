@@ -283,6 +283,8 @@ export function runSeoMasterCycle(): {
     { slugHint: "ninh-kieu", name: "Quận Ninh Kiều, Cần Thơ" },
     { slugHint: "cai-rang", name: "Quận Cái Răng, Cần Thơ" },
     { slugHint: "binh-thuy", name: "Quận Bình Thủy, Cần Thơ" },
+    { slugHint: "o-mon", name: "Quận Ô Môn, Cần Thơ" },
+    { slugHint: "thot-not", name: "Quận Thốt Nốt, Cần Thơ" },
     { slugHint: "soc-trang", name: "Thành phố Sóc Trăng" },
     { slugHint: "hau-giang", name: "Tỉnh Hậu Giang" },
   ];

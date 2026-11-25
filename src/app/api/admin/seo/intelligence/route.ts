@@ -16,6 +16,8 @@ import {
 } from "@/lib/seoMemory";
 import { runQaSafetyCheck } from "@/lib/seoAuditor";
 import { runPageSpeedCheck } from "@/lib/pageSpeedClient";
+import { fetchGa4OrganicSummary } from "@/lib/ga4Client";
+import { getSeoConfig } from "@/lib/seoStorage";
 
 export async function GET(request: NextRequest) {
   if (!verifyAdminAuth(request)) {
@@ -195,6 +197,24 @@ export async function POST(request: NextRequest) {
             ? `PageSpeed (${strategy}): Hiệu năng ${psi.performanceScore}/100, SEO ${psi.seoScore}/100 (LCP: ${psi.lcpDisplay || "-"})`
             : psi.error || "Không thể đo PageSpeed.",
         pagespeed: psi,
+        intelligence: getFullSeoIntelligenceState(),
+      });
+    }
+
+    if (action === "sync_ga4") {
+      const seo = getSeoConfig();
+      const propertyId = String(body.propertyId || process.env.GA4_PROPERTY_ID || "").trim();
+      const ga4 = await fetchGa4OrganicSummary({
+        propertyId,
+        serviceAccountEmail: seo.gscSettings?.serviceAccountEmail || "",
+        privateKey: seo.gscSettings?.privateKey || "",
+      });
+      return NextResponse.json({
+        success: !ga4.error,
+        message: ga4.error
+          ? ga4.error
+          : `GA4 (28 ngày): ${ga4.organicSessions} phiên Organic / ${ga4.sessions} tổng phiên, ${ga4.conversions} chuyển đổi.`,
+        ga4,
         intelligence: getFullSeoIntelligenceState(),
       });
     }

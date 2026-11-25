@@ -11,7 +11,8 @@ function base64UrlEncode(input: string | Buffer): string {
  */
 export async function getGoogleAccessToken(
   serviceAccountEmail: string,
-  privateKeyPem: string
+  privateKeyPem: string,
+  scope = "https://www.googleapis.com/auth/webmasters.readonly"
 ): Promise<string> {
   const normalizedKey = privateKeyPem.replace(/\\n/g, "\n").trim();
   const now = Math.floor(Date.now() / 1000);
@@ -23,7 +24,7 @@ export async function getGoogleAccessToken(
 
   const payload = {
     iss: serviceAccountEmail.trim(),
-    scope: "https://www.googleapis.com/auth/webmasters.readonly",
+    scope,
     aud: "https://oauth2.googleapis.com/token",
     iat: now,
     exp: now + 3600,

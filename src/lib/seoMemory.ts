@@ -276,6 +276,22 @@ function getDefaultKeywords(): SeoKeywordMapItem[] {
       priority: "P1",
       currentPosition: null,
     },
+    {
+      id: "kw-fpt-o-mon",
+      keyword: "lắp mạng fpt ô môn",
+      targetUrl: "/tin-tuc/lap-mang-fpt-o-mon-can-tho",
+      intent: "local",
+      priority: "P1",
+      currentPosition: null,
+    },
+    {
+      id: "kw-fpt-thot-not",
+      keyword: "lắp mạng fpt thốt nốt",
+      targetUrl: "/tin-tuc/lap-mang-fpt-thot-not-can-tho",
+      intent: "local",
+      priority: "P1",
+      currentPosition: null,
+    },
   ];
 }
 
