@@ -46,7 +46,7 @@ export const siteConfig = {
     messengerUrl: process.env.NEXT_PUBLIC_MESSENGER_URL || "https://www.facebook.com/fpttelecomonline51/",
     workingHours: "7:30 - 21:30 (Thứ 2 - Chủ Nhật, kể cả ngày lễ)",
     installationCommitment: "Khảo sát và lắp đặt nhanh trong 24h",
-    supportEmail: "hotro@lapmangfpt-sieutoc.vn",
+    supportEmail: "PhucNT51@fpt.com",
   },
   tracking: {
     facebookPixelId: process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || "",
