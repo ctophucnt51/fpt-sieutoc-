@@ -337,7 +337,7 @@ export default function LeadForm({
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#C2410C] focus:ring-2 focus:ring-[#C2410C]/20 transition-all"
+              className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20 transition-all"
             />
             {!fullName && (
               <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-600 font-medium select-none truncate pr-2">
@@ -358,7 +358,7 @@ export default function LeadForm({
               className={`w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border transition-all ${
                 phoneError
                   ? "border-red-500 ring-2 ring-red-500/20"
-                  : "border-[#E2E8F0] focus:border-[#C2410C] focus:ring-2 focus:ring-[#C2410C]/20"
+                  : "border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20"
               }`}
             />
             {!phone && (
@@ -382,7 +382,7 @@ export default function LeadForm({
               required
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#C2410C] focus:ring-2 focus:ring-[#C2410C]/20 transition-all"
+              className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20 transition-all"
             />
             {!address && (
               <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-600 font-medium select-none truncate pr-2">
@@ -522,7 +522,7 @@ export default function LeadForm({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] active:scale-98 text-white font-black text-sm sm:text-base shadow-[0_8px_20px_rgba(184,67,0,0.3)] hover:shadow-[0_10px_25px_rgba(184,67,0,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75"
+            className="w-full sm:w-auto px-8 sm:px-12 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-98 text-white font-black text-sm sm:text-base shadow-[0_8px_20px_rgba(184,67,0,0.3)] hover:shadow-[0_10px_25px_rgba(184,67,0,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-75"
           >
             {isSubmitting ? (
               "Đang gửi thông tin..."

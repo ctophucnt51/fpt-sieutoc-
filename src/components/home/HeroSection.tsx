@@ -160,7 +160,7 @@ export default function HeroSection({
                   <div className="grid grid-cols-5 gap-2">
                     <a
                       href="#lead-form"
-                      className="col-span-3 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#C84A00] to-[#B84300] text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-[0_3px_10px_rgba(184,67,0,0.25)] active:scale-[0.98] transition-transform whitespace-nowrap"
+                      className="col-span-3 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-[0_3px_10px_rgba(184,67,0,0.25)] active:scale-[0.98] transition-transform whitespace-nowrap"
                     >
                       <Sparkles className="w-3.5 h-3.5 shrink-0" />
                       <span>Nhận tư vấn ngay</span>
@@ -169,7 +169,7 @@ export default function HeroSection({
                       href={siteConfig.contact.hotlineTel}
                       className="col-span-2 py-2.5 px-2.5 rounded-xl bg-white border border-[#E4E8ED] text-[#0F172A] font-extrabold text-xs flex items-center justify-center gap-1 shadow-2xs active:scale-[0.98] transition-transform whitespace-nowrap"
                     >
-                      <PhoneCall className="w-3.5 h-3.5 text-[#C84A00] shrink-0" />
+                      <PhoneCall className="w-3.5 h-3.5 text-[#F37021] shrink-0" />
                       <span>Gọi ngay</span>
                     </a>
                   </div>
@@ -184,7 +184,7 @@ export default function HeroSection({
                 <div className="hidden sm:flex lg:hidden items-center justify-center gap-2 pt-0.5">
                   <a
                     href="#lead-form"
-                    className="flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-[#C84A00] to-[#B84300] text-white font-extrabold text-xs text-center shadow-sm active:scale-95 transition-transform whitespace-nowrap"
+                    className="flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white font-extrabold text-xs text-center shadow-sm active:scale-95 transition-transform whitespace-nowrap"
                   >
                     Đăng ký tư vấn ngay ↓
                   </a>
@@ -281,7 +281,7 @@ export default function HeroSection({
                           />
                           <span>Bản quyền Ngoại hạng Anh</span>
                         </span>
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#C84A00] text-white whitespace-nowrap">
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white whitespace-nowrap">
                           PHỔ BIẾN
                         </span>
                       </div>
@@ -316,7 +316,7 @@ export default function HeroSection({
 
                     <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
                       <span className="text-[11px] font-semibold text-[#475569] whitespace-nowrap">Lắp đặt 24h</span>
-                      <span className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#C84A00] to-[#B84300] text-white text-xs font-bold shadow-2xs transition-all whitespace-nowrap shrink-0">
+                      <span className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white text-xs font-bold shadow-2xs transition-all whitespace-nowrap shrink-0">
                         <span>Đăng ký</span>
                         <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                       </span>
@@ -375,7 +375,7 @@ export default function HeroSection({
 
                     <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
                       <span className="text-[11px] font-semibold text-[#475569] whitespace-nowrap">Khảo sát 0đ</span>
-                      <span className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#0F172A] group-hover:bg-[#C84A00] text-white text-xs font-bold shadow-2xs transition-all whitespace-nowrap shrink-0">
+                      <span className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#0F172A] group-hover:bg-[#F37021] text-white text-xs font-bold shadow-2xs transition-all whitespace-nowrap shrink-0">
                         <span>Đăng ký</span>
                         <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                       </span>

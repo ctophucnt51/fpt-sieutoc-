@@ -105,7 +105,7 @@ export default function PricingSection({
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`py-2 px-3.5 sm:px-5 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-bold transition-all whitespace-nowrap cursor-pointer ${
                     isActive
-                      ? "bg-gradient-to-r from-[#C84A00] to-[#B84300] text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
+                      ? "bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
                       : "text-[#475569] hover:text-[#0F172A] hover:bg-slate-50"
                   }`}
                 >
@@ -150,7 +150,7 @@ export default function PricingSection({
                       <span
                         className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full whitespace-nowrap shrink-0 ${
                           pkg.highlight
-                            ? "bg-[#C84A00] text-white shadow-2xs"
+                            ? "bg-[#F37021] text-white shadow-2xs"
                             : "bg-[#FFF4ED] text-[#9A3412] border border-orange-200"
                         }`}
                       >
@@ -267,8 +267,8 @@ export default function PricingSection({
                       onClick={() => handleSelectPackage(pkg.name)}
                       className={`w-full py-3 px-5 rounded-full font-extrabold text-xs sm:text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer group active:scale-[0.98] ${
                         pkg.highlight
-                          ? "bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] text-white shadow-[0_6px_18px_rgba(243,112,33,0.32)]"
-                          : "bg-slate-900 hover:bg-[#C84A00] text-white shadow-2xs"
+                          ? "bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white shadow-[0_6px_18px_rgba(243,112,33,0.32)]"
+                          : "bg-slate-900 hover:bg-[#F37021] text-white shadow-2xs"
                       }`}
                     >
                       <span>Đăng Ký Gói Này</span>

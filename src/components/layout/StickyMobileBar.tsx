@@ -53,12 +53,12 @@ export default function StickyMobileBar() {
           href="/"
           className={`relative flex flex-col items-center justify-center h-full rounded-xl transition-colors select-none ${
             isHomeActive
-              ? "text-[#B84300] font-extrabold"
+              ? "text-[#F37021] font-extrabold"
               : "text-slate-600 hover:text-slate-900 font-semibold"
           }`}
         >
           {isHomeActive && (
-            <span className="absolute top-0 w-6 h-0.5 rounded-full bg-[#B84300]" />
+            <span className="absolute top-0 w-6 h-0.5 rounded-full bg-[#F37021]" />
           )}
           <Home className={`w-5 h-5 ${isHomeActive ? "stroke-[2.4]" : "stroke-[1.9]"}`} />
           <span className="text-[10px] leading-tight mt-1 whitespace-nowrap">Trang chủ</span>
@@ -69,12 +69,12 @@ export default function StickyMobileBar() {
           href="/bang-gia"
           className={`relative flex flex-col items-center justify-center h-full rounded-xl transition-colors select-none ${
             isPricingActive
-              ? "text-[#B84300] font-extrabold"
+              ? "text-[#F37021] font-extrabold"
               : "text-slate-600 hover:text-slate-900 font-semibold"
           }`}
         >
           {isPricingActive && (
-            <span className="absolute top-0 w-6 h-0.5 rounded-full bg-[#B84300]" />
+            <span className="absolute top-0 w-6 h-0.5 rounded-full bg-[#F37021]" />
           )}
           <Tag className={`w-5 h-5 ${isPricingActive ? "stroke-[2.4]" : "stroke-[1.9]"}`} />
           <span className="text-[10px] leading-tight mt-1 whitespace-nowrap">Bảng giá</span>
@@ -85,7 +85,7 @@ export default function StickyMobileBar() {
           <button
             type="button"
             onClick={handleOpenRegister}
-            className="w-full py-2 px-2 rounded-2xl bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] text-white shadow-[0_4px_14px_rgba(184,67,0,0.3)] active:scale-95 transition-all flex flex-col items-center justify-center cursor-pointer select-none"
+            className="w-full py-2 px-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white shadow-[0_4px_14px_rgba(184,67,0,0.3)] active:scale-95 transition-all flex flex-col items-center justify-center cursor-pointer select-none"
           >
             <Send className="w-4 h-4 stroke-[2.3]" />
             <span className="text-[10px] font-black leading-tight mt-0.5 whitespace-nowrap">

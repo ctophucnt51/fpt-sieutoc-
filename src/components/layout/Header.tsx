@@ -107,7 +107,7 @@ export default function Header() {
       href: "/khuyen-mai",
       label: "Ưu Đãi",
       badge: "HOT",
-      badgeColor: "bg-[#C84A00] text-white",
+      badgeColor: "bg-[#F37021] text-white",
     },
     {
       href: "/tin-tuc",
@@ -125,7 +125,7 @@ export default function Header() {
         <div className="max-w-[1280px] mx-auto flex items-center justify-between gap-2 min-h-[26px]">
           {/* Desktop Left: Announcement */}
           <div className="flex items-center gap-2 min-w-0">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#C84A00] text-white text-[9px] font-extrabold tracking-wide uppercase shrink-0">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F37021] text-white text-[9px] font-extrabold tracking-wide uppercase shrink-0">
               <Flame className="w-3 h-3 shrink-0" />
               {siteConfig.promo?.topBarBadge || "Ưu Đãi"}
             </span>
@@ -195,7 +195,7 @@ export default function Header() {
             <a
               href={siteConfig.contact.hotlineTel}
               onClick={() => handleHotlineClick("Mobile Header Phone Icon")}
-              className="hidden min-[310px]:flex min-[405px]:hidden w-9 h-9 rounded-2xl bg-gradient-to-r from-[#C84A00] to-[#B84300] active:scale-95 text-white shadow-[0_3px_10px_rgba(243,112,33,0.3)] items-center justify-center transition-all shrink-0"
+              className="hidden min-[310px]:flex min-[405px]:hidden w-9 h-9 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] active:scale-95 text-white shadow-[0_3px_10px_rgba(243,112,33,0.3)] items-center justify-center transition-all shrink-0"
               aria-label="Gọi tư vấn ngay"
             >
               <Phone className="w-4 h-4 fill-current" />
@@ -204,7 +204,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => handleOpenPromoModal("Mobile Header Yêu Cầu Tư Vấn")}
-              className="hidden min-[405px]:flex px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
+              className="hidden min-[405px]:flex px-3.5 py-2 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] active:scale-95 text-white font-extrabold text-[11px] shadow-[0_3px_10px_rgba(243,112,33,0.3)] transition-all items-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap"
             >
               <Headset className="w-3.5 h-3.5 shrink-0" />
               <span>Tư vấn ngay</span>
@@ -294,7 +294,7 @@ export default function Header() {
                 handleHotlineClick("Header CTA Button");
                 handleOpenPromoModal("Desktop Header CTA");
               }}
-              className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-gradient-to-r from-[#C84A00] to-[#B84300] hover:from-[#B43E00] hover:to-[#9A3412] text-white font-extrabold text-xs xl:text-sm shadow-[0_4px_14px_rgba(243,112,33,0.3)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer"
+              className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white font-extrabold text-xs xl:text-sm shadow-[0_4px_14px_rgba(243,112,33,0.3)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer"
             >
               <span>Đăng Ký Ngay</span>
             </button>
@@ -318,7 +318,7 @@ export default function Header() {
           {/* Ngăn kéo Menu (Drawer) trượt từ bên trái sang */}
           <div className="relative w-[85%] max-w-[340px] bg-white h-full shadow-2xl flex flex-col z-[9999] overflow-hidden animate-in slide-in-from-left duration-300">
             {/* 1. Header ngăn kéo: Nền cam FPT, Logo và text "Lắp mạng FPT siêu tốc" */}
-            <div className="bg-[#C84A00] px-4 py-3.5 flex items-center justify-between text-white shadow-sm shrink-0">
+            <div className="bg-[#F37021] px-4 py-3.5 flex items-center justify-between text-white shadow-sm shrink-0">
               <Link
                 href="/"
                 onClick={() => setMobileMenuOpen(false)}
@@ -354,7 +354,7 @@ export default function Header() {
             {/* 2. Thẻ Ưu Đãi / Tư Vấn Đặc Quyền (Tựa như card Đăng nhập của Long Châu) */}
             <div className="p-3.5 bg-gradient-to-br from-[#FFF4ED] via-orange-50 to-[#FFE8D6] border-b border-orange-200/80 shrink-0">
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="w-5 h-5 rounded-full bg-[#C84A00] text-white flex items-center justify-center text-[10px] font-black">
+                <span className="w-5 h-5 rounded-full bg-[#F37021] text-white flex items-center justify-center text-[10px] font-black">
                   ★
                 </span>
                 <span className="text-xs font-black text-[#20283D] uppercase tracking-tight">
@@ -370,7 +370,7 @@ export default function Header() {
                   setMobileMenuOpen(false);
                   handleOpenPromoModal("Drawer Promo Card");
                 }}
-                className="mt-2.5 w-full py-2 px-4 rounded-full bg-[#C84A00] hover:bg-[#E05D10] text-white font-extrabold text-xs shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                className="mt-2.5 w-full py-2 px-4 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white font-extrabold text-xs shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <span>Nhận ưu đãi tư vấn ngay</span>
                 <ArrowRight className="w-3.5 h-3.5" />

@@ -66,7 +66,7 @@ export default function ProcessSection() {
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[11px] font-black text-white bg-[#C84A00] px-3 py-0.5 rounded-full shadow-xs uppercase tracking-tight">
+                  <span className="text-[11px] font-black text-white bg-[#F37021] px-3 py-0.5 rounded-full shadow-xs uppercase tracking-tight">
                     BƯỚC {item.step}
                   </span>
                   <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-white text-[#475569] border border-[#E4E8ED]">
