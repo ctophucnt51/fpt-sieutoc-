@@ -156,3 +156,33 @@ h1, h2, h3, h4 {
   transform: translate3d(0, 0, 0);
   will-change: auto;
 }
+
+/* Text Shimmer Sweep Animation - Tia sáng quét qua chữ tinh tế, mượt mà */
+@keyframes textShimmerSweep {
+  0% {
+    background-position: -150% 0;
+  }
+  45%, 100% {
+    background-position: 150% 0;
+  }
+}
+
+.animate-shimmer-orange {
+  background: linear-gradient(
+    115deg,
+    #F37021 0%,
+    #F37021 35%,
+    #FFEAD9 47%,
+    #FFFFFF 50%,
+    #FFEAD9 53%,
+    #F37021 65%,
+    #F37021 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+  animation: textShimmerSweep 3.5s ease-in-out infinite;
+}

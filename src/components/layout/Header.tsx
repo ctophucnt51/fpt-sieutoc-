@@ -185,7 +185,7 @@ export default function Header() {
               />
               <div className="h-4 w-px bg-slate-200 shrink-0" />
               <span className="font-black text-[13.5px] tracking-tight text-[#0F172A] whitespace-nowrap leading-none translate-y-[1px]">
-                FPT <span className="text-[#F37021]">Siêu Tốc</span>
+                FPT <span className="animate-shimmer-orange">Siêu Tốc</span>
               </span>
             </Link>
           </div>
@@ -229,8 +229,8 @@ export default function Header() {
             />
             <div className="h-6 w-px bg-[#E4E8ED]" />
             <div className="flex flex-col justify-center translate-y-[1px]">
-              <span className="font-black text-base xl:text-[17px] text-[#20283D] tracking-tight whitespace-nowrap group-hover:text-[#F37021] transition-colors leading-none">
-                FPT <span className="text-[#F37021]">Siêu Tốc</span>
+              <span className="font-black text-base xl:text-[17px] text-[#20283D] tracking-tight whitespace-nowrap leading-none">
+                FPT <span className="animate-shimmer-orange">Siêu Tốc</span>
               </span>
               <span className="text-[10px] xl:text-[10.5px] text-[#C44D06] font-bold leading-none mt-1 whitespace-nowrap">
                 Tiếp nhận đăng ký 24/7
