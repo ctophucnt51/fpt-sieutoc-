@@ -65,8 +65,44 @@ export default function ArticleDetailPage({
     .filter((a) => a.id !== article.id)
     .slice(0, 3);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: article.excerpt,
+    image: [
+      article.thumbnail?.startsWith("http")
+        ? article.thumbnail
+        : `${siteConfig.brand.domain}${article.thumbnail || "/images/banners/combo-epl-official.jpg"}`,
+    ],
+    datePublished: article.createdAt,
+    dateModified: article.updatedAt || article.createdAt,
+    author: {
+      "@type": "Organization",
+      name: article.author || siteConfig.brand.name,
+      url: siteConfig.brand.domain,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.brand.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.brand.domain}/images/logo-gofpt-square.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.brand.domain}/tin-tuc/${article.slug}`,
+    },
+  };
+
   return (
     <div className="bg-[#F4F6FB] min-h-screen py-8 sm:py-14">
+      {/* Google Article Structured Data (JSON-LD) for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
         <div className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap">
