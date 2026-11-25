@@ -38,6 +38,9 @@ export const metadata: Metadata = {
     "đăng ký wifi fpt",
   ],
   authors: [{ name: siteConfig.brand.name }],
+  verification: {
+    google: "Lj3Z-qZW24iZE3en8qrzyFuteloAASTXeebu0NN-4p4",
+  },
   robots: {
     index: true,
     follow: true,
