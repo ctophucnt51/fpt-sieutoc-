@@ -57,6 +57,7 @@ export default function TrafficManagement({
   const [daily, setDaily] = useState<Record<string, DailyTrafficBucket>>({});
   const [recent, setRecent] = useState<RecentVisit[]>([]);
   const [suspiciousIps, setSuspiciousIps] = useState<SuspiciousIpReport[]>([]);
+  const [showAllRecent, setShowAllRecent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [rangeDays, setRangeDays] = useState<1 | 7 | 30>(7);
 
@@ -134,6 +135,16 @@ export default function TrafficManagement({
     }
     return map;
   }, [suspiciousIps]);
+
+  const googleOnlyRecent = useMemo(() => {
+    return recent.filter(
+      (v) => v.source === "Google Ads" || v.source === "Google Search"
+    );
+  }, [recent]);
+
+  const displayedRecent = useMemo(() => {
+    return showAllRecent ? recent.slice(0, 100) : googleOnlyRecent.slice(0, 50);
+  }, [showAllRecent, recent, googleOnlyRecent]);
 
   useEffect(() => {
     fetchTraffic();
@@ -673,19 +684,49 @@ export default function TrafficManagement({
             <h4 className="font-bold text-sm text-slate-900">
               Chi Tiết Từng Lượt Truy Cập (Realtime &amp; 30 Phút Gần Nhất)
             </h4>
-            <p className="text-xs text-slate-500">
-              Hiển thị IP, vị trí địa lý, nguồn truy cập cụ thể, chiến dịch / từ khóa tìm kiếm (nếu có).
+            <p className="text-xs text-slate-500 mt-0.5">
+              {showAllRecent
+                ? `Đang mở rộng xem đầy đủ tất cả nguồn (${recent.length} lượt gần nhất).`
+                : `Mặc định chỉ hiển thị nguồn Google Ads & Google Search (${googleOnlyRecent.length} lượt) để dễ theo dõi.`}
             </p>
           </div>
-          <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-            30 phút qua: {summary.last30mPageviews} lượt
-          </span>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              30 phút qua: {summary.last30mPageviews} lượt
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowAllRecent((prev) => !prev)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-colors cursor-pointer ${
+                showAllRecent
+                  ? "bg-slate-900 text-white border-slate-900 hover:bg-slate-800"
+                  : "bg-orange-50 text-fpt-orange border-orange-200 hover:bg-orange-100"
+              }`}
+            >
+              {showAllRecent
+                ? "Thu gọn (Chỉ Google Ads & Search)"
+                : `Chi tiết mở rộng (Xem tất cả ${recent.length})`}
+            </button>
+          </div>
         </div>
 
-        {recent.length === 0 ? (
-          <p className="text-xs text-slate-500 py-6 text-center bg-slate-50 rounded-xl border border-dashed border-slate-200">
-            Chưa có lượt truy cập mới được ghi nhận. Khi khách vào trang chủ hoặc các trang gói cước, thông tin IP, vị trí và nguồn sẽ hiện ngay tại đây.
-          </p>
+        {displayedRecent.length === 0 ? (
+          <div className="text-xs text-slate-500 py-6 px-4 text-center bg-slate-50 rounded-xl border border-dashed border-slate-200 space-y-2">
+            <p>
+              {showAllRecent
+                ? "Chưa có lượt truy cập mới được ghi nhận."
+                : "Chưa có lượt truy cập nào từ nguồn Google Ads hoặc Google Search trong danh sách gần nhất."}
+            </p>
+            {!showAllRecent && recent.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setShowAllRecent(true)}
+                className="px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-800 font-bold hover:bg-slate-100 cursor-pointer"
+              >
+                Mở rộng xem {recent.length} lượt từ nguồn khác (Direct, Facebook, Zalo...)
+              </button>
+            )}
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
@@ -699,7 +740,7 @@ export default function TrafficManagement({
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {recent.slice(0, 50).map((v) => {
+                {displayedRecent.map((v) => {
                   const rel = formatRelativeMinutes(v.timestamp);
                   const fraudInfo = v.ip ? suspiciousIpMap.get(v.ip) : undefined;
                   return (
