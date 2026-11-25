@@ -16,6 +16,15 @@ import {
   Share2,
 } from "lucide-react";
 
+export function generateStaticParams() {
+  const articles = getAllArticles(false);
+  return articles.map((article) => ({
+    slug: article.slug,
+  }));
+}
+
+export const dynamicParams = true;
+
 export async function generateMetadata({
   params,
 }: {

@@ -233,6 +233,33 @@ export async function POST(request: NextRequest) {
 
       if (fs.existsSync(backupPath)) {
         try {
+          // Xử lý riêng bài viết: Hợp nhất (Merge) bài viết từ code mới kéo về để không làm mất bài viết mới xuất bản
+          if (file === "articles.json") {
+            try {
+              const backupRaw = fs.readFileSync(backupPath, "utf8");
+              const backupArticles = JSON.parse(backupRaw);
+              let merged = Array.isArray(backupArticles) ? [...backupArticles] : [];
+              if (fs.existsSync(seedPath)) {
+                const seedRaw = fs.readFileSync(seedPath, "utf8");
+                const seedArticles = JSON.parse(seedRaw);
+                if (Array.isArray(seedArticles)) {
+                  for (const sa of seedArticles) {
+                    if (!merged.some((a: any) => a.id === sa.id || a.slug === sa.slug)) {
+                      merged.unshift(sa);
+                    }
+                  }
+                }
+              }
+              fs.writeFileSync(persistentPath, JSON.stringify(merged, null, 2), "utf8");
+              if (fs.existsSync(seedDataDir)) {
+                fs.writeFileSync(seedPath, JSON.stringify(merged, null, 2), "utf8");
+              }
+              continue;
+            } catch (mergeErr) {
+              console.error("Lỗi hợp nhất articles.json:", mergeErr);
+            }
+          }
+
           fs.copyFileSync(backupPath, persistentPath);
           if (fs.existsSync(seedDataDir)) {
             fs.copyFileSync(backupPath, seedPath);
