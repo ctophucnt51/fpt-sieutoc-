@@ -312,6 +312,7 @@ export function runSeoMasterCycle(): {
 
   // QA Audit existing articles
   const approvals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []);
+  const failingQaTargets = new Set<string>();
   for (const art of articles) {
     const qa = runQaSafetyCheck({
       title: art.title,
@@ -319,6 +320,7 @@ export function runSeoMasterCycle(): {
       contentHtml: art.content,
     });
     if (!qa.passed) {
+      failingQaTargets.add(`/tin-tuc/${art.slug}`);
       const res = enqueueSeoTask({
         dedupKey: `qa-fix-${art.id}`,
         title: `Sửa vi phạm Google Ads / NAP trong bài "${art.title}"`,
@@ -359,7 +361,12 @@ export function runSeoMasterCycle(): {
   const nowIso = new Date().toISOString();
   let tasksModified = false;
   for (const t of currentTasks) {
-    if ((t.status === "pending" || t.status === "in_progress") && resolvedDedupKeys.has(t.dedupKey)) {
+    const isResolvedQa =
+      t.dedupKey.startsWith("qa-fix-") && (!t.targetUrl || !failingQaTargets.has(t.targetUrl));
+    if (
+      (t.status === "pending" || t.status === "in_progress") &&
+      (resolvedDedupKeys.has(t.dedupKey) || isResolvedQa)
+    ) {
       t.status = "completed";
       t.updatedAt = nowIso;
       autoResolvedCount++;
