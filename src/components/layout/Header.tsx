@@ -81,7 +81,7 @@ export default function Header() {
   const navLinks = [
     {
       href: "/combo-ngoai-hang-anh",
-      label: "Combo Ngoại Hạng Anh",
+      label: "Ngoại Hạng Anh",
       badge: "220K",
       badgeColor: "bg-red-600 text-white",
     },
@@ -93,13 +93,13 @@ export default function Header() {
     },
     {
       href: "/camera-fpt",
-      label: "Camera FPT AI",
-      badge: "0đ",
-      badgeColor: "bg-emerald-600 text-white",
+      label: "Camera AI",
+      badge: null,
+      badgeColor: "",
     },
     {
       href: "/bang-gia",
-      label: "Bảng Giá Cước",
+      label: "Bảng Giá",
       badge: null,
       badgeColor: "",
     },
@@ -206,83 +206,33 @@ export default function Header() {
         </div>
       </div>
 
-      {/* TẦNG 2B: DESKTOP MAIN NAVBAR (Phong cách Long Châu: Nền trắng, Logo FPT, Hotline & Nút CTA Bo Tròn) */}
-      <div className="hidden lg:block bg-white border-b border-[#E4E8ED] shadow-[0px_2px_8px_-2px_rgba(243,112,33,0.06)]">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-8 h-16 lg:h-[70px] flex items-center justify-between gap-3">
-          {/* Left: Logo FPT & Slogan Thành viên FPT */}
-          <Link href="/" className="flex items-center gap-3.5 group shrink-0">
+      {/* TẦNG 2B: DESKTOP MAIN NAVBAR (Tích hợp Menu Ngang Trực Quan, Gọn Đẹp Chuẩn SaaS) */}
+      <div className="hidden lg:block bg-white border-b border-[#E4E8ED] shadow-[0px_2px_12px_-4px_rgba(15,23,42,0.06)]">
+        <div className="max-w-[1280px] mx-auto px-5 xl:px-8 h-16 lg:h-[68px] flex items-center justify-between gap-4">
+          {/* Left: Logo FPT & Tên Kênh */}
+          <Link href="/" className="flex items-center gap-3 group shrink-0">
             <img
               src="/images/logo-ftel.svg"
               alt="FPT Telecom"
-              width={120}
-              height={40}
+              width={110}
+              height={36}
               loading="eager"
               decoding="async"
-              className="h-9 lg:h-10 w-auto object-contain transition-transform group-hover:scale-102"
+              className="h-8 xl:h-9 w-auto object-contain transition-transform group-hover:scale-102"
             />
-            <div className="h-6 w-px bg-[#E4E8ED] mx-0.5" />
+            <div className="h-6 w-px bg-[#E4E8ED]" />
             <div className="flex flex-col">
-              <span className="font-black text-lg lg:text-[19px] text-[#20283D] tracking-tight whitespace-nowrap group-hover:text-[#F37021] transition-colors leading-tight">
-                Lắp Mạng FPT Siêu Tốc
+              <span className="font-black text-base xl:text-[17px] text-[#20283D] tracking-tight whitespace-nowrap group-hover:text-[#F37021] transition-colors leading-tight">
+                FPT Siêu Tốc
               </span>
-              <span className="text-[11px] text-[#C44D06] font-bold leading-none mt-0.5">
-                Đại Lý Tiếp Nhận Dịch Vụ
+              <span className="text-[10.5px] text-[#C44D06] font-bold leading-none mt-0.5 whitespace-nowrap">
+                Tiếp nhận đăng ký 24/7
               </span>
             </div>
           </Link>
 
-          {/* Center (Desktop): Quick Trust Badges */}
-          <div className="hidden xl:flex items-center gap-4 text-xs text-[#2F364A] font-semibold">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4F6FB] border border-[#E4E8ED]">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>Khảo sát tận nơi 0đ</span>
-            </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4F6FB] border border-[#E4E8ED]">
-              <Zap className="w-4 h-4 text-[#F37021] shrink-0" />
-              <span>Lắp đặt trong 24 giờ</span>
-            </div>
-          </div>
-
-          {/* Right: Hotline Pill & CTA Button */}
-          <div className="flex items-center gap-3 shrink-0">
-            {/* Desktop Hotline Pill */}
-            <a
-              href={siteConfig.contact.hotlineTel}
-              onClick={() => handleHotlineClick("Header Hotline Pill")}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F4F6FB] hover:bg-[#FFF4ED] border border-[#E4E8ED] hover:border-orange-300 text-[#20283D] transition-all"
-            >
-              <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-xs">
-                <Phone className="w-3.5 h-3.5 text-[#F37021] fill-current" />
-              </div>
-              <div className="text-left">
-                <span className="block text-[9.5px] text-[#657384] font-medium leading-none">
-                  Tổng đài 24/7
-                </span>
-                <span className="text-xs font-black text-[#C44D06] leading-tight">
-                  {siteConfig.contact.hotlineDisplay}
-                </span>
-              </div>
-            </a>
-
-            {/* CTA Button: Long Châu Pill Style with FPT Orange */}
-            <button
-              type="button"
-              onClick={() => {
-                handleHotlineClick("Header CTA Button");
-                handleOpenPromoModal("Desktop Header CTA");
-              }}
-              className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white font-extrabold text-sm shadow-[0_4px_16px_rgba(243,112,33,0.35)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.45)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer"
-            >
-              <span>Đăng Ký Tư Vấn</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* TẦNG 3: CATEGORY NAVIGATION BAR (Desktop Only - Menu Ngang Chuẩn) */}
-      <div className="hidden lg:block bg-white border-b border-[#E4E8ED]">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-8">
-          <nav className="flex items-center gap-1 h-11">
+          {/* Center: Clean Horizontal Navigation Links */}
+          <nav className="flex items-center gap-0.5 xl:gap-1">
             {navLinks.map((link) => {
               const isActive =
                 pathname === link.href ||
@@ -294,7 +244,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-[13.5px] font-semibold transition-all whitespace-nowrap ${
+                  className={`flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-xl text-[12.5px] xl:text-[13px] font-bold transition-all whitespace-nowrap ${
                     isActive
                       ? "text-[#F37021] bg-[#FFF4ED]"
                       : "text-[#2F364A] hover:text-[#F37021] hover:bg-[#F4F6FB]"
@@ -302,7 +252,7 @@ export default function Header() {
                 >
                   <span>{link.label}</span>
                   {link.badge && (
-                    <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded-full bg-red-600 text-white tracking-tight shadow-xs">
+                    <span className={`text-[9px] font-extrabold px-1.5 py-0.5 rounded-full tracking-tight shadow-2xs ${link.badgeColor || "bg-red-600 text-white"}`}>
                       {link.badge}
                     </span>
                   )}
@@ -310,6 +260,38 @@ export default function Header() {
               );
             })}
           </nav>
+
+          {/* Right: Hotline Pill & CTA Button */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <a
+              href={siteConfig.contact.hotlineTel}
+              onClick={() => handleHotlineClick("Header Hotline Pill")}
+              className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4F6FB] hover:bg-[#FFF4ED] border border-[#E4E8ED] hover:border-orange-300 text-[#20283D] transition-all"
+            >
+              <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-2xs">
+                <Phone className="w-3.5 h-3.5 text-[#F37021] fill-current" />
+              </div>
+              <div className="text-left">
+                <span className="block text-[9px] text-[#657384] font-medium leading-none">
+                  Hotline 24/7
+                </span>
+                <span className="text-xs font-black text-[#C44D06] leading-tight">
+                  {siteConfig.contact.hotlineDisplay}
+                </span>
+              </div>
+            </a>
+
+            <button
+              type="button"
+              onClick={() => {
+                handleHotlineClick("Header CTA Button");
+                handleOpenPromoModal("Desktop Header CTA");
+              }}
+              className="inline-flex items-center justify-center px-5 py-2 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] hover:to-[#F37021] text-white font-extrabold text-xs xl:text-sm shadow-[0_4px_14px_rgba(243,112,33,0.3)] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <span>Đăng Ký Ngay</span>
+            </button>
+          </div>
         </div>
       </div>
     </header>

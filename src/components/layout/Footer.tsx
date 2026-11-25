@@ -303,7 +303,7 @@ export default function Footer() {
 
             {/* Decree 13 Card */}
             <div className="p-3 rounded-2xl bg-[#F4F6FB] border border-[#E4E8ED] text-[11px] sm:text-xs text-[#475569] leading-relaxed font-medium">
-              Tuân thủ Nghị định 13/2023/NĐ-CP: Mọi thông tin khách hàng chỉ phục vụ liên hệ xác nhận nhu cầu lắp đặt và được bảo mật tuyệt đối.
+              Tuân thủ Nghị định 13/2023/NĐ-CP: Mọi thông tin khách hàng chỉ phục vụ liên hệ xác nhận nhu cầu lắp đặt và được bảo mật nghiêm ngặt.
             </div>
 
             {/* Verified Partner Badge (Tuân thủ chuẩn Google Ads, không giả mạo chứng nhận chính phủ) */}
@@ -325,7 +325,7 @@ export default function Footer() {
             <strong className="text-[#0F172A] font-semibold">Tuyên bố miễn trừ trách nhiệm: </strong>
             {siteConfig.disclaimer.officialDisclaimer} Bảng giá, chương trình khuyến mãi thực tế có thể thay đổi tùy theo khu vực địa lý cụ thể và chính sách kinh doanh từng thời điểm của FPT Telecom. Quý khách vui lòng liên hệ trực tiếp hotline để được báo giá chính xác nhất tại địa chỉ lắp đặt.
           </p>
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-2 pt-3 text-[#475569] text-[11px]">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-2 pt-3 pb-16 md:pb-0 text-[#475569] text-[11px]">
             <p suppressHydrationWarning>© {new Date().getFullYear()} {siteConfig.brand.name}. Mọi quyền được bảo lưu.</p>
             <p>Hệ thống tối ưu tiếp nhận thông tin khách hàng dịch vụ FPT Telecom.</p>
           </div>

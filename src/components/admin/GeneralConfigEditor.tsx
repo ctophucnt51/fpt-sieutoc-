@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { SiteConfigType } from "@/lib/configStorage";
 import { getAdminHeaders } from "@/lib/clientAdminAuth";
-import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift, GitBranch, Download, Upload, Shield, Send, Bot, Zap } from "lucide-react";
+import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift, GitBranch, Download, Upload, Shield, Zap } from "lucide-react";
 
 interface GeneralConfigEditorProps {
   config: SiteConfigType;
@@ -30,35 +30,7 @@ export default function GeneralConfigEditor({
 }: GeneralConfigEditorProps) {
   const [formData, setFormData] = useState<SiteConfigType>(config);
   const [isSaving, setIsSaving] = useState(false);
-  const [isTestingTelegram, setIsTestingTelegram] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleTestTelegram = async () => {
-    const token = (formData as any).telegram?.botToken;
-    const chatId = (formData as any).telegram?.chatId;
-    if (!token || !chatId) {
-      showToast("Vui lòng nhập Telegram Bot Token và Chat ID trước khi kiểm tra!", "error");
-      return;
-    }
-    setIsTestingTelegram(true);
-    try {
-      const res = await fetch("/api/admin/telegram-test", {
-        method: "POST",
-        headers: { ...getAdminHeaders(), "Content-Type": "application/json" },
-        body: JSON.stringify({ botToken: token, chatId: chatId }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast(data.message || "Đã gửi tin nhắn kiểm tra thành công vào Telegram!", "success");
-      } else {
-        showToast(data.message || "Gửi thất bại. Vui lòng kiểm tra lại token/chatId.", "error");
-      }
-    } catch (err: any) {
-      showToast("Lỗi kết nối kiểm tra: " + err.message, "error");
-    } finally {
-      setIsTestingTelegram(false);
-    }
-  };
 
   const handleExportBackup = () => {
     try {
@@ -632,106 +604,7 @@ export default function GeneralConfigEditor({
         </div>
       </div>
 
-      {/* 5. CẤU HÌNH THÔNG BÁO TELEGRAM (BẮN ĐƠN TỨC THÌ) */}
-      <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <Bot className="w-5 h-5 text-sky-500" />
-            <h3 className="font-bold text-base text-slate-900">
-              Thông Báo Telegram Bot (Nhận Đơn Tức Thì)
-            </h3>
-          </div>
-          <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-sky-500 text-white uppercase tracking-wider">
-            Realtime Alert
-          </span>
-        </div>
-
-        <p className="text-xs text-slate-600 leading-relaxed">
-          Mỗi khi khách hàng gửi đơn đăng ký trên Website, hệ thống sẽ tự động gửi thông báo chi tiết (Họ tên, SĐT, Địa chỉ, Gói cước) vào nhóm Telegram hoặc tài khoản cá nhân của bạn.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Telegram Bot Token (Do @BotFather cấp)
-            </label>
-            <input
-              type="text"
-              value={(formData as any).telegram?.botToken || ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  telegram: {
-                    ...((formData as any).telegram || {}),
-                    botToken: e.target.value.trim(),
-                  },
-                } as any)
-              }
-              placeholder="VD: 7123456789:AAFlmQ9uB..."
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 text-xs sm:text-sm text-slate-900 outline-none font-mono"
-            />
-            <p className="text-[11px] text-slate-400 mt-1">
-              Tạo bot tại <code>@BotFather</code> trên Telegram để lấy API Token
-            </p>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Chat ID (ID Nhóm hoặc ID Người nhận)
-            </label>
-            <input
-              type="text"
-              value={(formData as any).telegram?.chatId || ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  telegram: {
-                    ...((formData as any).telegram || {}),
-                    chatId: e.target.value.trim(),
-                  },
-                } as any)
-              }
-              placeholder="VD: -100123456789 hoặc 123456789"
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-sky-500 focus:ring-2 focus:ring-sky-100 text-xs sm:text-sm text-slate-900 outline-none font-mono"
-            />
-            <p className="text-[11px] text-slate-400 mt-1">
-              Thêm bot vào nhóm và gửi 1 tin nhắn, lấy ID nhóm qua <code>@userinfobot</code>
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
-          <label className="flex items-center gap-2.5 cursor-pointer text-xs sm:text-sm font-bold text-slate-800">
-            <input
-              type="checkbox"
-              checked={(formData as any).telegram?.enabled ?? true}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  telegram: {
-                    ...((formData as any).telegram || {}),
-                    enabled: e.target.checked,
-                  },
-                } as any)
-              }
-              className="w-4 h-4 text-sky-500 rounded border-slate-300 focus:ring-sky-500 cursor-pointer"
-            />
-            <span>Bật gửi thông báo đơn hàng tức thì về Telegram</span>
-          </label>
-
-          <button
-            type="button"
-            disabled={isTestingTelegram}
-            onClick={handleTestTelegram}
-            className="px-4 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 font-semibold text-xs transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-60"
-          >
-            <Send className="w-3.5 h-3.5" />
-            <span>{isTestingTelegram ? "Đang gửi thử..." : "Bấm gửi thử nghiệm tin nhắn"}</span>
-          </button>
-        </div>
-      </div>
-
-      {/* 6. Legal & Disclaimer */}
+      {/* 5. Legal & Disclaimer */}
       <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-4">
         <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
           <ShieldCheck className="w-5 h-5 text-emerald-600" />

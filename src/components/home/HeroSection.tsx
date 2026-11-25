@@ -31,7 +31,7 @@ export default function HeroSection({
   const { openLeadModal } = useLeadModal();
 
   return (
-    <section className="relative bg-gradient-to-br from-[#F8FAFC] via-white to-[#FFF7F2] pt-5 pb-8 sm:pt-8 sm:pb-12 border-b border-[#E4E8ED] overflow-hidden max-w-full">
+    <section className="relative bg-gradient-to-br from-[#F8FAFC] via-white to-[#FFF7F2] pt-3.5 pb-6 sm:pt-7 sm:pb-11 border-b border-[#E4E8ED] overflow-hidden max-w-full">
       {/* Subtle Nationwide Fiber Optic Infrastructure Map Backdrop (Desktop) */}
       <div className="hidden lg:block absolute right-[38%] top-1/2 -translate-y-1/2 w-[540px] h-[540px] pointer-events-none select-none opacity-[0.12]">
         <img
@@ -43,9 +43,9 @@ export default function HeroSection({
       </div>
 
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 items-start xl:items-center">
           {/* Left Column: Clear Value Proposition, Hardware Showcase & Priority Packages */}
-          <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-center lg:text-left">
+          <div className="lg:col-span-7 space-y-3.5 sm:space-y-4.5 text-center lg:text-left">
             {/* Top Pill Badge */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] text-[11px] sm:text-xs font-semibold text-[#0F172A] shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] shrink-0" />
@@ -53,15 +53,31 @@ export default function HeroSection({
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[38px] font-black text-[#0F172A] tracking-tight leading-snug sm:leading-[1.18] break-words">
+            <h1 className="text-[22px] sm:text-3xl md:text-4xl lg:text-[38px] font-black text-[#0F172A] tracking-tight leading-snug sm:leading-[1.18] break-words">
               {headline}
             </h1>
 
             {showPriorityCards ? (
-              <div className="space-y-4 text-left max-w-2xl mx-auto lg:max-w-none">
+              <div className="space-y-3.5 sm:space-y-4 text-left max-w-2xl mx-auto lg:max-w-none">
                 <p className="text-xs sm:text-sm text-[#475569] leading-relaxed text-center lg:text-left font-medium">
-                  Đường truyền cáp quang tốc độ lên đến <strong className="text-[#0F172A]">1 Gbps</strong>, lắp đặt thần tốc trong 24h. Trang bị trọn bộ thiết bị chính hãng:
+                  Đường truyền cáp quang tốc độ lên đến <strong className="text-[#0F172A]">1 Gbps</strong>, lắp đặt nhanh trong 24h. Trang bị trọn bộ thiết bị chính hãng:
                 </p>
+
+                {/* Mobile Quick Jump CTA (Chỉ hiện trên Mobile để khách bấm điền form hoặc gọi ngay không cần cuộn sâu) */}
+                <div className="flex lg:hidden items-center justify-center gap-2 pt-0.5">
+                  <a
+                    href="#lead-form"
+                    className="flex-1 py-2.5 px-3 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white font-extrabold text-xs text-center shadow-sm active:scale-95 transition-transform whitespace-nowrap"
+                  >
+                    Đăng ký tư vấn ngay ↓
+                  </a>
+                  <a
+                    href={siteConfig.contact.hotlineTel}
+                    className="py-2.5 px-4 rounded-full bg-white border border-[#E4E8ED] text-[#0F172A] font-extrabold text-xs text-center shadow-2xs active:scale-95 transition-transform whitespace-nowrap"
+                  >
+                    Gọi {siteConfig.contact.hotlineDisplay}
+                  </a>
+                </div>
 
                 {/* 1. Showcase 3 Real Hardware & Infrastructure Visuals */}
                 <div className="grid grid-cols-3 gap-2 sm:gap-3.5">
