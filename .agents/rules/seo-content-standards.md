@@ -1,6 +1,6 @@
 ---
 trigger: always_on
-description: "Quy chuẩn cố định và giao thức viết bài tự động theo lệnh 'Viết bài + nội dung + ảnh' cho gofpt.vn"
+description: "Quy chuẩn cố định và giao thức viết bài tự động Clean Editorial theo lệnh 'Viết bài + nội dung + ảnh' cho gofpt.vn"
 ---
 
 # QUY CHUẨN DỰ ÁN & GIAO THỨC VIẾT BÀI TỰ ĐỘNG (GOFPT.VN)
@@ -12,23 +12,17 @@ description: "Quy chuẩn cố định và giao thức viết bài tự động 
 - Địa chỉ: Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ
 - Domain: https://gofpt.vn
 
-## 2. GIAO THỨC LỆNH "VIẾT BÀI + NỘI DUNG + ẢNH"
-Khi người dùng ra lệnh theo cấu trúc này, tự động thực thi trọn gói:
-1. Lưu ảnh vào `public/images/banners/` hoặc `public/images/news/` với tên file SEO.
-2. Tiêu đề H1: 55-65 ký tự, từ khóa chính đứng đầu, thu hút click.
-3. Excerpt: 150-160 ký tự, tóm tắt có CTA.
-4. Layout bài viết:
-   - Không lặp ảnh bìa trong nội dung.
-   - Tiêu đề H2 (`1.`, `2.`, `3.`...): Huy hiệu số cam bo tròn `bg-orange-600 text-white font-black`, gạch chân nhạt `border-b-2 border-orange-100`, chữ đen đậm `font-black text-slate-900`.
-   - Tiêu đề H3 (`3.1.`, `3.2.`...): Viền cam dày bên trái `border-l-4 border-orange-500`, số thứ tự cam `text-orange-600 font-black`, chữ đen đậm `font-black text-slate-900`.
-   - Độ tương phản: Khối thông báo nền cam nhạt `bg-orange-50/90`, viền cam `border-2 border-orange-300`, chữ đen đậm `text-slate-900`, bảng biểu chữ đen rõ ràng.
-   - Thẻ bảng giá CTA Combo Giga 220K & Combo Sky 250K.
-   - Mục FAQ 3 câu hỏi ngắn gọn hỗ trợ Google Featured Snippets.
-   - Khối liên hệ cố định ở cuối bài viết.
-5. Kỹ thuật:
-   - Lưu vào `src/data/articles.json`, `data/articles.json` và `INITIAL_ARTICLES`.
-   - Giữ `generateStaticParams` để xuất bản tĩnh SSG chống lỗi 404.
-   - Gắn JSON-LD Schema `NewsArticle`.
-   - Tự động nạp vào `sitemap.xml`.
-   - `next build` kiểm tra sạch lỗi -> `git commit` & `git push origin main`.
-   - Trả link bài viết và hướng dẫn người dùng bấm "Đồng bộ từ GitHub" trên `/admin`.
+## 2. GIAO THỨC LỆNH "VIẾT BÀI + NỘI DUNG + ẢNH" (ĐÃ CHỐT)
+Khi người dùng gửi lệnh này, tự động thực thi theo chuẩn **Clean & Minimal Editorial**:
+1. Lưu ảnh vào `public/images/banners/` hoặc `public/images/news/` với tên file SEO, không lặp ảnh bìa trong thân bài.
+2. Tiêu đề H1 (55-65 ký tự) & Excerpt (150-160 ký tự) chuẩn SEO.
+3. Phong cách trình bày sạch sẽ, sáng sủa:
+   - Nền trắng, chữ ghi đen sắc nét, không dùng hộp nền tối hay card quảng cáo rườm rà trong thân bài.
+   - H2 (`1.`, `2.`...) màu cam FPT in đậm (`prose-h2:text-fpt-orange prose-h2:font-black`) kèm đường kẻ phân cách.
+   - H3 (`2.1.`, `2.2.`...) có số thứ tự màu cam (`<span class="text-fpt-orange">2.1.</span>`) và tiêu đề đen đậm.
+   - Bảng biểu sáng `bg-white`, header `bg-slate-50`, nhãn nhấn mạnh tinh tế.
+   - FAQ 2-3 câu hỏi ngắn gọn + Khối liên hệ cố định (`bg-orange-50/70 border-orange-200`) ở cuối bài.
+4. Kỹ thuật:
+   - Lưu vào `src/data/articles.json`, `data/articles.json`, `INITIAL_ARTICLES`.
+   - SSG `generateStaticParams` chống 404, JSON-LD `NewsArticle`, cập nhật `sitemap.xml`.
+   - `next build` -> `git commit` -> `git push origin main` -> trả link bài viết.
