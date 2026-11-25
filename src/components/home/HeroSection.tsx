@@ -3,7 +3,7 @@
 import { useSiteConfig } from "@/context/ConfigContext";
 import { useLeadModal } from "@/context/LeadModalContext";
 import LeadForm from "@/components/forms/LeadForm";
-import { Star, ArrowRight, Check } from "lucide-react";
+import { ShieldCheck, ArrowRight, Check } from "lucide-react";
 
 interface HeroSectionProps {
   badge?: string;
@@ -260,11 +260,14 @@ export default function HeroSection({
                     <img src="/images/icons/svg/khao-sat.svg" alt="Khảo sát" width={14} height={14} className="w-3.5 h-3.5 object-contain shrink-0" />
                     <span>Khảo sát 0đ</span>
                   </span>
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs whitespace-nowrap">
-                    <Star className="w-3.5 h-3.5 text-amber-500 fill-current shrink-0" />
-                    <span>4.9/5 (100K+ KH)</span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs whitespace-nowrap">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>Hỗ trợ kỹ thuật 24/7</span>
                   </span>
                 </div>
+                <p className="text-[11px] text-[#64748B] text-center lg:text-left leading-relaxed">
+                  Giá cước đã bao gồm 10% VAT. Chính sách trang bị thiết bị và ưu đãi áp dụng theo điều kiện gói cước &amp; khu vực lắp đặt.
+                </p>
               </div>
             ) : (
               <>
@@ -351,7 +354,7 @@ export default function HeroSection({
             <LeadForm
               defaultPackage={defaultPackage}
               headline={formHeadline}
-              subheadline={siteConfig.promo?.heroGiftText || "Tặng thiết bị WiFi 6 cho 300 KH đầu tiên"}
+              subheadline="Kiểm tra hạ tầng & tư vấn gói cước miễn phí"
               formLocation="hero-mobile-form"
             />
           </div>

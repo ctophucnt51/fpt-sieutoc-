@@ -53,7 +53,7 @@ export default function ProcessSection() {
             4 Bước Đăng Ký &amp; Lắp Đặt Siêu Tốc Trong 24 Giờ
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-[#334155] font-medium">
-            Thủ tục đơn giản nhất thị trường, không cần đặt cọc trước, khảo sát tận nơi hoàn toàn miễn phí.
+            Thủ tục đăng ký đơn giản, hỗ trợ khảo sát hạ tầng tận nơi miễn phí theo chính sách khu vực.
           </p>
         </div>
 

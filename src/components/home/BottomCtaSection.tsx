@@ -13,7 +13,7 @@ interface BottomCtaSectionProps {
 export default function BottomCtaSection({
   defaultPackage = "SKY",
   title = "Đăng Ký Lắp Mạng FPT Ngay Hôm Nay Để Nhận Ưu Đãi Tốt Nhất",
-  description = "Chuyên viên kỹ thuật FPT sẽ liên hệ tư vấn vị trí lắp đặt, đo kiểm sóng Wi-Fi và tiến hành khảo sát hạ tầng hoàn toàn miễn phí.",
+  description = "Chuyên viên kỹ thuật FPT sẽ liên hệ tư vấn vị trí lắp đặt, đo kiểm sóng Wi-Fi và tiến hành khảo sát hạ tầng miễn phí theo khu vực.",
 }: BottomCtaSectionProps) {
   const siteConfig = useSiteConfig();
   return (
@@ -177,7 +177,7 @@ export default function BottomCtaSection({
             <LeadForm
               defaultPackage={defaultPackage}
               headline="NHẬN TƯ VẤN MIỄN PHÍ"
-              subheadline="Tặng thiết bị WiFi 6 cho 300 KH đầu tiên"
+              subheadline="Kiểm tra hạ tầng & tư vấn gói cước miễn phí"
               formLocation="bottom-cta-form"
             />
           </div>

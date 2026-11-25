@@ -38,7 +38,7 @@ export default function CameraFeatureSection() {
             </div>
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900 mb-1.5">Lưu Trữ Cloud FPT</h3>
             <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              Dữ liệu video được lưu trữ tại trung tâm dữ liệu chuẩn Tier III của FPT Telecom tại VN, an toàn tuyệt đối ngay cả khi camera bị mất cắp.
+              Dữ liệu video được lưu trữ tại trung tâm dữ liệu chuẩn Tier III của FPT Telecom tại VN, bảo mật cao theo tiêu chuẩn an ninh dữ liệu.
             </p>
           </div>
 

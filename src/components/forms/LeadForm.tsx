@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useSiteConfig } from "@/context/ConfigContext";
 import { captureAttribution } from "@/lib/trackingUtils";
@@ -303,7 +304,7 @@ export default function LeadForm({
           {headline || "NHẬN TƯ VẤN MIỄN PHÍ"}
         </h3>
         <p className="text-[#64748B] text-xs sm:text-sm font-medium mt-1 leading-snug">
-          {subheadline || "Tặng thiết bị WiFi 6 cho 300 KH đầu tiên"}
+          {subheadline || "Kiểm tra hạ tầng & tư vấn gói cước miễn phí"}
         </p>
       </div>
 
@@ -529,8 +530,16 @@ export default function LeadForm({
               </>
             )}
           </button>
-          <p className="text-[11px] text-[#64748B] font-medium mt-2.5 text-center">
-            🔒 Bảo mật thông tin 100% • Khảo sát 0đ • Lắp đặt trong 24h
+          <p className="text-[11px] text-[#64748B] font-medium mt-3 text-center leading-relaxed">
+            Bằng việc gửi thông tin, bạn đồng ý với{" "}
+            <Link href="/chinh-sach-bao-mat" className="text-[#0F172A] underline hover:text-[#F37021]">
+              Chính sách bảo mật
+            </Link>{" "}
+            và{" "}
+            <Link href="/dieu-khoan" className="text-[#0F172A] underline hover:text-[#F37021]">
+              Điều khoản dịch vụ
+            </Link>
+            .
           </p>
         </div>
       </form>
