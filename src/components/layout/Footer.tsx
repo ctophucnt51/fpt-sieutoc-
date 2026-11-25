@@ -115,6 +115,51 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/camera-fpt"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                >
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
+                  <span>Camera FPT AI An Ninh</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/bang-gia"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                >
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
+                  <span>Bảng Giá Cước Mới Nhất</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/khuyen-mai"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                >
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
+                  <span>Ưu Đãi &amp; Khuyến Mãi</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/quy-trinh-lap-dat"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                >
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
+                  <span>Quy Trình Lắp Đặt 24H</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/hoi-dap"
+                  className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
+                >
+                  <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8] group-hover:text-[#F37021] transition-colors" />
+                  <span>Câu Hỏi Thường Gặp</span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/tin-tuc"
                   className="group flex items-center gap-1.5 text-[#475569] hover:text-[#F37021] transition-all duration-200 hover:translate-x-1"
                 >

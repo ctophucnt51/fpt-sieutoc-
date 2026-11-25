@@ -92,27 +92,34 @@ export default function Header() {
       badgeColor: "",
     },
     {
-      href: "/truyen-hinh-fpt",
-      label: "Truyền Hình FPT",
-      badge: null,
-      badgeColor: "",
+      href: "/camera-fpt",
+      label: "Camera FPT AI",
+      badge: "0đ",
+      badgeColor: "bg-emerald-600 text-white",
     },
     {
-      href: "/#bang-gia",
+      href: "/bang-gia",
       label: "Bảng Giá Cước",
       badge: null,
       badgeColor: "",
     },
     {
+      href: "/khuyen-mai",
+      label: "Ưu Đãi",
+      badge: "HOT",
+      badgeColor: "bg-[#F37021] text-white",
+    },
+    {
       href: "/tin-tuc",
-      label: "Tin Tức & Khuyến Mãi",
+      label: "Tin Tức",
       badge: null,
       badgeColor: "",
     },
   ];
 
   return (
-    <header className="sticky-header sticky top-0 z-50 w-full transition-all">
+    <>
+    <header className="sticky-header sticky top-0 z-40 w-full transition-all">
       {/* TẦNG 1: TOP PROMO BAR (Chỉ hiển thị trên Desktop, Ẩn hoàn toàn trên Mobile theo yêu cầu) */}
       <div className="hidden lg:block bg-[#FFF4ED] border-b border-orange-200/60 text-slate-800 text-[11px] sm:text-xs py-1 px-3 sm:px-6">
         <div className="max-w-[1280px] mx-auto flex items-center justify-between gap-2 min-h-[26px]">
@@ -305,9 +312,10 @@ export default function Header() {
           </nav>
         </div>
       </div>
+    </header>
 
       {/* ========================================================= */}
-      {/* KHUNG MỞ MENU MOBILE (DRAWER CHUẨN LONG CHÂU) */}
+      {/* KHUNG MỞ MENU MOBILE (NẰM NGOÀI HEADER ĐỂ LUÔN ĐÈ TRÊN THANH CHÂN TRANG) */}
       {/* ========================================================= */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-[9990] flex">
@@ -506,7 +514,7 @@ export default function Header() {
               {/* Mục 4: Camera An Ninh FPT AI */}
               <div className="px-3 py-1.5">
                 <Link
-                  href="/#bang-gia"
+                  href="/camera-fpt"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-between py-2 text-left font-bold text-[13.5px] text-[#20283D] hover:text-[#F37021] transition-colors"
                 >
@@ -520,10 +528,10 @@ export default function Header() {
                 </Link>
               </div>
 
-              {/* Mục 5: Bảng Giá Cước 2026 */}
+              {/* Mục 5: Bảng Giá Cước */}
               <div className="px-3 py-1.5">
                 <Link
-                  href="/#bang-gia"
+                  href="/bang-gia"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-between py-2 text-left font-bold text-[13.5px] text-[#20283D] hover:text-[#F37021] transition-colors"
                 >
@@ -537,7 +545,58 @@ export default function Header() {
                 </Link>
               </div>
 
-              {/* Mục 6: Tin Tức & Khuyến Mãi */}
+              {/* Mục 6: Ưu Đãi & Khuyến Mãi */}
+              <div className="px-3 py-1.5">
+                <Link
+                  href="/khuyen-mai"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2 text-left font-bold text-[13.5px] text-[#20283D] hover:text-[#F37021] transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-6 h-6 rounded-lg bg-orange-50 flex items-center justify-center text-[#F37021]">
+                      <Flame className="w-3.5 h-3.5" />
+                    </div>
+                    <span>Khuyến Mãi &amp; Quà Tặng</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                </Link>
+              </div>
+
+              {/* Mục 7: Quy Trình & Thủ Tục Lắp Đặt */}
+              <div className="px-3 py-1.5">
+                <Link
+                  href="/quy-trinh-lap-dat"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2 text-left font-bold text-[13.5px] text-[#20283D] hover:text-[#F37021] transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-6 h-6 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                      <Zap className="w-3.5 h-3.5" />
+                    </div>
+                    <span>Quy Trình Lắp Đặt 24H</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                </Link>
+              </div>
+
+              {/* Mục 8: Hỏi Đáp & Hỗ Trợ */}
+              <div className="px-3 py-1.5">
+                <Link
+                  href="/hoi-dap"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between py-2 text-left font-bold text-[13.5px] text-[#20283D] hover:text-[#F37021] transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-6 h-6 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                    </div>
+                    <span>Câu Hỏi Thường Gặp</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                </Link>
+              </div>
+
+              {/* Mục 9: Tin Tức & Khuyến Mãi */}
               <div className="px-3 py-1.5">
                 <Link
                   href="/tin-tuc"
@@ -548,7 +607,7 @@ export default function Header() {
                     <div className="w-6 h-6 rounded-lg bg-[#FFF4ED] flex items-center justify-center text-[#F37021]">
                       <FileText className="w-3.5 h-3.5" />
                     </div>
-                    <span>Tin Tức & Khuyến Mãi</span>
+                    <span>Tin Tức Viễn Thông</span>
                   </div>
                   <ChevronRight className="w-4 h-4 text-slate-400" />
                 </Link>
@@ -581,6 +640,6 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }

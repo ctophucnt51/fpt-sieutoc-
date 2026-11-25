@@ -64,10 +64,10 @@ export default function HeroSection({
                 </p>
 
                 {/* 1. Showcase 3 Real Hardware & Infrastructure Visuals */}
-                <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3.5">
                   {/* Hardware 1: Modem Wi-Fi 6 */}
-                  <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2.5 sm:p-3 text-center shadow-2xs hover:border-orange-300 transition-all flex flex-col items-center">
-                    <div className="w-full h-16 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
+                  <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2 sm:p-3 text-center shadow-2xs hover:border-orange-300 transition-all flex flex-col items-center">
+                    <div className="w-full h-14 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
                       <img
                         src="/images/products/modem-wifi-6.jpg"
                         alt="Modem Wi-Fi 6 FPT"
@@ -78,17 +78,17 @@ export default function HeroSection({
                         className="max-h-full w-auto object-contain mix-blend-multiply"
                       />
                     </div>
-                    <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight">
+                    <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight whitespace-nowrap">
                       Modem Wi-Fi 6
                     </span>
-                    <span className="mt-0.5 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <span className="mt-1 text-[9.5px] sm:text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full whitespace-nowrap">
                       Trang bị 0đ
                     </span>
                   </div>
 
                   {/* Hardware 2: Camera FPT AI */}
-                  <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2.5 sm:p-3 text-center shadow-2xs hover:border-orange-300 transition-all flex flex-col items-center">
-                    <div className="w-full h-16 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
+                  <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2 sm:p-3 text-center shadow-2xs hover:border-orange-300 transition-all flex flex-col items-center">
+                    <div className="w-full h-14 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
                       <img
                         src="/images/products/camera-fpt-ai.png"
                         alt="Camera FPT AI"
@@ -99,17 +99,17 @@ export default function HeroSection({
                         className="max-h-full w-auto object-contain"
                       />
                     </div>
-                    <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight">
+                    <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight whitespace-nowrap">
                       Camera FPT AI
                     </span>
-                    <span className="mt-0.5 text-[10px] font-bold text-[#C44D06] bg-[#FFF4ED] px-2 py-0.5 rounded-full">
+                    <span className="mt-1 text-[9.5px] sm:text-[10px] font-bold text-[#C44D06] bg-[#FFF4ED] px-2 py-0.5 rounded-full whitespace-nowrap">
                       Tặng kèm 0đ
                     </span>
                   </div>
 
                   {/* Infrastructure 3: Vietnam Fiber Coverage */}
-                  <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2.5 sm:p-3 text-center shadow-2xs hover:border-blue-300 transition-all flex flex-col items-center">
-                    <div className="w-full h-16 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
+                  <div className="rounded-2xl bg-white border border-[#E4E8ED] p-2 sm:p-3 text-center shadow-2xs hover:border-blue-300 transition-all flex flex-col items-center">
+                    <div className="w-full h-14 sm:h-20 flex items-center justify-center mb-1.5 bg-[#F8FAFC] rounded-xl p-1">
                       <img
                         src="/images/banners/vietnam-network-map.png"
                         alt="Hạ tầng FPT Phủ Sóng Toàn Quốc"
@@ -120,25 +120,25 @@ export default function HeroSection({
                         className="max-h-full w-auto object-contain"
                       />
                     </div>
-                    <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight">
-                      Phủ Sóng 63 Tỉnh
+                    <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight whitespace-nowrap">
+                      Hạ Tầng 63 Tỉnh
                     </span>
-                    <span className="mt-0.5 text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full">
+                    <span className="mt-1 text-[9.5px] sm:text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full whitespace-nowrap">
                       Lắp đặt 24h
                     </span>
                   </div>
                 </div>
 
-                {/* 2. Two Highlighted Package Cards (Compact & Scannable) */}
+                {/* 2. Two Highlighted Package Cards (Tối ưu hiển thị giá, tốc độ & CTA không xuống dòng) */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {/* Card 1: Combo Net + Ngoại Hạng Anh 220K */}
                   <div
                     onClick={() => openLeadModal("Combo GIGA")}
-                    className="rounded-2xl bg-white p-4 border border-[#E4E8ED] hover:border-[#F37021] shadow-2xs hover:shadow-[0_8px_24px_rgba(243,112,33,0.12)] transition-all cursor-pointer group flex flex-col justify-between"
+                    className="rounded-2xl bg-white p-4 border border-[#E4E8ED] border-t-[3px] border-t-[#F37021] hover:border-[#F37021] shadow-[0_4px_16px_rgba(243,112,33,0.08)] hover:shadow-[0_8px_24px_rgba(243,112,33,0.16)] transition-all cursor-pointer group flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-1.5 mb-2">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200 whitespace-nowrap">
                           <img
                             src="/images/icons/svg/ngoai-hang-anh.svg"
                             alt="EPL"
@@ -148,7 +148,7 @@ export default function HeroSection({
                           />
                           <span>380 Trận EPL</span>
                         </span>
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#FFF4ED] text-[#C44D06]">
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white whitespace-nowrap">
                           HOT NHẤT
                         </span>
                       </div>
@@ -157,17 +157,22 @@ export default function HeroSection({
                         Combo Internet + Ngoại Hạng Anh
                       </h2>
 
-                      <div className="flex items-baseline gap-1 my-1.5">
-                        <span className="text-2xl font-black text-[#C44D06] tracking-tight leading-none">
-                          220.000đ
+                      <div className="flex items-baseline justify-between gap-2 my-2">
+                        <div className="flex items-baseline gap-1 whitespace-nowrap">
+                          <span className="text-2xl font-black text-[#C44D06] tracking-tight leading-none">
+                            220.000đ
+                          </span>
+                          <span className="text-xs text-[#64748B] font-semibold">/tháng</span>
+                        </div>
+                        <span className="text-[10px] font-bold text-[#0F172A] bg-slate-100 px-2 py-0.5 rounded-md whitespace-nowrap">
+                          300 Mbps
                         </span>
-                        <span className="text-xs text-[#64748B] font-semibold">/ tháng</span>
                       </div>
 
                       <ul className="space-y-1 mt-2 text-xs text-[#334155]">
                         <li className="flex items-center gap-1.5 font-medium">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span>Cáp quang 300 Mbps + 380 trận EPL</span>
+                          <span>Xem trọn vẹn 380 trận Ngoại Hạng Anh</span>
                         </li>
                         <li className="flex items-center gap-1.5 font-medium">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -176,9 +181,9 @@ export default function HeroSection({
                       </ul>
                     </div>
 
-                    <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
-                      <span className="text-[11px] font-semibold text-[#64748B]">Lắp đặt trong 24h</span>
-                      <span className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#F37021] group-hover:bg-[#E05D10] text-white text-xs font-bold shadow-2xs transition-all">
+                    <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                      <span className="text-[11px] font-semibold text-[#64748B] whitespace-nowrap">Lắp đặt 24h</span>
+                      <span className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white text-xs font-bold shadow-2xs transition-all whitespace-nowrap shrink-0">
                         <span>Đăng ký</span>
                         <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                       </span>
@@ -188,11 +193,11 @@ export default function HeroSection({
                   {/* Card 2: Gói chỉ Internet Wi-Fi 6 195K */}
                   <div
                     onClick={() => openLeadModal("SKY")}
-                    className="rounded-2xl bg-white p-4 border border-[#E4E8ED] hover:border-[#F37021] shadow-2xs hover:shadow-[0_8px_24px_rgba(243,112,33,0.12)] transition-all cursor-pointer group flex flex-col justify-between"
+                    className="rounded-2xl bg-white p-4 border border-[#E4E8ED] border-t-[3px] border-t-[#0F172A] hover:border-[#F37021] shadow-2xs hover:shadow-[0_8px_24px_rgba(15,23,42,0.1)] transition-all cursor-pointer group flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-1.5 mb-2">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 whitespace-nowrap">
                           <img
                             src="/images/icons/svg/wifi-6.svg"
                             alt="Wi-Fi 6"
@@ -200,9 +205,9 @@ export default function HeroSection({
                             height={12}
                             className="w-3 h-3 object-contain shrink-0"
                           />
-                          <span>1 Gbps (Gói Sky)</span>
+                          <span>Gói Sky Wi-Fi 6</span>
                         </span>
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 whitespace-nowrap">
                           TIẾT KIỆM
                         </span>
                       </div>
@@ -211,17 +216,22 @@ export default function HeroSection({
                         Chỉ Internet Wi-Fi 6 Siêu Tốc
                       </h2>
 
-                      <div className="flex items-baseline gap-1 my-1.5">
-                        <span className="text-2xl font-black text-[#C44D06] tracking-tight leading-none">
-                          195.000đ
+                      <div className="flex items-baseline justify-between gap-2 my-2">
+                        <div className="flex items-baseline gap-1 whitespace-nowrap">
+                          <span className="text-2xl font-black text-[#0F172A] tracking-tight leading-none">
+                            195.000đ
+                          </span>
+                          <span className="text-xs text-[#64748B] font-semibold">/tháng</span>
+                        </div>
+                        <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md whitespace-nowrap">
+                          Đến 1 Gbps
                         </span>
-                        <span className="text-xs text-[#64748B] font-semibold">/ tháng</span>
                       </div>
 
                       <ul className="space-y-1 mt-2 text-xs text-[#334155]">
                         <li className="flex items-center gap-1.5 font-medium">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span>Download lên đến 1 Gbps, chịu tải 30+ máy</span>
+                          <span>Băng thông cực đại, chịu tải 30+ thiết bị</span>
                         </li>
                         <li className="flex items-center gap-1.5 font-medium">
                           <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -230,9 +240,9 @@ export default function HeroSection({
                       </ul>
                     </div>
 
-                    <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
-                      <span className="text-[11px] font-semibold text-[#64748B]">Khảo sát 0đ</span>
-                      <span className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#0F172A] group-hover:bg-[#F37021] text-white text-xs font-bold shadow-2xs transition-all">
+                    <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between gap-2">
+                      <span className="text-[11px] font-semibold text-[#64748B] whitespace-nowrap">Khảo sát 0đ</span>
+                      <span className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-[#0F172A] group-hover:bg-[#F37021] text-white text-xs font-bold shadow-2xs transition-all whitespace-nowrap shrink-0">
                         <span>Đăng ký</span>
                         <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                       </span>
@@ -242,17 +252,17 @@ export default function HeroSection({
 
                 {/* 3. Trust Strip */}
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-0.5 text-[11px] text-[#334155] font-semibold">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs">
-                    <img src="/images/icons/svg/lap-dat.svg" alt="Lắp đặt" width={14} height={14} className="w-3.5 h-3.5 object-contain" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs whitespace-nowrap">
+                    <img src="/images/icons/svg/lap-dat.svg" alt="Lắp đặt" width={14} height={14} className="w-3.5 h-3.5 object-contain shrink-0" />
                     <span>Lắp đặt 24H</span>
                   </span>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs">
-                    <img src="/images/icons/svg/khao-sat.svg" alt="Khảo sát" width={14} height={14} className="w-3.5 h-3.5 object-contain" />
-                    <span>Khảo sát tận nơi 0đ</span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs whitespace-nowrap">
+                    <img src="/images/icons/svg/khao-sat.svg" alt="Khảo sát" width={14} height={14} className="w-3.5 h-3.5 object-contain shrink-0" />
+                    <span>Khảo sát 0đ</span>
                   </span>
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs">
+                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white border border-[#E4E8ED] shadow-2xs whitespace-nowrap">
                     <Star className="w-3.5 h-3.5 text-amber-500 fill-current shrink-0" />
-                    <span>4.9/5 (100.000+ Khách hàng)</span>
+                    <span>4.9/5 (100K+ KH)</span>
                   </span>
                 </div>
               </div>

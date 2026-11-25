@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { ChevronDown, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/siteConfig";
 
 interface FaqItem {
@@ -125,6 +126,16 @@ export default function FaqSection() {
               </div>
             );
           })}
+        </div>
+
+        <div className="mt-6 text-center">
+          <Link
+            href="/hoi-dap"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white hover:bg-[#FFF4ED] border border-[#E4E8ED] hover:border-orange-300 text-xs sm:text-sm font-bold text-[#0F172A] hover:text-[#C44D06] shadow-2xs transition-all whitespace-nowrap"
+          >
+            <span>Xem trang Hỏi Đáp &amp; Hỗ Trợ Kỹ Thuật</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>

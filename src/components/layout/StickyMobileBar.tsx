@@ -32,7 +32,7 @@ export default function StickyMobileBar() {
   return (
     <nav
       aria-label="Mobile Navigation"
-      className="fixed bottom-3 inset-x-3 max-w-md mx-auto z-50 md:hidden pb-safe-nav pointer-events-auto"
+      className="fixed bottom-3 inset-x-3 max-w-md mx-auto z-40 md:hidden pb-safe-nav pointer-events-auto"
     >
       <div
         className="bg-white/95 backdrop-blur-md border border-[#E4E8ED] shadow-[0_8px_30px_rgba(243,112,33,0.15)] rounded-full px-1.5 py-1 flex items-center justify-around h-[62px] transition-all"

@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
 export default function ProcessSection() {
   const steps = [
     {
@@ -92,6 +95,16 @@ export default function ProcessSection() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-6 text-center">
+          <Link
+            href="/quy-trinh-lap-dat"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#F4F6FB] hover:bg-[#FFF4ED] border border-[#E4E8ED] hover:border-orange-300 text-xs sm:text-sm font-bold text-[#0F172A] hover:text-[#C44D06] transition-all whitespace-nowrap"
+          >
+            <span>Xem chi tiết thủ tục &amp; vùng phủ sóng</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>

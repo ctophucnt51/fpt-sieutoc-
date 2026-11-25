@@ -68,10 +68,10 @@ export default function PricingSection({
           </p>
 
           {/* Category Tabs - Phong cách Long Châu Segment Tabs */}
-          <div className="mt-5 sm:mt-7 inline-flex p-1.5 rounded-full bg-white border border-[#E4E8ED] shadow-xs max-w-sm sm:max-w-md mx-auto">
+          <div className="mt-5 sm:mt-7 inline-flex p-1.5 rounded-full bg-white border border-[#E4E8ED] shadow-xs max-w-full overflow-x-auto no-scrollbar mx-auto">
             <button
               onClick={() => setActiveTab("all")}
-              className={`py-2 px-4 sm:px-6 rounded-full text-xs sm:text-[13px] font-bold flex items-center justify-center gap-1.5 transition-all whitespace-nowrap cursor-pointer ${
+              className={`py-2 px-3.5 sm:px-6 rounded-full text-xs sm:text-[13px] font-bold flex items-center justify-center gap-1.5 transition-all whitespace-nowrap cursor-pointer ${
                 activeTab === "all"
                   ? "bg-[#F37021] text-white shadow-[0_2px_10px_rgba(243,112,33,0.35)]"
                   : "text-[#657384] hover:text-[#20283D] hover:bg-[#F4F6FB]"
@@ -155,7 +155,7 @@ export default function PricingSection({
                 {/* Long Châu Style Card Top Tags */}
                 <div className="p-5 sm:p-6 pb-3">
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#F4F6FB] text-[#2F364A] border border-[#E4E8ED]">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#F4F6FB] text-[#2F364A] border border-[#E4E8ED] whitespace-nowrap">
                       <img
                         src={pkgIcon}
                         alt="Icon"
@@ -163,12 +163,12 @@ export default function PricingSection({
                         height={14}
                         loading="lazy"
                         decoding="async"
-                        className="w-3.5 h-3.5 object-contain"
+                        className="w-3.5 h-3.5 object-contain shrink-0"
                       />
                       <span>{isCombo ? "Combo Internet + TV" : "Internet Wi-Fi 6"}</span>
                     </span>
                     {pkg.badge && (
-                      <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200">
+                      <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-[#FFF4ED] text-[#C44D06] border border-orange-200 whitespace-nowrap shrink-0">
                         {pkg.badge}
                       </span>
                     )}
@@ -199,7 +199,7 @@ export default function PricingSection({
 
                   {/* Price Block (Long Châu Style: Giá to màu cam nổi bật + đơn vị / tháng) */}
                   <div className="mt-3.5 pt-3.5 border-t border-[#F4F6FB]">
-                    <div className="flex items-baseline gap-1.5">
+                    <div className="flex items-baseline gap-1.5 whitespace-nowrap">
                       <span className="text-3xl font-black text-[#C44D06] tracking-tight leading-none">
                         {startingPrice}
                       </span>
