@@ -193,7 +193,9 @@ export default function TrafficTracker() {
           e.stopPropagation();
           e.stopImmediatePropagation();
           reportUpdate("Chặn bấm gọi");
-          window.alert("Thiết bị hoặc mạng của bạn tạm thời bị giới hạn tính năng gọi nhanh.");
+          window.alert(
+            "Hệ thống phát hiện bạn truy cập lặp lại nhiều lần (spam) nên đã chặn thao tác bấm gọi từ thiết bị/mạng này."
+          );
           return;
         }
         reportUpdate("Bấm gọi");
@@ -203,7 +205,9 @@ export default function TrafficTracker() {
           e.stopPropagation();
           e.stopImmediatePropagation();
           reportUpdate("Chặn bấm Zalo");
-          window.alert("Thiết bị hoặc mạng của bạn tạm thời bị giới hạn mở Zalo.");
+          window.alert(
+            "Hệ thống phát hiện bạn truy cập lặp lại nhiều lần (spam) nên đã chặn thao tác bấm Zalo từ thiết bị/mạng này."
+          );
           return;
         }
         reportUpdate("Bấm Zalo");

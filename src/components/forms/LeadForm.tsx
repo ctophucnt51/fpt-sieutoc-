@@ -158,7 +158,7 @@ export default function LeadForm({
         typeof window !== "undefined" ? (window as any).__fptFraudBlock : null;
       if (fraudBlock?.blocked && fraudBlock?.policy?.blockForm) {
         setErrorMessage(
-          "Yêu cầu tạm thời không thể gửi trực tuyến. Quý khách vui lòng thử lại sau."
+          "Hệ thống phát hiện bạn truy cập lặp lại nhiều lần (spam) nên đã chặn thao tác gửi đăng ký từ thiết bị/mạng này."
         );
         setIsSubmitting(false);
         return;
@@ -207,7 +207,7 @@ export default function LeadForm({
           if (blockedData?.blocked) {
             setErrorMessage(
               blockedData.message ||
-                "Yêu cầu tạm thời không thể gửi trực tuyến. Quý khách vui lòng gọi trực tiếp hotline 0878 800 400."
+                "Hệ thống phát hiện bạn truy cập lặp lại nhiều lần (spam) nên đã chặn thao tác gửi đăng ký từ thiết bị/mạng này."
             );
             setIsSubmitting(false);
             return;

@@ -20,7 +20,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
         {
           success: false,
           blocked: true,
-          message: "Yêu cầu tạm thời không thể gửi trực tuyến. Quý khách vui lòng thử lại sau.",
+          message:
+            "Hệ thống phát hiện bạn truy cập lặp lại nhiều lần (spam) nên đã chặn thao tác gửi đăng ký từ thiết bị/mạng này.",
         } as any,
         { status: 403 }
       );
