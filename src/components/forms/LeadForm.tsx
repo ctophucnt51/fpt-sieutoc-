@@ -154,8 +154,20 @@ export default function LeadForm({
     setIsSubmitting(true);
 
     try {
+      const fraudBlock =
+        typeof window !== "undefined" ? (window as any).__fptFraudBlock : null;
+      if (fraudBlock?.blocked && fraudBlock?.policy?.blockForm) {
+        setErrorMessage(
+          "Yêu cầu tạm thời không thể gửi trực tuyến. Quý khách vui lòng thử lại sau."
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
       const attribution = captureAttribution();
       const eventId = `lead_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+      const visitorId =
+        typeof localStorage !== "undefined" ? localStorage.getItem("fpt_visitor_uid") || "" : "";
 
       // 1. Gửi vào máy chủ API nội bộ /api/leads để lưu trữ & bắn Telegram qua Cloudflare Worker
       let leadId = `FPT-${Date.now().toString(36).toUpperCase()}`;
@@ -164,7 +176,10 @@ export default function LeadForm({
       try {
         const internalRes = await fetch("/api/leads", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...(visitorId ? { "x-fpt-visitor-id": visitorId } : {}),
+          },
           body: JSON.stringify({
             fullName: fullName.trim(),
             phone: cleanedPhone,

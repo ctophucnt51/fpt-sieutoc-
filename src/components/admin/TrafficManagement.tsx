@@ -7,6 +7,7 @@ import type {
   DailyTrafficBucket,
   RecentVisit,
   SuspiciousIpReport,
+  FraudBlockPolicy,
 } from "@/lib/trafficStorage";
 import {
   BarChart3,
@@ -63,6 +64,11 @@ export default function TrafficManagement({
   const [daily, setDaily] = useState<Record<string, DailyTrafficBucket>>({});
   const [recent, setRecent] = useState<RecentVisit[]>([]);
   const [suspiciousIps, setSuspiciousIps] = useState<SuspiciousIpReport[]>([]);
+  const [fraudPolicy, setFraudPolicy] = useState<FraudBlockPolicy>({
+    blockForm: true,
+    blockCall: true,
+    blockZalo: true,
+  });
   const [showAllRecent, setShowAllRecent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [rangeDays, setRangeDays] = useState<1 | 7 | 30>(7);
@@ -78,6 +84,7 @@ export default function TrafficManagement({
         setDaily(data.daily || {});
         setRecent(data.recent || []);
         setSuspiciousIps(data.suspiciousIps || []);
+        if (data.fraudPolicy) setFraudPolicy(data.fraudPolicy);
       }
     } catch {
       // ignore
@@ -86,10 +93,9 @@ export default function TrafficManagement({
     }
   }, []);
 
-  const handleIpAction = async (
-    ip: string,
-    action: "blocked" | "whitelisted" | "reset"
-  ) => {
+  const handleTogglePolicy = async (key: keyof FraudBlockPolicy) => {
+    const next = { ...fraudPolicy, [key]: !fraudPolicy[key] };
+    setFraudPolicy(next);
     try {
       const res = await fetch("/api/admin/traffic", {
         method: "PATCH",
@@ -97,21 +103,49 @@ export default function TrafficManagement({
           "Content-Type": "application/json",
           ...getAdminHeaders(),
         },
-        body: JSON.stringify({ ip, action }),
+        body: JSON.stringify({ type: "policy", fraudPolicy: next }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.fraudPolicy) setFraudPolicy(data.fraudPolicy);
+        showToast("Đã cập nhật tùy chọn khóa chuyển đổi.");
+      }
+    } catch {
+      setFraudPolicy(fraudPolicy);
+      showToast("Không thể cập nhật tùy chọn khóa.", "error");
+    }
+  };
+
+  const handleFraudAction = async (
+    item: SuspiciousIpReport,
+    action: "blocked" | "whitelisted" | "reset"
+  ) => {
+    const isVisitor = item.targetType === "visitor" && Boolean(item.visitorId);
+    const label = isVisitor ? `thiết bị ${item.visitorId}` : `IP ${item.ip}`;
+    try {
+      const res = await fetch("/api/admin/traffic", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify(
+          isVisitor ? { visitorId: item.visitorId, action } : { ip: item.ip, action }
+        ),
       });
       if (res.ok) {
         const data = await res.json();
         setSuspiciousIps(data.suspiciousIps || []);
         showToast(
           action === "blocked"
-            ? `Đã đánh dấu chặn IP ${ip}`
+            ? `Đã khóa ${label}`
             : action === "whitelisted"
-            ? `Đã đánh dấu IP ${ip} an toàn`
-            : `Đã đặt lại trạng thái IP ${ip}`
+            ? `Đã đánh dấu ${label} an toàn`
+            : `Đã đặt lại trạng thái ${label}`
         );
       }
     } catch {
-      showToast("Không thể cập nhật trạng thái IP.", "error");
+      showToast("Không thể cập nhật trạng thái.", "error");
     }
   };
 
@@ -482,41 +516,69 @@ export default function TrafficManagement({
                 <span>Lá Chắn Chống Click Tặc (Google Ads)</span>
                 {suspiciousIps.filter((i) => i.status === "pending").length > 0 && (
                   <span className="px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-black">
-                    {suspiciousIps.filter((i) => i.status === "pending").length} IP cần xử lý
+                    {suspiciousIps.filter((i) => i.status === "pending").length} cảnh báo cần xử lý
                   </span>
                 )}
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Tự động phát hiện IP bấm quảng cáo lặp lại bất thường (&ge; 2 lượt Ads hoặc nhiều mã GCLID khác nhau), gửi cảnh báo về Telegram và hỗ trợ copy nhanh vào mục Loại trừ IP của Google Ads.
-              </p>
             </div>
           </div>
 
-          {suspiciousIps.filter((i) => i.status === "pending").length > 0 && (
-            <button
-              type="button"
-              onClick={() =>
-                handleCopyText(
-                  suspiciousIps
-                    .filter((i) => i.status === "pending")
-                    .map((i) => i.ip)
-                    .join("\n"),
-                  "danh sách IP nghi vấn"
-                )
-              }
-              className="px-3.5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs cursor-pointer transition-colors"
-            >
-              <Copy className="w-3.5 h-3.5" />
-              <span>Copy Tất Cả IP Chặn</span>
-            </button>
-          )}
+          <div className="flex flex-wrap items-center gap-2">
+            {(
+              [
+                { key: "blockForm", label: "Khóa gửi form" },
+                { key: "blockCall", label: "Khóa bấm gọi" },
+                { key: "blockZalo", label: "Khóa bấm Zalo" },
+              ] as const
+            ).map((opt) => {
+              const active = fraudPolicy[opt.key];
+              return (
+                <button
+                  key={opt.key}
+                  type="button"
+                  onClick={() => handleTogglePolicy(opt.key)}
+                  className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold border transition-colors cursor-pointer inline-flex items-center gap-1.5 ${
+                    active
+                      ? "bg-red-50 text-red-700 border-red-200"
+                      : "bg-slate-50 text-slate-500 border-slate-200"
+                  }`}
+                >
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      active ? "bg-red-500" : "bg-slate-300"
+                    }`}
+                  />
+                  <span>{opt.label}</span>
+                </button>
+              );
+            })}
+
+            {suspiciousIps.filter((i) => i.status === "pending").length > 0 && (
+              <button
+                type="button"
+                onClick={() =>
+                  handleCopyText(
+                    suspiciousIps
+                      .filter((i) => i.status === "pending" && i.targetType !== "visitor")
+                      .map((i) => i.ip)
+                      .join("\n"),
+                    "danh sách IP nghi vấn"
+                  )
+                }
+                className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-[11px] font-bold flex items-center gap-1.5 shadow-xs cursor-pointer transition-colors"
+              >
+                <Copy className="w-3.5 h-3.5" />
+                <span>Copy IP Chặn</span>
+              </button>
+            )}
+          </div>
         </div>
 
         {suspiciousIps.length === 0 ? (
           <div className="py-5 px-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 text-xs text-emerald-800 flex items-center gap-2 font-medium">
             <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>
-              Chưa phát hiện IP nào bấm quảng cáo lặp lại bất thường. Hệ thống vẫn đang giám sát realtime và sẽ báo về Telegram ngay khi có nghi vấn.
+              Chưa phát hiện IP hoặc thiết bị lặp lại bất thường từ Google Ads.
             </span>
           </div>
         ) : (
@@ -524,7 +586,7 @@ export default function TrafficManagement({
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
-                  <th className="py-2.5 pr-3">IP &amp; Vị trí</th>
+                  <th className="py-2.5 pr-3">IP / Thiết bị</th>
                   <th className="py-2.5 px-3">Mức độ nghi vấn</th>
                   <th className="py-2.5 px-3">Tần suất Ads</th>
                   <th className="py-2.5 px-3">Từ khóa đã bấm</th>
@@ -535,7 +597,11 @@ export default function TrafficManagement({
               <tbody className="divide-y divide-slate-100">
                 {suspiciousIps.map((item) => (
                   <tr
-                    key={item.ip}
+                    key={
+                      item.targetType === "visitor" && item.visitorId
+                        ? `v_${item.visitorId}`
+                        : `ip_${item.ip}`
+                    }
                     className={
                       item.status === "pending" && item.riskLevel === "high"
                         ? "bg-red-50/40 hover:bg-red-50/70"
@@ -543,11 +609,19 @@ export default function TrafficManagement({
                     }
                   >
                     <td className="py-2.5 pr-3">
-                      <div className="font-mono text-xs font-black text-slate-900">
-                        {item.ip}
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-mono text-xs font-black text-slate-900">
+                          {item.ip}
+                        </span>
+                        {item.targetType === "visitor" && (
+                          <span className="px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 text-[10px] font-bold">
+                            Thiết bị lặp
+                          </span>
+                        )}
                       </div>
                       <div className="text-[11px] text-slate-500 mt-0.5">
                         {item.location} • {item.device}
+                        {item.visitorId ? ` • ${item.visitorId}` : ""}
                       </div>
                     </td>
                     <td className="py-2.5 px-3">
@@ -590,7 +664,7 @@ export default function TrafficManagement({
                     <td className="py-2.5 px-3">
                       {item.status === "blocked" ? (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-800 text-white text-[10.5px] font-bold">
-                          Đã chặn Ads
+                          Đang khóa
                         </span>
                       ) : item.status === "whitelisted" ? (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10.5px] font-bold">
@@ -604,39 +678,41 @@ export default function TrafficManagement({
                     </td>
                     <td className="py-2.5 pl-3 text-right whitespace-nowrap">
                       <div className="inline-flex items-center gap-1.5">
-                        <button
-                          type="button"
-                          onClick={() => handleCopyText(item.ip, `IP ${item.ip}`)}
-                          className="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-[11px] inline-flex items-center gap-1 cursor-pointer"
-                          title="Copy IP để dán vào Google Ads"
-                        >
-                          <Copy className="w-3 h-3" />
-                          <span>Copy</span>
-                        </button>
+                        {item.targetType !== "visitor" && (
+                          <button
+                            type="button"
+                            onClick={() => handleCopyText(item.ip, `IP ${item.ip}`)}
+                            className="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-[11px] inline-flex items-center gap-1 cursor-pointer"
+                            title="Copy IP để dán vào Google Ads"
+                          >
+                            <Copy className="w-3 h-3" />
+                            <span>Copy</span>
+                          </button>
+                        )}
                         {item.status !== "blocked" && (
                           <button
                             type="button"
-                            onClick={() => handleIpAction(item.ip, "blocked")}
+                            onClick={() => handleFraudAction(item, "blocked")}
                             className="px-2 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-semibold text-[11px] inline-flex items-center gap-1 cursor-pointer"
-                            title="Đánh dấu đã đưa IP vào danh sách chặn Google Ads"
+                            title="Khóa gửi form/bấm gọi/Zalo cho đối tượng này"
                           >
                             <Ban className="w-3 h-3" />
-                            <span>Đã chặn</span>
+                            <span>Khóa</span>
                           </button>
                         )}
                         {item.status !== "whitelisted" ? (
                           <button
                             type="button"
-                            onClick={() => handleIpAction(item.ip, "whitelisted")}
+                            onClick={() => handleFraudAction(item, "whitelisted")}
                             className="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-semibold text-[11px] cursor-pointer"
-                            title="Đánh dấu IP an toàn"
+                            title="Đánh dấu an toàn"
                           >
                             Bỏ qua
                           </button>
                         ) : (
                           <button
                             type="button"
-                            onClick={() => handleIpAction(item.ip, "reset")}
+                            onClick={() => handleFraudAction(item, "reset")}
                             className="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-[11px] cursor-pointer"
                           >
                             Hoàn tác

@@ -89,6 +89,21 @@ export function trackGoogleConversion(params?: {
   ensureTrackingLoaded();
 
   const eventType = params?.eventType || "form_submit";
+
+  // Suppress conversion firing for blocked IPs/devices according to active fraud policy
+  if (!params?.forceTest && typeof window !== "undefined") {
+    const fb = (window as any).__fptFraudBlock;
+    if (fb?.blocked) {
+      if (
+        (eventType === "form_submit" && fb.policy?.blockForm) ||
+        (eventType === "hotline_click" && fb.policy?.blockCall) ||
+        (eventType === "zalo_click" && fb.policy?.blockZalo)
+      ) {
+        return false;
+      }
+    }
+  }
+
   const isCall = eventType === "hotline_click" || eventType === "zalo_click";
   const label =
     params?.conversionLabel ||

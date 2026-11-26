@@ -145,6 +145,23 @@ export default function TrafficTracker() {
       }
     }, 2500);
 
+    const visitorId = getOrCreateVisitorId();
+    // Fetch live block status & active fraud policy for this IP/device
+    fetch(`/api/tracking/block-status?visitorId=${encodeURIComponent(visitorId)}`, {
+      cache: "no-store",
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && typeof window !== "undefined") {
+          (window as any).__fptFraudBlock = {
+            blocked: Boolean(data.blocked),
+            reason: data.reason || null,
+            policy: data.policy || { blockForm: true, blockCall: true, blockZalo: true },
+          };
+        }
+      })
+      .catch(() => {});
+
     const reportUpdate = (action?: string) => {
       if (!currentVisitId.current) return;
       const durationSeconds = Math.max(1, Math.round((Date.now() - pageEnterTs.current) / 1000));
@@ -167,11 +184,42 @@ export default function TrafficTracker() {
       const anchor = target?.closest("a") as HTMLAnchorElement | null;
       if (!anchor) return;
       const href = anchor.getAttribute("href") || "";
-      if (href.startsWith("tel:")) reportUpdate("Bấm gọi");
-      else if (href.includes("zalo.me")) reportUpdate("Bấm Zalo");
-      else if (href.includes("m.me") || href.includes("messenger.com")) reportUpdate("Bấm Messenger");
+      const fraudBlock =
+        typeof window !== "undefined" ? (window as any).__fptFraudBlock : null;
+
+      if (href.startsWith("tel:")) {
+        if (fraudBlock?.blocked && fraudBlock?.policy?.blockCall) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          reportUpdate("Chặn bấm gọi");
+          window.alert("Thiết bị hoặc mạng của bạn tạm thời bị giới hạn tính năng gọi nhanh.");
+          return;
+        }
+        reportUpdate("Bấm gọi");
+      } else if (href.includes("zalo.me")) {
+        if (fraudBlock?.blocked && fraudBlock?.policy?.blockZalo) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          reportUpdate("Chặn bấm Zalo");
+          window.alert("Thiết bị hoặc mạng của bạn tạm thời bị giới hạn mở Zalo.");
+          return;
+        }
+        reportUpdate("Bấm Zalo");
+      } else if (href.includes("m.me") || href.includes("messenger.com")) {
+        reportUpdate("Bấm Messenger");
+      }
     };
-    const handleSubmit = () => reportUpdate("Gửi form");
+    const handleSubmit = () => {
+      const fraudBlock =
+        typeof window !== "undefined" ? (window as any).__fptFraudBlock : null;
+      if (fraudBlock?.blocked && fraudBlock?.policy?.blockForm) {
+        reportUpdate("Chặn gửi form");
+        return;
+      }
+      reportUpdate("Gửi form");
+    };
 
     document.addEventListener("visibilitychange", handleVisibility);
     window.addEventListener("pagehide", handlePageHide);

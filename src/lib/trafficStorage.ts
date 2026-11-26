@@ -32,8 +32,24 @@ export interface RecentVisit {
   visitorId?: string;
 }
 
+export interface FraudBlockPolicy {
+  blockForm: boolean;
+  blockCall: boolean;
+  blockZalo: boolean;
+}
+
+export const DEFAULT_FRAUD_POLICY: FraudBlockPolicy = {
+  blockForm: true,
+  blockCall: true,
+  blockZalo: true,
+};
+
 export interface SuspiciousIpReport {
   ip: string;
+  targetType?: "ip" | "visitor";
+  visitorId?: string;
+  visitorIds?: string[];
+  ips?: string[];
   location: string;
   totalAdsClicks: number;
   uniqueGclids: number;
@@ -54,6 +70,9 @@ export interface TrafficStore {
   alertedIps?: Record<string, string>;
   blockedIps?: string[];
   whitelistedIps?: string[];
+  blockedVisitors?: string[];
+  whitelistedVisitors?: string[];
+  fraudPolicy?: FraudBlockPolicy;
 }
 
 const PERSISTENT_DIR = path.join(process.cwd(), "data");
@@ -90,9 +109,28 @@ export function readTrafficStore(): TrafficStore {
           : {},
       blockedIps: Array.isArray(parsed?.blockedIps) ? parsed.blockedIps : [],
       whitelistedIps: Array.isArray(parsed?.whitelistedIps) ? parsed.whitelistedIps : [],
+      blockedVisitors: Array.isArray(parsed?.blockedVisitors) ? parsed.blockedVisitors : [],
+      whitelistedVisitors: Array.isArray(parsed?.whitelistedVisitors)
+        ? parsed.whitelistedVisitors
+        : [],
+      fraudPolicy: {
+        ...DEFAULT_FRAUD_POLICY,
+        ...(parsed?.fraudPolicy && typeof parsed.fraudPolicy === "object"
+          ? parsed.fraudPolicy
+          : {}),
+      },
     };
   } catch {
-    return { daily: {}, recent: [], alertedIps: {}, blockedIps: [], whitelistedIps: [] };
+    return {
+      daily: {},
+      recent: [],
+      alertedIps: {},
+      blockedIps: [],
+      whitelistedIps: [],
+      blockedVisitors: [],
+      whitelistedVisitors: [],
+      fraudPolicy: { ...DEFAULT_FRAUD_POLICY },
+    };
   }
 }
 
@@ -231,21 +269,29 @@ export function recordPageview(input: {
 }
 
 export function analyzeClickFraud(store: TrafficStore): SuspiciousIpReport[] {
-  const adsVisits = store.recent.filter(
-    (v) => v.source === "Google Ads" && v.ip && v.ip !== "127.0.0.1" && v.ip !== "::1"
-  );
+  const adsVisits = store.recent.filter((v) => v.source === "Google Ads");
 
   const byIp = new Map<string, RecentVisit[]>();
+  const byVisitor = new Map<string, RecentVisit[]>();
   for (const v of adsVisits) {
-    const ip = v.ip as string;
-    const list = byIp.get(ip) || [];
-    list.push(v);
-    byIp.set(ip, list);
+    if (v.ip && v.ip !== "127.0.0.1" && v.ip !== "::1") {
+      const list = byIp.get(v.ip) || [];
+      list.push(v);
+      byIp.set(v.ip, list);
+    }
+    if (v.visitorId) {
+      const vList = byVisitor.get(v.visitorId) || [];
+      vList.push(v);
+      byVisitor.set(v.visitorId, vList);
+    }
   }
 
   const blockedSet = new Set(store.blockedIps || []);
   const whitelistSet = new Set(store.whitelistedIps || []);
+  const blockedVisitorSet = new Set(store.blockedVisitors || []);
+  const whitelistVisitorSet = new Set(store.whitelistedVisitors || []);
   const reports: SuspiciousIpReport[] = [];
+  const flaggedSingleIpVisitors = new Set<string>();
 
   for (const [ip, list] of Array.from(byIp.entries())) {
     const uniqueGclids = new Set(list.map((v) => v.gclid).filter(Boolean));
@@ -254,6 +300,10 @@ export function analyzeClickFraud(store: TrafficStore): SuspiciousIpReport[] {
 
     // Flag IP if >= 2 total Ads visits or >= 2 unique GCLIDs
     if (list.length < 2 && uniqueGclids.size < 2) continue;
+
+    for (const vid of Array.from(uniqueVisitors)) {
+      if (vid) flaggedSingleIpVisitors.add(vid);
+    }
 
     const riskLevel: "high" | "medium" =
       uniqueGclids.size >= 2 || list.length >= 3 ? "high" : "medium";
@@ -274,11 +324,65 @@ export function analyzeClickFraud(store: TrafficStore): SuspiciousIpReport[] {
 
     reports.push({
       ip,
+      targetType: "ip",
+      visitorIds: Array.from(uniqueVisitors).filter((x): x is string => Boolean(x)),
+      ips: [ip],
       location: list[0]?.location || "Không xác định",
       totalAdsClicks: list.length,
       uniqueGclids: uniqueGclids.size,
       uniqueSessions: uniqueSessions.size,
       uniqueVisitors: uniqueVisitors.size,
+      keywords,
+      campaigns,
+      device: list[0]?.device === "mobile" ? "Mobile" : "Desktop",
+      firstSeen: timestamps[0],
+      lastSeen: timestamps[timestamps.length - 1],
+      riskLevel,
+      status,
+    });
+  }
+
+  // Flag repeat devices (visitorId) across changing IPs (e.g. 4G/Wi-Fi hopping)
+  for (const [visitorId, list] of Array.from(byVisitor.entries())) {
+    const uniqueGclids = new Set(list.map((v) => v.gclid).filter(Boolean));
+    const uniqueSessions = new Set(list.map((v) => v.sessionId).filter(Boolean));
+    const uniqueIps = new Set(
+      list.map((v) => v.ip).filter((ip): ip is string => Boolean(ip && ip !== "127.0.0.1" && ip !== "::1"))
+    );
+
+    if (list.length < 2 && uniqueGclids.size < 2) continue;
+    // Skip if all visits came from 1 IP that is already reported as an IP row
+    if (uniqueIps.size <= 1 && flaggedSingleIpVisitors.has(visitorId)) continue;
+
+    const riskLevel: "high" | "medium" =
+      uniqueGclids.size >= 2 || list.length >= 3 || uniqueIps.size >= 2 ? "high" : "medium";
+
+    const status: "pending" | "blocked" | "whitelisted" = blockedVisitorSet.has(visitorId)
+      ? "blocked"
+      : whitelistVisitorSet.has(visitorId)
+      ? "whitelisted"
+      : "pending";
+
+    const keywords = Array.from(
+      new Set(list.map((v) => v.term).filter((t): t is string => Boolean(t)))
+    );
+    const campaigns = Array.from(
+      new Set(list.map((v) => v.campaign).filter((c): c is string => Boolean(c)))
+    );
+    const timestamps = list.map((v) => v.timestamp).sort();
+    const ipsArr = Array.from(uniqueIps);
+
+    reports.push({
+      ip: ipsArr.length > 0 ? ipsArr.slice(0, 2).join(", ") + (ipsArr.length > 2 ? ` (+${ipsArr.length - 2})` : "") : "Thiết bị lặp lại",
+      targetType: "visitor",
+      visitorId,
+      visitorIds: [visitorId],
+      ips: ipsArr,
+      location: list[0]?.location || "Không xác định",
+      totalAdsClicks: list.length,
+      uniqueGclids: uniqueGclids.size,
+      uniqueSessions: uniqueSessions.size,
+      uniqueVisitors: 1,
       keywords,
       campaigns,
       device: list[0]?.device === "mobile" ? "Mobile" : "Desktop",
@@ -350,6 +454,71 @@ export function updateVisitActivity(input: {
   }
 }
 
+export function updateVisitorStatus(
+  visitorId: string,
+  action: "blocked" | "whitelisted" | "reset"
+): TrafficStore {
+  ensureTrafficFile();
+  const store = readTrafficStore();
+  const blocked = new Set(store.blockedVisitors || []);
+  const whitelisted = new Set(store.whitelistedVisitors || []);
+
+  blocked.delete(visitorId);
+  whitelisted.delete(visitorId);
+
+  if (action === "blocked") blocked.add(visitorId);
+  if (action === "whitelisted") whitelisted.add(visitorId);
+
+  store.blockedVisitors = Array.from(blocked);
+  store.whitelistedVisitors = Array.from(whitelisted);
+  fs.writeFileSync(TRAFFIC_FILE, JSON.stringify(store, null, 2), "utf8");
+  return store;
+}
+
+export function updateFraudPolicy(patch: Partial<FraudBlockPolicy>): TrafficStore {
+  ensureTrafficFile();
+  const store = readTrafficStore();
+  store.fraudPolicy = {
+    ...DEFAULT_FRAUD_POLICY,
+    ...(store.fraudPolicy || {}),
+    ...(typeof patch.blockForm === "boolean" ? { blockForm: patch.blockForm } : {}),
+    ...(typeof patch.blockCall === "boolean" ? { blockCall: patch.blockCall } : {}),
+    ...(typeof patch.blockZalo === "boolean" ? { blockZalo: patch.blockZalo } : {}),
+  };
+  fs.writeFileSync(TRAFFIC_FILE, JSON.stringify(store, null, 2), "utf8");
+  return store;
+}
+
+export function extractClientIp(headers: { get(name: string): string | null }): string {
+  const forwardedFor = headers.get("x-forwarded-for");
+  return (
+    headers.get("cf-connecting-ip") ||
+    (forwardedFor ? forwardedFor.split(",")[0].trim() : "") ||
+    headers.get("x-real-ip") ||
+    "127.0.0.1"
+  )
+    .replace(/^::ffff:/, "")
+    .trim();
+}
+
+export function getClientBlockStatus(
+  ip: string,
+  visitorId?: string
+): { blocked: boolean; reason?: "ip" | "visitor"; policy: FraudBlockPolicy } {
+  const store = readTrafficStore();
+  const policy: FraudBlockPolicy = {
+    ...DEFAULT_FRAUD_POLICY,
+    ...(store.fraudPolicy || {}),
+  };
+  if (ip && (store.blockedIps || []).includes(ip)) {
+    return { blocked: true, reason: "ip", policy };
+  }
+  if (visitorId && (store.blockedVisitors || []).includes(visitorId)) {
+    return { blocked: true, reason: "visitor", policy };
+  }
+  return { blocked: false, policy };
+}
+
 export function isIpBlocked(ip: string): boolean {
   if (!ip) return false;
   const store = readTrafficStore();
@@ -364,6 +533,9 @@ export function clearTrafficStore(): void {
     alertedIps: {},
     blockedIps: [],
     whitelistedIps: [],
+    blockedVisitors: [],
+    whitelistedVisitors: [],
+    fraudPolicy: { ...DEFAULT_FRAUD_POLICY },
   };
   fs.writeFileSync(TRAFFIC_FILE, JSON.stringify(empty, null, 2), "utf8");
 }

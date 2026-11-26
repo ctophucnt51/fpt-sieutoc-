@@ -22,6 +22,22 @@ export function trackMetaEvent(
   if (typeof window === "undefined") {
     return;
   }
+
+  const fb = (window as any).__fptFraudBlock;
+  if (fb?.blocked) {
+    if (eventName === "Lead" && fb.policy?.blockForm) return;
+    if (eventName === "Contact") {
+      const ch = params?.channel;
+      if (
+        (ch === "hotline" && fb.policy?.blockCall) ||
+        (ch === "zalo" && fb.policy?.blockZalo) ||
+        (ch === "form" && fb.policy?.blockForm)
+      ) {
+        return;
+      }
+    }
+  }
+
   ensureTrackingLoaded();
 
   // Only track if Pixel ID is configured and not a placeholder
