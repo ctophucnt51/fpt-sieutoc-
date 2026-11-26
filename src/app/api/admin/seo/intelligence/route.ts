@@ -6,6 +6,7 @@ import {
   runSeoMasterCycleAsync,
   runKeywordResearchNow,
   runInternalLinkAuditAndFix,
+  notifySearchEnginesOnPublish,
   decideSeoApproval,
   rollbackSeoChange,
   dispatchTelegramSeoSummary,
@@ -328,6 +329,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         success: true,
         ...res,
+        intelligence: getFullSeoIntelligenceState(),
+      });
+    }
+
+    if (action === "submit_google_indexing") {
+      const articles = getAllArticles(false).slice(0, 3).map((a) => `/tin-tuc/${a.slug}`);
+      const urls = articles.length > 0 ? articles : ["/"];
+      const res = await notifySearchEnginesOnPublish(urls);
+      return NextResponse.json({
+        success: res.googleSitemapSubmitted || res.googleUrlsSubmitted > 0 || res.indexNowSubmitted > 0,
+        ...res,
+        message: `Đã gửi: Google Sitemap (${res.googleSitemapSubmitted ? "Thành công" : "Chưa đủ quyền/lỗi"}), Google Indexing API (${res.googleUrlsSubmitted} URL), IndexNow (${res.indexNowSubmitted} URL).${
+          res.notes.length > 0 ? " Lưu ý: " + res.notes[0] : ""
+        }`,
         intelligence: getFullSeoIntelligenceState(),
       });
     }

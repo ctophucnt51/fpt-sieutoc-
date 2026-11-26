@@ -4,7 +4,11 @@ import { getSeoConfig, saveSeoConfig } from "./seoStorage";
 import { readTrafficStore } from "./trafficStorage";
 import { getAllLeads } from "./leadStorage";
 import { sendSeoReportAlert } from "./telegram";
-import { fetchGscAnalytics } from "./googleSearchConsole";
+import {
+  fetchGscAnalytics,
+  submitSitemapToGoogle,
+  publishUrlToGoogleIndexingApi,
+} from "./googleSearchConsole";
 import { checkKeywordSerp } from "./serpChecker";
 import { runPageSpeedCheck } from "./pageSpeedClient";
 import { fetchGa4OrganicSummary } from "./ga4Client";
@@ -597,6 +601,62 @@ export function runInternalLinkAuditAndFix(autoApply = false): {
 }
 
 /**
+ * Gửi thông báo lập chỉ mục đồng thời tới IndexNow (Bing/Yandex/Naver) + Google (GSC Sitemap & Indexing API).
+ */
+export async function notifySearchEnginesOnPublish(urls: string[]): Promise<{
+  indexNowSubmitted: number;
+  googleSitemapSubmitted: boolean;
+  googleUrlsSubmitted: number;
+  notes: string[];
+}> {
+  const notes: string[] = [];
+  const idxRes = await pingIndexNow(urls);
+  const indexNowSubmitted = idxRes.submittedCount;
+
+  let googleSitemapSubmitted = false;
+  let googleUrlsSubmitted = 0;
+
+  const seo = getSeoConfig();
+  if (
+    seo.gscSettings?.connected &&
+    seo.gscSettings.serviceAccountEmail &&
+    seo.gscSettings.privateKey
+  ) {
+    const smRes = await submitSitemapToGoogle({
+      siteUrl: seo.gscSettings.siteUrl,
+      serviceAccountEmail: seo.gscSettings.serviceAccountEmail,
+      privateKey: seo.gscSettings.privateKey,
+      sitemapUrl: "https://gofpt.vn/sitemap.xml",
+    });
+    googleSitemapSubmitted = smRes.success;
+    if (!smRes.success && smRes.error) {
+      notes.push(`GSC Sitemap: ${smRes.error}`);
+    }
+
+    for (const u of urls.slice(0, 3)) {
+      const pubRes = await publishUrlToGoogleIndexingApi({
+        serviceAccountEmail: seo.gscSettings.serviceAccountEmail,
+        privateKey: seo.gscSettings.privateKey,
+        url: u,
+      });
+      if (pubRes.success) {
+        googleUrlsSubmitted++;
+      } else if (pubRes.error) {
+        notes.push(`Google Indexing: ${pubRes.error}`);
+        break;
+      }
+    }
+  }
+
+  return {
+    indexNowSubmitted,
+    googleSitemapSubmitted,
+    googleUrlsSubmitted,
+    notes,
+  };
+}
+
+/**
  * Learn Loop: Đánh giá hiệu quả các thay đổi đã áp dụng >= 7 ngày và lưu bài học vào lessons.json.
  */
 function runLearnLoop(): number {
@@ -1010,6 +1070,8 @@ export async function runSeoMasterCycleAsync(options?: {
 
   // 4. AUTO-PILOT APPROVE & PUBLISH + INDEXNOW PING
   const publishedUrls: string[] = [];
+  let googleSitemapSubmitted = false;
+  let googleUrlsSubmitted = 0;
   if (autoPilot.enabled) {
     const pendingApprovals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []).filter(
       (a) => a.status === "pending" && a.qaPassed
@@ -1037,8 +1099,10 @@ export async function runSeoMasterCycleAsync(options?: {
     }
 
     if (publishedUrls.length > 0) {
-      const idxRes = await pingIndexNow(publishedUrls);
-      indexNowSubmitted = idxRes.submittedCount;
+      const notifyRes = await notifySearchEnginesOnPublish(publishedUrls);
+      indexNowSubmitted = notifyRes.indexNowSubmitted;
+      googleSitemapSubmitted = notifyRes.googleSitemapSubmitted;
+      googleUrlsSubmitted = notifyRes.googleUrlsSubmitted;
     }
   }
 
@@ -1064,6 +1128,8 @@ export async function runSeoMasterCycleAsync(options?: {
     }${autoApprovedCount > 0 ? ` Auto-Pilot đã duyệt & xuất bản ${autoApprovedCount} mục.` : ""}${
       ilRes.fixedCount > 0 ? ` Bổ sung Internal Link cho ${ilRes.fixedCount} bài.` : ""
     }${indexNowSubmitted > 0 ? ` Đã gửi ${indexNowSubmitted} URL tới IndexNow.` : ""}${
+      googleSitemapSubmitted ? " Đã gửi Sitemap lên Google." : ""
+    }${googleUrlsSubmitted > 0 ? ` Đã ping ${googleUrlsSubmitted} URL tới Google Indexing API.` : ""}${
       newLessonsCount > 0 ? ` Rút ra ${newLessonsCount} bài học mới.` : ""
     }`,
   };
@@ -1210,9 +1276,9 @@ export function decideSeoApproval(
   item.decidedAt = new Date().toISOString();
   writeMemoryFile("approvals.json", approvals);
   if (appliedBy === "Admin Approval") {
-    void pingIndexNow([item.target]);
+    void notifySearchEnginesOnPublish([item.target]);
   }
-  return { success: true, message: "Đã phê duyệt, gửi IndexNow và lưu bản sao khôi phục vào Change History!" };
+  return { success: true, message: "Đã phê duyệt, gửi Google/IndexNow và lưu bản sao khôi phục vào Change History!" };
 }
 
 export function rollbackSeoChange(changeId: string): { success: boolean; message: string } {

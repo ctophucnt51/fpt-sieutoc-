@@ -515,14 +515,24 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="font-bold text-slate-900">Tình trạng Technical SEO, Internal Link &amp; Google Ads:</div>
-                <button
-                  type="button"
-                  disabled={runningCycle}
-                  onClick={() => callAction({ action: "run_internal_link_audit", autoApply: true })}
-                  className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-[11px] hover:bg-slate-800 disabled:opacity-50 cursor-pointer"
-                >
-                  {runningCycle ? "Đang tối ưu..." : "Tối Ưu Internal Link Tự Động"}
-                </button>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    disabled={runningCycle}
+                    onClick={() => callAction({ action: "run_internal_link_audit", autoApply: true })}
+                    className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-[11px] hover:bg-slate-800 disabled:opacity-50 cursor-pointer"
+                  >
+                    {runningCycle ? "Đang tối ưu..." : "Tối Ưu Internal Link Tự Động"}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={runningCycle}
+                    onClick={() => callAction({ action: "submit_google_indexing" })}
+                    className="px-3 py-1.5 rounded-lg bg-emerald-700 text-white font-bold text-[11px] hover:bg-emerald-800 disabled:opacity-50 cursor-pointer"
+                  >
+                    Gửi Sitemap &amp; Index Google
+                  </button>
+                </div>
               </div>
               <ul className="space-y-1 text-slate-700 list-disc pl-5">
                 <li>Canonical Tags: Đã bật chuẩn `https://gofpt.vn` trên tất cả route public.</li>

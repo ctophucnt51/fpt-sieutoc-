@@ -151,3 +151,85 @@ export async function fetchGscAnalytics(params: {
     fetchedAt: new Date().toISOString(),
   };
 }
+
+/**
+ * Gửi lại sitemap.xml lên Google Search Console (yêu cầu Service Account có quyền Full/Owner trong GSC).
+ */
+export async function submitSitemapToGoogle(params: {
+  siteUrl: string;
+  serviceAccountEmail: string;
+  privateKey: string;
+  sitemapUrl?: string;
+}): Promise<{ success: boolean; status?: number; error?: string }> {
+  try {
+    const accessToken = await getGoogleAccessToken(
+      params.serviceAccountEmail,
+      params.privateKey,
+      "https://www.googleapis.com/auth/webmasters"
+    );
+    const sitemapUrl = params.sitemapUrl || "https://gofpt.vn/sitemap.xml";
+    const endpoint = `https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(
+      params.siteUrl.trim()
+    )}/sitemaps/${encodeURIComponent(sitemapUrl)}`;
+
+    const res = await fetch(endpoint, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${accessToken}` },
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (res.ok || res.status === 204) {
+      return { success: true, status: res.status };
+    }
+    const data = await res.json().catch(() => ({}));
+    return {
+      success: false,
+      status: res.status,
+      error: data?.error?.message || `GSC Sitemap API trả về HTTP ${res.status}`,
+    };
+  } catch (err: any) {
+    return { success: false, error: err?.message || "Lỗi khi gửi Sitemap lên Google Search Console." };
+  }
+}
+
+/**
+ * Ping trực tiếp URL mới/cập nhật qua Google Indexing API (yêu cầu bật Web Search Indexing API trên GCP).
+ */
+export async function publishUrlToGoogleIndexingApi(params: {
+  serviceAccountEmail: string;
+  privateKey: string;
+  url: string;
+}): Promise<{ success: boolean; status?: number; error?: string }> {
+  try {
+    const accessToken = await getGoogleAccessToken(
+      params.serviceAccountEmail,
+      params.privateKey,
+      "https://www.googleapis.com/auth/indexing"
+    );
+    const fullUrl = params.url.startsWith("http")
+      ? params.url
+      : `https://gofpt.vn${params.url.startsWith("/") ? params.url : `/${params.url}`}`;
+
+    const res = await fetch("https://indexing.googleapis.com/v3/urlNotifications:publish", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: fullUrl, type: "URL_UPDATED" }),
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (res.ok) {
+      return { success: true, status: res.status };
+    }
+    const data = await res.json().catch(() => ({}));
+    return {
+      success: false,
+      status: res.status,
+      error: data?.error?.message || `Google Indexing API trả về HTTP ${res.status}`,
+    };
+  } catch (err: any) {
+    return { success: false, error: err?.message || "Lỗi khi gọi Google Indexing API." };
+  }
+}
