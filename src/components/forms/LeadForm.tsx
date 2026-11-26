@@ -187,6 +187,16 @@ export default function LeadForm({
           if (internalData.leadId) {
             leadId = internalData.leadId;
           }
+        } else if (internalRes.status === 403) {
+          const blockedData = await internalRes.json().catch(() => ({}));
+          if (blockedData?.blocked) {
+            setErrorMessage(
+              blockedData.message ||
+                "Yêu cầu tạm thời không thể gửi trực tuyến. Quý khách vui lòng gọi trực tiếp hotline 0878 800 400."
+            );
+            setIsSubmitting(false);
+            return;
+          }
         }
       } catch (internalErr) {
         console.warn("Internal leads API error:", internalErr);

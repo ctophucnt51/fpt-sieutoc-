@@ -49,9 +49,15 @@ function formatRelativeMinutes(iso: string): string | null {
   return `${mins} phút trước`;
 }
 
+function formatDuration(seconds?: number): string {
+  if (!seconds || seconds <= 0) return "—";
+  if (seconds < 60) return `${seconds}s`;
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return s > 0 ? `${m}p ${s}s` : `${m}p`;
+}
+
 export default function TrafficManagement({
-  config,
-  onSaveConfig,
   showToast,
 }: TrafficManagementProps) {
   const [daily, setDaily] = useState<Record<string, DailyTrafficBucket>>({});
@@ -60,14 +66,6 @@ export default function TrafficManagement({
   const [showAllRecent, setShowAllRecent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [rangeDays, setRangeDays] = useState<1 | 7 | 30>(7);
-
-  const [ga4Id, setGa4Id] = useState<string>(
-    (config.tracking as any)?.googleAnalyticsId || ""
-  );
-  const [enableGa4, setEnableGa4] = useState<boolean>(
-    Boolean((config.tracking as any)?.enableGa4)
-  );
-  const [isSavingGa4, setIsSavingGa4] = useState(false);
 
   const fetchTraffic = useCallback(async () => {
     setIsLoading(true);
@@ -150,11 +148,6 @@ export default function TrafficManagement({
     fetchTraffic();
   }, [fetchTraffic]);
 
-  useEffect(() => {
-    setGa4Id((config.tracking as any)?.googleAnalyticsId || "");
-    setEnableGa4(Boolean((config.tracking as any)?.enableGa4));
-  }, [config]);
-
   // Build ordered date keys for selected range
   const dateKeys = useMemo(() => {
     const keys: string[] = [];
@@ -217,24 +210,6 @@ export default function TrafficManagement({
       maxDailyPv,
     };
   }, [daily, dateKeys, recent]);
-
-  const handleSaveGa4 = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSavingGa4(true);
-    const ok = await onSaveConfig({
-      tracking: {
-        ...config.tracking,
-        googleAnalyticsId: ga4Id.trim(),
-        enableGa4,
-      } as any,
-    });
-    setIsSavingGa4(false);
-    if (ok) {
-      showToast("Đã lưu cấu hình Google Analytics 4!", "success");
-    } else {
-      showToast("Lỗi khi lưu cấu hình GA4.", "error");
-    }
-  };
 
   const handleClearTraffic = async () => {
     if (!window.confirm("Bạn muốn xóa toàn bộ dữ liệu thống kê truy cập nội bộ?")) {
@@ -732,17 +707,18 @@ export default function TrafficManagement({
             <table className="w-full text-left text-xs">
               <thead>
                 <tr className="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
-                  <th className="py-2.5 pr-3">Thời gian</th>
+                  <th className="py-2.5 pr-3">Thời gian &amp; Ở lại</th>
                   <th className="py-2.5 px-3">IP &amp; Vị trí</th>
-                  <th className="py-2.5 px-3">Trang đã xem</th>
+                  <th className="py-2.5 px-3">Trang &amp; Hành động</th>
                   <th className="py-2.5 px-3">Nguồn truy cập</th>
-                  <th className="py-2.5 pl-3">Thiết bị</th>
+                  <th className="py-2.5 pl-3">Thiết bị &amp; Mạng</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {displayedRecent.map((v) => {
                   const rel = formatRelativeMinutes(v.timestamp);
                   const fraudInfo = v.ip ? suspiciousIpMap.get(v.ip) : undefined;
+                  const actions = v.actions && v.actions.length > 0 ? v.actions : [];
                   return (
                     <tr
                       key={v.id}
@@ -756,15 +732,20 @@ export default function TrafficManagement({
                         <div className="text-slate-700 font-medium">
                           {new Date(v.timestamp).toLocaleTimeString("vi-VN")}
                         </div>
-                        {rel ? (
-                          <span className="inline-block mt-0.5 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
-                            {rel}
+                        <div className="flex items-center gap-1 mt-0.5">
+                          {rel ? (
+                            <span className="inline-block text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+                              {rel}
+                            </span>
+                          ) : (
+                            <span className="text-[10.5px] text-slate-400">
+                              {new Date(v.timestamp).toLocaleDateString("vi-VN")}
+                            </span>
+                          )}
+                          <span className="inline-block text-[10px] font-bold text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded">
+                            {formatDuration(v.durationSeconds)}
                           </span>
-                        ) : (
-                          <span className="text-[10.5px] text-slate-400">
-                            {new Date(v.timestamp).toLocaleDateString("vi-VN")}
-                          </span>
-                        )}
+                        </div>
                       </td>
                       <td className="py-2.5 px-3">
                         <div className="font-mono text-[11px] font-bold text-slate-800 flex items-center gap-1.5 flex-wrap">
@@ -780,8 +761,26 @@ export default function TrafficManagement({
                           <span>{v.location || "Không xác định"}</span>
                         </div>
                       </td>
-                      <td className="py-2.5 px-3 font-mono text-[11px] text-slate-800">
-                        {v.path}
+                      <td className="py-2.5 px-3">
+                        <div className="font-mono text-[11px] text-slate-800">{v.path}</div>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {actions.length > 0 ? (
+                            actions.map((act) => (
+                              <span
+                                key={act}
+                                className={`px-1.5 py-0.5 rounded text-[10px] font-bold border ${
+                                  act === "Gửi form"
+                                    ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                    : "bg-blue-50 text-blue-700 border-blue-200"
+                                }`}
+                              >
+                                {act}
+                              </span>
+                            ))
+                          ) : (
+                            <span className="text-[10px] text-slate-400">Chỉ xem</span>
+                          )}
+                        </div>
                       </td>
                       <td className="py-2.5 px-3">
                         <div className="font-bold text-slate-800">{v.source}</div>
@@ -796,17 +795,28 @@ export default function TrafficManagement({
                         )}
                       </td>
                       <td className="py-2.5 pl-3 whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-semibold text-[11px]">
-                          {v.device === "mobile" ? (
-                            <>
-                              <Smartphone className="w-3 h-3" /> Mobile
-                            </>
-                          ) : (
-                            <>
-                              <Monitor className="w-3 h-3" /> Desktop
-                            </>
+                        <div className="flex items-center gap-1 flex-wrap">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-semibold text-[11px]">
+                            {v.device === "mobile" ? (
+                              <>
+                                <Smartphone className="w-3 h-3" /> Mobile
+                              </>
+                            ) : (
+                              <>
+                                <Monitor className="w-3 h-3" /> Desktop
+                              </>
+                            )}
+                          </span>
+                          {v.networkType && v.networkType !== "Không rõ" && (
+                            <span className="px-1.5 py-0.5 rounded-md bg-orange-50 text-fpt-orange border border-orange-200 font-bold text-[10px]">
+                              {v.networkType}
+                            </span>
                           )}
-                        </span>
+                        </div>
+                        <div className="text-[10.5px] text-slate-500 mt-0.5">
+                          {[v.browser, v.os].filter(Boolean).join(" • ") || "—"}
+                          {v.visitorId ? ` • ${v.visitorId.slice(0, 8)}` : ""}
+                        </div>
                       </td>
                     </tr>
                   );
@@ -816,78 +826,6 @@ export default function TrafficManagement({
           </div>
         )}
       </div>
-
-      {/* 5. Google Analytics 4 (GA4) Config Card */}
-      <form
-        onSubmit={handleSaveGa4}
-        className="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-2xs space-y-4"
-      >
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-              <Globe className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-slate-900 flex items-center gap-2">
-                <span>Kết Nối Google Analytics 4 (GA4)</span>
-                {enableGa4 && ga4Id ? (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10.5px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    <CheckCircle2 className="w-3 h-3" /> Đang bật ({ga4Id})
-                  </span>
-                ) : null}
-              </h4>
-              <p className="text-xs text-slate-500">
-                Mã đo lường <code>G-XXXXXXXXXX</code> đồng bộ dữ liệu sang Google Analytics 4 &amp; Google Ads.
-              </p>
-            </div>
-          </div>
-          <a
-            href="https://analytics.google.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:underline"
-          >
-            <span>Mở Google Analytics</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              GA4 Measurement ID
-            </label>
-            <input
-              type="text"
-              value={ga4Id}
-              onChange={(e) => setGa4Id(e.target.value)}
-              placeholder="VD: G-5XCNM798CE"
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-[#F37021] focus:ring-2 focus:ring-orange-100 text-xs sm:text-sm text-slate-900 outline-none"
-            />
-          </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2 sm:pt-5">
-            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-800">
-              <input
-                type="checkbox"
-                checked={enableGa4}
-                onChange={(e) => setEnableGa4(e.target.checked)}
-                className="w-4 h-4 text-[#F37021] rounded border-slate-300 focus:ring-[#F37021] cursor-pointer"
-              />
-              <span>Kích hoạt Google Analytics 4</span>
-            </label>
-
-            <button
-              type="submit"
-              disabled={isSavingGa4}
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold cursor-pointer disabled:opacity-60"
-            >
-              {isSavingGa4 ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
-              <span>Lưu GA4</span>
-            </button>
-          </div>
-        </div>
-      </form>
     </div>
   );
 }

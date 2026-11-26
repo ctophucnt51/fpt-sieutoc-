@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { recordPageview } from "@/lib/trafficStorage";
+import { recordPageview, updateVisitActivity } from "@/lib/trafficStorage";
 import { sendClickFraudAlert } from "@/lib/telegram";
 
 const BOT_REGEX =
@@ -143,6 +143,27 @@ function classifySource(body: {
   };
 }
 
+function parseUserAgent(ua: string): { browser: string; os: string } {
+  let browser = "Khác";
+  if (/zalo/i.test(ua)) browser = "Zalo";
+  else if (/fban|fbav|fb_iab/i.test(ua)) browser = "Facebook";
+  else if (/coc_coc_browser/i.test(ua)) browser = "Cốc Cốc";
+  else if (/edg/i.test(ua)) browser = "Edge";
+  else if (/opr|opera/i.test(ua)) browser = "Opera";
+  else if (/chrome|crios/i.test(ua)) browser = "Chrome";
+  else if (/firefox|fxios/i.test(ua)) browser = "Firefox";
+  else if (/safari/i.test(ua)) browser = "Safari";
+
+  let os = "Khác";
+  if (/iphone|ipad|ipod/i.test(ua)) os = "iOS";
+  else if (/android/i.test(ua)) os = "Android";
+  else if (/mac os x|macintosh/i.test(ua)) os = "macOS";
+  else if (/windows/i.test(ua)) os = "Windows";
+  else if (/linux/i.test(ua)) os = "Linux";
+
+  return { browser, os };
+}
+
 export async function POST(request: NextRequest) {
   try {
     const userAgent = request.headers.get("user-agent") || "";
@@ -151,6 +172,16 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
+
+    if (body.mode === "update" && typeof body.visitId === "string") {
+      updateVisitActivity({
+        visitId: body.visitId.slice(0, 64),
+        durationSeconds: typeof body.durationSeconds === "number" ? body.durationSeconds : undefined,
+        action: typeof body.action === "string" ? body.action.slice(0, 40) : undefined,
+      });
+      return NextResponse.json({ success: true });
+    }
+
     const rawPath = typeof body.path === "string" ? body.path.split("?")[0] : "/";
     if (rawPath.startsWith("/admin") || rawPath.startsWith("/api")) {
       return NextResponse.json({ success: true, ignored: "admin" });
@@ -160,6 +191,7 @@ export async function POST(request: NextRequest) {
       body.device === "mobile" || /mobile|android|iphone|ipad/i.test(userAgent)
         ? "mobile"
         : "desktop";
+    const { browser, os } = parseUserAgent(userAgent);
 
     const ip = extractClientIp(request);
     const location = await resolveLocation(request, ip);
@@ -172,10 +204,14 @@ export async function POST(request: NextRequest) {
     });
 
     const { fraudAlert } = recordPageview({
+      id: typeof body.visitId === "string" ? body.visitId.slice(0, 64) : undefined,
       path: rawPath.slice(0, 160) || "/",
       source,
       sourceDetail,
       device,
+      browser,
+      os,
+      networkType: typeof body.networkType === "string" ? body.networkType.slice(0, 24) : undefined,
       isNewSession: Boolean(body.isNewSession),
       ip,
       location,

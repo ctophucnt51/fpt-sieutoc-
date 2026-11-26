@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LeadPayload, ApiResponse } from "@/lib/types";
 import { saveLead, checkRateLimit } from "@/lib/leadStorage";
+import { isIpBlocked } from "@/lib/trafficStorage";
 import { sendMetaConversionsApiEvent } from "@/lib/metaCapi";
 import { sendTelegramNotification } from "@/lib/telegram";
 import crypto from "crypto";
@@ -9,8 +10,27 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
   try {
     // 1. Extract client IP & User Agent
     const forwardedFor = request.headers.get("x-forwarded-for");
-    const clientIp = forwardedFor ? forwardedFor.split(",")[0].trim() : "127.0.0.1";
+    const clientIp = (
+      request.headers.get("cf-connecting-ip") ||
+      (forwardedFor ? forwardedFor.split(",")[0].trim() : "") ||
+      request.headers.get("x-real-ip") ||
+      "127.0.0.1"
+    )
+      .replace(/^::ffff:/, "")
+      .trim();
     const userAgent = request.headers.get("user-agent") || "unknown";
+
+    // 1b. Block fake conversions from blocked IPs without breaking page load (Google Ads safe)
+    if (isIpBlocked(clientIp)) {
+      return NextResponse.json(
+        {
+          success: false,
+          blocked: true,
+          message: "Yêu cầu tạm thời không thể gửi trực tuyến. Quý khách vui lòng gọi trực tiếp hotline 0878 800 400.",
+        } as any,
+        { status: 403 }
+      );
+    }
 
     // 2. Enforce Rate Limiting
     if (!checkRateLimit(clientIp)) {

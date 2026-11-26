@@ -44,20 +44,54 @@ function trackRepeatAdsDevice(gclid?: string): void {
   } catch {}
 }
 
+function detectNetworkType(): string {
+  if (typeof navigator === "undefined") return "Không rõ";
+  const conn = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+  if (!conn) return "Không rõ";
+  if (conn.type === "wifi") return "Wi-Fi";
+  if (conn.type === "ethernet") return "Cáp mạng";
+  if (conn.type === "cellular") {
+    return conn.effectiveType ? String(conn.effectiveType).toUpperCase() : "4G/Di động";
+  }
+  if (conn.effectiveType) {
+    const eff = String(conn.effectiveType).toUpperCase();
+    return eff === "4G" ? "4G / Wi-Fi" : eff;
+  }
+  return "Không rõ";
+}
+
+function sendBeaconPayload(payload: string): void {
+  if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
+    const blob = new Blob([payload], { type: "application/json" });
+    navigator.sendBeacon("/api/tracking/pageview", blob);
+  } else {
+    fetch("/api/tracking/pageview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      keepalive: true,
+      body: payload,
+    }).catch(() => {});
+  }
+}
+
 export default function TrafficTracker() {
   const pathname = usePathname();
   const siteConfig = useSiteConfig();
   const lastTrackedPath = useRef<string | null>(null);
+  const currentVisitId = useRef<string>("");
+  const pageEnterTs = useRef<number>(Date.now());
 
   const ga4Id = (siteConfig.tracking as any)?.googleAnalyticsId || "";
   const enableGa4 = Boolean((siteConfig.tracking as any)?.enableGa4 && ga4Id);
-  const needsOwnGtagScript =
-    enableGa4 && (!siteConfig.tracking.enableGoogleAds || !siteConfig.tracking.googleAdsId);
 
   useEffect(() => {
     if (!pathname || pathname.startsWith("/admin")) return;
     if (lastTrackedPath.current === pathname) return;
     lastTrackedPath.current = pathname;
+
+    const visitId = `pv_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+    currentVisitId.current = visitId;
+    pageEnterTs.current = Date.now();
 
     // 1. Send GA4 page_view if configured
     if (enableGa4 && typeof window !== "undefined" && typeof window.gtag === "function") {
@@ -89,8 +123,10 @@ export default function TrafficTracker() {
             /mobile|android|iphone|ipad/i.test(navigator.userAgent));
 
         const payload = JSON.stringify({
+          visitId,
           path: pathname,
           device: isMobile ? "mobile" : "desktop",
+          networkType: detectNetworkType(),
           isNewSession,
           sessionId,
           visitorId,
@@ -103,23 +139,52 @@ export default function TrafficTracker() {
           referrer: typeof document !== "undefined" ? document.referrer : "",
         });
 
-        if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
-          const blob = new Blob([payload], { type: "application/json" });
-          navigator.sendBeacon("/api/tracking/pageview", blob);
-        } else {
-          fetch("/api/tracking/pageview", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            keepalive: true,
-            body: payload,
-          }).catch(() => {});
-        }
+        sendBeaconPayload(payload);
       } catch {
         // Non-blocking
       }
     }, 2500);
 
-    return () => clearTimeout(timer);
+    const reportUpdate = (action?: string) => {
+      if (!currentVisitId.current) return;
+      const durationSeconds = Math.max(1, Math.round((Date.now() - pageEnterTs.current) / 1000));
+      sendBeaconPayload(
+        JSON.stringify({
+          mode: "update",
+          visitId: currentVisitId.current,
+          durationSeconds,
+          action,
+        })
+      );
+    };
+
+    const handleVisibility = () => {
+      if (document.visibilityState === "hidden") reportUpdate();
+    };
+    const handlePageHide = () => reportUpdate();
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const anchor = target?.closest("a") as HTMLAnchorElement | null;
+      if (!anchor) return;
+      const href = anchor.getAttribute("href") || "";
+      if (href.startsWith("tel:")) reportUpdate("Bấm gọi");
+      else if (href.includes("zalo.me")) reportUpdate("Bấm Zalo");
+      else if (href.includes("m.me") || href.includes("messenger.com")) reportUpdate("Bấm Messenger");
+    };
+    const handleSubmit = () => reportUpdate("Gửi form");
+
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("pagehide", handlePageHide);
+    document.addEventListener("click", handleClick, true);
+    document.addEventListener("submit", handleSubmit, true);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("pagehide", handlePageHide);
+      document.removeEventListener("click", handleClick, true);
+      document.removeEventListener("submit", handleSubmit, true);
+    };
   }, [pathname, enableGa4, ga4Id]);
 
   return null;

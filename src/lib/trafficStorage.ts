@@ -18,6 +18,11 @@ export interface RecentVisit {
   source: string;
   sourceDetail?: string;
   device: "mobile" | "desktop";
+  browser?: string;
+  os?: string;
+  networkType?: string;
+  durationSeconds?: number;
+  actions?: string[];
   ip?: string;
   location?: string;
   campaign?: string;
@@ -102,10 +107,14 @@ export interface ClickFraudTrigger {
 }
 
 export function recordPageview(input: {
+  id?: string;
   path: string;
   source: string;
   sourceDetail?: string;
   device: "mobile" | "desktop";
+  browser?: string;
+  os?: string;
+  networkType?: string;
   isNewSession: boolean;
   ip?: string;
   location?: string;
@@ -151,12 +160,17 @@ export function recordPageview(input: {
   }
 
   const visit: RecentVisit = {
-    id: `pv_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+    id: input.id || `pv_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
     timestamp: new Date().toISOString(),
     path: input.path,
     source: input.source,
     sourceDetail: input.sourceDetail,
     device: input.device,
+    browser: input.browser,
+    os: input.os,
+    networkType: input.networkType,
+    durationSeconds: 0,
+    actions: [],
     ip: input.ip,
     location: input.location,
     campaign: input.campaign,
@@ -306,6 +320,40 @@ export function updateIpStatus(
   store.whitelistedIps = Array.from(whitelisted);
   fs.writeFileSync(TRAFFIC_FILE, JSON.stringify(store, null, 2), "utf8");
   return store;
+}
+
+export function updateVisitActivity(input: {
+  visitId: string;
+  durationSeconds?: number;
+  action?: string;
+}): void {
+  if (!input.visitId) return;
+  const store = readTrafficStore();
+  const visit = store.recent.find((v) => v.id === input.visitId);
+  if (!visit) return;
+
+  let changed = false;
+  if (typeof input.durationSeconds === "number" && input.durationSeconds > (visit.durationSeconds || 0)) {
+    visit.durationSeconds = Math.min(3600, Math.round(input.durationSeconds));
+    changed = true;
+  }
+  if (input.action) {
+    const acts = new Set(visit.actions || []);
+    if (!acts.has(input.action)) {
+      acts.add(input.action);
+      visit.actions = Array.from(acts).slice(0, 10);
+      changed = true;
+    }
+  }
+  if (changed) {
+    fs.writeFileSync(TRAFFIC_FILE, JSON.stringify(store, null, 2), "utf8");
+  }
+}
+
+export function isIpBlocked(ip: string): boolean {
+  if (!ip) return false;
+  const store = readTrafficStore();
+  return (store.blockedIps || []).includes(ip);
 }
 
 export function clearTrafficStore(): void {
