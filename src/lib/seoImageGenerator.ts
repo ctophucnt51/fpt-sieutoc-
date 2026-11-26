@@ -1,13 +1,14 @@
 import fs from "fs";
 import path from "path";
 import { checkAndIncrementApiUsage } from "./seoMemory";
+import { pickDiverseFptVnCover } from "./fptImageFetcher";
 
 const SEO_IMAGES_DIR = path.join(process.cwd(), "data", "seo-images");
 
 export interface GeneratedImageResult {
   success: boolean;
   url: string;
-  generatedBy: "gemini-image" | "openai-image" | "editorial-svg" | "fallback";
+  generatedBy: "gemini-image" | "openai-image" | "fpt-vn-official" | "local-curated" | "editorial-svg" | "fallback";
   prompt?: string;
   error?: string;
 }
@@ -273,6 +274,7 @@ export async function generateArticleCoverImage(params: {
   category?: string;
   areaName?: string;
   slugHint?: string;
+  usedUrls?: string[];
   fallbackThumbnail: string;
 }): Promise<GeneratedImageResult> {
   const prompt = buildImagePrompt(params);
@@ -281,53 +283,55 @@ export async function generateArticleCoverImage(params: {
   const hasGemini = Boolean((process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY || "").trim());
   const hasOpenAi = Boolean((process.env.OPENAI_API_KEY || "").trim());
 
-  if (!hasGemini && !hasOpenAi) {
-    return {
-      success: false,
-      url: params.fallbackThumbnail,
-      generatedBy: "fallback",
-      prompt,
-      error: "Chưa cấu hình API Key AI để tạo ảnh.",
-    };
-  }
-
-  const budget = checkAndIncrementApiUsage("ai_image");
-  if (!budget.allowed) {
-    return {
-      success: false,
-      url: params.fallbackThumbnail,
-      generatedBy: "fallback",
-      prompt,
-      error: `Đã đạt giới hạn tạo ảnh AI hôm nay (${budget.usedToday}/${budget.limitToday}).`,
-    };
-  }
-
-  const provider = (process.env.SEO_AI_PROVIDER || "auto").toLowerCase().trim();
   let lastError = "";
+  const budget = hasGemini || hasOpenAi ? checkAndIncrementApiUsage("ai_image") : { allowed: false, usedToday: 0, limitToday: 0 };
 
-  if (provider === "openai" && hasOpenAi) {
-    const oai = await generateWithOpenAi(prompt, slugHint);
-    if (oai.ok && oai.url) {
-      return { success: true, url: oai.url, generatedBy: "openai-image", prompt };
-    }
-    lastError = oai.error || "";
-  } else {
-    if (hasGemini) {
-      const gem = await generateWithGemini(prompt, slugHint);
-      if (gem.ok && gem.url) {
-        return { success: true, url: gem.url, generatedBy: "gemini-image", prompt };
-      }
-      lastError = gem.error || "";
-    }
-    if (hasOpenAi) {
+  if (budget.allowed) {
+    const provider = (process.env.SEO_AI_PROVIDER || "auto").toLowerCase().trim();
+    if (provider === "openai" && hasOpenAi) {
       const oai = await generateWithOpenAi(prompt, slugHint);
       if (oai.ok && oai.url) {
         return { success: true, url: oai.url, generatedBy: "openai-image", prompt };
       }
-      lastError = oai.error || lastError;
+      lastError = oai.error || "";
+    } else {
+      if (hasGemini) {
+        const gem = await generateWithGemini(prompt, slugHint);
+        if (gem.ok && gem.url) {
+          return { success: true, url: gem.url, generatedBy: "gemini-image", prompt };
+        }
+        lastError = gem.error || "";
+      }
+      if (hasOpenAi) {
+        const oai = await generateWithOpenAi(prompt, slugHint);
+        if (oai.ok && oai.url) {
+          return { success: true, url: oai.url, generatedBy: "openai-image", prompt };
+        }
+        lastError = oai.error || lastError;
+      }
     }
   }
 
+  // 2. Chủ động lấy ảnh đa dạng từ trang chủ fpt.vn (đã cache local) + kho ảnh sản phẩm FPT
+  try {
+    const picked = await pickDiverseFptVnCover({
+      keyword: params.keyword,
+      title: params.title,
+      category: params.category,
+      usedUrls: params.usedUrls,
+    });
+    return {
+      success: true,
+      url: picked.url,
+      generatedBy: picked.source,
+      prompt,
+      error: lastError || undefined,
+    };
+  } catch {
+    // fall through to editorial SVG
+  }
+
+  // 3. Fallback cuối cùng: tạo ảnh bìa Editorial SVG theo tiêu đề
   try {
     const svgUrl = generateEditorialSvgCover({
       keyword: params.keyword,

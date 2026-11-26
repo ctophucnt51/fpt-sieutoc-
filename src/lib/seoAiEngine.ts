@@ -1,6 +1,7 @@
 import { checkAndIncrementApiUsage, FptProductKnowledge } from "./seoMemory";
 import { runQaSafetyCheck } from "./seoAuditor";
 import { generateArticleCoverImage } from "./seoImageGenerator";
+import { getAllArticles } from "./articleStorage";
 
 export interface AiKeywordSuggestion {
   keyword: string;
@@ -387,17 +388,22 @@ Trả về JSON đúng schema:
     .replace(/[^a-z0-9-]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-  // Tự động tạo ảnh bìa AI phù hợp nội dung (fallback về thumbnail tĩnh nếu lỗi/hết quota)
+  // Tự động tạo ảnh bìa AI hoặc lấy ảnh đa dạng từ fpt.vn (tránh trùng lặp các bài gần đây)
   const fallbackThumb = pickThumbnail(safeKw, category);
   let thumbnail = fallbackThumb;
   let imageGeneratedBy: string = "fallback";
   if (params.generateImage !== false) {
+    const recentThumbnails = getAllArticles(true)
+      .slice(0, 10)
+      .map((a) => a.thumbnail)
+      .filter(Boolean);
     const imgRes = await generateArticleCoverImage({
       keyword: safeKw,
       title: String(res.data.title),
       category,
       areaName: safeArea,
       slugHint: cleanSlug || safeKw,
+      usedUrls: recentThumbnails,
       fallbackThumbnail: fallbackThumb,
     });
     thumbnail = imgRes.url;

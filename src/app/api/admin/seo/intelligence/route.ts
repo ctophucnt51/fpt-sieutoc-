@@ -24,6 +24,8 @@ import { fetchGa4OrganicSummary } from "@/lib/ga4Client";
 import { getSeoConfig, saveSeoConfig } from "@/lib/seoStorage";
 import { generateSeoArticleDraft, pickThumbnail } from "@/lib/seoAiEngine";
 import { generateArticleCoverImage } from "@/lib/seoImageGenerator";
+import { syncFptVnImagePool } from "@/lib/fptImageFetcher";
+import { getAllArticles } from "@/lib/articleStorage";
 
 export async function GET(request: NextRequest) {
   if (!verifyAdminAuth(request)) {
@@ -267,23 +269,44 @@ export async function POST(request: NextRequest) {
       const keyword = String(body.keyword || "").trim();
       const areaName = String(body.areaName || "Cần Thơ").trim();
       const title = String(body.title || "").trim();
+      const excludeUrl = String(body.excludeUrl || "").trim();
       if (!keyword) {
         return NextResponse.json({ success: false, message: "Vui lòng nhập từ khóa hoặc chủ đề ảnh." }, { status: 400 });
       }
+      const recentThumbnails = getAllArticles(true)
+        .slice(0, 8)
+        .map((a) => a.thumbnail)
+        .filter(Boolean);
+      if (excludeUrl) recentThumbnails.unshift(excludeUrl);
       const fallbackThumbnail = pickThumbnail(keyword);
       const imgRes = await generateArticleCoverImage({
         keyword,
         title: title || keyword,
         areaName,
         slugHint: keyword,
+        usedUrls: recentThumbnails,
         fallbackThumbnail,
       });
       return NextResponse.json({
         success: true,
         image: imgRes,
         message: imgRes.success
-          ? `Đã tạo ảnh AI (${imgRes.generatedBy}) thành công!`
+          ? `Đã tạo ảnh (${imgRes.generatedBy}) thành công!`
           : imgRes.error || "Sử dụng ảnh dự phòng phù hợp chủ đề.",
+        intelligence: getFullSeoIntelligenceState(),
+      });
+    }
+
+    if (action === "sync_fpt_images") {
+      const pool = await syncFptVnImagePool(true);
+      return NextResponse.json({
+        success: pool.length > 0,
+        count: pool.length,
+        pool,
+        message:
+          pool.length > 0
+            ? `Đã đồng bộ ${pool.length} ảnh banner & sản phẩm mới nhất từ fpt.vn!`
+            : "Không lấy được ảnh mới từ fpt.vn lúc này.",
         intelligence: getFullSeoIntelligenceState(),
       });
     }

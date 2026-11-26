@@ -607,7 +607,12 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                       const res = await fetch("/api/admin/seo/intelligence", {
                         method: "POST",
                         headers: { "Content-Type": "application/json", ...getAdminHeaders() },
-                        body: JSON.stringify({ action: "ai_generate_image", keyword: draftKw, areaName: draftArea }),
+                        body: JSON.stringify({
+                          action: "ai_generate_image",
+                          keyword: draftKw,
+                          areaName: draftArea,
+                          excludeUrl: previewImageUrl || "",
+                        }),
                       });
                       const json = await res.json();
                       if (json.intelligence) setData(json.intelligence);
@@ -622,6 +627,19 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                   className="px-3 py-1.5 rounded-lg bg-fpt-orange text-white font-bold text-xs hover:bg-fpt-hover disabled:opacity-50 cursor-pointer"
                 >
                   Tạo Ảnh AI Thử Nghiệm
+                </button>
+              </div>
+              <div className="flex items-center justify-between gap-2 pt-1">
+                <span className="text-[11px] text-slate-500">
+                  Kho ảnh bìa tự động lấy đa dạng từ trang chủ <strong>fpt.vn</strong> + ảnh sản phẩm FPT (không lặp bài gần nhau).
+                </span>
+                <button
+                  type="button"
+                  disabled={runningCycle}
+                  onClick={() => callAction({ action: "sync_fpt_images" })}
+                  className="px-2.5 py-1 rounded-lg border border-orange-300 bg-white text-fpt-orange font-bold text-[11px] hover:bg-orange-50 disabled:opacity-50 cursor-pointer shrink-0"
+                >
+                  Đồng Bộ Kho Ảnh fpt.vn
                 </button>
               </div>
               {previewImageUrl && (

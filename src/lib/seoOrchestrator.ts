@@ -9,6 +9,7 @@ import { checkKeywordSerp } from "./serpChecker";
 import { runPageSpeedCheck } from "./pageSpeedClient";
 import { fetchGa4OrganicSummary } from "./ga4Client";
 import { pingIndexNow } from "./indexNow";
+import { syncFptVnImagePool } from "./fptImageFetcher";
 import {
   generateMetaOptimizationProposal,
   generateSeoArticleDraft,
@@ -848,6 +849,13 @@ export async function runSeoMasterCycleAsync(options?: {
         latestSeo.autoPilotSettings.lastTechnicalAuditAt = new Date().toISOString();
         saveSeoConfig(latestSeo);
       }
+    }
+
+    // Image Pool Sync: Cập nhật kho ảnh từ fpt.vn (cache 24h)
+    try {
+      await syncFptVnImagePool(false);
+    } catch {
+      // non-blocking
     }
   }
 
