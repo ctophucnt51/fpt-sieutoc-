@@ -2,6 +2,8 @@ import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/siteConfig";
 import { getAllArticles } from "@/lib/articleStorage";
 
+export const dynamic = "force-dynamic";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.brand.domain;
   const lastModified = new Date();
