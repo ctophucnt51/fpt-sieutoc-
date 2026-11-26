@@ -71,7 +71,7 @@ export default function TrafficManagement({
   });
   const [showAllRecent, setShowAllRecent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [rangeDays, setRangeDays] = useState<1 | 7 | 30>(7);
+  const [rangeDays, setRangeDays] = useState<1 | 7 | 30>(1);
 
   const fetchTraffic = useCallback(async () => {
     setIsLoading(true);
@@ -168,20 +168,6 @@ export default function TrafficManagement({
     return map;
   }, [suspiciousIps]);
 
-  const googleOnlyRecent = useMemo(() => {
-    return recent.filter(
-      (v) => v.source === "Google Ads" || v.source === "Google Search"
-    );
-  }, [recent]);
-
-  const displayedRecent = useMemo(() => {
-    return showAllRecent ? recent.slice(0, 100) : googleOnlyRecent.slice(0, 50);
-  }, [showAllRecent, recent, googleOnlyRecent]);
-
-  useEffect(() => {
-    fetchTraffic();
-  }, [fetchTraffic]);
-
   // Build ordered date keys for selected range
   const dateKeys = useMemo(() => {
     const keys: string[] = [];
@@ -190,6 +176,30 @@ export default function TrafficManagement({
     }
     return keys;
   }, [rangeDays]);
+
+  const rangeRecent = useMemo(() => {
+    const keySet = new Set(dateKeys);
+    return recent.filter((v) => {
+      const vnKey = new Date(new Date(v.timestamp).getTime() + 7 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10);
+      return keySet.has(vnKey);
+    });
+  }, [recent, dateKeys]);
+
+  const googleOnlyRecent = useMemo(() => {
+    return rangeRecent.filter(
+      (v) => v.source === "Google Ads" || v.source === "Google Search"
+    );
+  }, [rangeRecent]);
+
+  const displayedRecent = useMemo(() => {
+    return showAllRecent ? rangeRecent.slice(0, 100) : googleOnlyRecent.slice(0, 50);
+  }, [showAllRecent, rangeRecent, googleOnlyRecent]);
+
+  useEffect(() => {
+    fetchTraffic();
+  }, [fetchTraffic]);
 
   const summary = useMemo(() => {
     let pageviews = 0;
