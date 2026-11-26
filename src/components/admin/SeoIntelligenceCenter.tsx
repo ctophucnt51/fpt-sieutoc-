@@ -151,11 +151,8 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
         <div>
           <h3 className="text-sm sm:text-base font-black text-slate-900 flex items-center gap-2">
             <Brain className="w-5 h-5 text-fpt-orange" />
-            <span>GOFPT SEO Intelligence Center (13 Phân Hệ • 8 AI Agents)</span>
+            <span>GOFPT SEO Intelligence Center</span>
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Bộ nhớ bền vững <code className="text-slate-700">data/seo-memory/</code> • QA &amp; Google Ads Safety Gate
-          </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button
@@ -240,7 +237,7 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
             </div>
 
             <div className="p-4 rounded-xl bg-orange-50/60 border border-orange-200 space-y-2">
-              <div className="font-bold text-slate-900">Trạng thái kết nối dữ liệu thực (Không dùng dữ liệu giả):</div>
+              <div className="font-bold text-slate-900">Trạng thái kết nối</div>
               <div className="flex flex-wrap gap-2">
                 <span className={`px-2.5 py-1 rounded-full font-bold text-[11px] ${data.connections.gscConnected ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}>
                   GSC API: {data.connections.gscConnected ? "Đã kết nối" : "Chưa kết nối"}
@@ -274,13 +271,12 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                 </div>
               ) : (
                 data.connections.ga4Configured && (
-                  <div className="pt-2 border-t border-orange-200/70 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
-                    <span>Đã gắn GA4 Property ID — bấm để kéo số liệu 28 ngày ngay:</span>
+                  <div className="pt-2 border-t border-orange-200/70 flex justify-end">
                     <button
                       type="button"
                       disabled={runningCycle}
                       onClick={() => callAction({ action: "sync_ga4" })}
-                      className="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold hover:bg-slate-800 disabled:opacity-50 cursor-pointer"
+                      className="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold text-[11px] hover:bg-slate-800 disabled:opacity-50 cursor-pointer"
                     >
                       Đồng Bộ GA4 Ngay
                     </button>
@@ -292,12 +288,7 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
             {/* Auto-Pilot Controls */}
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <div className="font-bold text-slate-900">Chế độ Auto-Pilot (Chạy Hoàn Toàn Tự Động)</div>
-                  <div className="text-[11px] text-slate-500">
-                    Tự động thu thập GSC/Serper → Audit kỹ thuật → Viết bài + Tạo ảnh AI → Duyệt QA Gate → Xuất bản &amp; Ping IndexNow → Học từ kết quả.
-                  </div>
-                </div>
+                <div className="font-bold text-slate-900">Chế độ Auto-Pilot</div>
                 <button
                   type="button"
                   disabled={runningCycle}
@@ -541,9 +532,9 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
 
         {activeModule === "technical" && (
           <div className="space-y-4">
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <div className="font-bold text-slate-900">Tình trạng Technical SEO, Internal Link &amp; Google Ads:</div>
+                <div className="font-bold text-slate-900">Technical SEO &amp; Indexing</div>
                 <div className="flex flex-wrap items-center gap-2">
                   <button
                     type="button"
@@ -563,20 +554,17 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                   </button>
                 </div>
               </div>
-              <ul className="space-y-1 text-slate-700 list-disc pl-5">
-                <li>Canonical Tags: Đã bật chuẩn `https://gofpt.vn` trên tất cả route public.</li>
-                <li>Robots &amp; Noindex: Đã chặn `/admin` và `/cam-on` khỏi Google Index.</li>
-                <li>Schema JSON-LD: Đã kích hoạt `LocalBusiness`, `WebSite`, `FAQPage`, `NewsArticle`.</li>
-                <li>QA Guard: Đang bảo vệ không dùng từ cấm (`tuyệt đối`, `trọn đời`, `giảm 99%`). Bấm &ldquo;Quét Toàn Bộ Website&rdquo; bên dưới để kiểm tra live HTML.</li>
-              </ul>
+              <div className="flex flex-wrap gap-2 text-[11px]">
+                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold">Canonical: Đã bật</span>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold">Robots &amp; Noindex: Đã bật</span>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold">Schema JSON-LD: Đã bật</span>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold">QA Guard: Đã bật</span>
+              </div>
             </div>
 
             <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <div className="font-bold text-slate-900">Google PageSpeed Insights (Core Web Vitals)</div>
-                  <div className="text-[11px] text-slate-500">Đo trực tiếp từ Google PageSpeed v5 API cho trang chủ https://gofpt.vn</div>
-                </div>
+                <div className="font-bold text-slate-900">Google PageSpeed Insights</div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => callAction({ action: "check_pagespeed", url: "https://gofpt.vn", strategy: "mobile" })}
@@ -668,10 +656,7 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                   Tạo Ảnh AI Thử Nghiệm
                 </button>
               </div>
-              <div className="flex items-center justify-between gap-2 pt-1">
-                <span className="text-[11px] text-slate-500">
-                  Kho ảnh bìa tự động lấy đa dạng từ trang chủ <strong>fpt.vn</strong> + ảnh sản phẩm FPT (không lặp bài gần nhau).
-                </span>
+              <div className="flex justify-end pt-1">
                 <button
                   type="button"
                   disabled={runningCycle}
@@ -689,7 +674,7 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
               )}
             </div>
             <div className="font-bold text-slate-900">
-              Nguồn tri thức chuẩn (`fpt_knowledge.json`): Địa chỉ {data.fptKnowledge?.address} • Hotline {data.fptKnowledge?.hotline}
+              Bài viết hiện có ({data.inventory.filter((i: any) => i.route.startsWith("/tin-tuc/")).length})
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {data.inventory

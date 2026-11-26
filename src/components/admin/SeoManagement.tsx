@@ -422,9 +422,6 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
               </span>
             )}
           </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Check Top 1–3 đối thủ theo thời gian thực (Serper.dev), đồng bộ Google Search Console và kiểm tra SEO On-Page.
-          </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
