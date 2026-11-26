@@ -15,6 +15,7 @@ import {
   isAiConfigured,
   isGeminiConfigured,
   pickThumbnail,
+  researchSeoKeywords,
 } from "./seoAiEngine";
 import {
   initializeSeoMemory,
@@ -185,26 +186,42 @@ export function runSeoMasterCycle(): {
   const traffic = readTrafficStore();
   const conversions = getAnonymizedConversionSummary();
 
-  // 1. COLLECT: Rebuild inventory.json from real routes + articles
+  // 1. COLLECT: Rebuild inventory.json from real routes + articles (preserving prior technical audit scores)
+  const prevInventory = readMemoryFile<SeoInventoryItem[]>("inventory.json", []);
+  const prevByRoute = new Map(prevInventory.map((i) => [i.route, i]));
+
   const inventory: SeoInventoryItem[] = [
-    ...AUDITED_ROUTES.map((r) => ({
-      url: `https://gofpt.vn${r.route === "/" ? "" : r.route}`,
-      route: r.route,
-      type: (r.route === "/tin-tuc" ? "dynamic" : "static") as "static" | "dynamic",
-      indexable: true,
-      hasCanonical: true,
-      title: seo.pageMetaOverrides?.[r.route]?.title || r.name,
-      description: seo.pageMetaOverrides?.[r.route]?.description || "",
-    })),
-    ...articles.map((a) => ({
-      url: `https://gofpt.vn/tin-tuc/${a.slug}`,
-      route: `/tin-tuc/${a.slug}`,
-      type: "ssg" as const,
-      indexable: a.published,
-      hasCanonical: true,
-      title: a.title,
-      description: a.excerpt,
-    })),
+    ...AUDITED_ROUTES.map((r) => {
+      const prev = prevByRoute.get(r.route);
+      return {
+        url: `https://gofpt.vn${r.route === "/" ? "" : r.route}`,
+        route: r.route,
+        type: (r.route === "/tin-tuc" ? "dynamic" : "static") as "static" | "dynamic",
+        indexable: true,
+        hasCanonical: prev?.hasCanonical ?? true,
+        title: seo.pageMetaOverrides?.[r.route]?.title || r.name,
+        description: seo.pageMetaOverrides?.[r.route]?.description || "",
+        lastAuditedAt: prev?.lastAuditedAt,
+        score: prev?.score,
+        googleAdsSafe: prev?.googleAdsSafe,
+      };
+    }),
+    ...articles.map((a) => {
+      const route = `/tin-tuc/${a.slug}`;
+      const prev = prevByRoute.get(route);
+      return {
+        url: `https://gofpt.vn${route}`,
+        route,
+        type: "ssg" as const,
+        indexable: a.published,
+        hasCanonical: prev?.hasCanonical ?? true,
+        title: a.title,
+        description: a.excerpt,
+        lastAuditedAt: prev?.lastAuditedAt,
+        score: prev?.score,
+        googleAdsSafe: prev?.googleAdsSafe,
+      };
+    }),
   ];
   writeMemoryFile("inventory.json", inventory);
 
@@ -406,6 +423,179 @@ export function runSeoMasterCycle(): {
 }
 
 /**
+ * Research & Keyword Spy Agent: Chủ động tìm từ khóa mới chưa phủ, thêm vào Mapping + Watchlist + Task Queue.
+ */
+export async function runKeywordResearchNow(): Promise<{
+  success: boolean;
+  addedCount: number;
+  keywords: string[];
+  message: string;
+}> {
+  if (!isAiConfigured()) {
+    return { success: false, addedCount: 0, keywords: [], message: "Chưa cấu hình AI API Key." };
+  }
+
+  const kwList = readMemoryFile<SeoKeywordMapItem[]>("keywords.json", []);
+  const articles = getAllArticles(false);
+  const competitors = readMemoryFile<SeoCompetitorRecord[]>("competitors.json", []);
+  const compTitles = competitors.flatMap((c) => c.topDomains.map((d) => d.title));
+
+  const res = await researchSeoKeywords({
+    existingKeywords: kwList.map((k) => k.keyword),
+    existingTitles: articles.map((a) => a.title),
+    competitorSnippets: compTitles,
+  });
+
+  if (!res.success || !res.suggestions || res.suggestions.length === 0) {
+    return {
+      success: false,
+      addedCount: 0,
+      keywords: [],
+      message: res.error || "Không tìm thấy từ khóa mới phù hợp.",
+    };
+  }
+
+  const seo = getSeoConfig();
+  const addedKeywords: string[] = [];
+
+  for (const s of res.suggestions) {
+    if (kwList.some((k) => k.keyword.toLowerCase() === s.keyword.toLowerCase())) continue;
+
+    kwList.unshift({
+      id: `kw_ai_${Date.now()}_${addedKeywords.length}`,
+      keyword: s.keyword,
+      targetUrl: s.targetUrl,
+      intent: s.intent,
+      priority: s.priority,
+      currentPosition: null,
+      lastCheckedAt: new Date().toISOString(),
+    });
+
+    if (!(seo.watchlistKeywords || []).some((w) => w.keyword.toLowerCase() === s.keyword.toLowerCase())) {
+      seo.watchlistKeywords.push({
+        id: `wl_${Date.now()}_${addedKeywords.length}`,
+        keyword: s.keyword,
+        targetUrl: s.targetUrl,
+        lastPosition: null,
+        previousPosition: null,
+        clicks: 0,
+        impressions: 0,
+        ctr: 0,
+      });
+    }
+
+    enqueueSeoTask({
+      dedupKey: `ai-kw-${s.keyword.toLowerCase()}`,
+      title: `Viết bài SEO cho từ khóa "${s.keyword}" tại khu vực ${s.areaName}`,
+      ownerAgent: "Content SEO Agent",
+      priority: s.priority,
+      evidence: s.rationale || "Đề xuất bởi Research & Keyword Spy Agent",
+      estimatedCost: "0đ (AI Agent)",
+      acceptanceCriteria: "Bài viết đạt QA Google Ads, có ảnh bìa AI & Internal Link",
+      targetUrl: s.targetUrl,
+    });
+
+    addedKeywords.push(s.keyword);
+  }
+
+  if (addedKeywords.length > 0) {
+    writeMemoryFile("keywords.json", kwList);
+    saveSeoConfig(seo);
+  }
+
+  return {
+    success: true,
+    addedCount: addedKeywords.length,
+    keywords: addedKeywords,
+    message:
+      addedKeywords.length > 0
+        ? `Keyword Spy Agent đã tìm & thêm ${addedKeywords.length} từ khóa mới: ${addedKeywords.join(", ")}`
+        : "Tất cả từ khóa gợi ý đã có sẵn trong Mapping.",
+  };
+}
+
+/**
+ * Internal Link Agent (`seo-internal-link`): Kiểm tra & bổ sung liên kết nội bộ về các trang dịch vụ chính.
+ */
+export function runInternalLinkAuditAndFix(autoApply = false): {
+  checkedCount: number;
+  fixedCount: number;
+  flaggedCount: number;
+  message: string;
+} {
+  const articles = getAllArticles(true);
+  const coreRoutes = ["/lap-mang-fpt", "/combo-ngoai-hang-anh", "/bang-gia", "/camera-fpt"];
+  let fixedCount = 0;
+  let flaggedCount = 0;
+  let articlesModified = false;
+  const changes = readMemoryFile<SeoChangeRecord[]>("changes.json", []);
+
+  for (const art of articles) {
+    if (!art.published) continue;
+    const presentLinks = coreRoutes.filter((r) => art.content.includes(`href="${r}"`) || art.content.includes(`href='${r}'`));
+    if (presentLinks.length >= 2) continue;
+
+    if (autoApply) {
+      const missing = coreRoutes.filter((r) => !presentLinks.includes(r)).slice(0, 2);
+      const linkLabels: Record<string, string> = {
+        "/lap-mang-fpt": "Đăng ký Lắp Mạng FPT Wi-Fi 6 tốc độ 1 Gbps",
+        "/combo-ngoai-hang-anh": "Gói Combo Internet + Ngoại Hạng Anh 220.000đ/tháng",
+        "/bang-gia": "Bảng giá cước Internet FPT mới nhất 2026",
+        "/camera-fpt": "Camera FPT AI an ninh lưu trữ Cloud",
+      };
+      const linkItems = missing
+        .map((r) => `<li><a href="${r}" class="text-fpt-orange font-semibold hover:underline">${linkLabels[r] || r}</a></li>`)
+        .join("");
+
+      const linkBlock = `\n<div class="not-prose my-4 p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm">\n  <p class="font-bold text-slate-900 mb-1.5">Xem thêm dịch vụ FPT Telecom liên quan:</p>\n  <ul class="list-disc pl-5 space-y-1">${linkItems}</ul>\n</div>\n`;
+      const updatedContent = `${art.content}${linkBlock}`;
+      const qa = runQaSafetyCheck({ title: art.title, description: art.excerpt, contentHtml: updatedContent });
+      if (qa.passed) {
+        changes.unshift({
+          id: `chg_il_${Date.now()}_${fixedCount}`,
+          target: `/tin-tuc/${art.slug}`,
+          changeType: "internal_link",
+          beforeSnapshot: { contentLength: art.content.length },
+          afterSnapshot: { addedLinks: missing },
+          appliedBy: "Internal Link Agent",
+          appliedAt: new Date().toISOString(),
+        });
+        art.content = updatedContent;
+        art.updatedAt = new Date().toISOString();
+        articlesModified = true;
+        fixedCount++;
+      }
+    } else {
+      enqueueSeoTask({
+        dedupKey: `internal-link-${art.id}`,
+        title: `Bổ sung liên kết nội bộ cho bài "${art.title}"`,
+        ownerAgent: "Onpage Optimization Agent",
+        priority: "P2",
+        evidence: `Mới có ${presentLinks.length}/2 internal link tới trang dịch vụ đích`,
+        estimatedCost: "0đ",
+        acceptanceCriteria: "Có tối thiểu 2 internal links tự nhiên tới trang gói cước",
+        targetUrl: `/tin-tuc/${art.slug}`,
+      });
+      flaggedCount++;
+    }
+  }
+
+  if (articlesModified) {
+    saveAllArticles(articles);
+    writeMemoryFile("changes.json", changes.slice(0, 100));
+  }
+
+  return {
+    checkedCount: articles.filter((a) => a.published).length,
+    fixedCount,
+    flaggedCount,
+    message: autoApply
+      ? `Internal Link Agent đã kiểm tra ${articles.filter((a) => a.published).length} bài và tự động bổ sung liên kết cho ${fixedCount} bài.`
+      : `Đã kiểm tra ${articles.filter((a) => a.published).length} bài, phát hiện ${flaggedCount} bài thiếu internal link.`,
+  };
+}
+
+/**
  * Learn Loop: Đánh giá hiệu quả các thay đổi đã áp dụng >= 7 ngày và lưu bài học vào lessons.json.
  */
 function runLearnLoop(): number {
@@ -594,16 +784,30 @@ export async function runSeoMasterCycleAsync(options?: {
       }
     }
 
-    // Technical SEO Agent: Auto-audit core routes (24h cache) + PageSpeed if key available
+    // Technical SEO Agent: Rotate audit across all core routes (4 routes/cycle) + PageSpeed
     const lastTechAt = seo.autoPilotSettings?.lastTechnicalAuditAt
       ? new Date(seo.autoPilotSettings.lastTechnicalAuditAt).getTime()
       : 0;
     if (Date.now() - lastTechAt > 24 * 60 * 60 * 1000) {
-      const targetRoutes = AUDITED_ROUTES.slice(0, 3);
+      const inv = readMemoryFile<SeoInventoryItem[]>("inventory.json", []);
+      const invByRoute = new Map(inv.map((i) => [i.route, i]));
+      const sortedRoutes = [...AUDITED_ROUTES].sort((a, b) => {
+        const ta = invByRoute.get(a.route)?.lastAuditedAt || "";
+        const tb = invByRoute.get(b.route)?.lastAuditedAt || "";
+        return ta.localeCompare(tb);
+      });
+      const targetRoutes = sortedRoutes.slice(0, 4);
       for (const r of targetRoutes) {
         try {
           const audit = await auditSingleRoute("https://gofpt.vn", r);
           technicalAuditedCount++;
+          const invItem = invByRoute.get(r.route);
+          if (invItem) {
+            invItem.score = audit.score;
+            invItem.hasCanonical = audit.hasCanonical;
+            invItem.googleAdsSafe = audit.googleAdsSafe;
+            invItem.lastAuditedAt = new Date().toISOString();
+          }
           if (audit.score < 80 || !audit.googleAdsSafe || !audit.hasCanonical) {
             enqueueSeoTask({
               dedupKey: `tech-audit-${r.route}`,
@@ -619,6 +823,9 @@ export async function runSeoMasterCycleAsync(options?: {
         } catch {
           // ignore transient network error in audit
         }
+      }
+      if (technicalAuditedCount > 0) {
+        writeMemoryFile("inventory.json", inv);
       }
 
       if (process.env.PAGESPEED_API_KEY) {
@@ -721,13 +928,22 @@ export async function runSeoMasterCycleAsync(options?: {
       }
     }
 
-    // 3b. Content SEO Agent: Auto-draft 1 pending Content task (with AI cover image)
+    // 3b. Content SEO Agent: Auto-draft 1 pending Content task (if none pending, run Keyword Spy first)
     const maxArticles = Math.max(0, Math.min(2, autoPilot.maxArticlesPerCycle ?? 1));
     if (maxArticles > 0) {
-      const tasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
-      const pendingContentTasks = tasks.filter(
+      let tasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
+      let pendingContentTasks = tasks.filter(
         (t) => t.status === "pending" && t.ownerAgent === "Content SEO Agent"
       );
+
+      if (pendingContentTasks.length === 0 && autoPilot.enabled) {
+        await runKeywordResearchNow();
+        tasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
+        pendingContentTasks = tasks.filter(
+          (t) => t.status === "pending" && t.ownerAgent === "Content SEO Agent"
+        );
+      }
+
       const knowledge = readMemoryFile<FptProductKnowledge | null>("fpt_knowledge.json", null);
 
       let draftedCount = 0;
@@ -818,6 +1034,9 @@ export async function runSeoMasterCycleAsync(options?: {
     }
   }
 
+  // 4b. Internal Link Agent: Tự động kiểm tra & bổ sung internal links cho bài đã xuất bản
+  const ilRes = runInternalLinkAuditAndFix(Boolean(autoPilot.enabled));
+
   // 5. MEASURE & LEARN LOOP
   const newLessonsCount = runLearnLoop();
 
@@ -835,8 +1054,10 @@ export async function runSeoMasterCycleAsync(options?: {
     }${technicalAuditedCount > 0 ? ` Audit kỹ thuật ${technicalAuditedCount} trang.` : ""}${
       newApprovalsAdded > 0 ? ` AI tạo ${newApprovalsAdded} đề xuất.` : ""
     }${autoApprovedCount > 0 ? ` Auto-Pilot đã duyệt & xuất bản ${autoApprovedCount} mục.` : ""}${
-      indexNowSubmitted > 0 ? ` Đã gửi ${indexNowSubmitted} URL tới IndexNow.` : ""
-    }${newLessonsCount > 0 ? ` Rút ra ${newLessonsCount} bài học mới.` : ""}`,
+      ilRes.fixedCount > 0 ? ` Bổ sung Internal Link cho ${ilRes.fixedCount} bài.` : ""
+    }${indexNowSubmitted > 0 ? ` Đã gửi ${indexNowSubmitted} URL tới IndexNow.` : ""}${
+      newLessonsCount > 0 ? ` Rút ra ${newLessonsCount} bài học mới.` : ""
+    }`,
   };
 }
 

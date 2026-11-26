@@ -4,6 +4,8 @@ import {
   getFullSeoIntelligenceState,
   runSeoMasterCycle,
   runSeoMasterCycleAsync,
+  runKeywordResearchNow,
+  runInternalLinkAuditAndFix,
   decideSeoApproval,
   rollbackSeoChange,
   dispatchTelegramSeoSummary,
@@ -282,6 +284,27 @@ export async function POST(request: NextRequest) {
         message: imgRes.success
           ? `Đã tạo ảnh AI (${imgRes.generatedBy}) thành công!`
           : imgRes.error || "Sử dụng ảnh dự phòng phù hợp chủ đề.",
+        intelligence: getFullSeoIntelligenceState(),
+      });
+    }
+
+    if (action === "ai_research_keywords") {
+      const res = await runKeywordResearchNow();
+      return NextResponse.json(
+        {
+          ...res,
+          intelligence: getFullSeoIntelligenceState(),
+        },
+        { status: res.success ? 200 : 400 }
+      );
+    }
+
+    if (action === "run_internal_link_audit") {
+      const autoApply = Boolean(body.autoApply);
+      const res = runInternalLinkAuditAndFix(autoApply);
+      return NextResponse.json({
+        success: true,
+        ...res,
         intelligence: getFullSeoIntelligenceState(),
       });
     }

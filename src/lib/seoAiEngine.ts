@@ -2,6 +2,21 @@ import { checkAndIncrementApiUsage, FptProductKnowledge } from "./seoMemory";
 import { runQaSafetyCheck } from "./seoAuditor";
 import { generateArticleCoverImage } from "./seoImageGenerator";
 
+export interface AiKeywordSuggestion {
+  keyword: string;
+  targetUrl: string;
+  areaName: string;
+  intent: "local" | "transactional" | "informational";
+  priority: "P0" | "P1" | "P2";
+  rationale: string;
+}
+
+export interface AiKeywordResearchResult {
+  success: boolean;
+  suggestions?: AiKeywordSuggestion[];
+  error?: string;
+}
+
 export interface AiMetaProposalResult {
   success: boolean;
   title?: string;
@@ -395,4 +410,69 @@ Trả về JSON đúng schema:
       categoryName: String(res.data.categoryName || "Hướng Dẫn Kỹ Thuật").trim(),
     },
   };
+}
+
+// ─── Keyword & Competitor Research Agent (Keyword Spy) ────────────────────────
+
+/**
+ * Keyword Research Agent: Tìm 3 từ khóa ngách mới có tỷ lệ chuyển đổi cao tại Cần Thơ/ĐBSCL,
+ * tránh trùng lặp (cannibalization) với từ khóa và bài viết hiện có.
+ */
+export async function researchSeoKeywords(params: {
+  existingKeywords: string[];
+  existingTitles: string[];
+  competitorSnippets?: string[];
+}): Promise<AiKeywordResearchResult> {
+  const existingSample = params.existingKeywords.slice(0, 25).join(", ");
+  const titlesSample = params.existingTitles.slice(0, 15).join(" | ");
+  const compSample = (params.competitorSnippets || []).slice(0, 5).join(" | ");
+
+  const prompt = `Bạn là Research & Keyword Spy Agent cho GoFPT.vn (FPT Telecom Cần Thơ, Sóc Trăng, Hậu Giang).
+Nhiệm vụ: Đề xuất 3 từ khóa SEO mới (tiếng Việt có dấu, 4-8 từ) chưa có trong danh sách hiện tại để mở rộng traffic & đơn đăng ký lắp mạng FPT, Camera FPT, Combo Ngoại Hạng Anh.
+
+Từ khóa ĐÃ CÓ (tuyệt đối không lặp lại): ${existingSample || "chưa có"}
+Tiêu đề bài viết ĐÃ CÓ: ${titlesSample || "chưa có"}
+${compSample ? `Tiêu đề đối thủ tham khảo: ${compSample}` : ""}
+
+Quy tắc:
+- Tập trung nhu cầu thực tại Cần Thơ (Phong Điền, Cờ Đỏ, Vĩnh Thạnh, Thới Lai, Ninh Kiều, Cái Răng...), Sóc Trăng, Hậu Giang, hoặc từ khóa chuyển đổi (giá cước, quán cafe, phòng trọ, sinh viên, camera AI, Wi-Fi 6).
+- "targetUrl": chọn "/lap-mang-fpt", "/combo-ngoai-hang-anh", "/camera-fpt", "/bang-gia", hoặc "/tin-tuc/<slug-de-xuat>".
+- "intent": "local" | "transactional" | "informational".
+- "priority": "P0" | "P1" | "P2".
+
+Trả về JSON đúng schema:
+{
+  "suggestions": [
+    {
+      "keyword": "string",
+      "targetUrl": "string",
+      "areaName": "string (vd: Cờ Đỏ, Cần Thơ)",
+      "intent": "local" | "transactional" | "informational",
+      "priority": "P0" | "P1" | "P2",
+      "rationale": "string (1 câu ngắn)"
+    }
+  ]
+}`;
+
+  const res = await callAiJson(prompt);
+  const list = Array.isArray(res.data?.suggestions) ? res.data.suggestions : [];
+  if (!res.ok || list.length === 0) {
+    return { success: false, error: res.error || "AI không trả về danh sách từ khóa hợp lệ." };
+  }
+
+  const normalizedExisting = new Set(params.existingKeywords.map((k) => k.toLowerCase().trim()));
+  const filtered: AiKeywordSuggestion[] = list
+    .filter((s: any) => s?.keyword && !normalizedExisting.has(String(s.keyword).toLowerCase().trim()))
+    .slice(0, 3)
+    .map((s: any) => ({
+      keyword: String(s.keyword).trim(),
+      targetUrl: String(s.targetUrl || "/lap-mang-fpt").trim(),
+      areaName: String(s.areaName || "Cần Thơ").trim(),
+      intent:
+        s.intent === "transactional" || s.intent === "informational" ? s.intent : "local",
+      priority: s.priority === "P0" || s.priority === "P2" ? s.priority : "P1",
+      rationale: String(s.rationale || "").trim(),
+    }));
+
+  return { success: true, suggestions: filtered };
 }

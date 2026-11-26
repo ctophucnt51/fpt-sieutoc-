@@ -347,11 +347,12 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
         {activeModule === "inventory" && (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
-              <thead>
+                <thead>
                 <tr className="border-b border-slate-200 text-slate-500 uppercase text-[11px]">
                   <th className="py-2 pr-3">Route</th>
                   <th className="py-2 px-3">Loại</th>
                   <th className="py-2 px-3">Canonical</th>
+                  <th className="py-2 px-3">Điểm Audit</th>
                   <th className="py-2 pl-3">Tiêu đề</th>
                 </tr>
               </thead>
@@ -364,6 +365,15 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                       <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold text-[10px]">
                         {item.hasCanonical ? "Có" : "Thiếu"}
                       </span>
+                    </td>
+                    <td className="py-2 px-3">
+                      {item.score != null ? (
+                        <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${item.score >= 85 ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}>
+                          {item.score}/100
+                        </span>
+                      ) : (
+                        <span className="text-[10px] text-slate-400">Chưa audit</span>
+                      )}
                     </td>
                     <td className="py-2 pl-3 text-slate-700">{item.title}</td>
                   </tr>
@@ -423,6 +433,14 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                 className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold flex items-center gap-1 cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" /> Thêm
+              </button>
+              <button
+                type="button"
+                disabled={runningCycle}
+                onClick={() => callAction({ action: "ai_research_keywords" })}
+                className="px-3 py-1.5 rounded-lg bg-fpt-orange hover:bg-fpt-hover text-white font-bold flex items-center gap-1 cursor-pointer disabled:opacity-50"
+              >
+                <Brain className="w-3.5 h-3.5" /> {runningCycle ? "Đang tìm..." : "AI Tìm Từ Khóa Mới"}
               </button>
             </div>
 
@@ -495,7 +513,17 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
         {activeModule === "technical" && (
           <div className="space-y-4">
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-              <div className="font-bold text-slate-900">Tình trạng Technical SEO &amp; Bảo vệ Chính sách Google Ads:</div>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="font-bold text-slate-900">Tình trạng Technical SEO, Internal Link &amp; Google Ads:</div>
+                <button
+                  type="button"
+                  disabled={runningCycle}
+                  onClick={() => callAction({ action: "run_internal_link_audit", autoApply: true })}
+                  className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-[11px] hover:bg-slate-800 disabled:opacity-50 cursor-pointer"
+                >
+                  {runningCycle ? "Đang tối ưu..." : "Tối Ưu Internal Link Tự Động"}
+                </button>
+              </div>
               <ul className="space-y-1 text-slate-700 list-disc pl-5">
                 <li>Canonical Tags: Đã bật chuẩn `https://gofpt.vn` trên tất cả route public.</li>
                 <li>Robots &amp; Noindex: Đã chặn `/admin` và `/cam-on` khỏi Google Index.</li>
