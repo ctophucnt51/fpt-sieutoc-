@@ -248,6 +248,10 @@ async function callAiJson(prompt: string): Promise<{ ok: boolean; data?: any; er
 /**
  * Onpage Optimization Agent: Propose CTR-optimized Title & Meta Description (Google Ads Safe).
  */
+const ADMIN_UNIT_RULE_07_2025 = `Quy chuẩn địa giới hành chính BẮT BUỘC (Sau sáp nhập 07/2025):
+- Thành phố Cần Thơ mới (sau hợp nhất Cần Thơ, Hậu Giang, Sóc Trăng từ 07/2025) áp dụng mô hình chính quyền 2 cấp: KHÔNG còn cấp Quận/Huyện. Toàn TP. Cần Thơ gồm 31 Phường và 72 Xã (tổng 103 xã/phường).
+- TUYỆT ĐỐI KHÔNG dùng "Quận", "Huyện" (vd: cấm viết "Quận Ninh Kiều", "Huyện Phong Điền", "Tỉnh Sóc Trăng", "Tỉnh Hậu Giang"). Phải gọi đúng tên Xã/Phường thuộc TP. Cần Thơ (vd: Phường Ninh Kiều, Phường Cái Khế, Phường Tân An, Phường An Bình, Phường Bình Thủy, Phường Long Tuyền, Phường Thới An Đông, Phường Cái Răng, Phường Hưng Phú, Phường Ô Môn, Phường Phước Thới, Phường Thới Long, Phường Thốt Nốt, Phường Thuận Hưng, Phường Tân Lộc, Phường Sóc Trăng, Phường Vĩnh Châu, Phường Vị Thanh, Phường Ngã Bảy, Xã Phong Điền, Xã Nhơn Ái, Xã Thới Lai, Xã Đông Thuận, Xã Cờ Đỏ, Xã Vĩnh Thạnh, Xã Thạnh Lộc...).`;
+
 export async function generateMetaOptimizationProposal(params: {
   route: string;
   query: string;
@@ -267,8 +271,9 @@ export async function generateMetaOptimizationProposal(params: {
       ? `\nBài học rút kinh nghiệm từ các lần tối ưu trước:\n- ${params.lessons.slice(0, 3).join("\n- ")}`
       : "";
 
-  const prompt = `Bạn là Onpage Optimization Agent cho website GoFPT.vn (đại lý Internet FPT Telecom tại Cần Thơ, Sóc Trăng, Hậu Giang).
+  const prompt = `Bạn là Onpage Optimization Agent cho website GoFPT.vn (đại lý Internet FPT Telecom tại TP. Cần Thơ — mô hình 31 Phường & 72 Xã sau sáp nhập 07/2025).
 Nhiệm vụ: Đề xuất Title (50-65 ký tự) và Meta Description (120-155 ký tự) tiếng Việt tự nhiên để tăng CTR cho từ khóa đang ở Top ${params.position.toFixed(1)}.
+Không dùng từ "Quận/Huyện" cũ mà dùng tên Phường/Xã thuộc TP. Cần Thơ.
 
 Dữ liệu đầu vào:
 - Route: ${params.route}
@@ -331,6 +336,8 @@ export async function generateSeoArticleDraft(params: {
       : "";
 
   const prompt = `Bạn là Content SEO Agent cho GoFPT.vn. Hãy viết 1 bài viết SEO tiếng Việt chuẩn Clean & Minimal Editorial cho từ khóa "${safeKw}" tại khu vực "${safeArea}".
+
+${ADMIN_UNIT_RULE_07_2025}
 
 Thông tin doanh nghiệp CỐ ĐỊNH (không được sai lệch):
 ${knowledgeSummary}
@@ -427,15 +434,18 @@ export async function researchSeoKeywords(params: {
   const titlesSample = params.existingTitles.slice(0, 15).join(" | ");
   const compSample = (params.competitorSnippets || []).slice(0, 5).join(" | ");
 
-  const prompt = `Bạn là Research & Keyword Spy Agent cho GoFPT.vn (FPT Telecom Cần Thơ, Sóc Trăng, Hậu Giang).
+  const prompt = `Bạn là Research & Keyword Spy Agent cho GoFPT.vn (FPT Telecom tại TP. Cần Thơ mới sau sáp nhập 07/2025).
 Nhiệm vụ: Đề xuất 3 từ khóa SEO mới (tiếng Việt có dấu, 4-8 từ) chưa có trong danh sách hiện tại để mở rộng traffic & đơn đăng ký lắp mạng FPT, Camera FPT, Combo Ngoại Hạng Anh.
+
+${ADMIN_UNIT_RULE_07_2025}
 
 Từ khóa ĐÃ CÓ (tuyệt đối không lặp lại): ${existingSample || "chưa có"}
 Tiêu đề bài viết ĐÃ CÓ: ${titlesSample || "chưa có"}
 ${compSample ? `Tiêu đề đối thủ tham khảo: ${compSample}` : ""}
 
 Quy tắc:
-- Tập trung nhu cầu thực tại Cần Thơ (Phong Điền, Cờ Đỏ, Vĩnh Thạnh, Thới Lai, Ninh Kiều, Cái Răng...), Sóc Trăng, Hậu Giang, hoặc từ khóa chuyển đổi (giá cước, quán cafe, phòng trọ, sinh viên, camera AI, Wi-Fi 6).
+- Tập trung nhu cầu thực theo Xã/Phường thuộc TP. Cần Thơ sau sáp nhập 07/2025 (vd: Phường Ninh Kiều, Phường Cái Khế, Phường Hưng Phú, Phường Sóc Trăng, Phường Vị Thanh, Phường Ngã Bảy, Xã Phong Điền, Xã Cờ Đỏ, Xã Thới Lai, Xã Vĩnh Thạnh...) hoặc từ khóa chuyển đổi (giá cước, quán cafe, phòng trọ, sinh viên, camera AI, Wi-Fi 6).
+- "areaName": ghi đúng tên Xã/Phường (vd: "Xã Cờ Đỏ, TP. Cần Thơ" hoặc "Phường Vị Thanh, TP. Cần Thơ"). TUYỆT ĐỐI KHÔNG dùng "Quận/Huyện".
 - "targetUrl": chọn "/lap-mang-fpt", "/combo-ngoai-hang-anh", "/camera-fpt", "/bang-gia", hoặc "/tin-tuc/<slug-de-xuat>".
 - "intent": "local" | "transactional" | "informational".
 - "priority": "P0" | "P1" | "P2".

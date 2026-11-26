@@ -309,16 +309,16 @@ export function runSeoMasterCycle(): {
     resolvedDedupKeys.add("config-serper-connection");
   }
 
-  // Check Local SEO gaps
+  // Check Local SEO gaps (Theo đơn vị hành chính 2 cấp sau sáp nhập 07/2025: 31 Phường & 72 Xã thuộc TP. Cần Thơ)
   const localAreas = [
-    { slugHint: "ninh-kieu", name: "Quận Ninh Kiều, Cần Thơ" },
-    { slugHint: "cai-rang", name: "Quận Cái Răng, Cần Thơ" },
-    { slugHint: "binh-thuy", name: "Quận Bình Thủy, Cần Thơ" },
-    { slugHint: "o-mon", name: "Quận Ô Môn, Cần Thơ" },
-    { slugHint: "thot-not", name: "Quận Thốt Nốt, Cần Thơ" },
-    { slugHint: "phong-dien", name: "Huyện Phong Điền, Cần Thơ" },
-    { slugHint: "soc-trang", name: "Thành phố Sóc Trăng" },
-    { slugHint: "hau-giang", name: "Tỉnh Hậu Giang" },
+    { slugHint: "ninh-kieu", name: "Phường Ninh Kiều, TP. Cần Thơ" },
+    { slugHint: "cai-rang", name: "Phường Cái Răng, TP. Cần Thơ" },
+    { slugHint: "binh-thuy", name: "Phường Bình Thủy, TP. Cần Thơ" },
+    { slugHint: "o-mon", name: "Phường Ô Môn, TP. Cần Thơ" },
+    { slugHint: "thot-not", name: "Phường Thốt Nốt, TP. Cần Thơ" },
+    { slugHint: "phong-dien", name: "Xã Phong Điền, TP. Cần Thơ" },
+    { slugHint: "soc-trang", name: "Phường Sóc Trăng, TP. Cần Thơ" },
+    { slugHint: "vi-thanh", name: "Phường Vị Thanh, TP. Cần Thơ" },
   ];
 
   for (const area of localAreas) {
@@ -951,7 +951,7 @@ export async function runSeoMasterCycleAsync(options?: {
         if (draftedCount >= maxArticles) break;
         const areaMatch = task.title.match(/khu vực\s+(.+)$/i);
         const areaName = areaMatch ? areaMatch[1].trim() : "Cần Thơ";
-        const keyword = `lắp mạng fpt ${areaName.split(",")[0].replace(/^(Quận|Huyện|Thành phố|Tỉnh)\s+/i, "").trim().toLowerCase()}`;
+        const keyword = `lắp mạng fpt ${areaName.split(",")[0].replace(/^(Phường|Xã|Quận|Huyện|Thành phố|TP\.|Tỉnh)\s+/i, "").trim().toLowerCase()}`;
 
         const alreadyDrafted = approvals.some(
           (a) =>
