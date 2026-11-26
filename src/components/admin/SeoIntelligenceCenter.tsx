@@ -83,6 +83,7 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
   const [draftKw, setDraftKw] = useState("");
   const [draftArea, setDraftArea] = useState("Cần Thơ");
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
+  const [ga4Input, setGa4Input] = useState("");
 
   const fetchIntelligence = useCallback(async () => {
     setLoading(true);
@@ -93,6 +94,9 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
       if (res.ok) {
         const json = await res.json();
         setData(json.intelligence);
+        if (json.intelligence?.ga4PropertyId) {
+          setGa4Input(json.intelligence.ga4PropertyId);
+        }
       }
     } catch {
       // ignore
@@ -258,6 +262,35 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                   AI Engine (Gemini / ChatGPT): {data.connections.aiConfigured || data.connections.geminiConfigured ? "Đã bật" : "Chưa gắn API Key"}
                 </span>
               </div>
+              <div className="pt-2 border-t border-orange-200/70 flex flex-wrap items-center gap-2">
+                <input
+                  type="text"
+                  value={ga4Input}
+                  onChange={(e) => setGa4Input(e.target.value)}
+                  placeholder="Nhập GA4 Property ID (dạng số, vd: 412345678)"
+                  className="px-3 py-1.5 rounded-lg border border-orange-200 bg-white text-xs min-w-[260px]"
+                />
+                <button
+                  type="button"
+                  disabled={runningCycle || !ga4Input.trim()}
+                  onClick={() => callAction({ action: "save_ga4_property", propertyId: ga4Input })}
+                  className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] disabled:opacity-50 cursor-pointer"
+                >
+                  {runningCycle ? "Đang kết nối..." : "Lưu & Đồng Bộ GA4"}
+                </button>
+                {data.ga4Cache && (
+                  <span className="text-[11px] font-semibold text-emerald-800">
+                    28 ngày: {data.ga4Cache.organicSessions} Organic / {data.ga4Cache.sessions} tổng phiên • {data.ga4Cache.conversions} chuyển đổi
+                  </span>
+                )}
+              </div>
+              {data.gscServiceAccountEmail && (
+                <div className="text-[11px] text-slate-600">
+                  Lưu ý GA4: Thêm quyền <strong>Viewer (Người xem)</strong> cho email Service Account{" "}
+                  <code className="px-1 py-0.5 bg-white rounded border border-orange-200 text-slate-800">{data.gscServiceAccountEmail}</code>{" "}
+                  trong <strong>GA4 → Admin → Property Access Management</strong> và bật <strong>Google Analytics Data API</strong>.
+                </div>
+              )}
             </div>
 
             {/* Auto-Pilot Controls */}

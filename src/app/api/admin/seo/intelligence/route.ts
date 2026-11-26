@@ -210,19 +210,43 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    if (action === "sync_ga4") {
+    if (action === "sync_ga4" || action === "save_ga4_property") {
       const seo = getSeoConfig();
-      const propertyId = String(body.propertyId || process.env.GA4_PROPERTY_ID || "").trim();
+      const rawId = String(body.propertyId || seo.ga4PropertyId || process.env.GA4_PROPERTY_ID || "")
+        .replace(/^properties\//, "")
+        .trim();
+      if (!rawId) {
+        return NextResponse.json(
+          { success: false, message: "Vui lòng nhập GA4 Property ID (dạng số, vd: 412345678)." },
+          { status: 400 }
+        );
+      }
+
+      seo.ga4PropertyId = rawId;
+      saveSeoConfig(seo);
+
       const ga4 = await fetchGa4OrganicSummary({
-        propertyId,
+        propertyId: rawId,
         serviceAccountEmail: seo.gscSettings?.serviceAccountEmail || "",
         privateKey: seo.gscSettings?.privateKey || "",
       });
+
+      if (!ga4.error) {
+        seo.ga4Cache = {
+          propertyId: ga4.propertyId,
+          sessions: ga4.sessions,
+          organicSessions: ga4.organicSessions,
+          conversions: ga4.conversions,
+          fetchedAt: ga4.fetchedAt,
+        };
+        saveSeoConfig(seo);
+      }
+
       return NextResponse.json({
         success: !ga4.error,
         message: ga4.error
-          ? ga4.error
-          : `GA4 (28 ngày): ${ga4.organicSessions} phiên Organic / ${ga4.sessions} tổng phiên, ${ga4.conversions} chuyển đổi.`,
+          ? `Đã lưu GA4 Property ID (${rawId}), nhưng đồng bộ gặp lỗi: ${ga4.error}`
+          : `Kết nối GA4 thành công (28 ngày): ${ga4.organicSessions} phiên Organic / ${ga4.sessions} tổng phiên, ${ga4.conversions} chuyển đổi.`,
         ga4,
         intelligence: getFullSeoIntelligenceState(),
       });

@@ -819,7 +819,7 @@ export async function runSeoMasterCycleAsync(options?: {
     }
 
     // Analytics Agent: GA4 sync (12h cache)
-    const ga4PropertyId = (process.env.GA4_PROPERTY_ID || "").trim();
+    const ga4PropertyId = (seo.ga4PropertyId || process.env.GA4_PROPERTY_ID || "").trim();
     const lastGa4At = seo.autoPilotSettings?.lastGa4SyncAt
       ? new Date(seo.autoPilotSettings.lastGa4SyncAt).getTime()
       : 0;
@@ -830,16 +830,25 @@ export async function runSeoMasterCycleAsync(options?: {
       Date.now() - lastGa4At > 12 * 60 * 60 * 1000
     ) {
       try {
-        await fetchGa4OrganicSummary({
+        const ga4Res = await fetchGa4OrganicSummary({
           propertyId: ga4PropertyId,
           serviceAccountEmail: seo.gscSettings.serviceAccountEmail,
           privateKey: seo.gscSettings.privateKey,
         });
         const latestSeo = getSeoConfig();
+        if (!ga4Res.error) {
+          latestSeo.ga4Cache = {
+            propertyId: ga4Res.propertyId,
+            sessions: ga4Res.sessions,
+            organicSessions: ga4Res.organicSessions,
+            conversions: ga4Res.conversions,
+            fetchedAt: ga4Res.fetchedAt,
+          };
+        }
         if (latestSeo.autoPilotSettings) {
           latestSeo.autoPilotSettings.lastGa4SyncAt = new Date().toISOString();
-          saveSeoConfig(latestSeo);
         }
+        saveSeoConfig(latestSeo);
       } catch {
         // non-blocking
       }
@@ -1161,10 +1170,13 @@ export function getFullSeoIntelligenceState() {
     connections: {
       gscConnected: Boolean(seo.gscSettings?.connected),
       serperConnected: Boolean(seo.serperSettings?.connected),
-      ga4Configured: Boolean(process.env.GA4_PROPERTY_ID || process.env.NEXT_PUBLIC_GA4_ID),
+      ga4Configured: Boolean(seo.ga4PropertyId || process.env.GA4_PROPERTY_ID || process.env.NEXT_PUBLIC_GA4_ID),
       geminiConfigured: isGeminiConfigured(),
       aiConfigured: isAiConfigured(),
     },
+    ga4PropertyId: seo.ga4PropertyId || process.env.GA4_PROPERTY_ID || "",
+    ga4Cache: seo.ga4Cache || null,
+    gscServiceAccountEmail: seo.gscSettings?.serviceAccountEmail || "",
     autoPilotSettings: seo.autoPilotSettings,
   };
 }

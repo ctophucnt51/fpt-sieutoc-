@@ -97,6 +97,14 @@ export interface SeoConfigData {
   watchlistKeywords: WatchlistKeyword[];
   pageMetaOverrides: Record<string, PageMetaOverride>;
   gscCache: GscCacheData | null;
+  ga4PropertyId?: string;
+  ga4Cache?: {
+    propertyId: string;
+    sessions: number;
+    organicSessions: number;
+    conversions: number;
+    fetchedAt: string;
+  } | null;
   autoPilotSettings?: AutoPilotSettings;
 }
 
@@ -180,6 +188,8 @@ const defaultSeoConfig: SeoConfigData = {
   ],
   pageMetaOverrides: {},
   gscCache: null,
+  ga4PropertyId: "",
+  ga4Cache: null,
   autoPilotSettings: {
     enabled: true,
     autoApproveMeta: true,
@@ -219,6 +229,8 @@ export function getSeoConfig(): SeoConfigData {
         : defaultSeoConfig.watchlistKeywords,
       pageMetaOverrides: parsed.pageMetaOverrides || {},
       gscCache: parsed.gscCache || null,
+      ga4PropertyId: parsed.ga4PropertyId || "",
+      ga4Cache: parsed.ga4Cache || null,
       autoPilotSettings: {
         ...defaultSeoConfig.autoPilotSettings!,
         ...(parsed.autoPilotSettings || {}),
@@ -257,6 +269,8 @@ export function getPublicSafeSeoConfig(data: SeoConfigData) {
     watchlistKeywords: data.watchlistKeywords,
     pageMetaOverrides: data.pageMetaOverrides,
     gscCache: data.gscCache,
+    ga4PropertyId: data.ga4PropertyId || "",
+    ga4Cache: data.ga4Cache || null,
     autoPilotSettings: data.autoPilotSettings,
   };
 }
