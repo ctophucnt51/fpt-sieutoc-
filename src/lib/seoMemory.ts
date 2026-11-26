@@ -356,7 +356,7 @@ export function initializeSeoMemory(): void {
     dayKey,
     dailyCounts: {},
     monthlyCounts: {},
-    dailyLimits: { serper: 30, pagespeed: 20, gsc: 50, ga4: 50, ai_llm: 20, ai_image: 10 },
+    dailyLimits: { serper: 30, pagespeed: 20, gsc: 50, ga4: 50, ai_llm: 60, ai_image: 20 },
   });
 }
 
@@ -401,7 +401,7 @@ export function checkAndIncrementApiUsage(provider: string): {
     dayKey,
     dailyCounts: {},
     monthlyCounts: {},
-    dailyLimits: { serper: 30, pagespeed: 20, gsc: 50, ga4: 50, ai_llm: 20, ai_image: 10 },
+    dailyLimits: { serper: 30, pagespeed: 20, gsc: 50, ga4: 50, ai_llm: 60, ai_image: 20 },
   });
 
   if (usage.dayKey !== dayKey) {
@@ -412,6 +412,9 @@ export function checkAndIncrementApiUsage(provider: string): {
     usage.monthKey = monthKey;
     usage.monthlyCounts = {};
   }
+
+  if ((usage.dailyLimits.ai_llm ?? 0) < 60) usage.dailyLimits.ai_llm = 60;
+  if ((usage.dailyLimits.ai_image ?? 0) < 20) usage.dailyLimits.ai_image = 20;
 
   const limitToday = usage.dailyLimits[provider] ?? 50;
   const usedToday = usage.dailyCounts[provider] ?? 0;

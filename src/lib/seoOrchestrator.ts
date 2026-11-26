@@ -933,6 +933,8 @@ export async function runSeoMasterCycleAsync(options?: {
     maxArticlesPerCycle: 1,
   };
 
+  let draftedCount = 0;
+  let contentErrorNote = "";
   if (runAi && isAiConfigured()) {
     const approvals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []);
     const keywordsMap = readMemoryFile<SeoKeywordMapItem[]>("keywords.json", []);
@@ -1014,18 +1016,20 @@ export async function runSeoMasterCycleAsync(options?: {
 
       const knowledge = readMemoryFile<FptProductKnowledge | null>("fpt_knowledge.json", null);
 
-      let draftedCount = 0;
       for (const task of pendingContentTasks) {
         if (draftedCount >= maxArticles) break;
         const areaMatch = task.title.match(/khu vực\s+(.+)$/i);
-        const areaName = areaMatch ? areaMatch[1].trim() : "Cần Thơ";
-        const keyword = `lắp mạng fpt ${areaName.split(",")[0].replace(/^(Phường|Xã|Quận|Huyện|Thành phố|TP\.|Tỉnh)\s+/i, "").trim().toLowerCase()}`;
+        const areaName = areaMatch ? areaMatch[1].trim() : "TP. Cần Thơ";
+        const kwMatch = task.title.match(/từ khóa\s+"([^"]+)"/i);
+        const keyword = kwMatch
+          ? kwMatch[1].trim()
+          : `lắp mạng fpt ${areaName.split(",")[0].replace(/^(Phường|Xã|Quận|Huyện|Thành phố|TP\.|Tỉnh)\s+/i, "").trim().toLowerCase()}`;
 
         const alreadyDrafted = approvals.some(
           (a) =>
             a.type === "article_draft" &&
             (a.status === "pending" || a.status === "approved") &&
-            (a.taskId === task.id || a.target === task.targetUrl)
+            a.taskId === task.id
         );
         if (alreadyDrafted) continue;
 
@@ -1056,6 +1060,8 @@ export async function runSeoMasterCycleAsync(options?: {
           task.updatedAt = new Date().toISOString();
           newApprovalsAdded++;
           draftedCount++;
+        } else if (draftRes.error) {
+          contentErrorNote = `Content Agent lỗi: ${draftRes.error}`;
         }
       }
       if (draftedCount > 0) {
@@ -1131,7 +1137,7 @@ export async function runSeoMasterCycleAsync(options?: {
       googleSitemapSubmitted ? " Đã gửi Sitemap lên Google." : ""
     }${googleUrlsSubmitted > 0 ? ` Đã ping ${googleUrlsSubmitted} URL tới Google Indexing API.` : ""}${
       newLessonsCount > 0 ? ` Rút ra ${newLessonsCount} bài học mới.` : ""
-    }`,
+    }${contentErrorNote ? ` (${contentErrorNote})` : ""}`,
   };
 }
 
