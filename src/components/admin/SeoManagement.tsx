@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { getAdminHeaders } from "@/lib/clientAdminAuth";
 import type { WatchlistKeyword, GscCacheData } from "@/lib/seoStorage";
 import type { PageAuditResult } from "@/lib/seoAuditor";
@@ -82,6 +82,9 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
   const [avgAuditScore, setAvgAuditScore] = useState<number | null>(null);
   const [isAuditing, setIsAuditing] = useState(false);
 
+  const onShowToastRef = useRef(onShowToast);
+  onShowToastRef.current = onShowToast;
+
   const loadSeoData = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -100,11 +103,11 @@ export default function SeoManagement({ onShowToast }: SeoManagementProps) {
         }
       }
     } catch {
-      onShowToast("Không thể tải dữ liệu SEO.", "error");
+      onShowToastRef.current("Không thể tải dữ liệu SEO.", "error");
     } finally {
       setIsLoading(false);
     }
-  }, [onShowToast]);
+  }, []);
 
   useEffect(() => {
     loadSeoData();

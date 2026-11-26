@@ -7,7 +7,7 @@ const SEO_IMAGES_DIR = path.join(process.cwd(), "data", "seo-images");
 export interface GeneratedImageResult {
   success: boolean;
   url: string;
-  generatedBy: "gemini-image" | "openai-image" | "fallback";
+  generatedBy: "gemini-image" | "openai-image" | "editorial-svg" | "fallback";
   prompt?: string;
   error?: string;
 }
@@ -63,15 +63,101 @@ function saveBase64Image(base64Data: string, slugHint: string, ext: "png" | "jpg
   return `/api/seo-images/${filename}`;
 }
 
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
+/**
+ * Tạo ảnh bìa Editorial SVG sắc nét (1200x675) phù hợp nội dung & thương hiệu GoFPT.vn
+ * khi Gemini/OpenAI Image API không khả dụng trên gói Free Tier.
+ */
+function generateEditorialSvgCover(params: {
+  keyword: string;
+  title?: string;
+  areaName?: string;
+  slugHint: string;
+}): string {
+  ensureImagesDir();
+  const rawTitle = (params.title || params.keyword || "Lắp Mạng FPT Wi-Fi 6").trim();
+  const words = rawTitle.split(/\s+/);
+  const lines: string[] = [];
+  let current = "";
+  for (const w of words) {
+    if ((current + " " + w).trim().length > 34 && current) {
+      lines.push(current.trim());
+      current = w;
+    } else {
+      current = (current + " " + w).trim();
+    }
+    if (lines.length >= 3) break;
+  }
+  if (current && lines.length < 3) lines.push(current.trim());
+
+  const kwLower = `${params.keyword} ${rawTitle}`.toLowerCase();
+  const badgeText = kwLower.includes("camera")
+    ? "CAMERA FPT AI • AN NINH CLOUD"
+    : kwLower.includes("ngoại hạng") || kwLower.includes("epl") || kwLower.includes("truyền hình")
+    ? "COMBO FPT PLAY • NGOẠI HẠNG ANH"
+    : "INTERNET CÁP QUANG • WI-FI 6";
+  const areaLabel = escapeXml((params.areaName || "Cần Thơ & ĐBSCL").toUpperCase());
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="55%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#431407"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#f37021"/>
+      <stop offset="100%" stop-color="#fb923c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1030" cy="140" r="240" fill="#f37021" opacity="0.14"/>
+  <circle cx="1060" cy="540" r="190" fill="#38bdf8" opacity="0.1"/>
+  <rect x="72" y="72" width="1056" height="531" rx="28" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="2"/>
+  <rect x="112" y="116" width="380" height="40" rx="20" fill="url(#accent)"/>
+  <text x="302" y="142" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="1">${escapeXml(badgeText)}</text>
+  <text x="112" y="218" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#fdba74" letter-spacing="1.5">KHU VỰC: ${areaLabel}</text>
+  ${lines
+    .map(
+      (line, idx) =>
+        `<text x="112" y="${282 + idx * 62}" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="900" fill="#ffffff">${escapeXml(line)}</text>`
+    )
+    .join("\n  ")}
+  <rect x="112" y="486" width="96" height="6" rx="3" fill="#f37021"/>
+  <text x="112" y="534" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#e2e8f0">GoFPT.vn — Đại Lý Ủy Quyền FPT Telecom • Hotline 0878 800 400</text>
+  <text x="112" y="568" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" fill="#94a3b8">Wi-Fi 6 từ 195.000đ/tháng • Combo Ngoại Hạng Anh 220.000đ/tháng • Lắp đặt trong 24h</text>
+</svg>`;
+
+  const safeSlug = (params.slugHint || "seo-cover")
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 48);
+  const filename = `${safeSlug || "seo"}-${Date.now()}.svg`;
+  const filePath = path.join(SEO_IMAGES_DIR, filename);
+  fs.writeFileSync(filePath, svg, "utf8");
+  return `/api/seo-images/${filename}`;
+}
+
 async function generateWithGemini(prompt: string, slugHint: string): Promise<{ ok: boolean; url?: string; error?: string }> {
   const apiKey = (process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY || "").trim();
   if (!apiKey) return { ok: false, error: "Chưa cấu hình GEMINI_API_KEY." };
 
   // 1. Try Gemini native image generation models
-  const geminiModels = [
-    process.env.GEMINI_IMAGE_MODEL?.trim() || "gemini-2.5-flash-image",
-    "gemini-2.0-flash-exp-image-generation",
-  ];
+  const geminiModels = Array.from(
+    new Set([
+      process.env.GEMINI_IMAGE_MODEL?.trim() || "gemini-2.5-flash-image",
+      "gemini-2.0-flash-exp-image-generation",
+    ])
+  );
 
   let lastError = "Gemini Image không phản hồi.";
   for (const model of geminiModels) {
@@ -111,31 +197,33 @@ async function generateWithGemini(prompt: string, slugHint: string): Promise<{ o
     }
   }
 
-  // 2. Try Imagen 3 predict endpoint
-  try {
-    const imagenEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${encodeURIComponent(
-      apiKey
-    )}`;
-    const res = await fetch(imagenEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        instances: [{ prompt }],
-        parameters: { sampleCount: 1, aspectRatio: "16:9" },
-      }),
-      signal: AbortSignal.timeout(45000),
-    });
-    const json = await res.json();
-    const b64 = json?.predictions?.[0]?.bytesBase64Encoded;
-    if (res.ok && b64) {
-      const url = saveBase64Image(b64, slugHint, "png");
-      return { ok: true, url };
+  // 2. Try Imagen 4 predict endpoints (current v1beta models)
+  for (const imagenModel of ["imagen-4.0-fast-generate-001", "imagen-4.0-generate-001"]) {
+    try {
+      const imagenEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${imagenModel}:predict?key=${encodeURIComponent(
+        apiKey
+      )}`;
+      const res = await fetch(imagenEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          instances: [{ prompt }],
+          parameters: { sampleCount: 1, aspectRatio: "16:9" },
+        }),
+        signal: AbortSignal.timeout(45000),
+      });
+      const json = await res.json();
+      const b64 = json?.predictions?.[0]?.bytesBase64Encoded;
+      if (res.ok && b64) {
+        const url = saveBase64Image(b64, slugHint, "png");
+        return { ok: true, url };
+      }
+      if (!res.ok) {
+        lastError = json?.error?.message || lastError;
+      }
+    } catch (err: any) {
+      lastError = err?.message || lastError;
     }
-    if (!res.ok) {
-      lastError = json?.error?.message || lastError;
-    }
-  } catch (err: any) {
-    lastError = err?.message || lastError;
   }
 
   return { ok: false, error: lastError };
@@ -240,11 +328,27 @@ export async function generateArticleCoverImage(params: {
     }
   }
 
-  return {
-    success: false,
-    url: params.fallbackThumbnail,
-    generatedBy: "fallback",
-    prompt,
-    error: lastError || "Không thể tạo ảnh AI, sử dụng ảnh mặc định.",
-  };
+  try {
+    const svgUrl = generateEditorialSvgCover({
+      keyword: params.keyword,
+      title: params.title,
+      areaName: params.areaName,
+      slugHint,
+    });
+    return {
+      success: true,
+      url: svgUrl,
+      generatedBy: "editorial-svg",
+      prompt,
+      error: lastError || undefined,
+    };
+  } catch {
+    return {
+      success: false,
+      url: params.fallbackThumbnail,
+      generatedBy: "fallback",
+      prompt,
+      error: lastError || "Không thể tạo ảnh AI, sử dụng ảnh mặc định.",
+    };
+  }
 }

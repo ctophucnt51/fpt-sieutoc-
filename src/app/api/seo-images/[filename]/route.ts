@@ -21,7 +21,9 @@ export async function GET(
   const buffer = fs.readFileSync(filePath);
   const ext = path.extname(rawName).toLowerCase();
   const contentType =
-    ext === ".jpg" || ext === ".jpeg"
+    ext === ".svg"
+      ? "image/svg+xml; charset=utf-8"
+      : ext === ".jpg" || ext === ".jpeg"
       ? "image/jpeg"
       : ext === ".webp"
       ? "image/webp"
