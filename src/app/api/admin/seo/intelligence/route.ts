@@ -19,8 +19,9 @@ import {
 import { runQaSafetyCheck } from "@/lib/seoAuditor";
 import { runPageSpeedCheck } from "@/lib/pageSpeedClient";
 import { fetchGa4OrganicSummary } from "@/lib/ga4Client";
-import { getSeoConfig } from "@/lib/seoStorage";
-import { generateSeoArticleDraft } from "@/lib/seoAiEngine";
+import { getSeoConfig, saveSeoConfig } from "@/lib/seoStorage";
+import { generateSeoArticleDraft, pickThumbnail } from "@/lib/seoAiEngine";
+import { generateArticleCoverImage } from "@/lib/seoImageGenerator";
 
 export async function GET(request: NextRequest) {
   if (!verifyAdminAuth(request)) {
@@ -225,11 +226,12 @@ export async function POST(request: NextRequest) {
     if (action === "ai_generate_article_draft") {
       const keyword = String(body.keyword || "").trim();
       const areaName = String(body.areaName || "Cần Thơ").trim();
+      const generateImage = body.generateImage !== false;
       if (!keyword) {
         return NextResponse.json({ success: false, message: "Vui lòng nhập từ khóa mục tiêu." }, { status: 400 });
       }
       const knowledge = readMemoryFile<FptProductKnowledge | null>("fpt_knowledge.json", null);
-      const draftRes = await generateSeoArticleDraft({ keyword, areaName, knowledge });
+      const draftRes = await generateSeoArticleDraft({ keyword, areaName, knowledge, generateImage });
       if (!draftRes.success || !draftRes.article) {
         return NextResponse.json(
           { success: false, message: draftRes.error || "Không thể tạo bản nháp bài viết." },
@@ -243,7 +245,7 @@ export async function POST(request: NextRequest) {
         type: "article_draft",
         target: `/tin-tuc/${draftRes.article.slug}`,
         proposedBy: "Content SEO Agent",
-        summary: `AI soạn bài viết mới cho từ khóa "${keyword}" (${areaName}) — Đã qua QA Google Ads Gate`,
+        summary: `AI soạn bài viết mới cho từ khóa "${keyword}" (${areaName}) — Ảnh: ${draftRes.article.imageGeneratedBy || "fallback"}`,
         beforeSnapshot: null,
         afterProposal: draftRes.article,
         qaPassed: true,
@@ -255,6 +257,55 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         success: true,
         message: `Đã đưa bài nháp "${draftRes.article.title}" vào Approval Center chờ duyệt!`,
+        intelligence: getFullSeoIntelligenceState(),
+      });
+    }
+
+    if (action === "ai_generate_image") {
+      const keyword = String(body.keyword || "").trim();
+      const areaName = String(body.areaName || "Cần Thơ").trim();
+      const title = String(body.title || "").trim();
+      if (!keyword) {
+        return NextResponse.json({ success: false, message: "Vui lòng nhập từ khóa hoặc chủ đề ảnh." }, { status: 400 });
+      }
+      const fallbackThumbnail = pickThumbnail(keyword);
+      const imgRes = await generateArticleCoverImage({
+        keyword,
+        title: title || keyword,
+        areaName,
+        slugHint: keyword,
+        fallbackThumbnail,
+      });
+      return NextResponse.json({
+        success: true,
+        image: imgRes,
+        message: imgRes.success
+          ? `Đã tạo ảnh AI (${imgRes.generatedBy}) thành công!`
+          : imgRes.error || "Sử dụng ảnh dự phòng phù hợp chủ đề.",
+        intelligence: getFullSeoIntelligenceState(),
+      });
+    }
+
+    if (action === "toggle_autopilot") {
+      const seo = getSeoConfig();
+      const current = seo.autoPilotSettings || {
+        enabled: true,
+        autoApproveMeta: true,
+        autoApproveArticles: true,
+        autoGenerateImages: true,
+        maxArticlesPerCycle: 1,
+      };
+      seo.autoPilotSettings = {
+        ...current,
+        enabled: typeof body.enabled === "boolean" ? body.enabled : current.enabled,
+        autoApproveMeta: typeof body.autoApproveMeta === "boolean" ? body.autoApproveMeta : current.autoApproveMeta,
+        autoApproveArticles: typeof body.autoApproveArticles === "boolean" ? body.autoApproveArticles : current.autoApproveArticles,
+        autoGenerateImages: typeof body.autoGenerateImages === "boolean" ? body.autoGenerateImages : current.autoGenerateImages,
+      };
+      saveSeoConfig(seo);
+      return NextResponse.json({
+        success: true,
+        message: `Đã cập nhật chế độ Auto-Pilot (${seo.autoPilotSettings.enabled ? "Bật" : "Tắt"}).`,
         intelligence: getFullSeoIntelligenceState(),
       });
     }

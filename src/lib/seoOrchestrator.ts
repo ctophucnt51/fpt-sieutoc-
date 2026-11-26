@@ -1,4 +1,4 @@
-import { AUDITED_ROUTES, runQaSafetyCheck } from "./seoAuditor";
+import { AUDITED_ROUTES, auditSingleRoute, runQaSafetyCheck } from "./seoAuditor";
 import { getAllArticles, saveAllArticles, Article } from "./articleStorage";
 import { getSeoConfig, saveSeoConfig } from "./seoStorage";
 import { readTrafficStore } from "./trafficStorage";
@@ -6,7 +6,16 @@ import { getAllLeads } from "./leadStorage";
 import { sendSeoReportAlert } from "./telegram";
 import { fetchGscAnalytics } from "./googleSearchConsole";
 import { checkKeywordSerp } from "./serpChecker";
-import { generateMetaOptimizationProposal, isAiConfigured, pickThumbnail } from "./seoAiEngine";
+import { runPageSpeedCheck } from "./pageSpeedClient";
+import { fetchGa4OrganicSummary } from "./ga4Client";
+import { pingIndexNow } from "./indexNow";
+import {
+  generateMetaOptimizationProposal,
+  generateSeoArticleDraft,
+  isAiConfigured,
+  isGeminiConfigured,
+  pickThumbnail,
+} from "./seoAiEngine";
 import {
   initializeSeoMemory,
   readMemoryFile,
@@ -48,6 +57,7 @@ export function getAgentRoster(): AgentStatusSpec[] {
   const seo = getSeoConfig();
   const hasGsc = Boolean(seo.gscSettings?.connected);
   const hasSerper = Boolean(seo.serperSettings?.connected);
+  const hasAi = isAiConfigured();
 
   return [
     {
@@ -55,21 +65,21 @@ export function getAgentRoster(): AgentStatusSpec[] {
       name: "SEO Master Agent",
       role: "Điều phối 8 bước: Collect → Analyze → Prioritize → Plan → Execute → Validate → Measure → Learn",
       scope: "data/seo-memory/* & Task Queue",
-      permissions: "Read/Write Memory, Dispatch Tasks (Không tự sửa code/URL prod)",
+      permissions: "Read/Write Memory, Auto-Pilot Publish & Dispatch Tasks",
       status: "active",
     },
     {
       id: "agent-technical",
       name: "Technical SEO Agent",
-      role: "Audit Canonical, Robots, Sitemap, HTTP Status & Core Web Vitals",
+      role: "Audit Canonical, Robots, Sitemap, HTTP Status & Core Web Vitals tự động mỗi 24h",
       scope: "Routes SSG/Static, sitemap.ts, robots.ts",
-      permissions: "Read-only Code, Propose fixes via Approval Center",
-      status: "ready",
+      permissions: "Auto-Audit Routes & PageSpeed, Propose fixes via Approval Center",
+      status: "active",
     },
     {
       id: "agent-research",
       name: "Keyword & Competitor Research Agent",
-      role: "Quét Top 3 đối thủ Cần Thơ/Sóc Trăng/Hậu Giang & quản lý Keyword Mapping",
+      role: "Quét Top 3 đối thủ Cần Thơ/Sóc Trăng/Hậu Giang & tự mở rộng Keyword Mapping từ GSC",
       scope: "GSC Queries, Serper.dev SERP, keywords.json",
       permissions: "Read/Write keywords.json & competitors.json (Untrusted HTML/Snippet guard)",
       status: hasSerper || hasGsc ? "active" : "waiting_config",
@@ -77,33 +87,33 @@ export function getAgentRoster(): AgentStatusSpec[] {
     {
       id: "agent-content",
       name: "Content SEO Agent",
-      role: "Biên tập bài viết chuẩn Clean & Minimal Editorial dựa trên fpt_knowledge.json",
-      scope: "articles.json (Draft / Approval Queue)",
-      permissions: "Tạo bản nháp & đề xuất (Cấm tự bịa giá/khuyến mãi)",
-      status: "ready",
+      role: "Tự động viết bài chuẩn Clean Editorial + tạo ảnh bìa AI phù hợp nội dung",
+      scope: "articles.json (Draft / Auto-Publish QA Gate)",
+      permissions: "Tạo bản nháp & ảnh AI (Cấm tự bịa giá/khuyến mãi)",
+      status: hasAi ? "active" : "waiting_config",
     },
     {
       id: "agent-onpage",
       name: "Onpage Optimization Agent",
       role: "Tối ưu Title, Meta Description, Schema & Internal Links cho trang CTR thấp",
       scope: "pageMetaOverrides (seoConfig.json)",
-      permissions: "Chỉ áp dụng sau khi duyệt qua Approval Center + Snapshot Rollback",
-      status: hasGsc ? "active" : "waiting_config",
+      permissions: "Áp dụng qua QA Gate + Snapshot Rollback + IndexNow Ping",
+      status: hasGsc || hasAi ? "active" : "waiting_config",
     },
     {
       id: "agent-local",
       name: "Authority & Local SEO Agent",
-      role: "Kiểm tra nhất quán NAP (Số 10 Phan Văn Trị, 0878 800 400, PhucNT51@fpt.com) & Local SEO",
-      scope: "LocalBusiness Schema & Cụm bài Cần Thơ–Sóc Trăng–Hậu Giang",
-      permissions: "Read-only Audit (Cấm spam backlink / đánh giá giả)",
-      status: "ready",
+      role: "Kiểm tra nhất quán NAP (Số 10 Phan Văn Trị, 0878 800 400), Local SEO & IndexNow Ping",
+      scope: "LocalBusiness Schema, Cụm bài ĐBSCL & IndexNow API",
+      permissions: "Audit NAP & Ping IndexNow khi xuất bản (Cấm spam backlink)",
+      status: "active",
     },
     {
       id: "agent-analytics",
       name: "Analytics Agent",
-      role: "Tổng hợp GSC + Traffic Organic + Lead chuyển đổi ẩn danh (không PII)",
-      scope: "GSC API, traffic-stats.json, leads.json (ẩn danh)",
-      permissions: "Read-only Analytics (Cấm xuất SĐT/tên khách vào log/LLM)",
+      role: "Tổng hợp GSC + GA4 + Traffic Organic + Lead chuyển đổi ẩn danh (không PII)",
+      scope: "GSC API, GA4 API, traffic-stats.json, leads.json (ẩn danh)",
+      permissions: "Read-only Analytics & Learn Loop (Cấm xuất SĐT/tên khách vào log/LLM)",
       status: "active",
     },
     {
@@ -289,6 +299,7 @@ export function runSeoMasterCycle(): {
     { slugHint: "binh-thuy", name: "Quận Bình Thủy, Cần Thơ" },
     { slugHint: "o-mon", name: "Quận Ô Môn, Cần Thơ" },
     { slugHint: "thot-not", name: "Quận Thốt Nốt, Cần Thơ" },
+    { slugHint: "phong-dien", name: "Huyện Phong Điền, Cần Thơ" },
     { slugHint: "soc-trang", name: "Thành phố Sóc Trăng" },
     { slugHint: "hau-giang", name: "Tỉnh Hậu Giang" },
   ];
@@ -395,7 +406,58 @@ export function runSeoMasterCycle(): {
 }
 
 /**
- * Full Autonomous SEO Master Cycle (Collect GSC/Serper -> Analyze -> AI Propose into Approval Center).
+ * Learn Loop: Đánh giá hiệu quả các thay đổi đã áp dụng >= 7 ngày và lưu bài học vào lessons.json.
+ */
+function runLearnLoop(): number {
+  const changes = readMemoryFile<SeoChangeRecord[]>("changes.json", []);
+  const perf = readMemoryFile<SeoPerformanceEntry[]>("performance.json", []);
+  const lessons = readMemoryFile<SeoLessonEntry[]>("lessons.json", []);
+  const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+  let newLessons = 0;
+
+  const latestPerf = perf[0];
+  for (const chg of changes) {
+    if (chg.evaluatedForLearn || chg.rolledBack) continue;
+    if (Date.now() - new Date(chg.appliedAt).getTime() < sevenDaysMs) continue;
+
+    const appliedDate = chg.appliedAt.slice(0, 10);
+    const baselinePerf = perf.find((p) => p.date <= appliedDate) || perf[perf.length - 1];
+
+    let lessonText = "";
+    let evidenceText = "";
+
+    if (latestPerf && baselinePerf && latestPerf.date !== baselinePerf.date) {
+      const clickDelta = latestPerf.clicks - baselinePerf.clicks;
+      const impDelta = latestPerf.impressions - baselinePerf.impressions;
+      const trend = clickDelta > 0 ? "tăng trưởng tích cực" : clickDelta < 0 ? "chưa tăng clicks, cần tinh chỉnh tiêu đề/CTA" : "ổn định";
+      lessonText = `Thay đổi ${chg.changeType} tại ${chg.target} sau 7 ngày cho thấy ${trend} (${clickDelta >= 0 ? "+" : ""}${clickDelta} clicks, ${impDelta >= 0 ? "+" : ""}${impDelta} impressions).`;
+      evidenceText = `So sánh ${baselinePerf.date} → ${latestPerf.date}`;
+    } else {
+      lessonText = `Thay đổi ${chg.changeType} tại ${chg.target} đã chạy ổn định trên production sau 7 ngày không cần rollback.`;
+      evidenceText = `Applied at ${chg.appliedAt}`;
+    }
+
+    lessons.unshift({
+      id: `lesson_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
+      category: chg.changeType === "article_draft" ? "Content SEO" : "Onpage CTR",
+      lesson: lessonText,
+      evidence: evidenceText,
+      createdAt: new Date().toISOString(),
+    });
+    chg.evaluatedForLearn = true;
+    newLessons++;
+  }
+
+  if (newLessons > 0) {
+    writeMemoryFile("changes.json", changes);
+    writeMemoryFile("lessons.json", lessons.slice(0, 50));
+  }
+  return newLessons;
+}
+
+/**
+ * Full Autonomous SEO Master Cycle:
+ * Collect (GSC/Serper/GA4/Technical/Keywords) -> Analyze -> Execute AI (Onpage + Content + Image) -> Auto-Approve & IndexNow -> Measure & Learn.
  */
 export async function runSeoMasterCycleAsync(options?: {
   collectLive?: boolean;
@@ -403,17 +465,24 @@ export async function runSeoMasterCycleAsync(options?: {
 }): Promise<{
   newTasksAdded: number;
   newApprovalsAdded: number;
+  autoApprovedCount: number;
   autoResolvedCount: number;
   gscSynced: boolean;
   serpCheckedCount: number;
+  technicalAuditedCount: number;
+  indexNowSubmitted: number;
+  newLessonsCount: number;
   summary: string;
 }> {
   const collectLive = options?.collectLive !== false;
   const runAi = options?.runAi !== false;
   let gscSynced = false;
   let serpCheckedCount = 0;
+  let technicalAuditedCount = 0;
+  let autoApprovedCount = 0;
+  let indexNowSubmitted = 0;
 
-  // 1. LIVE COLLECT (GSC + Serper with cache/budget guard)
+  // 1. LIVE COLLECT (GSC + Serper + GA4 + Technical Audit + Keyword Discovery)
   if (collectLive) {
     const seo = getSeoConfig();
     const gscFetchedAt = seo.gscCache?.fetchedAt ? new Date(seo.gscCache.fetchedAt).getTime() : 0;
@@ -442,6 +511,7 @@ export async function runSeoMasterCycleAsync(options?: {
       }
     }
 
+    // Serper SERP check (up to 2 watchlist keywords per cycle, 24h cache)
     if (seo.serperSettings?.connected && seo.serperSettings.apiKey) {
       const dayMs = 24 * 60 * 60 * 1000;
       for (const kw of seo.watchlistKeywords || []) {
@@ -470,68 +540,303 @@ export async function runSeoMasterCycleAsync(options?: {
         saveSeoConfig(seo);
       }
     }
+
+    // Research Agent: Auto-discover unmapped GSC queries into keywords.json (max 3/cycle)
+    if (seo.gscCache?.topQueries && seo.gscCache.topQueries.length > 0) {
+      const kwList = readMemoryFile<SeoKeywordMapItem[]>("keywords.json", []);
+      let addedKw = 0;
+      for (const q of seo.gscCache.topQueries) {
+        if (addedKw >= 3) break;
+        if (q.impressions < 30) continue;
+        const exists = kwList.some((k) => k.keyword.toLowerCase() === q.query.toLowerCase());
+        if (!exists) {
+          kwList.push({
+            id: `kw_gsc_${Date.now()}_${addedKw}`,
+            keyword: q.query,
+            targetUrl: q.query.includes("combo") || q.query.includes("ngoại hạng") ? "/combo-ngoai-hang-anh" : "/lap-mang-fpt",
+            intent: q.query.includes("giá") || q.query.includes("đăng ký") ? "transactional" : "local",
+            priority: q.impressions >= 100 ? "P0" : "P1",
+            currentPosition: Number(q.position.toFixed(1)),
+            lastCheckedAt: new Date().toISOString(),
+          });
+          addedKw++;
+        }
+      }
+      if (addedKw > 0) {
+        writeMemoryFile("keywords.json", kwList);
+      }
+    }
+
+    // Analytics Agent: GA4 sync (12h cache)
+    const ga4PropertyId = (process.env.GA4_PROPERTY_ID || "").trim();
+    const lastGa4At = seo.autoPilotSettings?.lastGa4SyncAt
+      ? new Date(seo.autoPilotSettings.lastGa4SyncAt).getTime()
+      : 0;
+    if (
+      ga4PropertyId &&
+      seo.gscSettings?.serviceAccountEmail &&
+      seo.gscSettings?.privateKey &&
+      Date.now() - lastGa4At > 12 * 60 * 60 * 1000
+    ) {
+      try {
+        await fetchGa4OrganicSummary({
+          propertyId: ga4PropertyId,
+          serviceAccountEmail: seo.gscSettings.serviceAccountEmail,
+          privateKey: seo.gscSettings.privateKey,
+        });
+        const latestSeo = getSeoConfig();
+        if (latestSeo.autoPilotSettings) {
+          latestSeo.autoPilotSettings.lastGa4SyncAt = new Date().toISOString();
+          saveSeoConfig(latestSeo);
+        }
+      } catch {
+        // non-blocking
+      }
+    }
+
+    // Technical SEO Agent: Auto-audit core routes (24h cache) + PageSpeed if key available
+    const lastTechAt = seo.autoPilotSettings?.lastTechnicalAuditAt
+      ? new Date(seo.autoPilotSettings.lastTechnicalAuditAt).getTime()
+      : 0;
+    if (Date.now() - lastTechAt > 24 * 60 * 60 * 1000) {
+      const targetRoutes = AUDITED_ROUTES.slice(0, 3);
+      for (const r of targetRoutes) {
+        try {
+          const audit = await auditSingleRoute("https://gofpt.vn", r);
+          technicalAuditedCount++;
+          if (audit.score < 80 || !audit.googleAdsSafe || !audit.hasCanonical) {
+            enqueueSeoTask({
+              dedupKey: `tech-audit-${r.route}`,
+              title: `Khắc phục lỗi Technical SEO trên ${r.route} (Điểm ${audit.score}/100)`,
+              ownerAgent: "Technical SEO Agent",
+              priority: audit.score < 70 ? "P0" : "P1",
+              evidence: audit.issues.slice(0, 3).join("; ") || `Score ${audit.score}/100`,
+              estimatedCost: "0đ",
+              acceptanceCriteria: "Score >= 85, Canonical & Google Ads Safe đạt chuẩn",
+              targetUrl: r.route,
+            });
+          }
+        } catch {
+          // ignore transient network error in audit
+        }
+      }
+
+      if (process.env.PAGESPEED_API_KEY) {
+        try {
+          const psi = await runPageSpeedCheck("https://gofpt.vn/", "mobile");
+          if (psi.performanceScore !== null) {
+            const baseline = readMemoryFile<SeoBaselineRecord | null>("baseline.json", null);
+            if (baseline) {
+              baseline.mobilePageSpeedScore = psi.performanceScore;
+              writeMemoryFile("baseline.json", baseline);
+            }
+          }
+        } catch {
+          // non-blocking
+        }
+      }
+
+      const latestSeo = getSeoConfig();
+      if (latestSeo.autoPilotSettings) {
+        latestSeo.autoPilotSettings.lastTechnicalAuditAt = new Date().toISOString();
+        saveSeoConfig(latestSeo);
+      }
+    }
   }
 
   // 2. ANALYZE & AUTO-RESOLVE
   const syncRes = runSeoMasterCycle();
   let newApprovalsAdded = syncRes.newApprovalsAdded;
 
-  // 3. AI EXECUTE (Propose Meta Optimization for Quick-Win Top 4-15 queries into Approval Center)
+  // 3. AI EXECUTE (Onpage Optimization Agent + Content SEO Agent with AI Image Gen)
+  const seoAfterSync = getSeoConfig();
+  const autoPilot = seoAfterSync.autoPilotSettings || {
+    enabled: true,
+    autoApproveMeta: true,
+    autoApproveArticles: true,
+    autoGenerateImages: true,
+    maxArticlesPerCycle: 1,
+  };
+
   if (runAi && isAiConfigured()) {
-    const seo = getSeoConfig();
     const approvals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []);
-    const quickWins = (seo.gscCache?.topQueries || []).filter(
-      (q) => q.impressions >= 50 && q.position >= 4 && q.position <= 15
+    const keywordsMap = readMemoryFile<SeoKeywordMapItem[]>("keywords.json", []);
+    const competitors = readMemoryFile<SeoCompetitorRecord[]>("competitors.json", []);
+    const lessons = readMemoryFile<SeoLessonEntry[]>("lessons.json", []).slice(0, 4).map((l) => l.lesson);
+
+    // 3a. Onpage Optimization Agent: Up to 2 Quick-Win Meta proposals mapped to real routes
+    const quickWins = (seoAfterSync.gscCache?.topQueries || []).filter(
+      (q) => q.impressions >= 30 && q.position >= 4 && q.position <= 15
     );
-    const targetQuery = quickWins[0];
-    if (targetQuery) {
-      const targetRoute = "/lap-mang-fpt";
+    let metaProposalsCreated = 0;
+    for (const targetQuery of quickWins) {
+      if (metaProposalsCreated >= 2) break;
+      const mappedKw = keywordsMap.find(
+        (k) => k.keyword.toLowerCase() === targetQuery.query.toLowerCase()
+      );
+      const targetRoute = mappedKw?.targetUrl || "/lap-mang-fpt";
+
       const alreadyPending = approvals.some(
         (a) => a.status === "pending" && a.type === "meta_override" && a.target === targetRoute
       );
-      if (!alreadyPending) {
-        const currentMeta = seo.pageMetaOverrides[targetRoute];
-        const aiMeta = await generateMetaOptimizationProposal({
-          route: targetRoute,
-          query: targetQuery.query,
-          position: targetQuery.position,
-          impressions: targetQuery.impressions,
-          ctr: targetQuery.ctr,
-          currentTitle: currentMeta?.title || "Lắp Mạng FPT Cần Thơ Wi-Fi 6 Siêu Tốc",
-          currentDesc: currentMeta?.description || "Đăng ký lắp mạng FPT Wi-Fi 6 từ 195.000đ/tháng, lắp đặt trong 24h.",
+      if (alreadyPending) continue;
+
+      const comp = competitors.find((c) =>
+        c.keyword.toLowerCase().includes(targetQuery.query.toLowerCase()) ||
+        targetQuery.query.toLowerCase().includes(c.keyword.toLowerCase())
+      );
+      const competitorTitles = (comp?.topDomains || []).map((d) => d.title).slice(0, 3);
+
+      const currentMeta = seoAfterSync.pageMetaOverrides[targetRoute];
+      const aiMeta = await generateMetaOptimizationProposal({
+        route: targetRoute,
+        query: targetQuery.query,
+        position: targetQuery.position,
+        impressions: targetQuery.impressions,
+        ctr: targetQuery.ctr,
+        currentTitle: currentMeta?.title || "Lắp Mạng FPT Cần Thơ Wi-Fi 6 Siêu Tốc",
+        currentDesc: currentMeta?.description || "Đăng ký lắp mạng FPT Wi-Fi 6 từ 195.000đ/tháng, lắp đặt trong 24h.",
+        competitorTitles,
+        lessons,
+      });
+      if (aiMeta.success && aiMeta.title && aiMeta.description) {
+        approvals.unshift({
+          id: `app_ai_meta_${Date.now()}_${metaProposalsCreated}`,
+          type: "meta_override",
+          target: targetRoute,
+          proposedBy: "Onpage Optimization Agent",
+          summary: `AI tối ưu CTR cho "${targetQuery.query}" (Top ${targetQuery.position.toFixed(1)}): ${aiMeta.rationale || ""}`,
+          beforeSnapshot: currentMeta || null,
+          afterProposal: {
+            title: aiMeta.title,
+            description: aiMeta.description,
+            keywords: targetQuery.query,
+          },
+          qaPassed: true,
+          status: "pending",
+          createdAt: new Date().toISOString(),
         });
-        if (aiMeta.success && aiMeta.title && aiMeta.description) {
+        newApprovalsAdded++;
+        metaProposalsCreated++;
+      }
+    }
+
+    // 3b. Content SEO Agent: Auto-draft 1 pending Content task (with AI cover image)
+    const maxArticles = Math.max(0, Math.min(2, autoPilot.maxArticlesPerCycle ?? 1));
+    if (maxArticles > 0) {
+      const tasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
+      const pendingContentTasks = tasks.filter(
+        (t) => t.status === "pending" && t.ownerAgent === "Content SEO Agent"
+      );
+      const knowledge = readMemoryFile<FptProductKnowledge | null>("fpt_knowledge.json", null);
+
+      let draftedCount = 0;
+      for (const task of pendingContentTasks) {
+        if (draftedCount >= maxArticles) break;
+        const areaMatch = task.title.match(/khu vực\s+(.+)$/i);
+        const areaName = areaMatch ? areaMatch[1].trim() : "Cần Thơ";
+        const keyword = `lắp mạng fpt ${areaName.split(",")[0].replace(/^(Quận|Huyện|Thành phố|Tỉnh)\s+/i, "").trim().toLowerCase()}`;
+
+        const alreadyDrafted = approvals.some(
+          (a) =>
+            a.type === "article_draft" &&
+            (a.status === "pending" || a.status === "approved") &&
+            (a.taskId === task.id || a.target === task.targetUrl)
+        );
+        if (alreadyDrafted) continue;
+
+        const draftRes = await generateSeoArticleDraft({
+          keyword,
+          areaName,
+          knowledge,
+          lessons,
+          generateImage: autoPilot.autoGenerateImages !== false,
+        });
+
+        if (draftRes.success && draftRes.article) {
           approvals.unshift({
-            id: `app_ai_meta_${Date.now()}`,
-            type: "meta_override",
-            target: targetRoute,
-            proposedBy: "Onpage Optimization Agent",
-            summary: `AI tối ưu CTR cho từ khóa Quick-Win "${targetQuery.query}" (Top ${targetQuery.position.toFixed(1)}): ${aiMeta.rationale || ""}`,
-            beforeSnapshot: currentMeta || null,
-            afterProposal: {
-              title: aiMeta.title,
-              description: aiMeta.description,
-              keywords: targetQuery.query,
-            },
+            id: `app_art_${Date.now()}_${draftedCount}`,
+            taskId: task.id,
+            type: "article_draft",
+            target: `/tin-tuc/${draftRes.article.slug}`,
+            proposedBy: "Content SEO Agent",
+            summary: `AI tự soạn bài "${draftRes.article.title}" (${areaName}) — Ảnh: ${draftRes.article.imageGeneratedBy || "fallback"}`,
+            beforeSnapshot: null,
+            afterProposal: draftRes.article,
             qaPassed: true,
+            qaNotes: "Đạt chuẩn Google Ads & NAP",
             status: "pending",
             createdAt: new Date().toISOString(),
           });
-          writeMemoryFile("approvals.json", approvals);
+          task.status = "awaiting_approval";
+          task.updatedAt = new Date().toISOString();
           newApprovalsAdded++;
+          draftedCount++;
+        }
+      }
+      if (draftedCount > 0) {
+        writeMemoryFile("tasks.json", tasks);
+      }
+    }
+
+    if (newApprovalsAdded > 0) {
+      writeMemoryFile("approvals.json", approvals.slice(0, 100));
+    }
+  }
+
+  // 4. AUTO-PILOT APPROVE & PUBLISH + INDEXNOW PING
+  const publishedUrls: string[] = [];
+  if (autoPilot.enabled) {
+    const pendingApprovals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []).filter(
+      (a) => a.status === "pending" && a.qaPassed
+    );
+    for (const item of pendingApprovals) {
+      const shouldApprove =
+        (item.type === "meta_override" && autoPilot.autoApproveMeta) ||
+        (item.type === "article_draft" && autoPilot.autoApproveArticles);
+      if (!shouldApprove) continue;
+
+      const res = decideSeoApproval(item.id, "approve", "SEO Master Auto-Pilot");
+      if (res.success) {
+        autoApprovedCount++;
+        publishedUrls.push(item.target);
+        if (item.taskId) {
+          const tasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
+          const linked = tasks.find((t) => t.id === item.taskId);
+          if (linked) {
+            linked.status = "completed";
+            linked.updatedAt = new Date().toISOString();
+            writeMemoryFile("tasks.json", tasks);
+          }
         }
       }
     }
+
+    if (publishedUrls.length > 0) {
+      const idxRes = await pingIndexNow(publishedUrls);
+      indexNowSubmitted = idxRes.submittedCount;
+    }
   }
+
+  // 5. MEASURE & LEARN LOOP
+  const newLessonsCount = runLearnLoop();
 
   return {
     ...syncRes,
     newApprovalsAdded,
+    autoApprovedCount,
     gscSynced,
     serpCheckedCount,
+    technicalAuditedCount,
+    indexNowSubmitted,
+    newLessonsCount,
     summary: `${syncRes.summary}${gscSynced ? " Đã đồng bộ GSC." : ""}${
-      serpCheckedCount > 0 ? ` Đã check ${serpCheckedCount} từ khóa SERP.` : ""
-    }${newApprovalsAdded > 0 ? ` AI tạo ${newApprovalsAdded} đề xuất vào Approval Center.` : ""}`,
+      serpCheckedCount > 0 ? ` Check ${serpCheckedCount} từ khóa SERP.` : ""
+    }${technicalAuditedCount > 0 ? ` Audit kỹ thuật ${technicalAuditedCount} trang.` : ""}${
+      newApprovalsAdded > 0 ? ` AI tạo ${newApprovalsAdded} đề xuất.` : ""
+    }${autoApprovedCount > 0 ? ` Auto-Pilot đã duyệt & xuất bản ${autoApprovedCount} mục.` : ""}${
+      indexNowSubmitted > 0 ? ` Đã gửi ${indexNowSubmitted} URL tới IndexNow.` : ""
+    }${newLessonsCount > 0 ? ` Rút ra ${newLessonsCount} bài học mới.` : ""}`,
   };
 }
 
@@ -556,14 +861,17 @@ export function getFullSeoIntelligenceState() {
       gscConnected: Boolean(seo.gscSettings?.connected),
       serperConnected: Boolean(seo.serperSettings?.connected),
       ga4Configured: Boolean(process.env.GA4_PROPERTY_ID || process.env.NEXT_PUBLIC_GA4_ID),
-      geminiConfigured: isAiConfigured(),
+      geminiConfigured: isGeminiConfigured(),
+      aiConfigured: isAiConfigured(),
     },
+    autoPilotSettings: seo.autoPilotSettings,
   };
 }
 
 export function decideSeoApproval(
   approvalId: string,
-  decision: "approve" | "reject"
+  decision: "approve" | "reject",
+  appliedBy = "Admin Approval"
 ): { success: boolean; message: string } {
   const approvals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []);
   const item = approvals.find((a) => a.id === approvalId);
@@ -614,7 +922,7 @@ export function decideSeoApproval(
       changeType: "meta_override",
       beforeSnapshot,
       afterSnapshot: seo.pageMetaOverrides[item.target],
-      appliedBy: "Admin Approval",
+      appliedBy,
       appliedAt: new Date().toISOString(),
     });
     writeMemoryFile("changes.json", changes.slice(0, 100));
@@ -663,7 +971,7 @@ export function decideSeoApproval(
       changeType: "article_draft",
       beforeSnapshot: null,
       afterSnapshot: { id: newArticle.id, slug: newArticle.slug, title: newArticle.title },
-      appliedBy: "Admin Approval",
+      appliedBy,
       appliedAt: nowIso,
     });
     writeMemoryFile("changes.json", changes.slice(0, 100));
@@ -672,7 +980,10 @@ export function decideSeoApproval(
   item.status = "approved";
   item.decidedAt = new Date().toISOString();
   writeMemoryFile("approvals.json", approvals);
-  return { success: true, message: "Đã phê duyệt và lưu bản sao khôi phục vào Change History!" };
+  if (appliedBy === "Admin Approval") {
+    void pingIndexNow([item.target]);
+  }
+  return { success: true, message: "Đã phê duyệt, gửi IndexNow và lưu bản sao khôi phục vào Change History!" };
 }
 
 export function rollbackSeoChange(changeId: string): { success: boolean; message: string } {

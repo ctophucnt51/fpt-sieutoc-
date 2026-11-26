@@ -108,6 +108,7 @@ export interface SeoChangeRecord {
   appliedAt: string;
   rolledBack?: boolean;
   rolledBackAt?: string;
+  evaluatedForLearn?: boolean;
 }
 
 export interface SeoPerformanceEntry {
@@ -337,7 +338,7 @@ export function initializeSeoMemory(): void {
     dayKey,
     dailyCounts: {},
     monthlyCounts: {},
-    dailyLimits: { serper: 30, pagespeed: 20, gsc: 50, ga4: 50, ai_llm: 20 },
+    dailyLimits: { serper: 30, pagespeed: 20, gsc: 50, ga4: 50, ai_llm: 20, ai_image: 10 },
   });
 }
 
@@ -382,7 +383,7 @@ export function checkAndIncrementApiUsage(provider: string): {
     dayKey,
     dailyCounts: {},
     monthlyCounts: {},
-    dailyLimits: { serper: 30, pagespeed: 20, gsc: 50, ga4: 50, ai_llm: 20 },
+    dailyLimits: { serper: 30, pagespeed: 20, gsc: 50, ga4: 50, ai_llm: 20, ai_image: 10 },
   });
 
   if (usage.dayKey !== dayKey) {

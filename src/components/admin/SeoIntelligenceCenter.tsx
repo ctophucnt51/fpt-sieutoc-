@@ -82,6 +82,7 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
   // AI Article Draft form
   const [draftKw, setDraftKw] = useState("");
   const [draftArea, setDraftArea] = useState("Cần Thơ");
+  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
 
   const fetchIntelligence = useCallback(async () => {
     setLoading(true);
@@ -253,9 +254,91 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                 <span className={`px-2.5 py-1 rounded-full font-bold text-[11px] ${data.baseline?.mobilePageSpeedScore != null ? "bg-blue-100 text-blue-800" : "bg-slate-200 text-slate-700"}`}>
                   PageSpeed (M / D): {data.baseline?.mobilePageSpeedScore ?? "—"} / {data.baseline?.desktopPageSpeedScore ?? "—"}
                 </span>
-                <span className={`px-2.5 py-1 rounded-full font-bold text-[11px] ${data.connections.geminiConfigured ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}>
-                  Gemini AI Engine: {data.connections.geminiConfigured ? "Đã bật" : "Chưa gắn GEMINI_API_KEY"}
+                <span className={`px-2.5 py-1 rounded-full font-bold text-[11px] ${data.connections.aiConfigured || data.connections.geminiConfigured ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"}`}>
+                  AI Engine (Gemini / ChatGPT): {data.connections.aiConfigured || data.connections.geminiConfigured ? "Đã bật" : "Chưa gắn API Key"}
                 </span>
+              </div>
+            </div>
+
+            {/* Auto-Pilot Controls */}
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <div className="font-bold text-slate-900">Chế độ Auto-Pilot (Chạy Hoàn Toàn Tự Động)</div>
+                  <div className="text-[11px] text-slate-500">
+                    Tự động thu thập GSC/Serper → Audit kỹ thuật → Viết bài + Tạo ảnh AI → Duyệt QA Gate → Xuất bản &amp; Ping IndexNow → Học từ kết quả.
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  disabled={runningCycle}
+                  onClick={() =>
+                    callAction({
+                      action: "toggle_autopilot",
+                      enabled: !(data.autoPilotSettings?.enabled ?? true),
+                    })
+                  }
+                  className={`px-3 py-1.5 rounded-lg font-bold text-[11px] cursor-pointer ${
+                    data.autoPilotSettings?.enabled ?? true
+                      ? "bg-emerald-600 text-white"
+                      : "bg-slate-200 text-slate-700"
+                  }`}
+                >
+                  {data.autoPilotSettings?.enabled ?? true ? "Auto-Pilot: ĐANG BẬT" : "Auto-Pilot: ĐANG TẮT"}
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  disabled={runningCycle}
+                  onClick={() =>
+                    callAction({
+                      action: "toggle_autopilot",
+                      autoApproveMeta: !(data.autoPilotSettings?.autoApproveMeta ?? true),
+                    })
+                  }
+                  className={`px-2.5 py-1 rounded-lg border text-[11px] font-semibold cursor-pointer ${
+                    data.autoPilotSettings?.autoApproveMeta ?? true
+                      ? "bg-white border-emerald-300 text-emerald-800"
+                      : "bg-white border-slate-200 text-slate-500"
+                  }`}
+                >
+                  {data.autoPilotSettings?.autoApproveMeta ?? true ? "✓" : "○"} Tự duyệt Meta Title/Desc
+                </button>
+                <button
+                  type="button"
+                  disabled={runningCycle}
+                  onClick={() =>
+                    callAction({
+                      action: "toggle_autopilot",
+                      autoApproveArticles: !(data.autoPilotSettings?.autoApproveArticles ?? true),
+                    })
+                  }
+                  className={`px-2.5 py-1 rounded-lg border text-[11px] font-semibold cursor-pointer ${
+                    data.autoPilotSettings?.autoApproveArticles ?? true
+                      ? "bg-white border-emerald-300 text-emerald-800"
+                      : "bg-white border-slate-200 text-slate-500"
+                  }`}
+                >
+                  {data.autoPilotSettings?.autoApproveArticles ?? true ? "✓" : "○"} Tự xuất bản Bài viết (QA Đạt)
+                </button>
+                <button
+                  type="button"
+                  disabled={runningCycle}
+                  onClick={() =>
+                    callAction({
+                      action: "toggle_autopilot",
+                      autoGenerateImages: !(data.autoPilotSettings?.autoGenerateImages ?? true),
+                    })
+                  }
+                  className={`px-2.5 py-1 rounded-lg border text-[11px] font-semibold cursor-pointer ${
+                    data.autoPilotSettings?.autoGenerateImages ?? true
+                      ? "bg-white border-emerald-300 text-emerald-800"
+                      : "bg-white border-slate-200 text-slate-500"
+                  }`}
+                >
+                  {data.autoPilotSettings?.autoGenerateImages ?? true ? "✓" : "○"} Tự tạo ảnh bìa AI theo nội dung
+                </button>
               </div>
             </div>
           </div>
@@ -465,8 +548,8 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
         {activeModule === "content" && (
           <div className="space-y-4">
             <div className="p-4 rounded-xl bg-orange-50/50 border border-orange-200 space-y-2.5">
-              <div className="font-bold text-slate-900">AI Content Agent — Tự Soạn Bài SEO Vào Approval Center</div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="font-bold text-slate-900">AI Content &amp; Image Agent — Tự Soạn Bài + Tạo Ảnh Bìa Theo Nội Dung</div>
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
                 <input
                   value={draftKw}
                   onChange={(e) => setDraftKw(e.target.value)}
@@ -482,12 +565,43 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                 <button
                   type="button"
                   disabled={runningCycle || !draftKw.trim()}
-                  onClick={() => callAction({ action: "ai_generate_article_draft", keyword: draftKw, areaName: draftArea })}
-                  className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 disabled:opacity-50"
+                  onClick={() => callAction({ action: "ai_generate_article_draft", keyword: draftKw, areaName: draftArea, generateImage: true })}
+                  className="px-3 py-1.5 rounded-lg bg-slate-900 text-white font-bold text-xs hover:bg-slate-800 disabled:opacity-50 cursor-pointer"
                 >
-                  {runningCycle ? "AI đang soạn..." : "AI Soạn Bài Nháp"}
+                  {runningCycle ? "AI đang soạn..." : "AI Soạn Bài + Tạo Ảnh"}
+                </button>
+                <button
+                  type="button"
+                  disabled={runningCycle || !draftKw.trim()}
+                  onClick={async () => {
+                    setRunningCycle(true);
+                    try {
+                      const res = await fetch("/api/admin/seo/intelligence", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", ...getAdminHeaders() },
+                        body: JSON.stringify({ action: "ai_generate_image", keyword: draftKw, areaName: draftArea }),
+                      });
+                      const json = await res.json();
+                      if (json.intelligence) setData(json.intelligence);
+                      if (json.image?.url) setPreviewImageUrl(json.image.url);
+                      showToast(json.message || "Đã tạo ảnh!", res.ok ? "success" : "error");
+                    } catch {
+                      showToast("Lỗi tạo ảnh AI.", "error");
+                    } finally {
+                      setRunningCycle(false);
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-lg bg-fpt-orange text-white font-bold text-xs hover:bg-fpt-hover disabled:opacity-50 cursor-pointer"
+                >
+                  Tạo Ảnh AI Thử Nghiệm
                 </button>
               </div>
+              {previewImageUrl && (
+                <div className="mt-2 flex items-center gap-3 p-2 rounded-lg bg-white border border-slate-200">
+                  <img src={previewImageUrl} alt="AI Preview" className="w-32 h-18 object-cover rounded-md border border-slate-200" />
+                  <div className="text-[11px] text-slate-600 font-mono break-all">{previewImageUrl}</div>
+                </div>
+              )}
             </div>
             <div className="font-bold text-slate-900">
               Nguồn tri thức chuẩn (`fpt_knowledge.json`): Địa chỉ {data.fptKnowledge?.address} • Hotline {data.fptKnowledge?.hotline}
@@ -615,18 +729,27 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
             ) : (
               data.approvals.map((a: any) => (
                 <div key={a.id} className="p-3.5 rounded-xl border border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-slate-900">{a.summary}</span>
-                      {a.qaPassed ? (
-                        <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">QA Đạt</span>
-                      ) : (
-                        <span className="px-2 py-0.5 rounded bg-red-100 text-red-700 text-[10px] font-bold inline-flex items-center gap-1">
-                          <AlertTriangle className="w-3 h-3" /> QA Cảnh báo
-                        </span>
-                      )}
+                  <div className="flex items-start gap-3">
+                    {a.type === "article_draft" && a.afterProposal?.thumbnail && (
+                      <img
+                        src={a.afterProposal.thumbnail}
+                        alt={a.afterProposal.title || "Thumbnail"}
+                        className="w-20 h-12 object-cover rounded-lg border border-slate-200 shrink-0"
+                      />
+                    )}
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold text-slate-900">{a.summary}</span>
+                        {a.qaPassed ? (
+                          <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">QA Đạt</span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded bg-red-100 text-red-700 text-[10px] font-bold inline-flex items-center gap-1">
+                            <AlertTriangle className="w-3 h-3" /> QA Cảnh báo
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[11px] text-slate-500">{a.qaNotes} • Trạng thái: <strong>{a.status}</strong></div>
                     </div>
-                    <div className="text-[11px] text-slate-500">{a.qaNotes} • Trạng thái: <strong>{a.status}</strong></div>
                   </div>
                   {a.status === "pending" && (
                     <div className="flex items-center gap-2">

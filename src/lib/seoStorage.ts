@@ -67,6 +67,16 @@ export interface PageMetaOverride {
   updatedAt: string;
 }
 
+export interface AutoPilotSettings {
+  enabled: boolean;
+  autoApproveMeta: boolean;
+  autoApproveArticles: boolean;
+  autoGenerateImages: boolean;
+  maxArticlesPerCycle: number;
+  lastTechnicalAuditAt?: string;
+  lastGa4SyncAt?: string;
+}
+
 export interface SeoConfigData {
   gscSettings: {
     siteUrl: string;
@@ -87,6 +97,7 @@ export interface SeoConfigData {
   watchlistKeywords: WatchlistKeyword[];
   pageMetaOverrides: Record<string, PageMetaOverride>;
   gscCache: GscCacheData | null;
+  autoPilotSettings?: AutoPilotSettings;
 }
 
 const PERSISTENT_DIR = path.join(process.cwd(), "data");
@@ -169,6 +180,13 @@ const defaultSeoConfig: SeoConfigData = {
   ],
   pageMetaOverrides: {},
   gscCache: null,
+  autoPilotSettings: {
+    enabled: true,
+    autoApproveMeta: true,
+    autoApproveArticles: true,
+    autoGenerateImages: true,
+    maxArticlesPerCycle: 1,
+  },
 };
 
 function ensureSeoFile(): void {
@@ -201,6 +219,10 @@ export function getSeoConfig(): SeoConfigData {
         : defaultSeoConfig.watchlistKeywords,
       pageMetaOverrides: parsed.pageMetaOverrides || {},
       gscCache: parsed.gscCache || null,
+      autoPilotSettings: {
+        ...defaultSeoConfig.autoPilotSettings!,
+        ...(parsed.autoPilotSettings || {}),
+      },
     };
   } catch (err) {
     console.error("Error reading seoConfig.json:", err);
@@ -235,5 +257,6 @@ export function getPublicSafeSeoConfig(data: SeoConfigData) {
     watchlistKeywords: data.watchlistKeywords,
     pageMetaOverrides: data.pageMetaOverrides,
     gscCache: data.gscCache,
+    autoPilotSettings: data.autoPilotSettings,
   };
 }
