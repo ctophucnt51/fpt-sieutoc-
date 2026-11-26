@@ -356,7 +356,7 @@ export default function Header() {
                   <span className="w-1.5 h-1.5 rounded-full bg-[#F37021] animate-pulse" />
                   Ưu Đãi Hôm Nay
                 </div>
-                <span className="text-[10px] text-slate-600 font-semibold">Tặng tới 2T cước</span>
+                <span className="text-[10px] text-slate-600 font-semibold">Trả trước 12T tặng 1T</span>
               </div>
               <p className="text-[11.5px] text-slate-600 leading-snug">
                 Trang bị miễn phí <strong className="text-slate-900 font-bold">Modem Wi-Fi 6</strong> &amp; Camera AI khi đăng ký hôm nay.

@@ -330,8 +330,12 @@ export default function LeadForm({
         {/* CÁC TRƯỜNG THÔNG TIN: MỖI DÒNG 1 THÔNG TIN (Họ tên, Số điện thoại, Địa chỉ) */}
         <div className="space-y-2.5 sm:space-y-3">
           {/* DÒNG 1: Họ và tên * */}
-          <div className="relative">
+          <div>
+            <label htmlFor="lead-fullname" className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+              Họ và tên <span className="text-red-600">*</span>
+            </label>
             <input
+              id="lead-fullname"
               type="text"
               aria-label="Họ và tên"
               required
@@ -339,17 +343,15 @@ export default function LeadForm({
               onChange={(e) => setFullName(e.target.value)}
               className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20 transition-all"
             />
-            {!fullName && (
-              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-600 font-medium select-none truncate pr-2">
-                <span>Nhập họ và tên</span>
-                <span className="text-red-600 font-bold ml-1">*</span>
-              </div>
-            )}
           </div>
 
           {/* DÒNG 2: Số điện thoại * */}
-          <div className="relative">
+          <div>
+            <label htmlFor="lead-phone" className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+              Số điện thoại <span className="text-red-600">*</span>
+            </label>
             <input
+              id="lead-phone"
               type="tel"
               aria-label="Số điện thoại"
               required
@@ -361,12 +363,6 @@ export default function LeadForm({
                   : "border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20"
               }`}
             />
-            {!phone && (
-              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-600 font-medium select-none truncate pr-2">
-                <span>Nhập số điện thoại</span>
-                <span className="text-red-600 font-bold ml-1">*</span>
-              </div>
-            )}
             {phoneError && (
               <p className="text-red-700 text-[11px] font-semibold mt-1 px-1">
                 {phoneError}
@@ -375,8 +371,12 @@ export default function LeadForm({
           </div>
 
           {/* DÒNG 3: Địa chỉ lắp đặt * */}
-          <div className="relative">
+          <div>
+            <label htmlFor="lead-address" className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+              Địa chỉ lắp đặt <span className="text-red-600">*</span>
+            </label>
             <input
+              id="lead-address"
               type="text"
               aria-label="Địa chỉ lắp đặt"
               required
@@ -384,12 +384,6 @@ export default function LeadForm({
               onChange={(e) => setAddress(e.target.value)}
               className="w-full px-4 py-2.5 sm:py-3 rounded-xl bg-[#F8FAFC] focus:bg-white text-slate-900 text-base sm:text-sm font-medium outline-none border border-[#E2E8F0] focus:border-[#F37021] focus:ring-2 focus:ring-[#F37021]/20 transition-all"
             />
-            {!address && (
-              <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center text-xs sm:text-sm text-slate-600 font-medium select-none truncate pr-2">
-                <span>Địa chỉ lắp đặt</span>
-                <span className="text-red-600 font-bold ml-1">*</span>
-              </div>
-            )}
           </div>
         </div>
 
