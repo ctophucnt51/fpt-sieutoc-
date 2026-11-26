@@ -258,10 +258,34 @@ export default function SeoIntelligenceCenter({ showToast }: SeoIntelligenceCent
                   AI Engine (Gemini / ChatGPT): {data.connections.aiConfigured || data.connections.geminiConfigured ? "Đã bật" : "Chưa gắn API Key"}
                 </span>
               </div>
-              {data.ga4Cache && (
-                <div className="pt-2 border-t border-orange-200/70 text-[11px] font-semibold text-emerald-800">
-                  GA4 (28 ngày): {data.ga4Cache.organicSessions} phiên Organic / {data.ga4Cache.sessions} tổng phiên • {data.ga4Cache.conversions} chuyển đổi
+              {data.ga4Cache ? (
+                <div className="pt-2 border-t border-orange-200/70 flex flex-wrap items-center justify-between gap-2 text-[11px] font-semibold text-emerald-800">
+                  <span>
+                    GA4 (28 ngày): {data.ga4Cache.organicSessions} phiên Organic / {data.ga4Cache.sessions} tổng phiên • {data.ga4Cache.conversions} chuyển đổi
+                  </span>
+                  <button
+                    type="button"
+                    disabled={runningCycle}
+                    onClick={() => callAction({ action: "sync_ga4" })}
+                    className="px-2.5 py-1 rounded-lg bg-white border border-emerald-300 text-emerald-800 font-bold hover:bg-emerald-50 disabled:opacity-50 cursor-pointer"
+                  >
+                    Đồng Bộ GA4
+                  </button>
                 </div>
+              ) : (
+                data.connections.ga4Configured && (
+                  <div className="pt-2 border-t border-orange-200/70 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600">
+                    <span>Đã gắn GA4 Property ID — bấm để kéo số liệu 28 ngày ngay:</span>
+                    <button
+                      type="button"
+                      disabled={runningCycle}
+                      onClick={() => callAction({ action: "sync_ga4" })}
+                      className="px-2.5 py-1 rounded-lg bg-slate-900 text-white font-bold hover:bg-slate-800 disabled:opacity-50 cursor-pointer"
+                    >
+                      Đồng Bộ GA4 Ngay
+                    </button>
+                  </div>
+                )
               )}
             </div>
 

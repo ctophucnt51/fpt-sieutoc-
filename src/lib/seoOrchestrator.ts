@@ -818,11 +818,12 @@ export async function runSeoMasterCycleAsync(options?: {
       }
     }
 
-    // Analytics Agent: GA4 sync (12h cache)
+    // Analytics Agent: GA4 sync (12h cache when ga4Cache already exists)
     const ga4PropertyId = (seo.ga4PropertyId || process.env.GA4_PROPERTY_ID || "").trim();
-    const lastGa4At = seo.autoPilotSettings?.lastGa4SyncAt
-      ? new Date(seo.autoPilotSettings.lastGa4SyncAt).getTime()
-      : 0;
+    const lastGa4At =
+      seo.ga4Cache && seo.autoPilotSettings?.lastGa4SyncAt
+        ? new Date(seo.autoPilotSettings.lastGa4SyncAt).getTime()
+        : 0;
     if (
       ga4PropertyId &&
       seo.gscSettings?.serviceAccountEmail &&
