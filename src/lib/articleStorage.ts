@@ -207,15 +207,22 @@ function ensureArticlesFile(): Article[] {
   }
 }
 
+function sortArticlesByPinnedAndDate(list: Article[]): Article[] {
+  return list.sort((a, b) => {
+    if (Boolean(a.featured) !== Boolean(b.featured)) {
+      return a.featured ? -1 : 1;
+    }
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+}
+
 // Get all articles (for admin: all; for public: published only)
 export function getAllArticles(includeUnpublished = false): Article[] {
   const articles = ensureArticlesFile();
   if (includeUnpublished) {
-    return articles.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return sortArticlesByPinnedAndDate(articles);
   }
-  return articles
-    .filter((a) => a.published)
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  return sortArticlesByPinnedAndDate(articles.filter((a) => a.published));
 }
 
 // Get single article by slug
@@ -312,6 +319,15 @@ export function upsertArticle(articleData: Partial<Article>): { success: boolean
 
       const category = articleData.category || "tin-tuc";
 
+      const isPublished = articleData.published !== undefined ? articleData.published : true;
+      // Auto-pin newest published article by default (and unpin previous auto-pinned ones)
+      const shouldAutoPin = isPublished && articleData.featured !== false;
+      if (shouldAutoPin) {
+        for (const a of articles) {
+          a.featured = false;
+        }
+      }
+
       const newArticle: Article = {
         id,
         slug: finalSlug,
@@ -322,8 +338,8 @@ export function upsertArticle(articleData: Partial<Article>): { success: boolean
         categoryName: categoryNameMap[category] || "Tin Tức",
         thumbnail: articleData.thumbnail || "/images/banners/combo-epl-official.jpg",
         author: articleData.author || "FPT Telecom Cần Thơ",
-        published: articleData.published !== undefined ? articleData.published : true,
-        featured: Boolean(articleData.featured),
+        published: isPublished,
+        featured: shouldAutoPin || Boolean(articleData.featured),
         views: 0,
         readTimeMinutes,
         createdAt: now,

@@ -1267,14 +1267,16 @@ export function decideSeoApproval(
       thumbnail: draft.thumbnail || pickThumbnail(String(draft.title || draft.slug || ""), draft.category),
       author: "FPT Telecom Cần Thơ",
       published: true,
-      featured: false,
+      featured: true,
       views: 1,
       readTimeMinutes: 4,
       createdAt: nowIso,
       updatedAt: nowIso,
     };
 
-    const filtered = articles.filter((a) => a.slug !== newArticle.slug);
+    const filtered = articles
+      .filter((a) => a.slug !== newArticle.slug)
+      .map((a) => ({ ...a, featured: false }));
     saveAllArticles([newArticle, ...filtered]);
 
     const changes = readMemoryFile<SeoChangeRecord[]>("changes.json", []);
