@@ -104,7 +104,10 @@ export default function CameraFeatureSection() {
               </div>
               <h3 className="text-xl font-black text-slate-900">FPT Camera Play 4</h3>
               <p className="text-xs text-slate-500 mt-1">Camera AI trong nhà xoay toàn cảnh phòng khách, cửa hàng, phòng bé</p>
-              <div className="my-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-50 text-fpt-orange text-xs font-extrabold border border-orange-200/80">
+              <div className="mt-3 text-2xl font-black text-fpt-orange">
+                400.000đ <span className="text-xs text-slate-500 font-normal">/ thiết bị</span>
+              </div>
+              <div className="my-2.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-50 text-fpt-orange text-xs font-extrabold border border-orange-200/80">
                 Ưu đãi: Tặng 1 Camera khi lắp Internet FPT (Miễn phí lưu trữ)
               </div>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-700">
@@ -144,7 +147,10 @@ export default function CameraFeatureSection() {
               </div>
               <h3 className="text-xl font-black text-slate-900">FPT Camera IQ 4S</h3>
               <p className="text-xs text-slate-500 mt-1">Chịu mưa nắng bền bỉ trước cổng nhà, sân vườn, kho bãi</p>
-              <div className="my-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-50 text-fpt-orange text-xs font-extrabold border border-orange-200/80">
+              <div className="mt-3 text-2xl font-black text-fpt-orange">
+                400.000đ <span className="text-xs text-slate-500 font-normal">/ thiết bị</span>
+              </div>
+              <div className="my-2.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-50 text-fpt-orange text-xs font-extrabold border border-orange-200/80">
                 Ưu đãi: Tặng 1 Camera khi lắp Internet FPT (Miễn phí lưu trữ)
               </div>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-700">

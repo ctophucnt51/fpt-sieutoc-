@@ -18,6 +18,7 @@ interface CameraModel {
   id: string;
   name: string;
   tag: string;
+  price?: string;
   environment: "outdoor" | "indoor" | "both";
   twoWayAudio: boolean;
   resolution: string;
@@ -34,6 +35,7 @@ const CAMERA_MODELS: CameraModel[] = [
     id: "iq-4s",
     name: "FPT Camera AI IQ 4S",
     tag: "Chủ lực ngoài trời • IP67",
+    price: "400.000đ",
     environment: "outdoor",
     twoWayAudio: true,
     resolution: "3MP sắc nét",
@@ -48,6 +50,7 @@ const CAMERA_MODELS: CameraModel[] = [
     id: "play-4",
     name: "FPT Camera AI Play 4",
     tag: "Chủ lực trong nhà • Xoay 315°",
+    price: "400.000đ",
     environment: "indoor",
     twoWayAudio: true,
     resolution: "3MP",
@@ -243,6 +246,12 @@ export default function CameraCatalogSection() {
 
               <div className="p-5 flex-1 flex flex-col">
                 <h3 className="text-lg font-black text-slate-900">{cam.name}</h3>
+                {cam.price && (
+                  <div className="mt-1.5 text-lg font-black text-fpt-orange">
+                    {cam.price}{" "}
+                    <span className="text-xs font-normal text-slate-500">/ thiết bị</span>
+                  </div>
+                )}
 
                 <div className="mt-3 space-y-1.5 text-xs text-slate-600">
                   <div className="flex items-start gap-2">
