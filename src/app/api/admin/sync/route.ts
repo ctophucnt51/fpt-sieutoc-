@@ -270,19 +270,6 @@ export async function POST(request: NextRequest) {
           }
 
           fs.copyFileSync(backupPath, persistentPath);
-          // Luôn đồng bộ email hỗ trợ & địa chỉ cố định theo cấu hình người dùng
-          if (file === "siteConfig.json") {
-            try {
-              const raw = fs.readFileSync(persistentPath, "utf8");
-              const parsed = JSON.parse(raw);
-              if (parsed.contact) {
-                parsed.contact.supportEmail = "PhucNT51@fpt.com";
-                parsed.contact.address = "Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ";
-                parsed.contact.addressShort = "Số 10 Phan Văn Trị, Phường Ninh Kiều, Cần Thơ";
-                fs.writeFileSync(persistentPath, JSON.stringify(parsed, null, 2), "utf8");
-              }
-            } catch {}
-          }
         } catch (restoreErr) {
           console.error(`Lỗi khi khôi phục dữ liệu ${file}:`, restoreErr);
         }

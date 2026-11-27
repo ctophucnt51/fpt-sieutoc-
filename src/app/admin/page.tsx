@@ -116,9 +116,9 @@ export default function AdminPage() {
     setIsLoadingData(true);
     try {
       const [leadsRes, configRes, articlesRes] = await Promise.all([
-        fetch("/api/admin/leads", { headers: getAdminHeaders() }),
-        fetch("/api/admin/config", { headers: getAdminHeaders() }),
-        fetch("/api/admin/articles", { headers: getAdminHeaders() }),
+        fetch("/api/admin/leads", { headers: getAdminHeaders(), cache: "no-store" }),
+        fetch("/api/admin/config", { headers: getAdminHeaders(), cache: "no-store" }),
+        fetch("/api/admin/articles", { headers: getAdminHeaders(), cache: "no-store" }),
       ]);
 
       if (leadsRes.ok) {
