@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AreaOption } from "@/config/siteConfig";
 import { SiteConfigType } from "@/lib/configStorage";
 import { Plus, Trash2, Save, MapPin, Search, Star } from "lucide-react";
@@ -21,6 +21,10 @@ export default function AreaConfigEditor({
   const [newCode, setNewCode] = useState("");
   const [newName, setNewName] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    setAreas(config.popularAreas);
+  }, [config.popularAreas]);
 
   const filtered = areas.filter((a) => {
     if (activeRegion === "all") return true;

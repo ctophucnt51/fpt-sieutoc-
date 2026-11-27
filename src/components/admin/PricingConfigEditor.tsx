@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PackageItem } from "@/config/siteConfig";
 import { SiteConfigType } from "@/lib/configStorage";
 import { Plus, Trash2, Save, Wifi, Tv, Camera, Sparkles, Check, AlertCircle } from "lucide-react";
@@ -19,6 +19,10 @@ export default function PricingConfigEditor({
   const [activeCategory, setActiveCategory] = useState<"internet" | "combo">("internet");
   const [packages, setPackages] = useState(config.packages);
   const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    setPackages(config.packages);
+  }, [config.packages]);
 
   const currentList = packages[activeCategory] || [];
 

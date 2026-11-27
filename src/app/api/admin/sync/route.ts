@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { verifyAdminAuth } from "@/lib/adminAuth";
 import { exec, execFile } from "child_process";
 import { promisify } from "util";
@@ -262,9 +263,6 @@ export async function POST(request: NextRequest) {
                 }
               }
               fs.writeFileSync(persistentPath, JSON.stringify(merged, null, 2), "utf8");
-              if (fs.existsSync(seedDataDir)) {
-                fs.writeFileSync(seedPath, JSON.stringify(merged, null, 2), "utf8");
-              }
               continue;
             } catch (mergeErr) {
               console.error("Lỗi hợp nhất articles.json:", mergeErr);
@@ -272,9 +270,6 @@ export async function POST(request: NextRequest) {
           }
 
           fs.copyFileSync(backupPath, persistentPath);
-          if (fs.existsSync(seedDataDir)) {
-            fs.copyFileSync(backupPath, seedPath);
-          }
           // Luôn đồng bộ email hỗ trợ & địa chỉ cố định theo cấu hình người dùng
           if (file === "siteConfig.json") {
             try {
@@ -285,9 +280,6 @@ export async function POST(request: NextRequest) {
                 parsed.contact.address = "Số 10 Phan Văn Trị, Phường Ninh Kiều, Thành phố Cần Thơ";
                 parsed.contact.addressShort = "Số 10 Phan Văn Trị, Phường Ninh Kiều, Cần Thơ";
                 fs.writeFileSync(persistentPath, JSON.stringify(parsed, null, 2), "utf8");
-                if (fs.existsSync(seedPath)) {
-                  fs.writeFileSync(seedPath, JSON.stringify(parsed, null, 2), "utf8");
-                }
               }
             } catch {}
           }
@@ -310,6 +302,8 @@ export async function POST(request: NextRequest) {
     try {
       fs.rmSync(backupDir, { recursive: true, force: true });
     } catch {}
+
+    revalidatePath("/", "layout");
 
     // Lấy thông tin commit sau khi cập nhật
     let latestCommit = "";
