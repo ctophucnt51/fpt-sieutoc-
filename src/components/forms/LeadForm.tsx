@@ -308,7 +308,7 @@ export default function LeadForm({
 
   return (
     <div
-      id="lead-form"
+      id={formLocation === "hero-form" ? "lead-form" : `lead-form-${formLocation}`}
       className={`bg-white rounded-2xl sm:rounded-3xl border border-[#E2E8F0] shadow-[0_12px_40px_rgba(15,23,42,0.08)] p-5 sm:p-7 lg:p-8 relative ${className}`}
     >
       {/* Nút đóng (khi mở dạng Popup Modal) */}

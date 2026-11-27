@@ -57,7 +57,7 @@ export default function BottomCtaSection({
               </div>
               <a
                 href={siteConfig.contact.hotlineTel}
-                className="px-4 py-2 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-bold shadow-xs transition-all shrink-0 cursor-pointer"
+                className="px-4 py-2 rounded-full bg-[#C2410C] hover:bg-[#9A3412] text-white text-xs font-bold shadow-xs transition-all shrink-0 cursor-pointer"
               >
                 Gọi ngay
               </a>

@@ -107,7 +107,7 @@ export default function Header() {
       href: "/khuyen-mai",
       label: "Ưu Đãi",
       badge: "HOT",
-      badgeColor: "bg-[#F37021] text-white",
+      badgeColor: "bg-[#C2410C] text-white",
     },
     {
       href: "/tin-tuc",
@@ -125,7 +125,7 @@ export default function Header() {
         <div className="max-w-[1280px] mx-auto flex items-center justify-between gap-2 min-h-[26px]">
           {/* Desktop Left: Announcement */}
           <div className="flex items-center gap-2 min-w-0">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F37021] text-white text-[9px] font-extrabold tracking-wide uppercase shrink-0">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#C2410C] text-white text-[9px] font-extrabold tracking-wide uppercase shrink-0">
               <Flame className="w-3 h-3 shrink-0" />
               {siteConfig.promo?.topBarBadge || "Ưu Đãi"}
             </span>

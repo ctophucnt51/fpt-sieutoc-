@@ -43,7 +43,7 @@ export default function PricingComparisonMatrix() {
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <span className="font-black text-base text-[#0F172A]">{pkg.name}</span>
                       {pkg.badge && (
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white">
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#C2410C] text-white">
                           {pkg.badge}
                         </span>
                       )}
@@ -73,7 +73,7 @@ export default function PricingComparisonMatrix() {
 
                 <button
                   onClick={() => openLeadModal(pkg.name)}
-                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-bold shadow-2xs transition-all cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#C2410C] hover:bg-[#9A3412] text-white text-xs font-bold shadow-2xs transition-all cursor-pointer"
                 >
                   <span>Chọn gói {pkg.name}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -107,7 +107,7 @@ export default function PricingComparisonMatrix() {
                       <div className="flex items-center gap-2">
                         <span>{pkg.name}</span>
                         {pkg.badge && (
-                          <span className="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white">
+                          <span className="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-[#C2410C] text-white">
                             {pkg.badge}
                           </span>
                         )}
@@ -131,7 +131,7 @@ export default function PricingComparisonMatrix() {
                     <td className="py-3.5 px-4 text-right whitespace-nowrap">
                       <button
                         onClick={() => openLeadModal(pkg.name)}
-                        className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-bold shadow-2xs transition-all cursor-pointer"
+                        className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#C2410C] hover:bg-[#9A3412] text-white text-xs font-bold shadow-2xs transition-all cursor-pointer"
                       >
                         <span>Chọn</span>
                         <ArrowRight className="w-3 h-3" />

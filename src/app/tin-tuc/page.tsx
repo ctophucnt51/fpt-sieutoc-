@@ -77,7 +77,7 @@ export default function TinTucPage({
               href={cat.id === "all" ? "/tin-tuc" : `/tin-tuc?category=${cat.id}`}
               className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                 currentCategory === cat.id
-                  ? "bg-[#F37021] text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
+                  ? "bg-[#C2410C] text-white shadow-[0_2px_10px_rgba(194,65,12,0.3)]"
                   : "bg-white text-[#2F364A] border border-[#E4E8ED] hover:border-orange-200 hover:text-[#F37021] shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)]"
               }`}
             >
