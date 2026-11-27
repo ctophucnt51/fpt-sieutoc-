@@ -204,15 +204,15 @@ export default function Wifi6Explainer() {
               </div>
             </div>
 
-            {/* Official Modem Showcase Strip - White Glassmorphism Card */}
-            <div className="p-3 sm:p-4 rounded-2xl bg-white border border-orange-200/80 shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)] flex items-center gap-2.5 sm:gap-3.5">
-              <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl bg-slate-50 border border-slate-100 p-1 flex items-center justify-center shrink-0">
+            {/* Official Modem Showcase Strip - Clean Transparent PNG Showcase */}
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-orange-200/80 shadow-[0_0_8px_-2px_rgba(243,112,33,0.08)] flex items-center gap-3 sm:gap-4">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-orange-50/90 via-white to-slate-50 border border-orange-100 p-2 flex items-center justify-center shrink-0">
                 <img
-                  src="/images/products/modem-wifi-6.jpg"
+                  src="/images/products/modem-wifi6-transparent.png"
                   alt="Modem Wi-Fi 6 FPT Chính Hãng"
-                  width={80}
-                  height={80}
-                  className="w-full h-full object-contain mix-blend-multiply"
+                  width={74}
+                  height={151}
+                  className="h-full w-auto max-w-full object-contain drop-shadow-xs"
                   loading="lazy"
                   decoding="async"
                 />

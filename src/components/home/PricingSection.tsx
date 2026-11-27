@@ -67,7 +67,7 @@ export default function PricingSection({
   };
 
   return (
-    <section id="bang-gia" className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] relative">
+    <section id="bang-gia" className="py-8 sm:py-12 lg:py-16 bg-[#F4F6FB] relative overflow-x-hidden">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header + Filter Segment Tabs */}
         <div className="text-left sm:text-center max-w-3xl mx-auto mb-5 sm:mb-9">
@@ -127,7 +127,7 @@ export default function PricingSection({
             return (
               <div
                 key={pkg.id}
-                className={`rounded-2xl sm:rounded-3xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden ${
+                className={`min-w-0 w-full rounded-2xl sm:rounded-3xl transition-all duration-300 flex flex-col justify-between relative overflow-hidden ${
                   pkg.highlight
                     ? "bg-white border-2 border-[#F37021] shadow-[0_12px_36px_rgba(243,112,33,0.14)]"
                     : "bg-white border border-[#E4E8ED] shadow-2xs hover:border-[#F37021]/70 hover:shadow-[0_10px_28px_rgba(15,23,42,0.08)] lg:hover:-translate-y-1"
@@ -142,7 +142,7 @@ export default function PricingSection({
                   }`}
                 >
                   {/* Row 1: Category & Highlight Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="flex flex-wrap items-center justify-between gap-1.5 mb-3">
                     <span className="inline-flex items-center gap-1.5 text-[10.5px] font-bold px-2.5 py-0.5 rounded-full bg-white text-[#334155] border border-slate-200 whitespace-nowrap">
                       <span>{isCombo ? "Combo Internet + TV" : "Internet Wi-Fi 6"}</span>
                     </span>
@@ -160,8 +160,8 @@ export default function PricingSection({
                   </div>
 
                   {/* Row 2: Package Name + Big Speed Pill */}
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#0F172A] tracking-tight leading-snug">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="min-w-0 text-lg sm:text-xl font-black text-[#0F172A] tracking-tight leading-snug break-words">
                       {pkg.name}
                     </h3>
                     <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-900 text-white text-xs sm:text-[13px] font-black whitespace-nowrap shrink-0 shadow-2xs">
@@ -171,8 +171,8 @@ export default function PricingSection({
                   </div>
 
                   {/* Row 3: Big Price + VAT pill */}
-                  <div className="mt-3.5 flex items-baseline justify-between gap-2">
-                    <div className="flex items-baseline gap-1 whitespace-nowrap">
+                  <div className="mt-3.5 flex flex-wrap items-baseline justify-between gap-2">
+                    <div className="flex items-baseline gap-1 min-w-0">
                       <span className="text-2xl sm:text-3xl font-black text-[#9A3412] tracking-tight leading-none">
                         {startingPrice}
                       </span>
@@ -180,7 +180,7 @@ export default function PricingSection({
                         {pkg.billingCycle}
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full whitespace-nowrap">
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0">
                       Đã gồm VAT
                     </span>
                   </div>

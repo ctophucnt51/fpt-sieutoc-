@@ -205,6 +205,8 @@ export default function CameraCatalogSection() {
                 <img
                   src={cam.image}
                   alt={cam.name}
+                  width={800}
+                  height={500}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-cover"
