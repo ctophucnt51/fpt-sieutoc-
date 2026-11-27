@@ -150,7 +150,7 @@ export default function PricingSection({
                       <span
                         className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full whitespace-nowrap shrink-0 ${
                           pkg.highlight
-                            ? "bg-[#F37021] text-white shadow-2xs"
+                            ? "bg-[#C2410C] text-white shadow-2xs"
                             : "bg-[#FFF4ED] text-[#9A3412] border border-orange-200"
                         }`}
                       >

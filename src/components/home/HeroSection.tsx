@@ -284,7 +284,7 @@ export default function HeroSection({
                           />
                           <span>Bản quyền Ngoại hạng Anh</span>
                         </span>
-                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white whitespace-nowrap">
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#C2410C] text-white whitespace-nowrap">
                           PHỔ BIẾN
                         </span>
                       </div>

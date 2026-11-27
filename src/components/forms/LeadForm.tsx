@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useSiteConfig } from "@/context/ConfigContext";
@@ -37,6 +37,10 @@ export default function LeadForm({
   const siteConfig = useSiteConfig();
   const router = useRouter();
   const pathname = usePathname();
+  const formUid = useId();
+  const fullnameId = `${formUid}-fullname`;
+  const phoneId = `${formUid}-phone`;
+  const addressId = `${formUid}-address`;
 
   // 1. Trạng thái các trường nhập liệu
   const [fullName, setFullName] = useState("");
@@ -356,13 +360,12 @@ export default function LeadForm({
         <div className="space-y-2.5 sm:space-y-3">
           {/* DÒNG 1: Họ và tên * */}
           <div>
-            <label htmlFor="lead-fullname" className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+            <label htmlFor={fullnameId} className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
               Họ và tên <span className="text-red-600">*</span>
             </label>
             <input
-              id="lead-fullname"
+              id={fullnameId}
               type="text"
-              aria-label="Họ và tên"
               required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -372,13 +375,12 @@ export default function LeadForm({
 
           {/* DÒNG 2: Số điện thoại * */}
           <div>
-            <label htmlFor="lead-phone" className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+            <label htmlFor={phoneId} className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
               Số điện thoại <span className="text-red-600">*</span>
             </label>
             <input
-              id="lead-phone"
+              id={phoneId}
               type="tel"
-              aria-label="Số điện thoại"
               required
               value={phone}
               onChange={handlePhoneChange}
@@ -397,13 +399,12 @@ export default function LeadForm({
 
           {/* DÒNG 3: Địa chỉ lắp đặt * */}
           <div>
-            <label htmlFor="lead-address" className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
+            <label htmlFor={addressId} className="block text-[11px] sm:text-xs font-bold text-slate-700 mb-1">
               Địa chỉ lắp đặt <span className="text-red-600">*</span>
             </label>
             <input
-              id="lead-address"
+              id={addressId}
               type="text"
-              aria-label="Địa chỉ lắp đặt"
               required
               value={address}
               onChange={(e) => setAddress(e.target.value)}
