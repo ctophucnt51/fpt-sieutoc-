@@ -30,7 +30,7 @@ export const siteConfig = {
     domain: process.env.NODE_ENV === "production" ? "https://gofpt.vn" : (process.env.NEXT_PUBLIC_SITE_URL || "https://gofpt.vn"),
   },
   promo: {
-    topBarAnnouncement: "Trang bị miễn phí Modem Wi-Fi 6 & Camera FPT",
+    topBarAnnouncement: "Trang bị Modem Wi-Fi 6 • Ưu đãi tặng 1 Camera AI (Miễn phí lưu trữ) khi lắp Internet FPT",
     topBarBadge: "Ưu Đãi Tháng 11",
     heroGiftText: "Trang bị Modem Wi-Fi 6 thế hệ mới & Tặng kèm Camera FPT AI an ninh thông minh miễn phí",
     leadFormUrgentNote: "Cần lắp đặt gấp trong 2 - 4 giờ?",

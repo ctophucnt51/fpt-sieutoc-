@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { SiteConfigType } from "@/lib/configStorage";
 import { getAdminHeaders } from "@/lib/clientAdminAuth";
 import { Save, RefreshCw, Phone, MessageSquare, ShieldCheck, Globe, Activity, AlertTriangle, Sparkles, Tag, Gift, GitBranch, Download, Upload, Shield, Zap } from "lucide-react";
@@ -31,6 +31,10 @@ export default function GeneralConfigEditor({
   const [formData, setFormData] = useState<SiteConfigType>(config);
   const [isSaving, setIsSaving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setFormData(config);
+  }, [config]);
 
   const handleExportBackup = () => {
     try {

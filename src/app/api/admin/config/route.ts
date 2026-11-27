@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getDynamicConfig, saveDynamicConfig, resetDynamicConfig } from "@/lib/configStorage";
 import { verifyAdminAuth } from "@/lib/adminAuth";
 
@@ -22,6 +23,7 @@ export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
     const updated = saveDynamicConfig(body);
+    revalidatePath("/", "layout");
 
     return NextResponse.json({
       success: true,
@@ -46,6 +48,7 @@ export async function POST(request: NextRequest) {
     const { action } = await request.json();
     if (action === "reset") {
       const resetConfig = resetDynamicConfig();
+      revalidatePath("/", "layout");
       return NextResponse.json({
         success: true,
         message: "Đã khôi phục toàn bộ cấu hình về cài đặt gốc!",
