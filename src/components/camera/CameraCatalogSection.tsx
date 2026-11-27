@@ -117,20 +117,6 @@ const CAMERA_MODELS: CameraModel[] = [
     aiFeatures: ["Phát hiện người", "Phân biệt người & vật", "Lắp trần / tường linh hoạt"],
     image: "/images/camera-ai/camera-dome-iq-4w.jpg",
   },
-  {
-    id: "se-3s",
-    name: "FPT Camera SE 3S",
-    tag: "Ngoài trời • Sẵn bộ nhớ 32GB",
-    environment: "outdoor",
-    twoWayAudio: true,
-    resolution: "3MP (2304×1296)",
-    lens: "4.0mm, góc nhìn 101°",
-    durability: "Mái che mưa + mặt kính phủ Nano kỵ nước",
-    nightVision: "Hồng ngoại & trợ sáng ban đêm",
-    storage: "Bộ nhớ trong 32GB (lưu ~5 ngày) + nâng cấp Cloud",
-    aiFeatures: ["Đàm thoại 2 chiều 5–7m", "Khử tiếng vang", "Phân biệt người & vật"],
-    image: "/images/camera-ai/camera-se-3s.jpg",
-  },
 ];
 
 const CLOUD_PLANS = [
@@ -202,7 +188,7 @@ export default function CameraCatalogSection() {
           <div className="flex flex-wrap gap-2">
             {(
               [
-                { id: "all", label: "Tất cả (7)" },
+                { id: "all", label: "Tất cả (6)" },
                 { id: "outdoor", label: "Ngoài trời (IP67)" },
                 { id: "indoor", label: "Trong nhà / Xoay" },
                 { id: "audio", label: "Đàm thoại 2 chiều" },

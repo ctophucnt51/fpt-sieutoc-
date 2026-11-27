@@ -9,7 +9,7 @@ import BottomCtaSection from "@/components/home/BottomCtaSection";
 export const metadata: Metadata = {
   title: "FPT Camera AI Thông Minh - IQ4S, Play 4 & Cloud Lưu Trữ 35K/Tháng",
   description:
-    "Giải pháp FPT Camera AI chính hãng: IQ 4S, Play 4, Bullet 5, Dome 5i, SE 3S. Gói lưu trữ Cloud 7 ngày chỉ từ 35K/tháng (1 thiết bị) và 50K/tháng (từ 2 thiết bị). Ưu đãi tặng 1 Camera miễn phí lưu trữ khi lắp Internet FPT.",
+    "Giải pháp FPT Camera AI chính hãng: IQ 4S, Play 4, Bullet 5, Dome 5i, Bullet 5i, Dome IQ 4W. Gói lưu trữ Cloud 7 ngày chỉ từ 35K/tháng (1 thiết bị) và 50K/tháng (từ 2 thiết bị). Ưu đãi tặng 1 Camera miễn phí lưu trữ khi lắp Internet FPT.",
   alternates: {
     canonical: "/camera-fpt",
   },
