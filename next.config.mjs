@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  experimental: {
+    instrumentationHook: true,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },
