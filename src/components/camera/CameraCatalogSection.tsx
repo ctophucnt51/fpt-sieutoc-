@@ -279,7 +279,7 @@ export default function CameraCatalogSection() {
 
         {/* Cloud Storage Pricing Section */}
         <div className="rounded-3xl bg-[#F4F6FB] border border-slate-200 p-6 sm:p-8">
-          <div className="max-w-3xl mb-6">
+          <div className="max-w-3xl mx-auto text-center mb-6">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 font-bold text-xs uppercase tracking-wider mb-2">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>Cloud Server Đặt Tại Việt Nam (Tier III)</span>
@@ -292,7 +292,7 @@ export default function CameraCatalogSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
             {CLOUD_PLANS.map((plan) => (
               <div
                 key={plan.name}

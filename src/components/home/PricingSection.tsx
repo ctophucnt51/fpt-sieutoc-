@@ -90,8 +90,8 @@ export default function PricingSection({
             {subtitle}
           </p>
 
-          {/* Responsive Filter Pills (Scroll-safe on small screens) */}
-          <div className="mt-4 sm:mt-7 flex sm:inline-flex p-1 sm:p-1.5 rounded-2xl sm:rounded-full bg-white border border-[#E4E8ED] shadow-xs w-full sm:w-auto overflow-x-auto no-scrollbar sm:mx-auto gap-1">
+          {/* Responsive Filter Pills (2x2 grid on mobile, inline pill bar on desktop - zero horizontal scroll) */}
+          <div className="mt-4 sm:mt-7 grid grid-cols-2 sm:inline-flex p-1.5 rounded-2xl sm:rounded-full bg-white border border-[#E4E8ED] shadow-xs w-full sm:w-auto sm:mx-auto gap-1.5 sm:gap-1">
             {[
               { id: "all", label: "Tất Cả" },
               { id: "internet", label: "Chỉ Internet" },
@@ -103,7 +103,7 @@ export default function PricingSection({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`py-2 px-3.5 sm:px-5 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-bold transition-all whitespace-nowrap cursor-pointer ${
+                  className={`py-2 px-3 sm:px-5 rounded-xl sm:rounded-full text-xs sm:text-[13px] font-bold transition-all text-center whitespace-nowrap cursor-pointer ${
                     isActive
                       ? "bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white shadow-[0_2px_10px_rgba(243,112,33,0.3)]"
                       : "text-[#475569] hover:text-[#0F172A] hover:bg-slate-50"

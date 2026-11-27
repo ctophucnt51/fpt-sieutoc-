@@ -27,66 +27,120 @@ export default function PricingComparisonMatrix() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-[#E4E8ED] overflow-hidden shadow-2xs bg-white">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse text-xs sm:text-sm">
-                <thead>
-                  <tr className="bg-slate-900 text-white font-bold">
-                    <th className="py-3.5 px-4 whitespace-nowrap">Tên Gói Cước</th>
-                    <th className="py-3.5 px-4 whitespace-nowrap">Phân Loại</th>
-                    <th className="py-3.5 px-4 whitespace-nowrap">Tốc Độ</th>
-                    <th className="py-3.5 px-4 min-w-[200px]">Thiết Bị Kèm Theo</th>
-                    <th className="py-3.5 px-4 whitespace-nowrap">Giá Tham Khảo</th>
-                    <th className="py-3.5 px-4 text-right whitespace-nowrap">Đăng Ký</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {allPackages.map((pkg) => (
-                    <tr
-                      key={pkg.id}
-                      className={`hover:bg-[#FFF9F5] transition-colors ${
-                        pkg.highlight ? "bg-[#FFF6EF]/50" : ""
-                      }`}
-                    >
-                      <td className="py-3.5 px-4 font-black text-[#0F172A] whitespace-nowrap">
-                        <div className="flex items-center gap-2">
-                          <span>{pkg.name}</span>
-                          {pkg.badge && (
-                            <span className="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white">
-                              {pkg.badge}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="py-3.5 px-4 text-slate-600 whitespace-nowrap font-medium">
-                        {pkg.category === "combo" ? "Combo Net + TV" : "Internet Wi-Fi 6"}
-                      </td>
-                      <td className="py-3.5 px-4 font-extrabold text-slate-900 whitespace-nowrap">
-                        {pkg.speed}
-                      </td>
-                      <td className="py-3.5 px-4 text-xs text-slate-600">
-                        {pkg.equipment.join(" • ")}
-                      </td>
-                      <td className="py-3.5 px-4 font-black text-[#C44D06] whitespace-nowrap">
-                        {pkg.priceDisplay}
-                        <span className="text-[11px] font-normal text-slate-500">
-                          {pkg.billingCycle}
+          {/* Mobile Card Layout (< md): Zero horizontal scroll */}
+          <div className="grid grid-cols-1 gap-3 md:hidden">
+            {allPackages.map((pkg) => (
+              <div
+                key={pkg.id}
+                className={`rounded-2xl border p-4 bg-white shadow-2xs ${
+                  pkg.highlight
+                    ? "border-[#F37021] bg-gradient-to-br from-[#FFF6EF]/70 to-white"
+                    : "border-[#E4E8ED]"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2 pb-3 border-b border-slate-100">
+                  <div>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="font-black text-base text-[#0F172A]">{pkg.name}</span>
+                      {pkg.badge && (
+                        <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white">
+                          {pkg.badge}
                         </span>
-                      </td>
-                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                        <button
-                          onClick={() => openLeadModal(pkg.name)}
-                          className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-bold shadow-2xs transition-all cursor-pointer"
-                        >
-                          <span>Chọn</span>
-                          <ArrowRight className="w-3 h-3" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      )}
+                    </div>
+                    <div className="text-[11px] text-slate-500 font-medium mt-0.5">
+                      {pkg.category === "combo" ? "Combo Net + TV" : "Internet Wi-Fi 6"}
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="font-black text-sm text-[#C44D06]">{pkg.priceDisplay}</div>
+                    <div className="text-[10.5px] text-slate-500">{pkg.billingCycle}</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 py-3 text-xs">
+                  <div className="bg-slate-50 rounded-xl p-2.5 border border-slate-100">
+                    <div className="text-[10px] font-semibold text-slate-500 uppercase">Tốc độ</div>
+                    <div className="font-extrabold text-slate-900 mt-0.5">{pkg.speed}</div>
+                  </div>
+                  <div className="bg-slate-50 rounded-xl p-2.5 border border-slate-100">
+                    <div className="text-[10px] font-semibold text-slate-500 uppercase">Thiết bị</div>
+                    <div className="font-semibold text-slate-700 mt-0.5 leading-snug">
+                      {pkg.equipment.join(" • ")}
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => openLeadModal(pkg.name)}
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-bold shadow-2xs transition-all cursor-pointer"
+                >
+                  <span>Chọn gói {pkg.name}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table Layout (>= md) */}
+          <div className="hidden md:block rounded-2xl border border-[#E4E8ED] overflow-hidden shadow-2xs bg-white">
+            <table className="w-full text-left border-collapse text-xs lg:text-sm">
+              <thead>
+                <tr className="bg-slate-900 text-white font-bold">
+                  <th className="py-3.5 px-4 whitespace-nowrap">Tên Gói Cước</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Phân Loại</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Tốc Độ</th>
+                  <th className="py-3.5 px-4">Thiết Bị Kèm Theo</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Giá Tham Khảo</th>
+                  <th className="py-3.5 px-4 text-right whitespace-nowrap">Đăng Ký</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {allPackages.map((pkg) => (
+                  <tr
+                    key={pkg.id}
+                    className={`hover:bg-[#FFF9F5] transition-colors ${
+                      pkg.highlight ? "bg-[#FFF6EF]/50" : ""
+                    }`}
+                  >
+                    <td className="py-3.5 px-4 font-black text-[#0F172A] whitespace-nowrap">
+                      <div className="flex items-center gap-2">
+                        <span>{pkg.name}</span>
+                        {pkg.badge && (
+                          <span className="text-[9.5px] font-extrabold px-2 py-0.5 rounded-full bg-[#F37021] text-white">
+                            {pkg.badge}
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-600 whitespace-nowrap font-medium">
+                      {pkg.category === "combo" ? "Combo Net + TV" : "Internet Wi-Fi 6"}
+                    </td>
+                    <td className="py-3.5 px-4 font-extrabold text-slate-900 whitespace-nowrap">
+                      {pkg.speed}
+                    </td>
+                    <td className="py-3.5 px-4 text-xs text-slate-600">
+                      {pkg.equipment.join(" • ")}
+                    </td>
+                    <td className="py-3.5 px-4 font-black text-[#C44D06] whitespace-nowrap">
+                      {pkg.priceDisplay}
+                      <span className="text-[11px] font-normal text-slate-500">
+                        {pkg.billingCycle}
+                      </span>
+                    </td>
+                    <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                      <button
+                        onClick={() => openLeadModal(pkg.name)}
+                        className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#F37021] hover:bg-[#E05D10] text-white text-xs font-bold shadow-2xs transition-all cursor-pointer"
+                      >
+                        <span>Chọn</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
