@@ -136,22 +136,6 @@ const CLOUD_PLANS = [
     note: "Tiết kiệm tối đa khi lắp từ 2 camera trở lên cho nhà nhiều tầng, cửa hàng, văn phòng",
     highlight: true,
   },
-  {
-    name: "Cloud IQ14+",
-    retention: "Lưu trữ 14 ngày",
-    price: "165.000đ",
-    unit: "/ tháng",
-    note: "Phù hợp shop kinh doanh, văn phòng, kho nhỏ cần xem lại 2 tuần",
-    highlight: false,
-  },
-  {
-    name: "Cloud IQ30+",
-    retention: "Lưu trữ 30 ngày",
-    price: "245.000đ",
-    unit: "/ tháng",
-    note: "Lưu trữ trọn tháng tại Data Center Tier III Việt Nam",
-    highlight: false,
-  },
 ];
 
 type FilterType = "all" | "outdoor" | "indoor" | "audio";
@@ -308,7 +292,7 @@ export default function CameraCatalogSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl">
             {CLOUD_PLANS.map((plan) => (
               <div
                 key={plan.name}
