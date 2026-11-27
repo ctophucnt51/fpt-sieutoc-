@@ -132,9 +132,8 @@ export default function RootLayout({
                   addressCountry: "VN",
                 },
                 areaServed: [
-                  { "@type": "City", name: "Cần Thơ" },
-                  { "@type": "AdministrativeArea", name: "Sóc Trăng" },
-                  { "@type": "AdministrativeArea", name: "Hậu Giang" },
+                  { "@type": "City", name: "Thành phố Cần Thơ" },
+                  { "@type": "AdministrativeArea", name: "Đồng bằng sông Cửu Long" },
                 ],
                 openingHoursSpecification: {
                   "@type": "OpeningHoursSpecification",

@@ -43,7 +43,7 @@ export default function QuyTrinhLapDatPage() {
                 Thủ Tục Đăng Ký Nhanh Gọn Trên Toàn Quốc
               </h2>
               <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
-                Hệ thống cáp quang FTTH của FPT Telecom đã phủ sóng rộng khắp 63 tỉnh thành, từ khu vực nội thành, chung cư đến các huyện, xã và khu nhà trọ.
+                Hệ thống cáp quang FTTH của FPT Telecom đã phủ sóng rộng khắp 34 tỉnh, thành phố trên cả nước, từ khu vực nội thành, chung cư đến các phường, xã và khu nhà trọ.
               </p>
 
               <div className="space-y-3 pt-1">
@@ -89,10 +89,10 @@ export default function QuyTrinhLapDatPage() {
                   className="w-full h-auto max-h-[340px] object-contain mx-auto"
                 />
                 <p className="text-xs font-bold text-[#0F172A] mt-4">
-                  Mạng lưới hạ tầng cáp quang FTTH phủ sóng 63 tỉnh thành
+                  Mạng lưới hạ tầng cáp quang FTTH phủ sóng 34 tỉnh, thành phố
                 </p>
                 <p className="text-[11px] text-[#64748B] mt-1">
-                  Đội ngũ kỹ thuật trực chiến tại từng quận/huyện, hỗ trợ bảo trì tận nơi 24/7.
+                  Đội ngũ kỹ thuật trực chiến tại từng phường, xã, hỗ trợ bảo trì tận nơi 24/7.
                 </p>
               </div>
             </div>

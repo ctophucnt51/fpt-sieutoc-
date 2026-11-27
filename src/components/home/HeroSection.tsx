@@ -68,7 +68,7 @@ export default function HeroSection({
                 {/* Mobile Compact Value Summary + Hardware Strip (Gọn nhẹ, đưa thẻ gói cước lên ngay tầm mắt) */}
                 <div className="sm:hidden space-y-2.5">
                   <p className="text-[12.5px] text-[#475569] leading-snug font-medium">
-                    Đăng ký lắp mạng Internet FPT đến <strong className="text-[#0F172A]">1 Gbps</strong> tại <strong className="text-[#0F172A]">Cần Thơ, Sóc Trăng, Hậu Giang</strong> &bull; Lắp nhanh 24h:
+                    Đăng ký lắp mạng Internet FPT đến <strong className="text-[#0F172A]">1 Gbps</strong> tại <strong className="text-[#0F172A]">TP. Cần Thơ (gồm Cần Thơ, Sóc Trăng, Hậu Giang)</strong> &bull; Lắp nhanh 24h:
                   </p>
 
                   {/* 3 Hardware & Value Cards (Mobile Clean, Transparent & Fit Design) */}
@@ -130,7 +130,7 @@ export default function HeroSection({
                       </div>
                     </div>
 
-                    {/* Card 3: Hạ tầng FPT 63 tỉnh */}
+                    {/* Card 3: Hạ tầng FPT 34 tỉnh/thành */}
                     <div className="group rounded-2xl bg-white border border-[#E2E8F0] p-2 flex flex-col items-center text-center justify-between shadow-[0_2px_8px_rgba(15,23,42,0.04)] hover:border-blue-200 transition-all">
                       <div className="w-full flex justify-end">
                         <span className="text-[9px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded-full leading-none">
@@ -140,7 +140,7 @@ export default function HeroSection({
                       <div className="w-full h-16 flex items-center justify-center my-1">
                         <img
                           src="/images/banners/vietnam-map-clean.png"
-                          alt="Hạ tầng FPT 63 tỉnh"
+                          alt="Hạ tầng FPT 34 tỉnh thành"
                           width={130}
                           height={150}
                           loading="eager"
@@ -150,7 +150,7 @@ export default function HeroSection({
                       </div>
                       <div className="w-full flex flex-col items-center">
                         <span className="text-[11px] font-extrabold text-[#0F172A] leading-tight">
-                          63 Tỉnh
+                          34 Tỉnh/TP
                         </span>
                         <span className="text-[9px] font-semibold text-blue-700 leading-tight mt-0.5">
                           Lắp đặt 24h
@@ -180,7 +180,7 @@ export default function HeroSection({
 
                 {/* Desktop/Tablet Description + 3 Real Hardware & Infrastructure Visuals */}
                 <p className="hidden sm:block text-sm text-[#475569] leading-relaxed text-center lg:text-left font-medium">
-                  Đăng ký lắp mạng Internet cáp quang FPT tốc độ đến <strong className="text-[#0F172A]">1 Gbps</strong> tại <strong className="text-[#0F172A]">Cần Thơ, Sóc Trăng, Hậu Giang</strong>, lắp đặt nhanh trong 24h:
+                  Đăng ký lắp mạng Internet cáp quang FPT tốc độ đến <strong className="text-[#0F172A]">1 Gbps</strong> tại <strong className="text-[#0F172A]">TP. Cần Thơ (gồm Cần Thơ, Sóc Trăng, Hậu Giang)</strong>, lắp đặt nhanh trong 24h:
                 </p>
 
                 {/* Desktop/Tablet Quick Jump CTA (Tablet only, hidden on Mobile & Desktop) */}
@@ -257,7 +257,7 @@ export default function HeroSection({
                       />
                     </div>
                     <span className="text-[11px] sm:text-xs font-extrabold text-[#0F172A] leading-tight whitespace-nowrap">
-                      Hạ Tầng 63 Tỉnh
+                      Hạ Tầng 34 Tỉnh/TP
                     </span>
                     <span className="mt-1 text-[9.5px] sm:text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full whitespace-nowrap">
                       Lắp đặt 24h
