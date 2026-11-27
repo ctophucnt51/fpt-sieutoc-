@@ -7,9 +7,9 @@ import FaqSection from "@/components/home/FaqSection";
 import BottomCtaSection from "@/components/home/BottomCtaSection";
 
 export const metadata: Metadata = {
-  title: "FPT Camera AI Thông Minh - Lưu Trữ Cloud Việt Nam & Báo Giá Lắp Đặt",
+  title: "FPT Camera AI Thông Minh - IQ4S, Play 4 & Cloud Lưu Trữ 35K/Tháng",
   description:
-    "Giải pháp FPT Camera AI an ninh chính hãng: Bullet 5, Dome 5i, Play 4, Bullet 5i, Dome IQ 4W, SE 3S. Cảnh báo người bằng AI, kháng nước IP67, lưu trữ Cloud đặt tại Việt Nam từ 22.000đ/tháng.",
+    "Giải pháp FPT Camera AI chính hãng: IQ 4S, Play 4, Bullet 5, Dome 5i, SE 3S. Gói lưu trữ Cloud 7 ngày chỉ từ 35K/tháng (1 thiết bị) và 50K/tháng (từ 2 thiết bị). Ưu đãi tặng 1 Camera miễn phí lưu trữ khi lắp Internet FPT.",
   alternates: {
     canonical: "/camera-fpt",
   },
@@ -19,22 +19,22 @@ export default function CameraFptPage() {
   return (
     <>
       <HeroSection
-        badge="FPT Camera AI Chính Hãng • Lưu Trữ Cloud Việt Nam"
+        badge="FPT Camera AI • Tặng 1 Camera Khi Lắp Internet FPT"
         headline={
           <>
             Lắp Đặt <span className="text-fpt-orange">FPT Camera AI</span> <br />
             Giám Sát An Ninh Thông Minh 24/7
           </>
         }
-        subheadline="Đầy đủ các dòng Camera AI trong nhà và ngoài trời (Bullet 5, Dome 5i, Play 4, SE 3S) chuẩn kháng nước IP67, phát hiện người chính xác bằng AI và lưu trữ đám mây an toàn tại Data Center Việt Nam."
+        subheadline="Nổi bật với bộ đôi Camera IQ 4S ngoài trời & Play 4 trong nhà. Gói lưu trữ Cloud 7 ngày chỉ 35.000đ/tháng (1 thiết bị) hoặc 50.000đ/tháng (từ 2 thiết bị). Đặc biệt ưu đãi tặng 1 Camera (miễn phí lưu trữ) khi đăng ký lắp Internet FPT."
         defaultPackage="Camera FPT AI"
         formHeadline="NHẬN BÁO GIÁ CAMERA FPT"
         campaignContext="camera-fpt"
       />
 
-      <CameraCatalogSection />
-
       <CameraFeatureSection />
+
+      <CameraCatalogSection />
 
       <ProcessSection />
 

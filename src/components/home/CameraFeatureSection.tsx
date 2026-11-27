@@ -83,82 +83,82 @@ export default function CameraFeatureSection() {
 
         {/* 2 Camera Models Card Preview */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
-          {/* Camera Play */}
+          {/* Camera Play 4 */}
           <div className="rounded-2xl border border-[#E4E8ED] p-6 sm:p-7 bg-white flex flex-col justify-between shadow-[0_0_8px_-2px_rgba(243,112,33,0.06)] hover:shadow-[0_4px_16px_rgba(243,112,33,0.12)] transition-all">
             <div>
               <div className="flex items-start justify-between gap-4 mb-2">
                 <span className="inline-block px-3 py-1 rounded-full bg-orange-100 text-fpt-dark text-xs font-bold uppercase">
-                  Trong Nhà &bull; Xoay 355°
+                  Trong Nhà &bull; Xoay 315° &bull; 3MP
                 </span>
               </div>
               <div className="my-3 flex justify-center">
                 <img
-                  src="/images/products/camera-fpt-ai.png"
-                  alt="FPT Camera Play AI Chính Hãng"
-                  width={160}
-                  height={160}
+                  src="/images/camera-ai/camera-play-4.jpg"
+                  alt="FPT Camera AI Play 4 Chính Hãng"
+                  width={280}
+                  height={175}
                   loading="lazy"
                   decoding="async"
-                  className="w-40 h-40 object-contain bg-slate-50 p-2 rounded-2xl border border-slate-100 shadow-2xs hover:scale-105 transition-transform"
+                  className="w-full max-w-[280px] h-44 object-cover bg-slate-50 rounded-2xl border border-slate-100 shadow-2xs hover:scale-[1.02] transition-transform"
                 />
               </div>
-              <h3 className="text-xl font-black text-slate-900">FPT Camera Play</h3>
-              <p className="text-xs text-slate-500 mt-1">Quan sát bao quát góc rộng toàn cảnh phòng khách, phòng bé</p>
-              <div className="my-3 text-2xl font-black text-fpt-orange">
-                Từ 550.000đ <span className="text-xs text-slate-500 font-normal">/thiết bị</span>
+              <h3 className="text-xl font-black text-slate-900">FPT Camera Play 4</h3>
+              <p className="text-xs text-slate-500 mt-1">Camera AI trong nhà xoay toàn cảnh phòng khách, cửa hàng, phòng bé</p>
+              <div className="my-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-50 text-fpt-orange text-xs font-extrabold border border-orange-200/80">
+                Ưu đãi: Tặng 1 Camera khi lắp Internet FPT (Miễn phí lưu trữ)
               </div>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-700">
-                <li>&bull; Hình ảnh sắc nét Full HD 1080p</li>
-                <li>&bull; Xoay ngang 355°, xoay dọc 100°</li>
-                <li>&bull; Đàm thoại 2 chiều to rõ thời gian thực</li>
-                <li>&bull; Kết nối Wi-Fi băng tần kép tiện lợi</li>
+                <li>&bull; Độ phân giải 3MP sắc nét, ống kính 4.0mm</li>
+                <li>&bull; Xoay ngang 315°, dọc 75°, hồng ngoại ban đêm 10m</li>
+                <li>&bull; Đàm thoại chủ động 2 chiều + nút gọi đa năng</li>
+                <li>&bull; Kết nối Wi-Fi, cài đặt nhanh Bluetooth, AI phát hiện người</li>
               </ul>
             </div>
             <button
-              onClick={() => openLeadModal("FPT Camera Play")}
+              onClick={() => openLeadModal("FPT Camera Play 4")}
               className="mt-6 w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
             >
-              <span>Đăng Ký Tư Vấn Camera Play</span>
+              <span>Đăng Ký Tư Vấn Camera Play 4</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Camera IQ3 */}
+          {/* Camera IQ4S */}
           <div className="rounded-2xl border-2 border-[#F37021] p-6 sm:p-7 bg-white flex flex-col justify-between shadow-[0_4px_16px_rgba(243,112,33,0.15)] ring-4 ring-orange-500/10">
             <div>
               <div className="flex items-start justify-between gap-4 mb-2">
                 <span className="inline-block px-3 py-1 rounded-full bg-fpt-orange text-white text-xs font-bold uppercase shadow-2xs">
-                  Ngoài Trời &bull; Chuẩn IP66
+                  Ngoài Trời &bull; Chuẩn IP67 &bull; 3MP
                 </span>
               </div>
               <div className="my-3 flex justify-center">
                 <img
-                  src="/images/products/camera-iq3-official.jpg"
-                  alt="FPT Camera IQ3 Chính Hãng"
-                  width={160}
-                  height={160}
+                  src="/images/camera-ai/camera-iq-4s.jpg"
+                  alt="FPT Camera AI IQ 4S Chính Hãng"
+                  width={280}
+                  height={175}
                   loading="lazy"
                   decoding="async"
-                  className="w-40 h-40 object-contain bg-slate-50 p-2 rounded-2xl border border-orange-100 shadow-2xs hover:scale-105 transition-transform"
+                  className="w-full max-w-[280px] h-44 object-cover bg-slate-50 rounded-2xl border border-orange-100 shadow-2xs hover:scale-[1.02] transition-transform"
                 />
               </div>
-              <h3 className="text-xl font-black text-slate-900">FPT Camera IQ3</h3>
-              <p className="text-xs text-slate-500 mt-1">Chịu mưa nắng bền bỉ trước cổng nhà, sân vườn, bãi giữ xe</p>
-              <div className="my-3 text-2xl font-black text-fpt-orange">
-                Từ 750.000đ <span className="text-xs text-slate-500 font-normal">/thiết bị</span>
+              <h3 className="text-xl font-black text-slate-900">FPT Camera IQ 4S</h3>
+              <p className="text-xs text-slate-500 mt-1">Chịu mưa nắng bền bỉ trước cổng nhà, sân vườn, kho bãi</p>
+              <div className="my-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-orange-50 text-fpt-orange text-xs font-extrabold border border-orange-200/80">
+                Ưu đãi: Tặng 1 Camera khi lắp Internet FPT (Miễn phí lưu trữ)
               </div>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-700">
-                <li>&bull; Chuẩn chống nước, chống bụi chuẩn IP66</li>
-                <li>&bull; Ban đêm quan sát có màu rõ nét</li>
-                <li>&bull; Khoanh vùng phát hiện người và phát cảnh báo còi</li>
-                <li>&bull; Hỗ trợ cổng LAN hoặc kết nối Wi-Fi</li>
+                <li>&bull; Chuẩn kháng nước, chống bụi IP67, hồng ngoại 30m</li>
+                <li>&bull; Đàm thoại 2 chiều + báo động đèn rọi &amp; còi hú</li>
+                <li>&bull; AI phát hiện người, phân biệt chuyển động người &amp; vật</li>
+                <li>&bull; Lưu trữ Cloud Video Full 24/7 tại Data Center Việt Nam</li>
               </ul>
             </div>
             <button
-              onClick={() => openLeadModal("FPT Camera IQ3")}
+              onClick={() => openLeadModal("FPT Camera IQ 4S")}
               className="mt-6 w-full py-3.5 rounded-xl bg-fpt-orange hover:bg-fpt-hover text-white font-bold text-xs uppercase shadow-[0_4px_16px_rgba(243,112,33,0.3)] hover:shadow-[0_6px_20px_rgba(243,112,33,0.4)] transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
             >
-              <span>Đăng Ký Tư Vấn Camera IQ3</span>
+              <span>Đăng Ký Tư Vấn Camera IQ 4S</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

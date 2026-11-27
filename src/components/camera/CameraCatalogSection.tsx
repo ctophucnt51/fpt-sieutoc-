@@ -10,6 +10,7 @@ import {
   Droplets,
   Cpu,
   PhoneCall,
+  Gift,
 } from "lucide-react";
 import { useLeadModal } from "@/context/LeadModalContext";
 
@@ -29,6 +30,34 @@ interface CameraModel {
 }
 
 const CAMERA_MODELS: CameraModel[] = [
+  {
+    id: "iq-4s",
+    name: "FPT Camera AI IQ 4S",
+    tag: "Chủ lực ngoài trời • IP67",
+    environment: "outdoor",
+    twoWayAudio: true,
+    resolution: "3MP sắc nét",
+    lens: "4.0mm, góc quan sát rộng",
+    durability: "Kháng nước, bụi IP67, chịu nhiệt ngoài trời",
+    nightVision: "Hồng ngoại 30m + đèn rọi & còi hú cảnh báo",
+    storage: "Cloud Video Full 24/7, cài đặt Bluetooth nhanh",
+    aiFeatures: ["Đàm thoại 2 chiều", "Báo động đèn & còi", "Phát hiện người AI"],
+    image: "/images/camera-ai/camera-iq-4s.jpg",
+  },
+  {
+    id: "play-4",
+    name: "FPT Camera AI Play 4",
+    tag: "Chủ lực trong nhà • Xoay 315°",
+    environment: "indoor",
+    twoWayAudio: true,
+    resolution: "3MP",
+    lens: "4.0mm, xoay ngang 315°, dọc 75°",
+    durability: "Thiết kế nhỏ gọn lắp trong nhà",
+    nightVision: "Hồng ngoại 10m không chói mắt",
+    storage: "Cloud Video Full 24/7, cài đặt nhanh qua Bluetooth",
+    aiFeatures: ["Đàm thoại 2 chiều chủ động", "Phát hiện người", "Nút gọi đa năng"],
+    image: "/images/camera-ai/camera-play-4.jpg",
+  },
   {
     id: "bullet-5",
     name: "FPT Camera AI Bullet 5",
@@ -56,20 +85,6 @@ const CAMERA_MODELS: CameraModel[] = [
     storage: "Tích hợp bộ nhớ trong eMMC 32GB + Cloud / NVR",
     aiFeatures: ["Nhận diện khuôn mặt AI", "Phát hiện người", "Ghi hình có âm thanh"],
     image: "/images/camera-ai/camera-dome-5i.jpg",
-  },
-  {
-    id: "play-4",
-    name: "FPT Camera AI Play 4",
-    tag: "Trong nhà • Xoay 315°",
-    environment: "indoor",
-    twoWayAudio: true,
-    resolution: "3MP",
-    lens: "4.0mm, xoay ngang 315°, dọc 75°",
-    durability: "Thiết kế nhỏ gọn lắp trong nhà",
-    nightVision: "Hồng ngoại 10m không chói mắt",
-    storage: "Cloud Video Full 24/7, cài đặt nhanh qua Bluetooth",
-    aiFeatures: ["Đàm thoại 2 chiều chủ động", "Phát hiện người", "Nút gọi đa năng"],
-    image: "/images/camera-ai/camera-play-4.jpg",
   },
   {
     id: "bullet-5i",
@@ -117,35 +132,27 @@ const CAMERA_MODELS: CameraModel[] = [
 
 const CLOUD_PLANS = [
   {
-    name: "Cloud IQ1+",
-    retention: "Lưu trữ 1 ngày (24h)",
-    price: "22.000đ",
-    unit: "/ 30 ngày",
-    note: "Phù hợp hộ gia đình theo dõi sự kiện trong ngày",
-    highlight: false,
-  },
-  {
-    name: "Cloud IQ3+",
-    retention: "Lưu trữ 3 ngày (72h)",
-    price: "44.000đ",
-    unit: "/ 30 ngày",
-    note: "Phổ biến nhất cho nhà ở, căn hộ, cửa hàng nhỏ",
+    name: "Cloud 7 Ngày (1 Thiết Bị)",
+    retention: "Lưu trữ 7 ngày (168h) • 1 Camera",
+    price: "35.000đ",
+    unit: "/ tháng",
+    note: "Gói tiêu chuẩn cho gia đình lắp 1 mắt camera, đầy đủ cảnh báo AI & xem lại 7 ngày",
     highlight: true,
   },
   {
-    name: "Cloud 7 Ngày",
-    retention: "Lưu trữ 7 ngày (168h)",
-    price: "99.000đ",
+    name: "Cloud 7 Ngày (Từ 2 Thiết Bị)",
+    retention: "Lưu trữ 7 ngày (168h) • ≥ 2 Camera",
+    price: "50.000đ",
     unit: "/ tháng",
-    note: "Đầy đủ cảnh báo AI thông minh & xem lại cả tuần",
-    highlight: false,
+    note: "Tiết kiệm tối đa khi lắp từ 2 camera trở lên cho nhà nhiều tầng, cửa hàng, văn phòng",
+    highlight: true,
   },
   {
     name: "Cloud IQ14+",
     retention: "Lưu trữ 14 ngày",
     price: "165.000đ",
     unit: "/ tháng",
-    note: "Phù hợp shop kinh doanh, văn phòng, kho nhỏ",
+    note: "Phù hợp shop kinh doanh, văn phòng, kho nhỏ cần xem lại 2 tuần",
     highlight: false,
   },
   {
@@ -192,7 +199,7 @@ export default function CameraCatalogSection() {
           <div className="flex flex-wrap gap-2">
             {(
               [
-                { id: "all", label: "Tất cả (6)" },
+                { id: "all", label: "Tất cả (7)" },
                 { id: "outdoor", label: "Ngoài trời (IP67)" },
                 { id: "indoor", label: "Trong nhà / Xoay" },
                 { id: "audio", label: "Đàm thoại 2 chiều" },
@@ -306,7 +313,7 @@ export default function CameraCatalogSection() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {CLOUD_PLANS.map((plan) => (
               <div
                 key={plan.name}
@@ -320,7 +327,7 @@ export default function CameraCatalogSection() {
                   <span className="font-black text-sm text-slate-900">{plan.name}</span>
                   {plan.highlight && (
                     <span className="px-2 py-0.5 rounded-full bg-orange-100 text-[#C44D06] text-[10px] font-bold">
-                      Phổ biến
+                      Ưu đãi
                     </span>
                   )}
                 </div>
@@ -343,8 +350,32 @@ export default function CameraCatalogSection() {
             ))}
           </div>
 
+          {/* Combo Internet FPT + Gift 1 Camera Promo */}
+          <div className="mt-6 rounded-2xl bg-gradient-to-r from-orange-50 via-amber-50/70 to-white border border-orange-200 p-5 sm:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex items-start gap-3.5">
+              <div className="w-11 h-11 rounded-2xl bg-fpt-orange text-white flex items-center justify-center shrink-0 shadow-xs">
+                <Gift className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-black text-sm sm:text-base text-slate-900">
+                  Ưu Đãi Đặc Biệt: Lắp Internet FPT Được Tặng 1 Camera AI (Miễn Phí Lưu Trữ)
+                </h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Áp dụng cho khách hàng đăng ký mới gói Internet Wi-Fi 6 FPT theo chương trình khuyến mãi hiện hành. Tặng kèm 1 Camera FPT AI và miễn phí gói lưu trữ Cloud theo điều kiện gói cước &amp; kỳ thanh toán.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => openLeadModal("Combo Internet FPT + Tặng 1 Camera (Miễn phí lưu trữ)")}
+              className="shrink-0 px-5 py-3 rounded-xl bg-fpt-orange hover:bg-orange-600 text-white text-xs font-extrabold uppercase tracking-wide shadow-xs transition-colors cursor-pointer"
+            >
+              Nhận Ưu Đãi Combo Ngay
+            </button>
+          </div>
+
           <p className="text-[11px] text-slate-500 mt-4 leading-relaxed">
-            * Lưu ý minh bạch: Bảng giá gói Cloud trên là mức giá tham khảo cho 1 thiết bị camera. Chi phí thiết bị phần cứng (tham khảo từ 1.400.000đ – 1.600.000đ tùy model hoặc ưu đãi kèm gói Internet FPT) và phí lắp đặt cụ thể sẽ được nhân viên tư vấn báo chi tiết theo khu vực trước khi ký hợp đồng.
+            * Lưu ý minh bạch: Gói lưu trữ Cloud 7 ngày áp dụng mức 35.000đ/tháng cho 1 thiết bị hoặc 50.000đ/tháng cho từ 2 thiết bị trở lên. Điều kiện áp dụng ưu đãi tặng 1 Camera (miễn phí lưu trữ) và chi phí lắp đặt cụ thể sẽ được nhân viên tư vấn báo chi tiết trước khi ký hợp đồng.
           </p>
         </div>
       </div>
