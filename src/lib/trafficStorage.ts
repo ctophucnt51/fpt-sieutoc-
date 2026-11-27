@@ -60,6 +60,8 @@ export interface SuspiciousIpReport {
   device: string;
   firstSeen: string;
   lastSeen: string;
+  conversionActions?: string[];
+  hasConversion?: boolean;
   riskLevel: "high" | "medium";
   status: "pending" | "blocked" | "whitelisted";
 }
@@ -268,6 +270,8 @@ export function recordPageview(input: {
   return { fraudAlert };
 }
 
+const CONVERSION_ACTIONS = new Set(["Bấm gọi", "Bấm Zalo", "Bấm Messenger", "Gửi form"]);
+
 export function analyzeClickFraud(store: TrafficStore): SuspiciousIpReport[] {
   const adsVisits = store.recent.filter((v) => v.source === "Google Ads");
 
@@ -321,6 +325,9 @@ export function analyzeClickFraud(store: TrafficStore): SuspiciousIpReport[] {
       new Set(list.map((v) => v.campaign).filter((c): c is string => Boolean(c)))
     );
     const timestamps = list.map((v) => v.timestamp).sort();
+    const conversionActions = Array.from(
+      new Set(list.flatMap((v) => v.actions || []).filter((a) => CONVERSION_ACTIONS.has(a)))
+    );
 
     reports.push({
       ip,
@@ -337,6 +344,8 @@ export function analyzeClickFraud(store: TrafficStore): SuspiciousIpReport[] {
       device: list[0]?.device === "mobile" ? "Mobile" : "Desktop",
       firstSeen: timestamps[0],
       lastSeen: timestamps[timestamps.length - 1],
+      conversionActions,
+      hasConversion: conversionActions.length > 0,
       riskLevel,
       status,
     });
@@ -371,6 +380,9 @@ export function analyzeClickFraud(store: TrafficStore): SuspiciousIpReport[] {
     );
     const timestamps = list.map((v) => v.timestamp).sort();
     const ipsArr = Array.from(uniqueIps);
+    const conversionActions = Array.from(
+      new Set(list.flatMap((v) => v.actions || []).filter((a) => CONVERSION_ACTIONS.has(a)))
+    );
 
     reports.push({
       ip: ipsArr.length > 0 ? ipsArr.slice(0, 2).join(", ") + (ipsArr.length > 2 ? ` (+${ipsArr.length - 2})` : "") : "Thiết bị lặp lại",
@@ -388,6 +400,8 @@ export function analyzeClickFraud(store: TrafficStore): SuspiciousIpReport[] {
       device: list[0]?.device === "mobile" ? "Mobile" : "Desktop",
       firstSeen: timestamps[0],
       lastSeen: timestamps[timestamps.length - 1],
+      conversionActions,
+      hasConversion: conversionActions.length > 0,
       riskLevel,
       status,
     });

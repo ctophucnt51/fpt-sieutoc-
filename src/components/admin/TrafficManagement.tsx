@@ -168,6 +168,25 @@ export default function TrafficManagement({
     return map;
   }, [suspiciousIps]);
 
+  const convertedIpActionsMap = useMemo(() => {
+    const conversionSet = new Set(["Bấm gọi", "Bấm Zalo", "Bấm Messenger", "Gửi form"]);
+    const map = new Map<string, Set<string>>();
+    for (const v of recent) {
+      if (!v.ip || !v.actions || v.actions.length === 0) continue;
+      for (const act of v.actions) {
+        if (!conversionSet.has(act)) continue;
+        const set = map.get(v.ip) || new Set<string>();
+        set.add(act);
+        map.set(v.ip, set);
+      }
+    }
+    const result = new Map<string, string[]>();
+    for (const [ip, set] of Array.from(map.entries())) {
+      result.set(ip, Array.from(set));
+    }
+    return result;
+  }, [recent]);
+
   // Build ordered date keys for selected range
   const dateKeys = useMemo(() => {
     const keys: string[] = [];
@@ -628,6 +647,14 @@ export default function TrafficManagement({
                             Thiết bị lặp
                           </span>
                         )}
+                        {item.hasConversion && (
+                          <span
+                            className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] font-bold"
+                            title={(item.conversionActions || []).join(", ")}
+                          >
+                            ✓ Có chuyển đổi ({(item.conversionActions || []).join(", ")})
+                          </span>
+                        )}
                       </div>
                       <div className="text-[11px] text-slate-500 mt-0.5">
                         {item.location} • {item.device}
@@ -804,6 +831,7 @@ export default function TrafficManagement({
                 {displayedRecent.map((v) => {
                   const rel = formatRelativeMinutes(v.timestamp);
                   const fraudInfo = v.ip ? suspiciousIpMap.get(v.ip) : undefined;
+                  const ipConversions = v.ip ? convertedIpActionsMap.get(v.ip) : undefined;
                   const actions = v.actions && v.actions.length > 0 ? v.actions : [];
                   return (
                     <tr
@@ -836,6 +864,14 @@ export default function TrafficManagement({
                       <td className="py-2.5 px-3">
                         <div className="font-mono text-[11px] font-bold text-slate-800 flex items-center gap-1.5 flex-wrap">
                           <span>{v.ip || "—"}</span>
+                          {ipConversions && ipConversions.length > 0 && (
+                            <span
+                              className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 font-sans text-[9.5px] font-black"
+                              title={`IP này đã thực hiện: ${ipConversions.join(", ")}`}
+                            >
+                              ✓ Có chuyển đổi
+                            </span>
+                          )}
                           {fraudInfo && (
                             <span className="px-1.5 py-0.5 rounded bg-red-100 text-red-700 border border-red-200 font-sans text-[9.5px] font-black">
                               ⚠️ Lặp {fraudInfo.totalAdsClicks}x
@@ -855,7 +891,9 @@ export default function TrafficManagement({
                               <span
                                 key={act}
                                 className={`px-1.5 py-0.5 rounded text-[10px] font-bold border ${
-                                  act === "Gửi form"
+                                  act.startsWith("Chặn ")
+                                    ? "bg-red-50 text-red-700 border-red-200"
+                                    : act === "Gửi form"
                                     ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                                     : "bg-blue-50 text-blue-700 border-blue-200"
                                 }`}
