@@ -132,29 +132,24 @@ export default function Header() {
             <p className="text-[11.5px] text-[#2F364A] truncate font-medium">
               <strong className="text-[#20283D] font-bold">
                 {siteConfig.promo?.topBarAnnouncement ||
-                  "Miễn phí Modem Wi-Fi 6 & Camera FPT khi đăng ký online tại đây"}
+                  "Trang bị Modem Wi-Fi 6 • Ưu đãi tặng 1 Camera AI (Miễn phí lưu trữ) khi lắp Internet FPT"}
               </strong>
             </p>
           </div>
 
-          {/* Right: Quick Action Link & Hotline */}
+          {/* Right: Support Hours & Infrastructure Check (No duplicate Hotline/CTA with navbar below) */}
           <div className="flex items-center gap-2.5 shrink-0 text-[11px]">
+            <span className="text-[#475569] font-medium">
+              Lắp nhanh 24h &bull; Hỗ trợ 07:30 – 22:00 (T2 – CN)
+            </span>
+            <span className="text-slate-300 inline">|</span>
             <button
-              onClick={() => handleOpenPromoModal("Top Bar Nhận Ưu Đãi")}
-              className="inline-flex items-center gap-1 text-[#9A3412] hover:text-[#A03D05] font-bold hover:underline cursor-pointer"
+              onClick={() => handleOpenPromoModal("Top Bar Kiểm Tra Hạ Tầng")}
+              className="inline-flex items-center gap-1 text-[#9A3412] hover:text-[#F37021] font-bold hover:underline cursor-pointer"
             >
-              <span>Nhận ưu đãi ngay</span>
+              <span>Kiểm tra hạ tầng</span>
               <ArrowRight className="w-3 h-3" />
             </button>
-            <span className="text-slate-400 inline">|</span>
-            <a
-              href={siteConfig.contact.hotlineTel}
-              onClick={() => handleHotlineClick("Top Bar Hotline")}
-              className="font-bold text-[#20283D] hover:text-[#9A3412] transition-colors flex items-center gap-1"
-            >
-              <Phone className="w-3 h-3 text-[#9A3412] fill-current" />
-              <span>Tư vấn ngay: {siteConfig.contact.hotlineDisplay}</span>
-            </a>
           </div>
         </div>
       </div>
