@@ -349,300 +349,118 @@ export default function Header() {
               </button>
             </div>
 
-            {/* 2. Thẻ Ưu Đãi / Tư Vấn Đặc Quyền (Phong cách thẻ Native Card hiện đại, sạch sẽ) */}
-            <div className="mx-3.5 mt-3 mb-1 p-3 rounded-2xl bg-gradient-to-br from-[#FFF9F5] via-white to-[#FFF4ED] border border-orange-200/70 shadow-2xs shrink-0">
-              <div className="flex items-center justify-between gap-1 mb-1.5">
-                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-orange-100/80 text-[#C2410C] text-[10px] font-black uppercase tracking-tight">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#F37021] animate-pulse" />
-                  Ưu Đãi Hôm Nay
-                </div>
-                <span className="text-[10px] text-slate-600 font-semibold">Trả trước 12T tặng 1T</span>
-              </div>
-              <p className="text-[11.5px] text-slate-600 leading-snug">
-                Trang bị miễn phí <strong className="text-slate-900 font-bold">Modem Wi-Fi 6</strong> &amp; Camera AI khi đăng ký hôm nay.
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  handleOpenPromoModal("Drawer Promo Card");
-                }}
-                className="mt-2.5 w-full py-2 px-3 rounded-xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] text-white font-extrabold text-xs shadow-[0_3px_10px_rgba(243,112,33,0.25)] active:scale-98 transition-all cursor-pointer flex items-center justify-center gap-1.5"
-              >
-                <span>Nhận ưu đãi tư vấn ngay</span>
-                <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
-              </button>
-            </div>
-
-            {/* 3. Danh sách Danh mục Menu (Phong cách Clean Modern List đồng bộ hệ thống) */}
-            <div className="flex-1 overflow-y-auto px-2.5 py-2 space-y-1">
-              {/* Mục 1: Lắp Mạng FPT Wi-Fi 6 (Accordion) */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => toggleSection("internet")}
-                  className={`w-full flex items-center justify-between p-2 rounded-xl text-left transition-colors cursor-pointer group ${
-                    expandedSection === "internet" ? "bg-orange-50/70 text-[#F37021]" : "text-slate-800 hover:bg-slate-50"
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-[#FFF4ED] flex items-center justify-center text-[#F37021] shrink-0">
-                      <Wifi className="w-4 h-4 stroke-[2.2]" />
+            {/* 2. Danh sách Menu Tinh Gọn (Gọn gàng, 1 chạm, vừa màn hình mobile) */}
+            <div className="flex-1 overflow-y-auto px-3 py-3 space-y-1">
+              {[
+                {
+                  href: "/lap-mang-fpt",
+                  label: "Internet Wi-Fi 6",
+                  icon: Wifi,
+                  iconClass: "bg-[#FFF4ED] text-[#F37021]",
+                },
+                {
+                  href: "/combo-ngoai-hang-anh",
+                  label: "Combo Ngoại Hạng Anh",
+                  badge: "HOT",
+                  icon: Flame,
+                  iconClass: "bg-red-50 text-red-600",
+                },
+                {
+                  href: "/camera-fpt",
+                  label: "Camera Thông Minh AI",
+                  icon: Camera,
+                  iconClass: "bg-purple-50 text-purple-600",
+                },
+                {
+                  href: "/bang-gia",
+                  label: "Bảng Giá Cước",
+                  icon: Tag,
+                  iconClass: "bg-emerald-50 text-emerald-600",
+                },
+                {
+                  href: "/truyen-hinh-fpt",
+                  label: "Truyền Hình FPT Play",
+                  icon: Tv,
+                  iconClass: "bg-amber-50 text-amber-600",
+                },
+                {
+                  href: "/tin-tuc",
+                  label: "Tin Tức Viễn Thông",
+                  icon: FileText,
+                  iconClass: "bg-indigo-50 text-indigo-600",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full flex items-center justify-between p-2.5 rounded-xl text-left text-slate-800 hover:bg-slate-50 transition-colors group"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${item.iconClass}`}>
+                        <Icon className="w-4 h-4 stroke-[2.2]" />
+                      </div>
+                      <span className="font-bold text-[13.5px] group-hover:text-[#F37021] transition-colors">
+                        {item.label}
+                      </span>
+                      {item.badge && (
+                        <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-red-600 text-white">
+                          {item.badge}
+                        </span>
+                      )}
                     </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Internet Wi-Fi 6
-                    </span>
-                  </div>
-                  <ChevronDown
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-                      expandedSection === "internet" ? "rotate-180 text-[#F37021]" : ""
-                    }`}
-                  />
-                </button>
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                );
+              })}
 
-                {expandedSection === "internet" && (
-                  <div className="bg-slate-50/90 border border-slate-100 rounded-xl p-2.5 my-1 ml-8 space-y-1 text-xs text-slate-600">
-                    <Link
-                      href="/lap-mang-fpt"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1.5 px-2 rounded-lg hover:bg-white hover:text-[#F37021] font-medium transition-colors"
-                    >
-                      • Gói GIGA (300 Mbps) - Siêu tiết kiệm
-                    </Link>
-                    <Link
-                      href="/lap-mang-fpt"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1.5 px-2 rounded-lg hover:bg-white hover:text-[#F37021] font-medium transition-colors"
-                    >
-                      • Gói SKY (1000 Mbps) - Băng thông cực đại
-                    </Link>
-                    <Link
-                      href="/lap-mang-fpt"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1.5 px-2 rounded-lg hover:bg-white hover:text-[#F37021] font-medium transition-colors"
-                    >
-                      • Gói META (1000 Mbps Đối Xứng) - Gaming
-                    </Link>
-                    <Link
-                      href="/lap-mang-fpt"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block pt-1.5 px-2 text-[#F37021] font-bold border-t border-slate-200/60"
-                    >
-                      → Xem tất cả gói Internet Wi-Fi 6
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Mục 2: Combo Ngoại Hạng Anh (Accordion) */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => toggleSection("combo")}
-                  className={`w-full flex items-center justify-between p-2 rounded-xl text-left transition-colors cursor-pointer group ${
-                    expandedSection === "combo" ? "bg-orange-50/70 text-[#F37021]" : "text-slate-800 hover:bg-slate-50"
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-red-50 flex items-center justify-center text-red-600 shrink-0">
-                      <Flame className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Combo Ngoại Hạng Anh
-                    </span>
-                    <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-red-600 text-white shadow-2xs">
-                      HOT
-                    </span>
-                  </div>
-                  <ChevronDown
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-                      expandedSection === "combo" ? "rotate-180 text-[#F37021]" : ""
-                    }`}
-                  />
-                </button>
-
-                {expandedSection === "combo" && (
-                  <div className="bg-slate-50/90 border border-slate-100 rounded-xl p-2.5 my-1 ml-8 space-y-1 text-xs text-slate-600">
-                    <Link
-                      href="/combo-ngoai-hang-anh"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1.5 px-2 rounded-lg hover:bg-white hover:text-[#F37021] font-medium transition-colors"
-                    >
-                      • Combo GIGA + FPT Play (220.000đ/tháng)
-                    </Link>
-                    <Link
-                      href="/combo-ngoai-hang-anh"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-1.5 px-2 rounded-lg hover:bg-white hover:text-[#F37021] font-medium transition-colors"
-                    >
-                      • Combo SKY + Ngoại Hạng Anh trọn vẹn
-                    </Link>
-                    <Link
-                      href="/combo-ngoai-hang-anh"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block pt-1.5 px-2 text-[#F37021] font-bold border-t border-slate-200/60"
-                    >
-                      → Xem lịch &amp; gói cước thể thao
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Mục 3: Truyền Hình FPT Play */}
-              <div>
-                <Link
-                  href="/truyen-hinh-fpt"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-between p-2 rounded-xl text-left text-slate-800 hover:bg-slate-50 transition-colors group"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
-                      <Tv className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Truyền Hình FPT Play
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-              </div>
-
-              {/* Mục 4: Camera An Ninh FPT AI */}
-              <div>
-                <Link
-                  href="/camera-fpt"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-between p-2 rounded-xl text-left text-slate-800 hover:bg-slate-50 transition-colors group"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 shrink-0">
-                      <Camera className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Camera Thông Minh AI
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-              </div>
-
-              {/* Mục 5: Bảng Giá Cước */}
-              <div>
-                <Link
-                  href="/bang-gia"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-between p-2 rounded-xl text-left text-slate-800 hover:bg-slate-50 transition-colors group"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
-                      <Tag className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Bảng Giá Cước Mới Nhất
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-              </div>
-
-              {/* Mục 6: Ưu Đãi & Khuyến Mãi */}
-              <div>
+              {/* Liên kết phụ gọn trong 1 hàng */}
+              <div className="pt-3 mt-2 border-t border-slate-100 grid grid-cols-3 gap-1.5 text-center">
                 <Link
                   href="/khuyen-mai"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-between p-2 rounded-xl text-left text-slate-800 hover:bg-slate-50 transition-colors group"
+                  className="py-2 px-1 rounded-xl bg-slate-50 hover:bg-orange-50 text-[11px] font-bold text-slate-700 hover:text-[#F37021] transition-colors"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-orange-50 flex items-center justify-center text-[#F37021] shrink-0">
-                      <Flame className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Khuyến Mãi &amp; Quà Tặng
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+                  Khuyến Mãi
                 </Link>
-              </div>
-
-              {/* Mục 7: Quy Trình Lắp Đặt */}
-              <div>
                 <Link
                   href="/quy-trinh-lap-dat"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-between p-2 rounded-xl text-left text-slate-800 hover:bg-slate-50 transition-colors group"
+                  className="py-2 px-1 rounded-xl bg-slate-50 hover:bg-orange-50 text-[11px] font-bold text-slate-700 hover:text-[#F37021] transition-colors"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
-                      <Zap className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Quy Trình Lắp Đặt 24H
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+                  Lắp Đặt 24H
                 </Link>
-              </div>
-
-              {/* Mục 8: Hỏi Đáp */}
-              <div>
                 <Link
                   href="/hoi-dap"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-between p-2 rounded-xl text-left text-slate-800 hover:bg-slate-50 transition-colors group"
+                  className="py-2 px-1 rounded-xl bg-slate-50 hover:bg-orange-50 text-[11px] font-bold text-slate-700 hover:text-[#F37021] transition-colors"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 shrink-0">
-                      <ShieldCheck className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Câu Hỏi Thường Gặp
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-              </div>
-
-              {/* Mục 9: Tin Tức */}
-              <div>
-                <Link
-                  href="/tin-tuc"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-between p-2 rounded-xl text-left text-slate-800 hover:bg-slate-50 transition-colors group"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0">
-                      <FileText className="w-4 h-4 stroke-[2.2]" />
-                    </div>
-                    <span className="font-bold text-[13px] group-hover:text-[#F37021] transition-colors">
-                      Tin Tức Viễn Thông
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+                  Hỏi Đáp
                 </Link>
               </div>
             </div>
 
-            {/* 4. Chân ngăn kéo: Nút Gọi Hotline Nổi Bật & Chat Zalo (Đồng bộ chuẩn Sticky Bottom Bar) */}
-            <div className="p-3 bg-white border-t border-slate-200 space-y-2 shrink-0 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-2px_12px_rgba(15,23,42,0.04)]">
-              {/* Nút Gọi Hotline FPT Brand Orange */}
+            {/* 3. Chân ngăn kéo: 2 nút Hotline & Zalo nằm ngang gọn gàng */}
+            <div className="p-3 bg-white border-t border-slate-200 grid grid-cols-2 gap-2 shrink-0 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
               <a
                 href={siteConfig.contact.hotlineTel}
                 onClick={() => handleHotlineClick("Mobile Drawer Hotline")}
-                className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] hover:from-[#E05D10] text-white font-extrabold text-xs shadow-[0_3px_10px_rgba(243,112,33,0.25)] active:scale-98 transition-all flex items-center justify-center gap-2 select-none"
+                className="py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#F37021] to-[#FF7A00] text-white font-extrabold text-xs shadow-xs flex items-center justify-center gap-1.5 select-none"
               >
-                <Phone className="w-4 h-4 fill-current" />
-                <span>Hotline 24/7: {siteConfig.contact.hotlineDisplay}</span>
+                <Phone className="w-3.5 h-3.5 fill-current shrink-0" />
+                <span>Gọi Hotline</span>
               </a>
 
-              {/* Nút Chat Zalo */}
               <a
                 href={siteConfig.contact.zaloUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2 px-4 rounded-2xl bg-white hover:bg-blue-50/60 border border-[#0068FF]/30 text-[#0068FF] font-bold text-xs flex items-center justify-center gap-2 active:scale-98 transition-all select-none shadow-2xs"
+                className="py-2.5 px-3 rounded-xl bg-blue-50 border border-[#0068FF]/30 text-[#0068FF] font-bold text-xs flex items-center justify-center gap-1.5 select-none"
               >
-                <MessageCircle className="w-4 h-4 fill-current" />
-                <span>Chat Zalo tư vấn 24/7</span>
+                <MessageCircle className="w-3.5 h-3.5 fill-current shrink-0" />
+                <span>Chat Zalo</span>
               </a>
             </div>
           </div>
