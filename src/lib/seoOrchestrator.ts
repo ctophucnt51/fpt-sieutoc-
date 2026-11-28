@@ -488,6 +488,7 @@ export function runSeoMasterCycle(): {
     { slugHint: "vi-thanh", name: "Phường Vị Thanh, TP. Cần Thơ" },
   ];
 
+  let localQueuedThisCycle = 0;
   for (const area of localAreas) {
     const covered = articles.some(
       (a) =>
@@ -495,6 +496,9 @@ export function runSeoMasterCycle(): {
         a.title.toLowerCase().includes(area.name.toLowerCase().split(",")[0])
     );
     if (!covered) {
+      if (seo.autoPilotSettings?.enabled && localQueuedThisCycle >= 1) {
+        continue;
+      }
       const res = enqueueSeoTask({
         dedupKey: `local-seo-${area.slugHint}`,
         title: `Viết bài Local SEO chuẩn Clean Editorial cho khu vực ${area.name}`,
@@ -506,6 +510,7 @@ export function runSeoMasterCycle(): {
         targetUrl: `/tin-tuc/lap-mang-fpt-${area.slugHint}`,
       });
       if (res.added) newTasksAdded++;
+      localQueuedThisCycle++;
     } else {
       resolvedDedupKeys.add(`local-seo-${area.slugHint}`);
     }
@@ -538,9 +543,11 @@ export function runSeoMasterCycle(): {
     }
   }
 
-  // GSC Quick Wins (Top 4-15 or low CTR) -> Create Approval Proposal
+  // GSC Quick Wins (Top 4-15 or low CTR) -> Create Approval Proposal (cap at 2 per cycle)
   if (seo.gscCache?.topQueries) {
+    let quickWinQueued = 0;
     for (const q of seo.gscCache.topQueries.slice(0, 20)) {
+      if (quickWinQueued >= 2) break;
       if (q.impressions >= 50 && q.position >= 4 && q.position <= 15) {
         const res = enqueueSeoTask({
           dedupKey: `quick-win-${q.query.toLowerCase()}`,
@@ -552,6 +559,7 @@ export function runSeoMasterCycle(): {
           acceptanceCriteria: "Cải thiện vị trí vào Top 1-3 hoặc CTR tăng >= 20%",
         });
         if (res.added) newTasksAdded++;
+        quickWinQueued++;
       }
     }
   }
@@ -573,7 +581,7 @@ export function runSeoMasterCycle(): {
 /**
  * Research & Keyword Spy Agent: Chủ động tìm từ khóa mới chưa phủ, thêm vào Mapping + Watchlist + Task Queue.
  */
-export async function runKeywordResearchNow(): Promise<{
+export async function runKeywordResearchNow(maxToEnqueue = 3): Promise<{
   success: boolean;
   addedCount: number;
   keywords: string[];
@@ -607,6 +615,7 @@ export async function runKeywordResearchNow(): Promise<{
   const addedKeywords: string[] = [];
 
   for (const s of res.suggestions) {
+    if (addedKeywords.length >= maxToEnqueue) break;
     if (kwList.some((k) => k.keyword.toLowerCase() === s.keyword.toLowerCase())) continue;
 
     kwList.unshift({
@@ -1160,7 +1169,7 @@ export async function runSeoMasterCycleAsync(options?: {
       );
 
       if (pendingContentTasks.length === 0 && autoPilot.enabled) {
-        await runKeywordResearchNow();
+        await runKeywordResearchNow(maxArticles);
         tasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
         pendingContentTasks = tasks.filter(
           (t) => t.status === "pending" && t.ownerAgent === "Content SEO Agent"
@@ -1299,6 +1308,7 @@ export async function runSeoMasterCycleAsync(options?: {
 
 export function getFullSeoIntelligenceState() {
   initializeSeoMemory();
+  reconcileSeoTaskQueue();
   const seo = getSeoConfig();
   return {
     inventory: readMemoryFile<SeoInventoryItem[]>("inventory.json", []),
