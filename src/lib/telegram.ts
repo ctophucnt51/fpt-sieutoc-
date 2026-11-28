@@ -301,6 +301,74 @@ ${statsLine}${highlightsBlock}${actionsBlock}⏰ <b>Thời gian:</b> ${nowStr}
   }
 }
 
+export interface GoogleTrafficAlertData {
+  source: "Google Ads" | "Google Search";
+  sourceDetail: string;
+  path: string;
+  ip: string;
+  location: string;
+  device: "mobile" | "desktop";
+  browser: string;
+  os: string;
+  networkType?: string;
+  campaign?: string;
+  term?: string;
+  gclid?: string;
+}
+
+/**
+ * Send instant Telegram notification when a visitor lands from Google Ads or Google Search
+ * (Excludes direct URL visits)
+ */
+export async function sendGoogleTrafficAlert(data: GoogleTrafficAlertData): Promise<boolean> {
+  const { botToken, chatId, enabled } = getTelegramConfig();
+  if (!enabled || !botToken || !chatId) return false;
+
+  const nowStr = new Date().toLocaleString("vi-VN", {
+    timeZone: "Asia/Ho_Chi_Minh",
+    hour12: false,
+  });
+
+  const isAds = data.source === "Google Ads";
+  const headerEmoji = isAds ? "🎯" : "🔎";
+  const headerTitle = isAds
+    ? "KHÁCH TRUY CẬP TỪ GOOGLE ADS!"
+    : "KHÁCH TRUY CẬP TỪ GOOGLE SEARCH!";
+
+  const deviceLabel = data.device === "mobile" ? "Điện thoại (Mobile)" : "Máy tính (Desktop)";
+  const landingUrl = `https://gofpt.vn${data.path.startsWith("/") ? data.path : `/${data.path}`}`;
+
+  const msg = `
+${headerEmoji} <b>${headerTitle}</b>
+━━━━━━━━━━━━━━━━━━
+📡 <b>Nguồn:</b> ${escapeHtml(data.source)} (${escapeHtml(data.sourceDetail)})
+🔗 <b>Trang đích:</b> ${escapeHtml(landingUrl)}
+${data.term ? `🔍 <b>Từ khóa:</b> <code>${escapeHtml(data.term)}</code>\n` : ""}${data.campaign ? `📣 <b>Chiến dịch:</b> ${escapeHtml(data.campaign)}\n` : ""}${data.gclid ? `🏷️ <b>GCLID:</b> <code>${escapeHtml(data.gclid.slice(0, 32))}${data.gclid.length > 32 ? "..." : ""}</code>\n` : ""}📍 <b>Vị trí:</b> ${escapeHtml(data.location || "Không xác định")}
+🌐 <b>IP:</b> <code>${escapeHtml(data.ip)}</code>
+📱 <b>Thiết bị:</b> ${escapeHtml(deviceLabel)} • ${escapeHtml(data.browser)} / ${escapeHtml(data.os)}${data.networkType && data.networkType !== "Không rõ" ? ` • ${escapeHtml(data.networkType)}` : ""}
+⏰ <b>Thời gian:</b> ${nowStr}
+━━━━━━━━━━━━━━━━━━
+<i>Thông báo tự động theo thời gian thực • gofpt.vn</i>
+`.trim();
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: msg,
+        parse_mode: "HTML",
+        disable_web_page_preview: true,
+      }),
+      signal: AbortSignal.timeout(6000),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 function escapeHtml(text: string): string {
   return text
     .replace(/&/g, "&amp;")

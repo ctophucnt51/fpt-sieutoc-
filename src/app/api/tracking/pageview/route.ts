@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { recordPageview, updateVisitActivity } from "@/lib/trafficStorage";
-import { sendClickFraudAlert } from "@/lib/telegram";
+import { sendClickFraudAlert, sendGoogleTrafficAlert } from "@/lib/telegram";
+
+const notifiedGoogleSessions = new Set<string>();
 
 const BOT_REGEX =
   /bot|crawler|spider|slurp|mediapartners|lighthouse|pagespeed|headless|curl|wget|python|pingdom|uptime/i;
@@ -226,6 +228,36 @@ export async function POST(request: NextRequest) {
       sendClickFraudAlert(fraudAlert).catch((err) =>
         console.warn("Click fraud Telegram alert error:", err)
       );
+    }
+
+    // Gửi thông báo tức thì khi có khách truy cập mới từ Google Ads hoặc Google Search (bỏ qua Direct/nhập link trực tiếp)
+    const isGoogleTraffic = source === "Google Ads" || source === "Google Search";
+    const sessionKey = typeof body.sessionId === "string" && body.sessionId ? body.sessionId.slice(0, 64) : "";
+    const shouldNotifySession = Boolean(body.isNewSession) && (!sessionKey || !notifiedGoogleSessions.has(sessionKey));
+
+    if (isGoogleTraffic && shouldNotifySession) {
+      if (sessionKey) {
+        notifiedGoogleSessions.add(sessionKey);
+        if (notifiedGoogleSessions.size > 500) {
+          const oldest = notifiedGoogleSessions.values().next().value;
+          if (oldest) notifiedGoogleSessions.delete(oldest);
+        }
+      }
+
+      sendGoogleTrafficAlert({
+        source: source as "Google Ads" | "Google Search",
+        sourceDetail,
+        path: rawPath.slice(0, 160) || "/",
+        ip,
+        location,
+        device,
+        browser,
+        os,
+        networkType: typeof body.networkType === "string" ? body.networkType.slice(0, 24) : undefined,
+        campaign: body.utm_campaign ? String(body.utm_campaign).slice(0, 120) : undefined,
+        term: body.utm_term ? String(body.utm_term).slice(0, 120) : undefined,
+        gclid: body.gclid ? String(body.gclid).slice(0, 120) : undefined,
+      }).catch((err) => console.warn("Google traffic Telegram alert error:", err));
     }
 
     return NextResponse.json({ success: true });
