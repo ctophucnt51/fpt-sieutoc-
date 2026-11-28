@@ -1177,9 +1177,10 @@ export async function runSeoMasterCycleAsync(options?: {
       }
 
       const knowledge = readMemoryFile<FptProductKnowledge | null>("fpt_knowledge.json", null);
+      let tasksModifiedInDrafting = false;
+      let retriedFallback = false;
 
-      for (const task of pendingContentTasks) {
-        if (draftedCount >= maxArticles) break;
+      const tryDraftTask = async (task: SeoTaskItem): Promise<boolean> => {
         const areaMatch = task.title.match(/khu vực\s+(.+)$/i);
         const areaName = areaMatch ? areaMatch[1].trim() : "TP. Cần Thơ";
         const kwMatch = task.title.match(/từ khóa\s+"([^"]+)"/i);
@@ -1193,7 +1194,7 @@ export async function runSeoMasterCycleAsync(options?: {
             (a.status === "pending" || a.status === "approved") &&
             a.taskId === task.id
         );
-        if (alreadyDrafted) continue;
+        if (alreadyDrafted) return false;
 
         const draftRes = await generateSeoArticleDraft({
           keyword,
@@ -1220,13 +1221,46 @@ export async function runSeoMasterCycleAsync(options?: {
           });
           task.status = "awaiting_approval";
           task.updatedAt = new Date().toISOString();
+          tasksModifiedInDrafting = true;
           newApprovalsAdded++;
           draftedCount++;
-        } else if (draftRes.error) {
+          return true;
+        }
+
+        // Nếu bài không đạt QA hoặc AI lỗi, đóng task này ở trạng thái rejected_by_qa để không tồn pending
+        task.status = "rejected_by_qa";
+        task.updatedAt = new Date().toISOString();
+        tasksModifiedInDrafting = true;
+        if (draftRes.error) {
           contentErrorNote = `Content Agent lỗi: ${draftRes.error}`;
         }
+        return false;
+      };
+
+      for (const task of pendingContentTasks) {
+        if (draftedCount >= maxArticles) break;
+        await tryDraftTask(task);
       }
-      if (draftedCount > 0) {
+
+      // Nếu task duy nhất bị rớt kiểm duyệt QA/lỗi AI, tự động lấy thêm 1 từ khóa dự phòng chạy bù trong cùng chu kỳ
+      if (draftedCount < maxArticles && autoPilot.enabled && !retriedFallback) {
+        retriedFallback = true;
+        const fallbackKw = await runKeywordResearchNow(1);
+        if (fallbackKw.addedCount > 0) {
+          tasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
+          const fallbackTask = tasks.find(
+            (t) =>
+              t.status === "pending" &&
+              t.ownerAgent === "Content SEO Agent" &&
+              !pendingContentTasks.some((p) => p.id === t.id)
+          );
+          if (fallbackTask) {
+            await tryDraftTask(fallbackTask);
+          }
+        }
+      }
+
+      if (tasksModifiedInDrafting) {
         writeMemoryFile("tasks.json", tasks);
       }
     }
@@ -1368,6 +1402,12 @@ export function decideSeoApproval(
       description: proposal.description,
     });
     if (!qa.passed) {
+      item.status = "rejected";
+      item.qaPassed = false;
+      item.qaNotes = qa.violations.join(" ");
+      item.decidedAt = new Date().toISOString();
+      writeMemoryFile("approvals.json", approvals);
+      reconcileSeoTaskQueue();
       return {
         success: false,
         message: `QA & Safety Agent chặn duyệt: ${qa.violations.join(" ")}`,
@@ -1405,6 +1445,12 @@ export function decideSeoApproval(
       contentHtml: draft.content,
     });
     if (!qa.passed) {
+      item.status = "rejected";
+      item.qaPassed = false;
+      item.qaNotes = qa.violations.join(" ");
+      item.decidedAt = new Date().toISOString();
+      writeMemoryFile("approvals.json", approvals);
+      reconcileSeoTaskQueue();
       return {
         success: false,
         message: `QA & Safety Agent chặn xuất bản: ${qa.violations.join(" ")}`,
