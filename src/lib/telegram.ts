@@ -307,10 +307,14 @@ export interface GoogleTrafficAlertData {
   path: string;
   ip: string;
   location: string;
+  isp?: string;
+  asn?: string;
+  ipCategory?: string;
   device: "mobile" | "desktop";
   browser: string;
   os: string;
   networkType?: string;
+  networkDetail?: string;
   campaign?: string;
   term?: string;
   gclid?: string;
@@ -338,6 +342,23 @@ export async function sendGoogleTrafficAlert(data: GoogleTrafficAlertData): Prom
   const deviceLabel = data.device === "mobile" ? "Điện thoại (Mobile)" : "Máy tính (Desktop)";
   const landingUrl = `https://gofpt.vn${data.path.startsWith("/") ? data.path : `/${data.path}`}`;
 
+  const ispLine =
+    data.isp && data.isp !== "Không xác định"
+      ? `🏢 <b>Nhà mạng:</b> ${escapeHtml(data.isp)}${data.asn ? ` (<code>${escapeHtml(data.asn)}</code>)` : ""}${
+          data.ipCategory === "hosting"
+            ? " • ⚠️ <b>Datacenter/Bot</b>"
+            : data.ipCategory === "proxy"
+            ? " • 🛡️ <b>VPN/Proxy</b>"
+            : ""
+        }\n`
+      : "";
+  const netSegment = [
+    data.networkType && data.networkType !== "Không rõ" ? data.networkType : "",
+    data.networkDetail || "",
+  ]
+    .filter(Boolean)
+    .join(" • ");
+
   const msg = `
 ${headerEmoji} <b>${headerTitle}</b>
 ━━━━━━━━━━━━━━━━━━
@@ -345,7 +366,7 @@ ${headerEmoji} <b>${headerTitle}</b>
 🔗 <b>Trang đích:</b> ${escapeHtml(landingUrl)}
 ${data.term ? `🔍 <b>Từ khóa:</b> <code>${escapeHtml(data.term)}</code>\n` : ""}${data.campaign ? `📣 <b>Chiến dịch:</b> ${escapeHtml(data.campaign)}\n` : ""}${data.gclid ? `🏷️ <b>GCLID:</b> <code>${escapeHtml(data.gclid.slice(0, 32))}${data.gclid.length > 32 ? "..." : ""}</code>\n` : ""}📍 <b>Vị trí:</b> ${escapeHtml(data.location || "Không xác định")}
 🌐 <b>IP:</b> <code>${escapeHtml(data.ip)}</code>
-📱 <b>Thiết bị:</b> ${escapeHtml(deviceLabel)} • ${escapeHtml(data.browser)} / ${escapeHtml(data.os)}${data.networkType && data.networkType !== "Không rõ" ? ` • ${escapeHtml(data.networkType)}` : ""}
+${ispLine}📱 <b>Thiết bị:</b> ${escapeHtml(deviceLabel)} • ${escapeHtml(data.browser)} / ${escapeHtml(data.os)}${netSegment ? ` • ${escapeHtml(netSegment)}` : ""}
 ⏰ <b>Thời gian:</b> ${nowStr}
 ━━━━━━━━━━━━━━━━━━
 <i>Thông báo tự động theo thời gian thực • gofpt.vn</i>

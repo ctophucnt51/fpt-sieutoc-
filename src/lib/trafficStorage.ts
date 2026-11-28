@@ -21,6 +21,10 @@ export interface RecentVisit {
   browser?: string;
   os?: string;
   networkType?: string;
+  networkDetail?: string;
+  isp?: string;
+  asn?: string;
+  ipCategory?: "mobile" | "broadband" | "hosting" | "proxy" | "unknown";
   durationSeconds?: number;
   actions?: string[];
   ip?: string;
@@ -155,6 +159,10 @@ export function recordPageview(input: {
   browser?: string;
   os?: string;
   networkType?: string;
+  networkDetail?: string;
+  isp?: string;
+  asn?: string;
+  ipCategory?: "mobile" | "broadband" | "hosting" | "proxy" | "unknown";
   isNewSession: boolean;
   ip?: string;
   location?: string;
@@ -209,6 +217,10 @@ export function recordPageview(input: {
     browser: input.browser,
     os: input.os,
     networkType: input.networkType,
+    networkDetail: input.networkDetail,
+    isp: input.isp,
+    asn: input.asn,
+    ipCategory: input.ipCategory,
     durationSeconds: 0,
     actions: [],
     ip: input.ip,

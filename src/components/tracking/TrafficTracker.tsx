@@ -44,20 +44,37 @@ function trackRepeatAdsDevice(gclid?: string): void {
   } catch {}
 }
 
-function detectNetworkType(): string {
-  if (typeof navigator === "undefined") return "Không rõ";
-  const conn = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
-  if (!conn) return "Không rõ";
-  if (conn.type === "wifi") return "Wi-Fi";
-  if (conn.type === "ethernet") return "Cáp mạng";
+function detectNetworkInfo(): { networkType: string; networkDetail?: string } {
+  if (typeof navigator === "undefined") return { networkType: "Không rõ" };
+  const conn =
+    (navigator as any).connection ||
+    (navigator as any).mozConnection ||
+    (navigator as any).webkitConnection;
+  if (!conn) return { networkType: "Không rõ" };
+
+  const eff = conn.effectiveType ? String(conn.effectiveType).toUpperCase() : "";
+  const rtt = typeof conn.rtt === "number" && conn.rtt > 0 ? `${conn.rtt}ms` : "";
+  const downlink =
+    typeof conn.downlink === "number" && conn.downlink > 0 ? `${conn.downlink}Mbps` : "";
+  const metrics = [eff && eff !== "4G" ? eff : "", downlink, rtt].filter(Boolean).join(" • ");
+
+  if (conn.type === "wifi") {
+    return { networkType: "Wi-Fi", networkDetail: metrics || undefined };
+  }
+  if (conn.type === "ethernet") {
+    return { networkType: "Cáp mạng", networkDetail: metrics || undefined };
+  }
   if (conn.type === "cellular") {
-    return conn.effectiveType ? String(conn.effectiveType).toUpperCase() : "4G/Di động";
+    const label = eff ? `${eff}/Di động` : "4G/Di động";
+    return { networkType: label, networkDetail: [downlink, rtt].filter(Boolean).join(" • ") || undefined };
   }
-  if (conn.effectiveType) {
-    const eff = String(conn.effectiveType).toUpperCase();
-    return eff === "4G" ? "4G / Wi-Fi" : eff;
+  if (eff) {
+    return {
+      networkType: eff === "4G" ? "Mạng nhanh (4G/Wi-Fi)" : eff,
+      networkDetail: [downlink, rtt].filter(Boolean).join(" • ") || undefined,
+    };
   }
-  return "Không rõ";
+  return { networkType: "Không rõ" };
 }
 
 function sendBeaconPayload(payload: string): void {
@@ -122,11 +139,13 @@ export default function TrafficTracker() {
           (window.innerWidth < 768 ||
             /mobile|android|iphone|ipad/i.test(navigator.userAgent));
 
+        const netInfo = detectNetworkInfo();
         const payload = JSON.stringify({
           visitId,
           path: pathname,
           device: isMobile ? "mobile" : "desktop",
-          networkType: detectNetworkType(),
+          networkType: netInfo.networkType,
+          networkDetail: netInfo.networkDetail || "",
           isNewSession,
           sessionId,
           visitorId,

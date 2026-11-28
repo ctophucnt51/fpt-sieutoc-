@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { recordPageview, updateVisitActivity } from "@/lib/trafficStorage";
 import { sendClickFraudAlert, sendGoogleTrafficAlert } from "@/lib/telegram";
+import { lookupIpIntel, resolveCombinedNetworkLabel } from "@/lib/ipIntel";
 
 const notifiedGoogleSessions = new Set<string>();
 
 const BOT_REGEX =
   /bot|crawler|spider|slurp|mediapartners|lighthouse|pagespeed|headless|curl|wget|python|pingdom|uptime/i;
-
-// Simple in-memory GeoIP cache (IP -> location string) to avoid repeated lookups
-const geoCache = new Map<string, { location: string; expiresAt: number }>();
 
 function extractClientIp(request: NextRequest): string {
   const raw =
@@ -17,69 +15,6 @@ function extractClientIp(request: NextRequest): string {
     request.headers.get("x-real-ip") ||
     "127.0.0.1";
   return raw.replace(/^::ffff:/, "").trim();
-}
-
-function isPrivateIp(ip: string): boolean {
-  return (
-    ip === "127.0.0.1" ||
-    ip === "::1" ||
-    ip.startsWith("10.") ||
-    ip.startsWith("192.168.") ||
-    /^172\.(1[6-9]|2\d|3[0-1])\./.test(ip)
-  );
-}
-
-async function resolveLocation(request: NextRequest, ip: string): Promise<string> {
-  // 1. Check Cloudflare / Vercel proxy headers first (0ms)
-  const cfCity = request.headers.get("cf-ipcity");
-  const cfCountry = request.headers.get("cf-ipcountry");
-  const vercelCity = request.headers.get("x-vercel-ip-city");
-  const vercelCountry = request.headers.get("x-vercel-ip-country");
-
-  const headerCity = cfCity || vercelCity;
-  const headerCountry = cfCountry || vercelCountry;
-  if (headerCity || headerCountry) {
-    return [headerCity ? decodeURIComponent(headerCity) : "", headerCountry]
-      .filter(Boolean)
-      .join(", ");
-  }
-
-  if (!ip || isPrivateIp(ip)) {
-    return "Localhost / Nội bộ";
-  }
-
-  // 2. Check cache
-  const cached = geoCache.get(ip);
-  if (cached && cached.expiresAt > Date.now()) {
-    return cached.location;
-  }
-
-  // 3. Fast non-blocking GeoIP lookup (1200ms timeout)
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 1200);
-    const res = await fetch(
-      `http://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,country,regionName,city&lang=vi`,
-      { signal: controller.signal }
-    );
-    clearTimeout(timeout);
-    if (res.ok) {
-      const data = await res.json();
-      if (data?.status === "success") {
-        const loc = [data.city || data.regionName, data.country]
-          .filter(Boolean)
-          .join(", ");
-        if (loc) {
-          geoCache.set(ip, { location: loc, expiresAt: Date.now() + 24 * 60 * 60 * 1000 });
-          return loc;
-        }
-      }
-    }
-  } catch {
-    // Ignore GeoIP timeout/network errors
-  }
-
-  return "Không xác định";
 }
 
 function classifySource(body: {
@@ -196,7 +131,19 @@ export async function POST(request: NextRequest) {
     const { browser, os } = parseUserAgent(userAgent);
 
     const ip = extractClientIp(request);
-    const location = await resolveLocation(request, ip);
+    const ipIntel = await lookupIpIntel(ip, {
+      city: request.headers.get("cf-ipcity") || request.headers.get("x-vercel-ip-city"),
+      country: request.headers.get("cf-ipcountry") || request.headers.get("x-vercel-ip-country"),
+    });
+    const location = ipIntel.location;
+    const clientNetworkType =
+      typeof body.networkType === "string" ? body.networkType.slice(0, 32) : undefined;
+    const resolvedNetworkType = resolveCombinedNetworkLabel(clientNetworkType, ipIntel);
+    const networkDetail =
+      typeof body.networkDetail === "string" && body.networkDetail.trim()
+        ? body.networkDetail.trim().slice(0, 48)
+        : undefined;
+
     const { source, sourceDetail } = classifySource({
       gclid: body.gclid,
       fbclid: body.fbclid,
@@ -213,7 +160,11 @@ export async function POST(request: NextRequest) {
       device,
       browser,
       os,
-      networkType: typeof body.networkType === "string" ? body.networkType.slice(0, 24) : undefined,
+      networkType: resolvedNetworkType,
+      networkDetail,
+      isp: ipIntel.isp !== "Không xác định" ? ipIntel.isp : undefined,
+      asn: ipIntel.asn || undefined,
+      ipCategory: ipIntel.category,
       isNewSession: Boolean(body.isNewSession),
       ip,
       location,
@@ -250,10 +201,14 @@ export async function POST(request: NextRequest) {
         path: rawPath.slice(0, 160) || "/",
         ip,
         location,
+        isp: ipIntel.isp,
+        asn: ipIntel.asn,
+        ipCategory: ipIntel.category,
         device,
         browser,
         os,
-        networkType: typeof body.networkType === "string" ? body.networkType.slice(0, 24) : undefined,
+        networkType: resolvedNetworkType,
+        networkDetail,
         campaign: body.utm_campaign ? String(body.utm_campaign).slice(0, 120) : undefined,
         term: body.utm_term ? String(body.utm_term).slice(0, 120) : undefined,
         gclid: body.gclid ? String(body.gclid).slice(0, 120) : undefined,

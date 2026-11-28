@@ -9,6 +9,7 @@ import type {
   SuspiciousIpReport,
   FraudBlockPolicy,
 } from "@/lib/trafficStorage";
+import type { IpIntelResult } from "@/lib/ipIntel";
 import {
   BarChart3,
   Users,
@@ -28,6 +29,8 @@ import {
   Copy,
   Ban,
   ShieldCheck,
+  Search,
+  Wifi,
 } from "lucide-react";
 
 interface TrafficManagementProps {
@@ -72,6 +75,39 @@ export default function TrafficManagement({
   const [showAllRecent, setShowAllRecent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [rangeDays, setRangeDays] = useState<1 | 7 | 30>(1);
+  const [ipLookupQuery, setIpLookupQuery] = useState("");
+  const [ipLookupLoading, setIpLookupLoading] = useState(false);
+  const [activeIpIntel, setActiveIpIntel] = useState<IpIntelResult | null>(null);
+  const [ipIntelCache, setIpIntelCache] = useState<Record<string, IpIntelResult>>({});
+
+  const handleLookupIp = async (targetIp: string) => {
+    const clean = targetIp.trim();
+    if (!clean) return;
+    setIpLookupQuery(clean);
+    if (ipIntelCache[clean]) {
+      setActiveIpIntel(ipIntelCache[clean]);
+      return;
+    }
+    setIpLookupLoading(true);
+    try {
+      const res = await fetch(`/api/admin/traffic/lookup?ip=${encodeURIComponent(clean)}`, {
+        headers: getAdminHeaders(),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.intel) {
+          setActiveIpIntel(data.intel);
+          setIpIntelCache((prev) => ({ ...prev, [clean]: data.intel }));
+        }
+      } else {
+        showToast("Không thể tra cứu IP này.", "error");
+      }
+    } catch {
+      showToast("Lỗi kết nối khi tra cứu IP.", "error");
+    } finally {
+      setIpLookupLoading(false);
+    }
+  };
 
   const fetchTraffic = useCallback(async () => {
     setIsLoading(true);
@@ -779,6 +815,34 @@ export default function TrafficManagement({
             </p>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleLookupIp(ipLookupQuery);
+              }}
+              className="flex items-center gap-1"
+            >
+              <input
+                type="text"
+                value={ipLookupQuery}
+                onChange={(e) => setIpLookupQuery(e.target.value)}
+                placeholder="Tra IP (VD: 27.64.96.48)"
+                className="px-2.5 py-1.5 rounded-xl border border-slate-200 text-xs font-mono w-40 focus:outline-none focus:border-fpt-orange"
+              />
+              <button
+                type="submit"
+                disabled={ipLookupLoading || !ipLookupQuery.trim()}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold disabled:opacity-50 cursor-pointer"
+                title="Tra nhà mạng, ASN & loại kết nối của IP"
+              >
+                {ipLookupLoading ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Search className="w-3.5 h-3.5" />
+                )}
+                Tra IP
+              </button>
+            </form>
             <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
               30 phút qua: {summary.last30mPageviews} lượt
             </span>
@@ -797,6 +861,44 @@ export default function TrafficManagement({
             </button>
           </div>
         </div>
+
+        {activeIpIntel && (
+          <div className="mb-3 p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-mono font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200">
+                {activeIpIntel.ip}
+              </span>
+              <span className="font-bold text-blue-700">
+                {activeIpIntel.isp}
+                {activeIpIntel.asn ? ` (${activeIpIntel.asn})` : ""}
+              </span>
+              <span className="px-2 py-0.5 rounded-md bg-orange-50 text-fpt-orange border border-orange-200 font-bold text-[11px]">
+                {activeIpIntel.connectionHint}
+              </span>
+              <span className="text-slate-600 flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-[#F37021]" />
+                {activeIpIntel.location}
+              </span>
+              {activeIpIntel.isHosting && (
+                <span className="px-1.5 py-0.5 rounded bg-red-100 text-red-700 font-bold text-[10px]">
+                  ⚠️ Datacenter / Bot
+                </span>
+              )}
+              {activeIpIntel.isProxy && (
+                <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px]">
+                  🛡️ VPN / Proxy
+                </span>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => setActiveIpIntel(null)}
+              className="text-slate-400 hover:text-slate-700 text-xs font-bold cursor-pointer"
+            >
+              Đóng
+            </button>
+          </div>
+        )}
 
         {displayedRecent.length === 0 ? (
           <div className="text-xs text-slate-500 py-6 px-4 text-center bg-slate-50 rounded-xl border border-dashed border-slate-200 space-y-2">
@@ -862,26 +964,62 @@ export default function TrafficManagement({
                         </div>
                       </td>
                       <td className="py-2.5 px-3">
-                        <div className="font-mono text-[11px] font-bold text-slate-800 flex items-center gap-1.5 flex-wrap">
-                          <span>{v.ip || "—"}</span>
-                          {ipConversions && ipConversions.length > 0 && (
-                            <span
-                              className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 font-sans text-[9.5px] font-black"
-                              title={`IP này đã thực hiện: ${ipConversions.join(", ")}`}
-                            >
-                              ✓ Có chuyển đổi
-                            </span>
-                          )}
-                          {fraudInfo && (
-                            <span className="px-1.5 py-0.5 rounded bg-red-100 text-red-700 border border-red-200 font-sans text-[9.5px] font-black">
-                              ⚠️ Lặp {fraudInfo.totalAdsClicks}x
-                            </span>
-                          )}
-                        </div>
-                        <div className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
-                          <MapPin className="w-3 h-3 text-[#F37021] shrink-0" />
-                          <span>{v.location || "Không xác định"}</span>
-                        </div>
+                        {(() => {
+                          const cachedIntel = v.ip ? ipIntelCache[v.ip] : undefined;
+                          const displayIsp = v.isp || cachedIntel?.isp;
+                          const displayAsn = v.asn || cachedIntel?.asn;
+                          const displayCat = v.ipCategory || cachedIntel?.category;
+                          return (
+                            <>
+                              <div className="font-mono text-[11px] font-bold text-slate-800 flex items-center gap-1.5 flex-wrap">
+                                <span>{v.ip || "—"}</span>
+                                {v.ip && !displayIsp && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleLookupIp(v.ip!)}
+                                    className="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 font-sans text-[9.5px] font-bold cursor-pointer"
+                                    title="Tra cứu nhà mạng & loại kết nối cho IP này"
+                                  >
+                                    Tra nhà mạng
+                                  </button>
+                                )}
+                                {ipConversions && ipConversions.length > 0 && (
+                                  <span
+                                    className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 font-sans text-[9.5px] font-black"
+                                    title={`IP này đã thực hiện: ${ipConversions.join(", ")}`}
+                                  >
+                                    ✓ Có chuyển đổi
+                                  </span>
+                                )}
+                                {fraudInfo && (
+                                  <span className="px-1.5 py-0.5 rounded bg-red-100 text-red-700 border border-red-200 font-sans text-[9.5px] font-black">
+                                    ⚠️ Lặp {fraudInfo.totalAdsClicks}x
+                                  </span>
+                                )}
+                                {displayCat === "hosting" && (
+                                  <span className="px-1.5 py-0.5 rounded bg-red-100 text-red-700 border border-red-200 font-sans text-[9.5px] font-bold">
+                                    Bot/Server
+                                  </span>
+                                )}
+                                {displayCat === "proxy" && (
+                                  <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200 font-sans text-[9.5px] font-bold">
+                                    VPN/Proxy
+                                  </span>
+                                )}
+                              </div>
+                              {displayIsp && displayIsp !== "Không xác định" && (
+                                <div className="text-[10.5px] font-semibold text-blue-700 mt-0.5">
+                                  {displayIsp}
+                                  {displayAsn ? ` • ${displayAsn}` : ""}
+                                </div>
+                              )}
+                              <div className="text-[11px] text-slate-500 flex items-center gap-1 mt-0.5">
+                                <MapPin className="w-3 h-3 text-[#F37021] shrink-0" />
+                                <span>{cachedIntel?.location || v.location || "Không xác định"}</span>
+                              </div>
+                            </>
+                          );
+                        })()}
                       </td>
                       <td className="py-2.5 px-3">
                         <div className="font-mono text-[11px] text-slate-800">{v.path}</div>
@@ -919,28 +1057,53 @@ export default function TrafficManagement({
                         )}
                       </td>
                       <td className="py-2.5 pl-3 whitespace-nowrap">
-                        <div className="flex items-center gap-1 flex-wrap">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-semibold text-[11px]">
-                            {v.device === "mobile" ? (
-                              <>
-                                <Smartphone className="w-3 h-3" /> Mobile
-                              </>
-                            ) : (
-                              <>
-                                <Monitor className="w-3 h-3" /> Desktop
-                              </>
-                            )}
-                          </span>
-                          {v.networkType && v.networkType !== "Không rõ" && (
-                            <span className="px-1.5 py-0.5 rounded-md bg-orange-50 text-fpt-orange border border-orange-200 font-bold text-[10px]">
-                              {v.networkType}
-                            </span>
-                          )}
-                        </div>
-                        <div className="text-[10.5px] text-slate-500 mt-0.5">
-                          {[v.browser, v.os].filter(Boolean).join(" • ") || "—"}
-                          {v.visitorId ? ` • ${v.visitorId.slice(0, 8)}` : ""}
-                        </div>
+                        {(() => {
+                          const cachedIntel = v.ip ? ipIntelCache[v.ip] : undefined;
+                          const netLabel =
+                            v.networkType && v.networkType !== "Không rõ"
+                              ? v.networkType
+                              : cachedIntel?.connectionHint;
+                          const isMobileNet =
+                            netLabel?.includes("Di động") || netLabel?.includes("4G") || netLabel?.includes("3G");
+                          const isBotNet =
+                            netLabel?.includes("Bot") || netLabel?.includes("Proxy");
+                          return (
+                            <>
+                              <div className="flex items-center gap-1 flex-wrap">
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-semibold text-[11px]">
+                                  {v.device === "mobile" ? (
+                                    <>
+                                      <Smartphone className="w-3 h-3" /> Mobile
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Monitor className="w-3 h-3" /> Desktop
+                                    </>
+                                  )}
+                                </span>
+                                {netLabel && netLabel !== "Không rõ" && (
+                                  <span
+                                    className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md border font-bold text-[10px] ${
+                                      isBotNet
+                                        ? "bg-red-50 text-red-700 border-red-200"
+                                        : isMobileNet
+                                        ? "bg-blue-50 text-blue-700 border-blue-200"
+                                        : "bg-orange-50 text-fpt-orange border-orange-200"
+                                    }`}
+                                  >
+                                    <Wifi className="w-2.5 h-2.5" />
+                                    {netLabel}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-[10.5px] text-slate-500 mt-0.5">
+                                {[v.browser, v.os].filter(Boolean).join(" • ") || "—"}
+                                {v.visitorId ? ` • ${v.visitorId.slice(0, 8)}` : ""}
+                                {v.networkDetail ? ` • ${v.networkDetail}` : ""}
+                              </div>
+                            </>
+                          );
+                        })()}
                       </td>
                     </tr>
                   );
