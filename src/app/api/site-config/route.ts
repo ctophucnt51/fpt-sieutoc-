@@ -6,10 +6,16 @@ export const revalidate = 0;
 
 export async function GET() {
   const config = getDynamicConfig();
+  const safeConfig = {
+    ...config,
+    telegram: {
+      enabled: Boolean((config as any).telegram?.enabled ?? true),
+    },
+  };
   return NextResponse.json(
     {
       success: true,
-      config,
+      config: safeConfig,
     },
     {
       headers: {

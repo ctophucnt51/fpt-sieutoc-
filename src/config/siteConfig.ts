@@ -63,6 +63,7 @@ export const siteConfig = {
     botToken: process.env.TELEGRAM_BOT_TOKEN || "",
     chatId: process.env.TELEGRAM_CHAT_ID || "",
     enabled: true,
+    notifyLeadsDirectly: false,
   },
   disclaimer: {
     officialDisclaimer: "Website là kênh đại lý đối tác tư vấn và hỗ trợ đăng ký dịch vụ viễn thông của FPT Telecom tại TP. Cần Thơ (sau hợp nhất Cần Thơ, Hậu Giang, Sóc Trăng) và các tỉnh lân cận. Chúng tôi không tự xưng là cổng thông tin tập đoàn chính thức FPT Telecom. Tất cả logo, biểu trưng thương hiệu và tên gói cước thuộc bản quyền của FPT Telecom.",

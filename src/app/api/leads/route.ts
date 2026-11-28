@@ -4,6 +4,7 @@ import { saveLead, checkRateLimit } from "@/lib/leadStorage";
 import { extractClientIp, getClientBlockStatus } from "@/lib/trafficStorage";
 import { sendMetaConversionsApiEvent } from "@/lib/metaCapi";
 import { sendTelegramNotification } from "@/lib/telegram";
+import { getDynamicConfig } from "@/lib/configStorage";
 import crypto from "crypto";
 
 export async function POST(request: NextRequest): Promise<NextResponse<ApiResponse>> {
@@ -95,23 +96,26 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
         }),
       }).catch((err) => console.warn("Worker Telegram dispatch non-fatal error:", err));
 
-      // 6.2 Bắn thông báo trực tiếp qua Telegram Bot API (nếu có cấu hình Bot Token riêng)
-      sendTelegramNotification({
-        fullName: result.leadRecord.fullName,
-        phone: result.leadRecord.phone,
-        address: result.leadRecord.address,
-        area: result.leadRecord.area,
-        packageInterested: result.leadRecord.packageInterested,
-        note: result.leadRecord.note,
-        landingPage: body.landingPage,
-        leadLocation: body.leadLocation,
-        eventId,
-        utmSource: body.utm_source,
-        utmMedium: body.utm_medium,
-        utmCampaign: body.utm_campaign,
-        utmTerm: body.utm_term,
-        gclid: body.gclid,
-      }).catch((err) => console.warn("Telegram direct dispatch non-fatal error:", err));
+      // 6.2 Bắn thông báo trực tiếp qua Telegram Bot API (chỉ chạy nếu bật notifyLeadsDirectly để tránh trùng với Cloudflare Worker)
+      const activeConfig = getDynamicConfig() as any;
+      if (activeConfig?.telegram?.notifyLeadsDirectly) {
+        sendTelegramNotification({
+          fullName: result.leadRecord.fullName,
+          phone: result.leadRecord.phone,
+          address: result.leadRecord.address,
+          area: result.leadRecord.area,
+          packageInterested: result.leadRecord.packageInterested,
+          note: result.leadRecord.note,
+          landingPage: body.landingPage,
+          leadLocation: body.leadLocation,
+          eventId,
+          utmSource: body.utm_source,
+          utmMedium: body.utm_medium,
+          utmCampaign: body.utm_campaign,
+          utmTerm: body.utm_term,
+          gclid: body.gclid,
+        }).catch((err) => console.warn("Telegram direct dispatch non-fatal error:", err));
+      }
 
       // Bắn sự kiện lên Meta Conversions API
       sendMetaConversionsApiEvent({
