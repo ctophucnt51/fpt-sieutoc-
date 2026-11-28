@@ -30,34 +30,7 @@ export default function GeneralConfigEditor({
 }: GeneralConfigEditorProps) {
   const [formData, setFormData] = useState<SiteConfigType>(config);
   const [isSaving, setIsSaving] = useState(false);
-  const [isTestingTelegram, setIsTestingTelegram] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleTestTelegram = async () => {
-    const botToken = (formData as any).telegram?.botToken || "";
-    const chatId = (formData as any).telegram?.chatId || "";
-    if (!botToken.trim() || !chatId.trim()) {
-      showToast("Vui lòng nhập đầy đủ Telegram Bot Token và Chat ID trước khi kiểm tra.", "error");
-      return;
-    }
-    setIsTestingTelegram(true);
-    try {
-      const res = await fetch("/api/admin/telegram-test", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...getAdminHeaders(),
-        },
-        body: JSON.stringify({ botToken, chatId }),
-      });
-      const data = await res.json();
-      showToast(data.message || (data.success ? "Đã gửi tin nhắn thử thành công!" : "Gửi thất bại."), data.success ? "success" : "error");
-    } catch {
-      showToast("Không thể kết nối API kiểm tra Telegram.", "error");
-    } finally {
-      setIsTestingTelegram(false);
-    }
-  };
 
   useEffect(() => {
     setFormData(config);
@@ -635,111 +608,7 @@ export default function GeneralConfigEditor({
         </div>
       </div>
 
-      {/* 5. Telegram Bot & Important Alerts */}
-      <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <MessageSquare className="w-5 h-5 text-sky-600" />
-            <h3 className="font-bold text-base text-slate-900">Telegram Bot &amp; Cảnh Báo Quan Trọng</h3>
-          </div>
-          <button
-            type="button"
-            onClick={handleTestTelegram}
-            disabled={isTestingTelegram}
-            className="px-3.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 font-bold text-xs transition-colors cursor-pointer disabled:opacity-60"
-          >
-            {isTestingTelegram ? "Đang gửi thử..." : "Gửi Tin Nhắn Test"}
-          </button>
-        </div>
-
-        <p className="text-xs text-slate-600 leading-relaxed">
-          Nhập cùng <strong>Bot Token</strong> và <strong>Chat ID</strong> đang dùng ở Cloudflare Worker của form để nhận thêm các cảnh báo quan trọng: <strong>Cảnh báo Click Tặc Google Ads</strong>, <strong>Báo cáo Auto-SEO &amp; Thứ hạng GSC</strong>.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Telegram Bot Token
-            </label>
-            <input
-              type="password"
-              value={(formData as any).telegram?.botToken ?? ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  telegram: {
-                    ...((formData as any).telegram || { chatId: "", enabled: true, notifyLeadsDirectly: false }),
-                    botToken: e.target.value,
-                  },
-                } as SiteConfigType)
-              }
-              placeholder="VD: 1234567890:ABCdefGHI..."
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-fpt-orange focus:ring-2 focus:ring-orange-100 text-xs sm:text-sm text-slate-900 outline-none font-mono"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Telegram Chat ID
-            </label>
-            <input
-              type="text"
-              value={(formData as any).telegram?.chatId ?? ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  telegram: {
-                    ...((formData as any).telegram || { botToken: "", enabled: true, notifyLeadsDirectly: false }),
-                    chatId: e.target.value,
-                  },
-                } as SiteConfigType)
-              }
-              placeholder="VD: -1001234567890 hoặc 123456789"
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-fpt-orange focus:ring-2 focus:ring-orange-100 text-xs sm:text-sm text-slate-900 outline-none font-mono"
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-3 pt-1">
-          <label className="flex items-center gap-2 text-xs text-slate-700 font-medium cursor-pointer">
-            <input
-              type="checkbox"
-              checked={(formData as any).telegram?.enabled ?? true}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  telegram: {
-                    ...((formData as any).telegram || { botToken: "", chatId: "", notifyLeadsDirectly: false }),
-                    enabled: e.target.checked,
-                  },
-                } as SiteConfigType)
-              }
-              className="rounded border-slate-300 text-fpt-orange focus:ring-fpt-orange"
-            />
-            <span>Bật gửi cảnh báo quan trọng (Click Tặc, Auto-SEO) về Telegram</span>
-          </label>
-
-          <label className="flex items-center gap-2 text-xs text-slate-700 font-medium cursor-pointer">
-            <input
-              type="checkbox"
-              checked={(formData as any).telegram?.notifyLeadsDirectly ?? false}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  telegram: {
-                    ...((formData as any).telegram || { botToken: "", chatId: "", enabled: true }),
-                    notifyLeadsDirectly: e.target.checked,
-                  },
-                } as SiteConfigType)
-              }
-              className="rounded border-slate-300 text-fpt-orange focus:ring-fpt-orange"
-            />
-            <span>Gửi đơn form trực tiếp (tắt nếu Cloudflare Worker đã gửi để tránh trùng 2 tin)</span>
-          </label>
-        </div>
-      </div>
-
-      {/* 6. Legal & Disclaimer */}
+      {/* 5. Legal & Disclaimer */}
       <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-2xs space-y-4">
         <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
           <ShieldCheck className="w-5 h-5 text-emerald-600" />
