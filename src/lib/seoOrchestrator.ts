@@ -177,6 +177,168 @@ export function getAnonymizedConversionSummary(): OrganicConversionSummary {
 }
 
 /**
+ * Reconcile & auto-resolve any pending / in_progress / awaiting_approval tasks
+ * whose completion conditions are already satisfied, and prune excess old history.
+ */
+export function reconcileSeoTaskQueue(extraResolvedKeys?: Set<string>): number {
+  const tasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
+  if (tasks.length === 0) return 0;
+
+  const seo = getSeoConfig();
+  const articles = getAllArticles(false);
+  const publishedArticles = articles.filter((a) => a.published);
+  const approvals = readMemoryFile<SeoApprovalItem[]>("approvals.json", []);
+  const inventory = readMemoryFile<SeoInventoryItem[]>("inventory.json", []);
+  const invByRoute = new Map(inventory.map((i) => [i.route, i]));
+
+  const failingQaTargets = new Set<string>();
+  for (const art of articles) {
+    const qa = runQaSafetyCheck({
+      title: art.title,
+      description: art.excerpt,
+      contentHtml: art.content,
+    });
+    if (!qa.passed) {
+      failingQaTargets.add(`/tin-tuc/${art.slug}`);
+    }
+  }
+
+  const coreRoutes = ["/lap-mang-fpt", "/combo-ngoai-hang-anh", "/bang-gia", "/camera-fpt"];
+  const approvedMetaKeywords = new Set<string>();
+  for (const app of approvals) {
+    if (app.status === "approved" && app.type === "meta_override") {
+      const kw = String(app.afterProposal?.keywords || "").trim().toLowerCase();
+      if (kw) approvedMetaKeywords.add(kw);
+    }
+  }
+
+  const topQueryByName = new Map(
+    (seo.gscCache?.topQueries || []).map((q) => [q.query.toLowerCase(), q])
+  );
+
+  const nowMs = Date.now();
+  const nowIso = new Date(nowMs).toISOString();
+  const STALE_QUICK_WIN_MS = 7 * 24 * 60 * 60 * 1000;
+  const STALE_ORPHAN_APPROVAL_MS = 3 * 24 * 60 * 60 * 1000;
+
+  let resolvedCount = 0;
+  let modified = false;
+
+  for (const t of tasks) {
+    const isActive =
+      t.status === "pending" || t.status === "in_progress" || t.status === "awaiting_approval";
+    if (!isActive) continue;
+
+    // 1. Check linked approval status first (covers awaiting_approval and article_draft)
+    const linkedApproval = approvals.find((a) => a.taskId === t.id);
+    if (linkedApproval) {
+      if (linkedApproval.status === "approved") {
+        t.status = "completed";
+        t.updatedAt = nowIso;
+        resolvedCount++;
+        modified = true;
+        continue;
+      }
+      if (linkedApproval.status === "rejected") {
+        t.status = "rejected_by_qa";
+        t.updatedAt = nowIso;
+        resolvedCount++;
+        modified = true;
+        continue;
+      }
+    } else if (t.status === "awaiting_approval") {
+      const ageMs = nowMs - new Date(t.updatedAt || t.createdAt).getTime();
+      if (ageMs > STALE_ORPHAN_APPROVAL_MS) {
+        t.status = "completed";
+        t.updatedAt = nowIso;
+        resolvedCount++;
+        modified = true;
+        continue;
+      }
+    }
+
+    let shouldComplete = Boolean(extraResolvedKeys?.has(t.dedupKey));
+
+    if (!shouldComplete && t.dedupKey === "config-gsc-connection") {
+      shouldComplete = Boolean(seo.gscSettings?.connected);
+    } else if (!shouldComplete && t.dedupKey === "config-serper-connection") {
+      shouldComplete = Boolean(seo.serperSettings?.connected);
+    } else if (!shouldComplete && t.dedupKey.startsWith("qa-fix-")) {
+      shouldComplete = !t.targetUrl || !failingQaTargets.has(t.targetUrl);
+    } else if (!shouldComplete && t.dedupKey.startsWith("local-seo-")) {
+      const slugHint = t.dedupKey.slice("local-seo-".length);
+      shouldComplete = publishedArticles.some(
+        (a) => a.slug.includes(slugHint) || `/tin-tuc/${a.slug}` === t.targetUrl
+      );
+    } else if (!shouldComplete && t.dedupKey.startsWith("ai-kw-")) {
+      const kw = t.dedupKey.slice("ai-kw-".length).trim().toLowerCase();
+      const kwSlug = kw.replace(/\s+/g, "-");
+      shouldComplete = publishedArticles.some(
+        (a) => a.title.toLowerCase().includes(kw) || a.slug.includes(kwSlug)
+      );
+    } else if (!shouldComplete && t.dedupKey.startsWith("tech-audit-")) {
+      const route = t.dedupKey.slice("tech-audit-".length);
+      const invItem = invByRoute.get(route);
+      if (
+        invItem &&
+        typeof invItem.score === "number" &&
+        invItem.score >= 80 &&
+        invItem.hasCanonical &&
+        invItem.googleAdsSafe
+      ) {
+        shouldComplete = true;
+      }
+    } else if (!shouldComplete && t.dedupKey.startsWith("internal-link-")) {
+      const artId = t.dedupKey.slice("internal-link-".length);
+      const art = publishedArticles.find((a) => a.id === artId);
+      if (!art) {
+        shouldComplete = true;
+      } else {
+        const presentLinks = coreRoutes.filter(
+          (r) => art.content.includes(`href="${r}"`) || art.content.includes(`href='${r}'`)
+        );
+        shouldComplete = presentLinks.length >= 2;
+      }
+    } else if (!shouldComplete && t.dedupKey.startsWith("quick-win-")) {
+      const kw = t.dedupKey.slice("quick-win-".length).trim().toLowerCase();
+      const gscRow = topQueryByName.get(kw);
+      const ageMs = nowMs - new Date(t.createdAt).getTime();
+      if (
+        approvedMetaKeywords.has(kw) ||
+        (gscRow && gscRow.position < 4) ||
+        (!gscRow && ageMs > 24 * 60 * 60 * 1000) ||
+        ageMs > STALE_QUICK_WIN_MS
+      ) {
+        shouldComplete = true;
+      }
+    }
+
+    if (shouldComplete) {
+      t.status = "completed";
+      t.updatedAt = nowIso;
+      resolvedCount++;
+      modified = true;
+    }
+  }
+
+  // Keep all active tasks + up to 30 most recent completed/rejected tasks so queue stays tidy
+  const active = tasks.filter(
+    (t) => t.status === "pending" || t.status === "in_progress" || t.status === "awaiting_approval"
+  );
+  const finished = tasks
+    .filter(
+      (t) => t.status !== "pending" && t.status !== "in_progress" && t.status !== "awaiting_approval"
+    )
+    .slice(0, 30);
+
+  if (modified || active.length + finished.length !== tasks.length) {
+    writeMemoryFile("tasks.json", [...active, ...finished]);
+  }
+
+  return resolvedCount;
+}
+
+/**
  * Chu trình SEO Master Agent: Collect -> Analyze -> Prioritize -> Plan -> Validate
  */
 export function runSeoMasterCycle(): {
@@ -394,27 +556,8 @@ export function runSeoMasterCycle(): {
     }
   }
 
-  // Auto-resolve any pending tasks whose condition is now satisfied
-  let autoResolvedCount = 0;
-  const currentTasks = readMemoryFile<SeoTaskItem[]>("tasks.json", []);
-  const nowIso = new Date().toISOString();
-  let tasksModified = false;
-  for (const t of currentTasks) {
-    const isResolvedQa =
-      t.dedupKey.startsWith("qa-fix-") && (!t.targetUrl || !failingQaTargets.has(t.targetUrl));
-    if (
-      (t.status === "pending" || t.status === "in_progress") &&
-      (resolvedDedupKeys.has(t.dedupKey) || isResolvedQa)
-    ) {
-      t.status = "completed";
-      t.updatedAt = nowIso;
-      autoResolvedCount++;
-      tasksModified = true;
-    }
-  }
-  if (tasksModified) {
-    writeMemoryFile("tasks.json", currentTasks);
-  }
+  // Auto-resolve any pending/awaiting tasks whose condition is now satisfied
+  const autoResolvedCount = reconcileSeoTaskQueue(resolvedDedupKeys);
 
   // Ensure approvals file exists
   writeMemoryFile("approvals.json", approvals);
@@ -1128,6 +1271,9 @@ export async function runSeoMasterCycleAsync(options?: {
   // 5. MEASURE & LEARN LOOP
   const newLessonsCount = runLearnLoop();
 
+  // 6. FINAL TASK QUEUE RECONCILIATION (ensure tasks completed in Steps 3-4b don't stay pending)
+  reconcileSeoTaskQueue();
+
   return {
     ...syncRes,
     newApprovalsAdded,
@@ -1200,6 +1346,7 @@ export function decideSeoApproval(
     item.status = "rejected";
     item.decidedAt = new Date().toISOString();
     writeMemoryFile("approvals.json", approvals);
+    reconcileSeoTaskQueue();
     return { success: true, message: "Đã từ chối đề xuất." };
   }
 
@@ -1296,6 +1443,7 @@ export function decideSeoApproval(
   item.status = "approved";
   item.decidedAt = new Date().toISOString();
   writeMemoryFile("approvals.json", approvals);
+  reconcileSeoTaskQueue();
   if (appliedBy === "Admin Approval") {
     void notifySearchEnginesOnPublish([item.target]);
   }
